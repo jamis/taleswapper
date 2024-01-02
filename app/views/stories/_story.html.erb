@@ -1,0 +1,5 @@
+<dt class="mt-4 ml-4 font-bold"><%= story.title %> <%= story.subtitle ? "(#{story.subtitle})" : '' %></dt>
+<dd class="ml-8">
+  <p class="italic"><%= md story.description %></p>
+  <p><%= link_to "Start reading.", story_path(story), class: "text-blue-600 hover:underline" %> Last updated <%= time_ago_in_words story.updated_at %> ago.</p>
+</dd>

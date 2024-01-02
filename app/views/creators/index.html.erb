@@ -1,0 +1,12 @@
+<div class="flex-col">
+  <h1 class="text-2xl font-bold">Narratives</h1>
+  <h2 class="text-xl font-bold">A Place for Sharing Stories</h2>
+
+  <p class="mt-8">Pick a creator to begin exploring their stories:</p>
+
+  <ul class="mt-4 ml-8 mb-12">
+    <% User.creators.each do |creator| %>
+      <li class="mt-2"><%= link_to creator.display_name, creator_path(creator), class: "text-blue-600 underline" %></li>
+    <% end %>
+  </ul>
+</div>

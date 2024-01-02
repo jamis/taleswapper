@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .markdown {
+    h1 {
+      @apply text-2xl;
+      @apply font-bold;
+      @apply mt-4;
+    }
+
+    h2 {
+      @apply text-xl;
+      @apply font-bold;
+      @apply mt-4;
+    }
+
+    p {
+      @apply mt-4;
+    }
+  }
+}

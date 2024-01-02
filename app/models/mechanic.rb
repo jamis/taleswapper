@@ -1,0 +1,2 @@
+class Mechanic < Section
+end

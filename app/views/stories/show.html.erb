@@ -1,0 +1,8 @@
+<div class="flex-col max-w-screen-xl mb-12">
+  <h1 class="text-2xl font-bold"><%= @story.title %> <%= @story.subtitle ? "(#{@story.subtitle})" : '' %></h1>
+  <h2 class="text-xl font-bold">by <%= link_to @story.creator.display_name, creator_path(@story.creator), class: "underline text-blue-600" %></h2>
+
+  <hr class="mt-4 mb-4" />
+
+  <%= render @story.beginning %>
+</div>

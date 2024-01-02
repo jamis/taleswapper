@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Infinities</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header class="w-full px-5 py-2 flex justify-end bg-blue-200">
+      <% if authenticated? %>
+        Hello, <%= Current.user.display_name %>.
+        <span class="mx-4">|</span>
+        <%= form_with url: session_path, method: :delete do |form| %>
+          <%= form.submit "Sign out", class: "text-blue-600 underline cursor-pointer" %>
+        <% end %>
+      <% else %>
+        <%= link_to "Sign in", new_session_path, class: "text-blue-600 underline" %>
+      <% end %>
+    </header>
+
+    <main class="container mx-auto mt-28 px-5 flex">
+      <%= yield %>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,2 @@
+class Fiction < Section
+end

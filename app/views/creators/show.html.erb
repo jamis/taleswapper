@@ -1,0 +1,19 @@
+<div class="flex-col">
+  <h1 class="text-2xl font-bold"><%= @creator.display_name %></h1>
+
+  <div class="mt-4">
+    <p><%=md @creator.description %></p>
+  </div>
+
+  <% if @creator.stories.active.any? %>
+    <h1 class="text-xl font-bold mt-4">Current Stories</h1>
+
+    <%= render partial: 'stories/list', object: @creator.stories.active %>
+  <% end %>
+
+  <% if @creator.stories.archived.any? %>
+    <h1 class="text-xl font-bold mt-4">Archived Stories</h1>
+
+    <%= render partial: 'stories/list', object: @creator.stories.archived %>
+  <% end %>
+</div>
