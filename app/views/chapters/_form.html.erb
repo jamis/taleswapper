@@ -1,34 +1,42 @@
 <%= form_with model: (chapter.new_record? ? [ chapter.story, chapter ] : chapter) do |f| %>
   <div class="flex flex-row items-baseline w-full my-4">
-    <div><label for="story_title" class="text-lg">Title:<label></div>
+    <div><label for="chapter_title" class="text-lg">Title:</label></div>
     <div class="flex flex-col ml-3 w-1/2">
       <%= f.text_field :title, class: 'focus:outline-none focus:ring-0 border-x-0 border-t-0 pb-0 px-1 text-lg' %>
       <div class="text-sm text-gray-400 italic mx-1">Optional, but helpful when referring to your chapter.</div>
     </div>
   </div>
 
-  <div class="border rounded w-full my-8 p-0">
-    <%= f.fields_for :sections do |sf| %>
-      <div data-controller="section-form">
-        <div class="flex flex-row items-baseline text-xs bg-gray-200 py-1 px-3">
-          <div class="rounded border border-blue-400 overflow-hidden flex flex-row bg-white">
-            <a href="#" class="w-24 px-2 py-1 border-r border-blue-400 text-center bg-blue-100" data-section-form-target="primary" data-action="section-form#selectPrimary:prevent">primary</a>
-            <a href="#" class="w-24 px-2 py-1 text-center text-gray-400" data-section-form-target="secondary" data-action="section-form#selectSecondary:prevent">secondary</a>
-            <%= sf.hidden_field :role, data: { section_form_target: 'role' } %>
-            <%= sf.hidden_field :position %>
-          </div>
-          <div class="ml-auto">
-            [ <%= link_to "add before", "#", class: "text-blue-500 underline" %>
-            | <%= link_to "add after", "#", class: "text-blue-500 underline" %>
-            | <%= link_to "delete", "#", class: "text-red-500 underline", data: { action: 'section-form#deleteSection:prevent' } %> ]
-          </div>
-        </div>
-        <div class="flex flex-row">
-          <div class="w-1/2 bg-gray-100 hidden" data-section-form-target="leftSide"></div>
-          <%= sf.text_area :contents, rows: 5, class: 'focus:outline-none focus:ring-0 border-none w-1/2 overflow-hidden resize-none', data: { section_form_target: 'editor', action: 'section-form#resizeEditor' } %>
-          <div class="w-1/2 bg-gray-100" data-section-form-target="rightSide"></div>
-        </div>
-      </div>
+  <div class="flex flex-row items-baseline mt-4">
+    <%= f.check_box :interactive, class: "mr-2" %> <label for="chapter_iteractive" class="text-lg">Allow readers to submit suggestions?</label>
+  </div>
+
+  <div class="flex flex-row items-baseline">
+    <%= f.check_box :published, class: "mr-2" %>
+    <label for="chapter_iteractive" class="text-lg">Publish this chapter so readers can see it?</label>
+    <% if chapter.published? %>
+      <span class="italic ml-2">(Published <%= time_ago_in_words chapter.published_at %> ago)</span>
+    <% elsif chapter.published_at %>
+      <span class="italic ml-2">(Scheduled for publication in <%= time_ago_in_words chapter.published_at %>)</span>
     <% end %>
-  <div>
+  </div>
+
+  <div class="border rounded w-full my-8 p-0" data-controller="sections">
+    <template data-sections-target="template">
+      <%= fields_for :template, Section.new, skip_default_ids: true do |sf| %>
+        <%= render "sections/form", form: sf %>
+      <% end %>
+    </template>
+
+    <%# set include_id to false, so we can put the id field inside the containing div %>
+    <%= f.fields_for :sections, include_id: false, skip_default_ids: true do |sf| %>
+      <%= render "sections/form", form: sf %>
+    <% end %>
+  </div>
+
+  <div class="mt-4 mb-12">
+    <%= f.submit "Save", class: "rounded bg-blue-100 hover:bg-blue-300 px-4 py-2" %>
+    <span class="mx-1">or</span>
+    <%= link_to "Cancel", chapter.persisted? ? chapter_path(chapter) : story_path(chapter.story), class: "text-red-600 underline" %>
+  </div>
 <% end %>

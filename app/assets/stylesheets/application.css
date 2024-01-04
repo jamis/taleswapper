@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+.can-delete {
+  display: none;
+}
+
+.many-sections {
+  .can-delete {
+    display: initial;
+  }
+}

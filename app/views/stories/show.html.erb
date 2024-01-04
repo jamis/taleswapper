@@ -12,9 +12,14 @@
   </div>
 
   <% if @story.chapters.empty? %>
-    <div class="mt-4 rounded bg-blue-100 px-6 py-3">
+    <div class="mt-4 rounded-lg bg-blue-100 px-6 py-3">
       <p>You haven't added any chapters to this story yet.</p>
-      <p><%= link_to "Add your first chapter now!", new_story_chapter_path(@story), class: "text-blue-600 underline" %></p>
+      <p>
+        You can
+        <%= link_to "add your first chapter now", new_story_chapter_path(@story, role: :beginning), class: "text-blue-600 underline" %>,
+        or you can
+        <%= link_to "describe your \"session zero\" first", new_story_chapter_path(@story, role: :setup), class: "text-blue-600 underline" %> (story setup).
+      </p>
     </div>
   <% else %>
     <div class="mt-8 flex flex-row items-baseline">

@@ -5,7 +5,7 @@ const unselectedClassNames = "text-gray-400";
 
 export default class extends Controller {
   static targets = [
-    'role', 'editor',
+    'role', 'editor', 'destroy',
     'primary', 'secondary',
     'leftSide', 'rightSide'
   ];
@@ -44,7 +44,10 @@ export default class extends Controller {
   }
 
   deleteSection() {
-    console.log('deleting section');
+    if (window.confirm('Delete this section?')) {
+      this.destroyTarget.value = 1;
+      this.element.classList.add('hidden');
+    }
   }
 
   resizeEditor() {
