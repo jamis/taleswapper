@@ -1,5 +1,13 @@
-<dt class="mt-4 ml-4 font-bold"><%= story.title %> <%= story.subtitle ? "(#{story.subtitle})" : '' %></dt>
-<dd class="ml-8">
-  <p class="italic"><%= md story.description %></p>
-  <p><%= link_to "Start reading.", story_path(story), class: "text-blue-600 hover:underline" %> Last updated <%= time_ago_in_words story.updated_at %> ago.</p>
-</dd>
+<li class="mt-4 ml-4">
+  <%= link_to story_path(story), class: "block rounded-lg px-6 py-4 bg-blue-100 hover:bg-blue-200" do %>
+    <div>
+      <span class="font-bold text-lg"><%= story.title %></span>
+      <%= story.subtitle ? "(#{story.subtitle})" : '' %>
+    </div>
+
+    <div class="mt-2">
+      <p class="markdown"><%= md story.description %></p>
+      <p class="italic mt-2">Last updated <%= time_ago_in_words story.updated_at %> ago.</p>
+    </div>
+  <% end %>
+</li>

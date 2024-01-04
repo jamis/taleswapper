@@ -1,0 +1,32 @@
+<div class="flex-col mb-16">
+  <% if @chapter.title.present? || Current.user == @story.creator %>
+    <div class="flex flex-row items-baseline my-4">
+      <% if @chapter.title.present? %>
+        <h1 class="text-2xl font-bold"><%= @chapter.title %></h1>
+      <% end %>
+      <% if Current.user == @story.creator %>
+        <span class="ml-2">[ <%= link_to "Edit", edit_chapter_path(@chapter), class: "text-blue-700 underline" %> ]</span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= render @chapter.sections %>
+
+  <ul class="mt-8">
+    <% @chapter.actions.each do |action| %>
+      <li class="ml-8">&rarr; <%= link_to action.prompt, chapter_path(action.target), class: "text-blue-600 underline" %></li>
+    <% end %>
+
+    <% if @chapter.interactive? %>
+      <li class="ml-8">
+        <p class="mt-4">Propose an alternative. What happens next?</p>
+        <p class="mt-4">Note that the following suggestions have already been declined by the author:</p>
+        <ul class="ml-8 mt-4">
+          <li class="italic">Monster appears and attacks. ("Too much action, too soon.")</li>
+          <li class="italic">Aliens. ("Not the kind of story I want to tell.")</li>
+          <li class="italic">Oden, enraged, attacks Inka. ("This isn't who I imagine Oden to be.")</li>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</div>

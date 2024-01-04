@@ -1,4 +1,10 @@
-<%= render chapter.sections %>
+<div class="mt-8">
+  <% if chapter.title.present? %>
+    <h1 class="text-2xl font-bold my-4"><%= chapter.title %></h1>
+  <% end %>
+
+  <%= render chapter.sections %>
+</div>
 
 <div id="actions">
   <ul class="mt-8">

@@ -19,5 +19,14 @@
     p {
       @apply mt-4;
     }
+
+    ul {
+      @apply list-disc;
+      @apply mt-4;
+    }
+
+    li {
+      @apply ml-12;
+    }
   }
 }

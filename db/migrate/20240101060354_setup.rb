@@ -11,17 +11,18 @@ class Setup < ActiveRecord::Migration[7.1]
 
     create_table :stories do |t|
       t.string     :title, null: false
-      t.string     :subtitle, null: false
+      t.string     :subtitle
       t.text       :description
       t.belongs_to :creator, null: false
       t.belongs_to :beginning, index: false
-      t.boolean    :interactive, default: false
+      t.belongs_to :setup, index: false
       t.timestamps
       t.datetime   :archived_at
     end
 
     create_table :chapters do |t|
       t.belongs_to :story
+      t.string     :title
       t.boolean    :interactive, default: false
       t.timestamps
       t.datetime   :published_at
@@ -29,7 +30,7 @@ class Setup < ActiveRecord::Migration[7.1]
 
     create_table :sections do |t|
       t.belongs_to :chapter, index: false
-      t.string :type, null: false
+      t.string :role, default: "primary"
       t.text :contents, default: ""
       t.integer :position, null: false, default: 0
       t.timestamps

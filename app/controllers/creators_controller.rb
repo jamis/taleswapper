@@ -4,6 +4,6 @@ class CreatorsController < ApplicationController
   private
 
   def find_creator
-    @creator ||= User.find(params[:id])
+    @creator ||= User.creators.find(params[:id])
   end
 end

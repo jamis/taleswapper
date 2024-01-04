@@ -25,6 +25,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
 
   create_table "chapters", force: :cascade do |t|
     t.integer "story_id"
+    t.string "title"
     t.boolean "interactive", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -53,7 +54,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
 
   create_table "sections", force: :cascade do |t|
     t.integer "chapter_id"
-    t.string "type", null: false
+    t.string "role", default: "primary"
     t.text "contents", default: ""
     t.integer "position", default: 0, null: false
     t.datetime "created_at", null: false
@@ -63,11 +64,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
 
   create_table "stories", force: :cascade do |t|
     t.string "title", null: false
-    t.string "subtitle", null: false
+    t.string "subtitle"
     t.text "description"
     t.integer "creator_id", null: false
     t.integer "beginning_id"
-    t.boolean "interactive", default: false
+    t.integer "setup_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "archived_at"

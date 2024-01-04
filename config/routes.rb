@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   resource :session
 
   resources :creators
-  resources :stories
+
+  resources :stories do
+    resources :chapters, only: %i[ new create ]
+  end
+
   resources :chapters
 
   root "creators#index"
