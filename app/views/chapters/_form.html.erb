@@ -1,4 +1,6 @@
 <%= form_with model: (chapter.new_record? ? [ chapter.story, chapter ] : chapter) do |f| %>
+  <%= f.hidden_field :role if chapter.role.present? %>
+
   <div class="flex flex-row items-baseline w-full my-4">
     <div><label for="chapter_title" class="text-lg">Title:</label></div>
     <div class="flex flex-col ml-3 w-1/2">

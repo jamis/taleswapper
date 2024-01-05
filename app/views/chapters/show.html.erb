@@ -1,4 +1,8 @@
 <div class="flex-col mb-16">
+  <div class="my-4">
+    &larr; <%= link_to @story.title, story_path(@story), class: "text-blue-600 underline" %>
+  </div>
+
   <% if @chapter.title.present? || Current.user == @story.creator %>
     <div class="flex flex-row items-baseline my-4">
       <% if @chapter.title.present? %>
@@ -19,13 +23,17 @@
 
   <%= render @chapter.sections %>
 
-  <ul class="mt-8">
+  <ul class="mt-8 ml-8">
     <% @chapter.actions.each do |action| %>
-      <li class="ml-8">&rarr; <%= link_to action.prompt, chapter_path(action.target), class: "text-blue-600 underline" %></li>
+      <li>&rarr; <%= link_to action.prompt, chapter_path(action.target), class: "text-blue-600 underline" %></li>
+    <% end %>
+
+    <% if editable_story? %>
+      <li class="my-4">[ <%= link_to "Add a chapter here", new_story_chapter_path(@chapter), class: "text-blue-600 underline" %> ]</li>
     <% end %>
 
     <% if @chapter.interactive? %>
-      <li class="ml-8">
+      <li>
         <p class="mt-4">Propose an alternative. What happens next?</p>
         <p class="mt-4">Note that the following suggestions have already been declined by the author:</p>
         <ul class="ml-8 mt-4">

@@ -24,17 +24,19 @@
   <% else %>
     <div class="mt-8 flex flex-row items-baseline">
       <h2 class="text-xl font-bold">Table of Contents</h2>
-      <% if editable_story? %>
-        <span class="ml-2">[ <%= link_to "Add a new chapter", new_story_chapter_path(@story), class: "text-blue-600 underline" %> ]</span>
-      <% end %>
     </div>
 
-    <ul class="list-disc mt-4">
-      <% if @story.setup&.published? %>
-        <li class="ml-8"><%= link_to @story.setup_title, chapter_path(@story.setup), class: "text-blue-600 underline" %></li>
+    <ul class="list-disc mt-4 ml-8">
+      <% if @story.setup && (editable_story? || @story.setup.published?) %>
+        <li><%= link_to @story.setup_title, chapter_path(@story.setup), class: "text-blue-600 underline" %></li>
+      <% elsif @story.setup.blank? && editable_story? %>
+        <li>[ <%= link_to "Add a \"session zero\"", new_story_chapter_path(@story, role: :setup), class: "text-blue-600 underline" %> ]</li>
       <% end %>
-      <% if @story.beginning&.published? %>
-        <li class="ml-8"><%= link_to @story.beginning_title, chapter_path(@story.beginning), class: "text-blue-600 underline" %></li>
+
+      <% if @story.beginning && (editable_story? || @story.beginning.published?) %>
+        <li><%= link_to @story.beginning_title, chapter_path(@story.beginning), class: "text-blue-600 underline" %></li>
+      <% elsif @story.beginning.blank? && editable_story? %>
+        <li>[ <%= link_to "Add a first chapter", new_story_chapter_path(@story, role: :beginning), class: "text-blue-600 underline" %> ]</li>
       <% end %>
     </ul>
   <% end %>

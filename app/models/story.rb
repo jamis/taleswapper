@@ -10,10 +10,10 @@ class Story < ApplicationRecord
   scope :published, -> { joins(:chapters).where('chapters.published_at <= ?', Time.now).distinct }
 
   def setup_title
-    setup && (setup&.title || '"session zero"')
+    setup && (setup.title.presence || '"session zero"')
   end
 
   def beginning_title
-    beginning && (beginning&.title || "the beginning")
+    beginning && (beginning.title.presence || "the beginning")
   end
 end
