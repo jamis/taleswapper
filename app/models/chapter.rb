@@ -6,12 +6,6 @@ class Chapter < ApplicationRecord
 
   accepts_nested_attributes_for :sections, allow_destroy: true
 
-  after_create :apply_role
-
-  # used when creating a new chapter, to indicate whether it should be
-  # the story's beginning, setup, or otherwise.
-  attr_accessor :role
-
   def published?(now: Time.now)
     published_at && published_at <= now
   end
@@ -26,12 +20,17 @@ class Chapter < ApplicationRecord
     self.published_at = published ? (published_at || Time.now) : nil
   end
 
-  private
+  def walk(mode, &block)
+    block.call(:start_entry, self)
 
-  def apply_role
-    case role
-    when 'beginning' then story.update beginning: self
-    when 'setup' then story.update setup: self
+    mode = :branching if actions.many?
+    block.call(:open) if mode == :branching
+
+    actions.each do |action|
+      action.target.walk(mode, &block)
     end
+
+    block.call(:close) if mode == :branching
+    block.call(:end_entry)
   end
 end

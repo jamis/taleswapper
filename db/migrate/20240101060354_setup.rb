@@ -14,8 +14,6 @@ class Setup < ActiveRecord::Migration[7.1]
       t.string     :subtitle
       t.text       :description
       t.belongs_to :creator, null: false
-      t.belongs_to :beginning, index: false
-      t.belongs_to :setup, index: false
       t.timestamps
       t.datetime   :archived_at
     end
@@ -59,6 +57,32 @@ class Setup < ActiveRecord::Migration[7.1]
       t.integer :position, null: false, default: 0
       t.timestamps
       t.index %i[ source_id position ], unique: true
+    end
+
+    create_table :scratch_pads do |t|
+      t.belongs_to :story
+      t.text :contents, null: false, default: ''
+    end
+
+    create_table :trackers do |t|
+      t.belongs_to :story
+      t.belongs_to :template, index: false
+      t.string :name
+    end
+
+    create_table :tracker_versions do |t|
+      t.belongs_to :tracker, index: false
+      t.belongs_to :original
+      t.text :data, default: '{}'
+      t.timestamps
+      t.index %i[ tracker_id created_at ]
+    end
+
+    create_table :tracker_templates do |t|
+      t.string :name, null: false
+      t.belongs_to :creator
+      t.text :definition, default: '{}'
+      t.timestamps
     end
   end
 end

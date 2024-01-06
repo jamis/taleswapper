@@ -1,19 +1,21 @@
 class Story < ApplicationRecord
   belongs_to :creator, class_name: 'User'
-  belongs_to :setup, class_name: 'Chapter', optional: true
-  belongs_to :beginning, class_name: 'Chapter', optional: true
 
+  has_one :scratch_pad
   has_many :chapters
+  has_many :trackers
 
   scope :active, -> { where(archived_at: nil) }
   scope :archived, -> { where.not(archived_at: nil) }
   scope :published, -> { joins(:chapters).where('chapters.published_at <= ?', Time.now).distinct }
 
-  def setup_title
-    setup && (setup.title.presence || '"session zero"')
-  end
+  after_create { create_scratch_pad! }
 
-  def beginning_title
-    beginning && (beginning.title.presence || "the beginning")
+  def walk_chapters(&block)
+    return unless chapters.any?
+
+    block.call(:open) # open the current list
+    chapters.first.walk(:linear, &block)
+    block.call(:close) # close the current list
   end
 end

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Infinities</title>
+    <title>Taleswapper</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,16 +12,19 @@
   </head>
 
   <body>
-    <header class="fixed top-0 w-full px-5 py-2 flex justify-end bg-blue-200 border-solid border-b border-blue-400">
-      <% if authenticated? %>
-        Hello, <%= Current.user.display_name %>.
-        <span class="mx-4">|</span>
-        <%= form_with url: session_path, method: :delete do |form| %>
-          <%= form.submit "Sign out", class: "text-blue-600 underline cursor-pointer" %>
+    <header class="fixed top-0 w-full">
+      <div class="w-full px-5 py-2 flex justify-end bg-blue-200 border-solid border-b border-blue-400">
+        <% if authenticated? %>
+          Hello, <%= Current.user.display_name %>.
+          <span class="mx-4">|</span>
+          <%= form_with url: session_path, method: :delete do |form| %>
+            <%= form.submit "Sign out", class: "text-blue-600 underline cursor-pointer" %>
+          <% end %>
+        <% else %>
+          <%= link_to "Sign in", new_session_path, class: "text-blue-600 underline" %>
         <% end %>
-      <% else %>
-        <%= link_to "Sign in", new_session_path, class: "text-blue-600 underline" %>
-      <% end %>
+      </div>
+      <%= yield :subheader %>
     </header>
 
     <main class="container mx-auto mt-28 px-5 flex">

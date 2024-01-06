@@ -52,6 +52,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
     t.index ["user_id"], name: "index_proposers_on_user_id"
   end
 
+  create_table "scratch_pads", force: :cascade do |t|
+    t.integer "story_id"
+    t.text "contents", default: "", null: false
+    t.index ["story_id"], name: "index_scratch_pads_on_story_id"
+  end
+
   create_table "sections", force: :cascade do |t|
     t.integer "chapter_id"
     t.string "role", default: "primary"
@@ -67,12 +73,36 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
     t.string "subtitle"
     t.text "description"
     t.integer "creator_id", null: false
-    t.integer "beginning_id"
-    t.integer "setup_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "archived_at"
     t.index ["creator_id"], name: "index_stories_on_creator_id"
+  end
+
+  create_table "tracker_templates", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "creator_id"
+    t.text "definition", default: "{}"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_tracker_templates_on_creator_id"
+  end
+
+  create_table "tracker_versions", force: :cascade do |t|
+    t.integer "tracker_id"
+    t.integer "original_id"
+    t.text "data", default: "{}"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["original_id"], name: "index_tracker_versions_on_original_id"
+    t.index ["tracker_id", "created_at"], name: "index_tracker_versions_on_tracker_id_and_created_at"
+  end
+
+  create_table "trackers", force: :cascade do |t|
+    t.integer "story_id"
+    t.integer "template_id"
+    t.string "name"
+    t.index ["story_id"], name: "index_trackers_on_story_id"
   end
 
   create_table "users", force: :cascade do |t|

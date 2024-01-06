@@ -16,9 +16,7 @@
       <p>You haven't added any chapters to this story yet.</p>
       <p>
         You can
-        <%= link_to "add your first chapter now", new_story_chapter_path(@story, role: :beginning), class: "text-blue-600 underline" %>,
-        or you can
-        <%= link_to "describe your \"session zero\" first", new_story_chapter_path(@story, role: :setup), class: "text-blue-600 underline" %> (story setup).
+        <%= link_to "add your first chapter now", new_story_chapter_path(@story), class: "text-blue-600 underline" %>.
       </p>
     </div>
   <% else %>
@@ -26,18 +24,6 @@
       <h2 class="text-xl font-bold">Table of Contents</h2>
     </div>
 
-    <ul class="list-disc mt-4 ml-8">
-      <% if @story.setup && (editable_story? || @story.setup.published?) %>
-        <li><%= link_to @story.setup_title, chapter_path(@story.setup), class: "text-blue-600 underline" %></li>
-      <% elsif @story.setup.blank? && editable_story? %>
-        <li>[ <%= link_to "Add a \"session zero\"", new_story_chapter_path(@story, role: :setup), class: "text-blue-600 underline" %> ]</li>
-      <% end %>
-
-      <% if @story.beginning && (editable_story? || @story.beginning.published?) %>
-        <li><%= link_to @story.beginning_title, chapter_path(@story.beginning), class: "text-blue-600 underline" %></li>
-      <% elsif @story.beginning.blank? && editable_story? %>
-        <li>[ <%= link_to "Add a first chapter", new_story_chapter_path(@story, role: :beginning), class: "text-blue-600 underline" %> ]</li>
-      <% end %>
-    </ul>
+    <%= render_contents(@story) %>
   <% end %>
 </div>

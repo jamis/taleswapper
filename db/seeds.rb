@@ -5,17 +5,33 @@ jamis = User.create!(email_address: 'jamis@jamisbuck.org',
                      password: 'password',
                      password_confirmation: 'password')
 
+charsheet = jamis.tracker_templates.create(
+  name: 'Ironsworn Character Sheet',
+  definition: {
+    name: :string,
+    edge: :integer,
+    heart: :integer,
+    iron: :integer,
+    shadow: :integer,
+    wits: :integer,
+    health: :integer,
+    spirit: :integer,
+    supply: :integer,
+    momentum: :integer,
+    assets: :text,
+    bonds: :text,
+    vows: :text
+  })
+
 story = jamis.stories.create!(
           title: 'An Ironsworn Actual Play',
           subtitle: nil,
-          description: 'This is just me, playing Ironsworn. I\'ll update this description when I know more about where the story is going.',
-          archived_at: Time.now)
+          description: 'This is just me, playing Ironsworn. I\'ll update this description when I know more about where the story is going.')
 
 setup = story.chapters.create!(published_at: Time.now, title: 'Session Zero')
 beginning = story.chapters.create!(published_at: Time.now, title: 'Chapter One')
-story.update setup: setup, beginning: beginning
 
-setup.sections << Section.new(position: 1, contents: <<~CONTENTS)
+setup.sections << Section.new(position: 1, contents: <<~CONTENTS.rstrip)
   The main character will be named *Wulan*. I picture him as a big, \
   hulking thing, all muscle. He's gruff and distant to most people, \
   intimidating and off-putting. He's not unintelligent, but his effort \
@@ -53,7 +69,10 @@ setup.sections << Section.new(position: 1, contents: <<~CONTENTS)
   * (let's leave the other two for now, and fill them in as we discover \
     his history)
 
-  Let's save his background vow as well, and see what that might be.
+  His background vow is, as decided from the first chapter, is that he has \
+  sworn to protect the people of the Hinterlands. We'll get more details as \
+  we go, but I suspect there's some force that has been threatening them, \
+  perhaps one of the Firstborn tribes?
 
   We'll choose our truths at random:
 
@@ -120,7 +139,7 @@ CONTENTS
 
 setup.actions.create prompt: "Start chapter one", target: beginning
 
-beginning.sections << Section.new(position: 1, contents: <<~CONTENTS)
+beginning.sections << Section.new(position: 1, contents: <<~CONTENTS.rstrip)
   I dine with my warband this night. They are raucous and coarse, as \
   usual, and usually I am ready enough to join in their revelries, but \
   tonight...
@@ -129,7 +148,7 @@ beginning.sections << Section.new(position: 1, contents: <<~CONTENTS)
   miles away, in the Ragged Coast.
 CONTENTS
 
-beginning.sections << Section.new(position: 2, role: 'secondary', contents: <<~CONTENTS)
+beginning.sections << Section.new(position: 2, role: 'secondary', contents: <<~CONTENTS.rstrip)
   Wups. I need a name for Wulan's lieutenant. Rolling on the oracle, I \
   get 9, "Artiga." What's he like? Oracle again! Role is "refute a \
   falsehood." Descriptor is 90 = "fervent."
@@ -138,7 +157,7 @@ beginning.sections << Section.new(position: 2, role: 'secondary', contents: <<~C
   apparently "infamous," and Valeri, who is "wary."
 CONTENTS
 
-beginning.sections << Section.new(position: 3, contents: <<~CONTENTS)
+beginning.sections << Section.new(position: 3, contents: <<~CONTENTS.rstrip)
   "Wulan!" shouts Artiga, my lietenant. He is a fiercely intense man, \
   most times, but in moments such as these he manages to become one of \
   the most bacchanalian of revelers. "Wulan!" he shouts again, as he \
@@ -167,4 +186,143 @@ beginning.sections << Section.new(position: 3, contents: <<~CONTENTS)
   made a reputation for ourselves among the villages hereabouts, and the people are \
   quick to share their provisions with us in exchange for a bit of security from \
   the bandits--and worse--that have tried to prey upon them.
+
+  It is a puzzle. I haven't seen Nia in years--not since the birth of her first \
+  child--but we were inseparable as children, and I swore that I would always \
+  be there for her.
+CONTENTS
+
+beginning.sections << Section.new(position: 4, role: 'secondary', contents: <<~CONTENTS.rstrip)
+  Hmmm! I don't think this is the background vow, though. It's too general. It's not \
+  even a good fit for the "inciting incident" vow. I actually don't think this is anything \
+  to do with an actual "iron vow." It's just a thing he told her when they were children.
+
+  Which, of course, does not diminish at all what it means to Wulan.
+CONTENTS
+
+beginning.sections << Section.new(position: 5, contents: <<~CONTENTS.rstrip)
+  I could go by myself, leaving my men in Artiga's care, but that doesn't sit \
+  right with me. The people here call them "Wulan's Blade" for a reason, and \
+  though they might follow Artiga for a time, they need *me*.
+
+  And, frankly, I need them.
+
+  So, do I command them to follow me to the Ragged Coast? They would come, \
+  and they would even come willingly. But Ironlanders are a suspicious lot, \
+  by and large, and a band of armed men would not sit comfortably with most \
+  settlements. A dozen men eat a lot, and unless they are kept busy, they \
+  also cause a lot of mischief. Villages would not welcome such company willingly.
+
+  Not for the first time, my mind turns to the reason for Nia's call. The \
+  minstrel knew nothing of her purpose. In fact, he said she seemed well \
+  enough when he was there just a month ago. Her need must not be urgent, then, \
+  but still...
+
+  She asks for *me*. My sister needs *me*.
+
+  I rise in the morning, having slept little, and stomp feeling back into \
+  my legs and feet. The air is chilly, but holds the promise of a warm day \
+  in its snap.
+
+  "Artiga!" I call as I walk through the camp. My men grump and look at me \
+  blearily, obviously the worse for drink. Artiga sits up abruptly and groans, \
+  holding a hand to his head.
+
+  "Wulan?" he mumbles. "Is something wrong?"
+
+  I go to his bedroll and drop to one knee. "I've made a decision," I say, \
+  "and I want you to witness my oath."
+
+  Artiga licks his lips and squints at me. "Your oath? For what?"
+
+  "I'm taking us to the Ragged Coast," I say, "to answer my sister's call. \
+  I would swear an oath that I will do whatever is in my power to aid her."
+
+  "The Ragged Coast, though?" Artiga looks horrified. "What about the people \
+  here?"
+
+  I nod. I've thought long about this. "I will stay here for two more weeks, \
+  organizing the people so that they can defend themelves. They will \
+  survive."
+
+  Artiga hesitates, but nods. "You're serious?"
+
+  "Very."
+
+  "I will witness your oath, then."
+
+  "Come."
+CONTENTS
+
+beginning.sections << Section.new(position: 6, role: 'secondary', contents: <<~CONTENTS.rstrip)
+  Given the truths I rolled at the beginning, "iron" refers not to the metal, necessarily. \
+  Especially with regard to oath-swearing, "iron" refers to the mystical \
+  pillars. I think they are ubiquitous enough that they are no more than \
+  an hour away.
+CONTENTS
+
+beginning.sections << Section.new(position: 7, contents: <<~CONTENTS.rstrip)
+  I tell the men that Artiga and I will be back later. There are some \
+  grumbles that I take for acknowledgment, and then we're off.
+
+  There is an Irondale an hour's walk from us, and we make for it. I tell \
+  Artiga about how I arrived at my decision, and ask for his council. He is \
+  not a particularly wise man, but he knows me well. He understands why I \
+  must do this thing.
+
+  "But Wulan," he says. "You've also sworn to protect the people of these \
+  lands. You have a responsibility to that oath, as well."
+CONTENTS
+
+beginning.sections << Section.new(position: 8, role: 'secondary', contents: <<~CONTENTS.rstrip)
+  Ah! There's the background oath. Wulan has sworn to protect the people of \
+  this area. I'll go add that to the "session zero."
+CONTENTS
+
+beginning.sections << Section.new(position: 9, contents: <<~CONTENTS.rstrip)
+  "I will keep that oath," I say. "We will return, Artiga, and I will see \
+  to the people here in the Hinterlands. I've realized, though, that part \
+  of that oath is teaching them to defend themselves."
+
+  When we finally reach the Irondale, the sun is warm upon us and we are \
+  both glad to finally sit and rest a moment. Below us, in the dale, are \
+  four black metal spikes, each one as tall as several men. The largest is wide \
+  enough at its base that I cannot reach my arms around it. The smallest is \
+  as thick as my thigh.
+
+  Though we call this an "Irondale," the spikes are not truly iron. No man can \
+  dent them. No smith can work them. Though they are metal, they are hardy and \
+  impenetrable. We swear our oaths on them, that our determination may be as \
+  durable as these.
+
+  We make our way down the hill and stand among the spikes. Artiga nods and \
+  urges me to begin.
+
+  I place one hand on the spike and look to the sky, where the spike seems to \
+  point, and I speak the words...
+CONTENTS
+
+beginning.sections << Section.new(position: 10, role: 'secondary', contents: <<~CONTENTS.rstrip)
+  Okay, first roll of the game. Wulan will *Swear an Iron Vow*. Though his \
+  sister isn't present, this is for her, and he does share a bond with her, so he \
+  gets +1. The roll, +heart, +1: 6+2+1 = 9 vs 2, 6. That's a strong hit!
+
+  "It is clear what you must do next... Take +2 momentum." His momentum is at 4 now.
+
+  He's got a new vow, now: "Find out what Nia needs, and help her." I'll \
+  make this a Formidable quest.
+CONTENTS
+
+# yeah, right here would be a good place to update a stat on the
+# character sheet. Perhaps each update is treated as a delta? Could it
+# work like that? The character sheet could be viewed at any point in
+# the story, then...
+
+beginning.sections << Section.new(position: 11, contents: <<~CONTENTS.rstrip)
+  With portentious weight, the oath settles into me. I nod, satisfied, \
+  knowing that I've chosen the right path for me, right now.
+
+  Artiga looks anxiously to me, and I nod again.
+
+  "It is done," I say. "Let us return and start making preparations."
 CONTENTS

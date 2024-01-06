@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :stories do
     resources :chapters, only: %i[ new create ]
+    resource :scratch_pad
   end
 
   resources :chapters

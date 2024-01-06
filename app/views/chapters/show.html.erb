@@ -32,7 +32,7 @@
       <li class="my-4">[ <%= link_to "Add a chapter here", new_story_chapter_path(@chapter), class: "text-blue-600 underline" %> ]</li>
     <% end %>
 
-    <% if @chapter.interactive? %>
+    <% if @chapter.interactive? && Current.user.present? %>
       <li>
         <p class="mt-4">Propose an alternative. What happens next?</p>
         <p class="mt-4">Note that the following suggestions have already been declined by the author:</p>
