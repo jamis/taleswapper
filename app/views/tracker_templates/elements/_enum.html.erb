@@ -1,0 +1,8 @@
+<div class="whitespace-nowrap border rounded-xl p-2 indent-0 border-blue-300 bg-blue-50">
+  <%= element['name'] %>
+  <% if local_assigns[:display] %>
+    <div class="ml-1 inline-block border-b border-blue-500 font-bold px-1"><%= local_assigns[:value] || element['default'] %></div>
+  <% else %>
+    <%= select_tag nil, options_for_select(element['enum'], local_assigns[:value] || element['default']), disabled: local_assigns[:readonly], class: "ml-1 py-0 pl-2 #{local_assigns[:readonly] ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : nil}" %>
+  <% end %>
+</div>

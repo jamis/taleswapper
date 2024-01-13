@@ -18,10 +18,10 @@
           Hello, <%= Current.user.display_name %>.
           <span class="mx-4">|</span>
           <%= form_with url: session_path, method: :delete do |form| %>
-            <%= form.submit "Sign out", class: "text-blue-600 underline cursor-pointer" %>
+            <%= form.submit "Sign out", class: "ts-link cursor-pointer" %>
           <% end %>
         <% else %>
-          <%= link_to "Sign in", new_session_path, class: "text-blue-600 underline" %>
+          <%= link_to "Sign in", new_session_path, class: "ts-link" %>
         <% end %>
       </div>
       <%= yield :subheader %>

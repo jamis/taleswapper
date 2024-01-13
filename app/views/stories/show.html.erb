@@ -2,10 +2,10 @@
   <div class="flex flex-row items-baseline">
     <h1 class="text-2xl font-bold"><%= @story.title %> <%= @story.subtitle ? "(#{@story.subtitle})" : '' %></h1>
     <% if editable_story? %>
-      <span class="ml-2">[ <%= link_to "Edit", edit_story_path(@story), class: "text-blue-700 underline" %> ]</span>
+      <span class="ml-2">[ <%= link_to "Edit", edit_story_path(@story), class: "ts-link" %> ]</span>
     <% end %>
   </div>
-  <h2 class="text-xl font-bold">by <%= link_to @story.creator.display_name, creator_path(@story.creator), class: "underline text-blue-600" %></h2>
+  <h2 class="text-xl font-bold">by <%= link_to @story.creator.display_name, creator_path(@story.creator), class: "ts-link" %></h2>
 
   <div class="markdown">
     <%=md @story.description %>
@@ -16,7 +16,7 @@
       <p>You haven't added any chapters to this story yet.</p>
       <p>
         You can
-        <%= link_to "add your first chapter now", new_story_chapter_path(@story), class: "text-blue-600 underline" %>.
+        <%= link_to "add your first chapter now", new_story_chapter_path(@story), class: "ts-link" %>.
       </p>
     </div>
   <% else %>

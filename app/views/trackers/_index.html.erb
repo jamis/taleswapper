@@ -1,0 +1,14 @@
+<div data-controller="trackers" data-action="keydown.esc->trackers#close:prevent">
+  <div class="fixed top-0 left-0 w-full h-screen bg-black opacity-20"></div>
+
+  <div class="fixed shadow-md bg-white rounded-xl border border-blue-300 w-1/2 left-1/4 top-20 overflow-hidden">
+    <header class="flex flex-row w-full px-4 py-2 bg-blue-100 border-b border-blue-300">
+      <h1 class="font-bold">Trackers</h1>
+      <a class="ml-auto ts-link" href="#" data-action="trackers#close:prevent">close</a>
+    </header>
+
+    <main class="p-4">
+      <%= render "list", list: @story.trackers.map { |t| t.latest_version || t }, readonly: true, display: true %>
+    </main>
+  </div>
+</div>

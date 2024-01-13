@@ -6,7 +6,7 @@
 
   <ul class="mt-4 ml-8 mb-12">
     <% User.creators.each do |creator| %>
-      <li class="mt-2"><%= link_to creator.display_name, creator_path(creator), class: "text-blue-600 underline" %></li>
+      <li class="mt-2"><%= link_to creator.display_name, creator_path(creator), class: "ts-link" %></li>
     <% end %>
   </ul>
 </div>

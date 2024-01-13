@@ -5,60 +5,130 @@ jamis = User.create!(email_address: 'jamis@jamisbuck.org',
                      password: 'password',
                      password_confirmation: 'password')
 
-charsheet = jamis.tracker_templates.create(
-  name: 'Ironsworn Character Sheet',
-  definition: {
-    name: :string,
-    edge: :integer,
-    heart: :integer,
-    iron: :integer,
-    shadow: :integer,
-    wits: :integer,
-    health: :integer,
-    spirit: :integer,
-    supply: :integer,
-    momentum: :integer,
-    assets: :text,
-    bonds: :text,
-    vows: :text
-  })
+ironsworn_attrs = jamis.tracker_templates.create(
+  name: '[Ironsworn] Attributes',
+  type: 'TrackerTemplate::Attributes',
+  definition: [
+    { 'name' => 'Edge', 'type' => 'short' },
+    { 'name' => 'Heart', 'type' => 'short' },
+    { 'name' => 'Iron', 'type' => 'short' },
+    { 'name' => 'Shadow', 'type' => 'short' },
+    { 'name' => 'Wits', 'type' => 'short' }
+  ])
+
+ironsworn_resources = jamis.tracker_templates.create(
+  name: '[Ironsworn] Resources',
+  type: 'TrackerTemplate::Attributes',
+  definition: [
+    { 'name' => 'Health', 'type' => 'short', 'default' => 5 },
+    { 'name' => 'Spirit', 'type' => 'short', 'default' => 5 },
+    { 'name' => 'Supply', 'type' => 'short', 'default' => 5 },
+    { 'name' => 'Momentum', 'type' => 'short', 'default' => 2 },
+    { 'name' => 'Reset', 'type' => 'short', 'default' => 2 },
+    { 'name' => 'Max', 'type' => 'short', 'default' => 10 },
+    { 'name' => 'XP', 'type' => 'short', 'default' => 0 },
+  ])
+
+ironsworn_conditions = jamis.tracker_templates.create(
+  name: '[Ironsworn] Conditions',
+  type: 'TrackerTemplate::Attributes',
+  definition: [
+    { 'name' => 'Wounded', 'type' => 'checkbox' },
+    { 'name' => 'Unprepared', 'type' => 'checkbox' },
+    { 'name' => 'Shaken', 'type' => 'checkbox' },
+    { 'name' => 'Encumbered', 'type' => 'checkbox' },
+    { 'name' => 'Maimed', 'type' => 'checkbox' },
+    { 'name' => 'Corrupted', 'type' => 'checkbox' },
+    { 'name' => 'Cursed', 'type' => 'checkbox' },
+    { 'name' => 'Tormented', 'type' => 'checkbox' },
+  ])
+
+ironsworn_assets = jamis.tracker_templates.create(
+  name: '[Ironsworn] Assets',
+  type: 'TrackerTemplate::CardDeck',
+  definition: [
+    { 'name' => 'Title', 'type' => 'cardtitle' },
+    { 'name' => 'Content', 'type' => 'cardbody' }
+  ])
+
+ironsworn_track = jamis.tracker_templates.create(
+  name: '[Ironsworn] Track',
+  type: 'TrackerTemplate::Attributes',
+  definition: [
+    { 'name' => 'Rank', 'type' => 'enum', 'enum' => [ 'Troublesome', 'Dangerous', 'Formidable', 'Extreme', 'Epic' ] },
+    { 'name' => 'Progress', 'type' => 'short', 'default' => 0 },
+    { 'name' => 'Ticks', 'type' => 'short', 'default' => 0 }
+  ])
 
 story = jamis.stories.create!(
           title: 'An Ironsworn Actual Play',
           subtitle: nil,
           description: 'This is just me, playing Ironsworn. I\'ll update this description when I know more about where the story is going.')
 
+story.scratch_pad.update(contents: <<~CONTENTS)
+  Lieutenant: Artiga (fevant, "refute a falsehood")
+
+  Other members of the band:
+  * Kuron ("infamous", terrible singer)
+  * Valeri ("wary")
+CONTENTS
+
 setup = story.chapters.create!(published_at: Time.now, title: 'Session Zero')
 beginning = story.chapters.create!(published_at: Time.now, title: 'Chapter One')
 
-setup.sections << Section.new(position: 1, contents: <<~CONTENTS.rstrip)
-  The main character will be named *Wulan*. I picture him as a big, \
-  hulking thing, all muscle. He's gruff and distant to most people, \
-  intimidating and off-putting. He's not unintelligent, but his effort \
-  and time have gone into martial prowess, not intellectual skill.
+wulan_attrs = story.trackers.create(name: 'Attributes', template: ironsworn_attrs)
+wulan_resources = story.trackers.create(name: 'Resources', template: ironsworn_resources)
 
-  His stats will be:
+setup.sections << Section.new(role: 'full',
+  tracker_versions_attributes: [
+    { tracker_id: wulan_attrs.id,
+      data: {
+        'Edge' => 2,
+        'Heart' => 2,
+        'Iron' => 3,
+        'Shadow' => 1,
+        'Wits' => 1
+      }
+    },
+    { tracker_id: wulan_resources.id,
+      data: {
+        'Health' => 5,
+        'Spirit' => 5,
+        'Supply' => 5,
+        'Momentum' => 2,
+        'Reset' => 2,
+        'Max' => 10,
+        'XP' => 0
+      }
+    } ],
+  contents: <<~CONTENTS.rstrip)
+The main character will be named *Wulan*. I picture him as a big, \
+hulking thing, all muscle. He's gruff and distant to most people, \
+intimidating and off-putting. He's not unintelligent, but his effort \
+and time have gone into martial prowess, not intellectual skill.
 
-  * **Edge**: 2
-  * **Heart**: 2
-  * **Iron**: 3
-  * **Shadow**: 1
-  * **Wits**: 1
+His stats will be:
+CONTENTS
 
-  Wulan starts with health, spirit, and supply at 5, and momentum at 2.
+wulan_assets = story.trackers.create(name: 'Assets', template: ironsworn_assets)
 
-  He has the following assets:
+setup.sections << Section.new(role: 'full',
+  tracker_versions_attributes: [
+    { tracker_id: wulan_assets.id,
+      data: [
+        { 'Title' => 'Swordmaster',
+          'Content' => 'When you *Strike* or *Clash* and burn momentum to improve your result, inflict +2 harm. If the fight continues, add +1 on your next move.' },
+        { 'Title' => 'Wright',
+          'Content' => 'When you *Secure an Advantage* by crafting a useful item using your specialty [Blacksmithing], or when you *Face Danger* to create or repair an item in a perilous situation, add +1 and take +1 momentum on a hit.' },
+        { 'Title' => 'Commander',
+          'Content' => '"You lead a warband with +4 strength." Can use them for *Face Danger*, *Secure an Advantage*, *Compel*, or *Battle*.' }
+      ] }
+  ],
+  contents: <<~CONTENTS.rstrip)
+He has the following assets:
+CONTENTS
 
-  * **Swordmaster**. "When you *Strike* or *Clash* and burn momentum to improve \
-    your result, inflict +2 harm. If the fight continues, add +1 on your
-    next move."
-  * **Wright**. "When you *Secure an Advantage* by crafting a useful \
-    item using your specialty [Blacksmithing], or when you *Face Danger* \
-    to create or repair an item in a perilous situation, add +1 and take +1
-    momentum on a hit."
-  * **Commander**. "You lead a warband with +4 strength." Can use them for \
-    *Face Danger*, *Secure an Advantage*, *Compel*, or *Battle*.
-
+setup.sections << Section.new(role: 'full', contents: <<~CONTENTS.rstrip)
   I think his warband is called "Wulan's Blade."
 
   His three starting bonds:
@@ -69,12 +139,9 @@ setup.sections << Section.new(position: 1, contents: <<~CONTENTS.rstrip)
   * (let's leave the other two for now, and fill them in as we discover \
     his history)
 
-  His background vow is, as decided from the first chapter, is that he has \
-  sworn to protect the people of the Hinterlands. We'll get more details as \
-  we go, but I suspect there's some force that has been threatening them, \
-  perhaps one of the Firstborn tribes?
+  We'll discover his background vow later, as well (but hopefully soon).
 
-  We'll choose our truths at random:
+  Let's choose our truths at random:
 
   ## The Old World
 
@@ -139,7 +206,7 @@ CONTENTS
 
 setup.actions.create prompt: "Start chapter one", target: beginning
 
-beginning.sections << Section.new(position: 1, contents: <<~CONTENTS.rstrip)
+beginning.sections << Section.new(contents: <<~CONTENTS.rstrip)
   I dine with my warband this night. They are raucous and coarse, as \
   usual, and usually I am ready enough to join in their revelries, but \
   tonight...
@@ -148,7 +215,7 @@ beginning.sections << Section.new(position: 1, contents: <<~CONTENTS.rstrip)
   miles away, in the Ragged Coast.
 CONTENTS
 
-beginning.sections << Section.new(position: 2, role: 'secondary', contents: <<~CONTENTS.rstrip)
+beginning.sections << Section.new(role: 'right', contents: <<~CONTENTS.rstrip)
   Wups. I need a name for Wulan's lieutenant. Rolling on the oracle, I \
   get 9, "Artiga." What's he like? Oracle again! Role is "refute a \
   falsehood." Descriptor is 90 = "fervent."
@@ -157,7 +224,7 @@ beginning.sections << Section.new(position: 2, role: 'secondary', contents: <<~C
   apparently "infamous," and Valeri, who is "wary."
 CONTENTS
 
-beginning.sections << Section.new(position: 3, contents: <<~CONTENTS.rstrip)
+beginning.sections << Section.new(contents: <<~CONTENTS.rstrip)
   "Wulan!" shouts Artiga, my lietenant. He is a fiercely intense man, \
   most times, but in moments such as these he manages to become one of \
   the most bacchanalian of revelers. "Wulan!" he shouts again, as he \
@@ -192,7 +259,7 @@ beginning.sections << Section.new(position: 3, contents: <<~CONTENTS.rstrip)
   be there for her.
 CONTENTS
 
-beginning.sections << Section.new(position: 4, role: 'secondary', contents: <<~CONTENTS.rstrip)
+beginning.sections << Section.new(role: 'right', contents: <<~CONTENTS.rstrip)
   Hmmm! I don't think this is the background vow, though. It's too general. It's not \
   even a good fit for the "inciting incident" vow. I actually don't think this is anything \
   to do with an actual "iron vow." It's just a thing he told her when they were children.
@@ -200,7 +267,7 @@ beginning.sections << Section.new(position: 4, role: 'secondary', contents: <<~C
   Which, of course, does not diminish at all what it means to Wulan.
 CONTENTS
 
-beginning.sections << Section.new(position: 5, contents: <<~CONTENTS.rstrip)
+beginning.sections << Section.new(contents: <<~CONTENTS.rstrip)
   I could go by myself, leaving my men in Artiga's care, but that doesn't sit \
   right with me. The people here call them "Wulan's Blade" for a reason, and \
   though they might follow Artiga for a time, they need *me*.
@@ -254,14 +321,14 @@ beginning.sections << Section.new(position: 5, contents: <<~CONTENTS.rstrip)
   "Come."
 CONTENTS
 
-beginning.sections << Section.new(position: 6, role: 'secondary', contents: <<~CONTENTS.rstrip)
+beginning.sections << Section.new(role: 'right', contents: <<~CONTENTS.rstrip)
   Given the truths I rolled at the beginning, "iron" refers not to the metal, necessarily. \
   Especially with regard to oath-swearing, "iron" refers to the mystical \
   pillars. I think they are ubiquitous enough that they are no more than \
   an hour away.
 CONTENTS
 
-beginning.sections << Section.new(position: 7, contents: <<~CONTENTS.rstrip)
+beginning.sections << Section.new(contents: <<~CONTENTS.rstrip)
   I tell the men that Artiga and I will be back later. There are some \
   grumbles that I take for acknowledgment, and then we're off.
 
@@ -274,12 +341,24 @@ beginning.sections << Section.new(position: 7, contents: <<~CONTENTS.rstrip)
   lands. You have a responsibility to that oath, as well."
 CONTENTS
 
-beginning.sections << Section.new(position: 8, role: 'secondary', contents: <<~CONTENTS.rstrip)
-  Ah! There's the background oath. Wulan has sworn to protect the people of \
-  this area. I'll go add that to the "session zero."
+bg_vow_track = story.trackers.create(name: '[VOW] Protect the people of the Hinterlands', template: ironsworn_track)
+
+beginning.sections << Section.new(role: 'right',
+  tracker_versions_attributes: [
+    { tracker_id: bg_vow_track.id,
+      data: {
+        'Rank' => 'Epic',
+        'Progress' => 0,
+        'Ticks' => 0
+      }
+    } ],
+  contents: <<~CONTENTS.rstrip)
+Ah! There's the background oath. Wulan has sworn to protect the people of \
+this area. We'll get more details as we go, but I suspect there's some force \
+that has been threatening them, perhaps one of the Firstborn tribes?
 CONTENTS
 
-beginning.sections << Section.new(position: 9, contents: <<~CONTENTS.rstrip)
+beginning.sections << Section.new(contents: <<~CONTENTS.rstrip)
   "I will keep that oath," I say. "We will return, Artiga, and I will see \
   to the people here in the Hinterlands. I've realized, though, that part \
   of that oath is teaching them to defend themselves."
@@ -302,23 +381,44 @@ beginning.sections << Section.new(position: 9, contents: <<~CONTENTS.rstrip)
   point, and I speak the words...
 CONTENTS
 
-beginning.sections << Section.new(position: 10, role: 'secondary', contents: <<~CONTENTS.rstrip)
-  Okay, first roll of the game. Wulan will *Swear an Iron Vow*. Though his \
-  sister isn't present, this is for her, and he does share a bond with her, so he \
-  gets +1. The roll, +heart, +1: 6+2+1 = 9 vs 2, 6. That's a strong hit!
+beginning.sections << Section.new(role: 'right',
+  tracker_versions_attributes: [
+    { tracker_id: wulan_resources.id,
+      original_id: wulan_resources.versions.last.id,
+      data: {
+        'Health' => 5,
+        'Spirit' => 5,
+        'Supply' => 5,
+        'Momentum' => 4,
+        'Reset' => 2,
+        'Max' => 10,
+        'XP' => 0
+      }
+    } ],
+  contents: <<~CONTENTS.rstrip)
+Okay, first roll of the game. Wulan will *Swear an Iron Vow*. Though his \
+sister isn't present, this is for her, and he does share a bond with her, so he \
+gets +1. The roll, +heart, +1: 6+2+1 = 9 vs 2, 6. That's a strong hit!
 
-  "It is clear what you must do next... Take +2 momentum." His momentum is at 4 now.
-
-  He's got a new vow, now: "Find out what Nia needs, and help her." I'll \
-  make this a Formidable quest.
+"It is clear what you must do next... Take +2 momentum." His momentum is at 4 now.
 CONTENTS
 
-# yeah, right here would be a good place to update a stat on the
-# character sheet. Perhaps each update is treated as a delta? Could it
-# work like that? The character sheet could be viewed at any point in
-# the story, then...
+nia_vow_track = story.trackers.create(name: '[VOW] Find out what Nia needs, and help her', template: ironsworn_track)
 
-beginning.sections << Section.new(position: 11, contents: <<~CONTENTS.rstrip)
+beginning.sections << Section.new(role: 'right',
+  tracker_versions_attributes: [
+      { tracker_id: nia_vow_track.id,
+        data: {
+          'Rank' => 'Formidable',
+          'Progress' => 0,
+          'Ticks' => 0
+        }
+      } ],
+  contents: <<~CONTENTS.rstrip)
+He's got a new vow, now: "Find out what Nia needs, and help her." I'll  make this a Formidable quest.
+CONTENTS
+
+beginning.sections << Section.new(contents: <<~CONTENTS.rstrip)
   With portentious weight, the oath settles into me. I nod, satisfied, \
   knowing that I've chosen the right path for me, right now.
 

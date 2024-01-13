@@ -28,11 +28,16 @@ class Setup < ActiveRecord::Migration[7.1]
 
     create_table :sections do |t|
       t.belongs_to :chapter, index: false
-      t.string :role, default: "primary"
+      t.string :role, default: "left"
       t.text :contents, default: ""
       t.integer :position, null: false, default: 0
       t.timestamps
       t.index %i[ chapter_id position ], unique: true
+    end
+
+    create_table :tracker_instances do |t|
+      t.belongs_to :section
+      t.belongs_to :tracker_version, index: false
     end
 
     create_table :proposals do |t|
@@ -81,7 +86,8 @@ class Setup < ActiveRecord::Migration[7.1]
     create_table :tracker_templates do |t|
       t.string :name, null: false
       t.belongs_to :creator
-      t.text :definition, default: '{}'
+      t.string :type, null: false
+      t.text :definition
       t.timestamps
     end
   end

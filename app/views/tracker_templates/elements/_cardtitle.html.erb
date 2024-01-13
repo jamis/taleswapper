@@ -1,0 +1,7 @@
+<div class="border-b px-2 py-1 border-blue-900 bg-blue-900 text-white font-bold">
+  <% if local_assigns[:display] %>
+    <%= local_assigns[:value] || element['default'] || element['name'] %>
+  <% else %>
+    <%= tag.input type: "text", value: local_assigns[:value] || element['default'], placeholder: element['name'], disabled: local_assigns[:readonly], class: "w-full py-0 px-1 #{local_assigns[:readonly] ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : nil}" %>
+  <% end %>
+</div>

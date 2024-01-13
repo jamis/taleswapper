@@ -1,6 +1,6 @@
 <div class="flex-col mb-16">
   <div class="my-4">
-    &larr; <%= link_to @story.title, story_path(@story), class: "text-blue-600 underline" %>
+    &larr; <%= link_to @story.title, story_path(@story), class: "ts-link" %>
   </div>
 
   <% if @chapter.title.present? || Current.user == @story.creator %>
@@ -11,9 +11,9 @@
       <% if Current.user == @story.creator %>
         <span class="ml-2">
           [
-            <%= link_to "Edit", edit_chapter_path(@chapter), class: "text-blue-700 underline" %> |
+            <%= link_to "Edit", edit_chapter_path(@chapter), class: "ts-link" %> |
             <%= form_with url: chapter_path(@chapter), method: :delete, data: { turbo_confirm: "Really delete this chapter?" }, class: "inline" do |f| %>
-              <%= f.submit "Delete", class: "text-red-700 underline cursor-pointer" %>
+              <%= f.submit "Delete", class: "ts-link cursor-pointer" %>
             <% end %>
           ]
         </span>
@@ -25,11 +25,11 @@
 
   <ul class="mt-8 ml-8">
     <% @chapter.actions.each do |action| %>
-      <li>&rarr; <%= link_to action.prompt, chapter_path(action.target), class: "text-blue-600 underline" %></li>
+      <li>&rarr; <%= link_to action.prompt, chapter_path(action.target), class: "ts-link" %></li>
     <% end %>
 
     <% if editable_story? %>
-      <li class="my-4">[ <%= link_to "Add a chapter here", new_story_chapter_path(@chapter), class: "text-blue-600 underline" %> ]</li>
+      <li class="my-4">[ <%= link_to "Add a chapter here", new_story_chapter_path(@chapter), class: "ts-link" %> ]</li>
     <% end %>
 
     <% if @chapter.interactive? && Current.user.present? %>

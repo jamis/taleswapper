@@ -26,7 +26,7 @@ module StoriesHelper
   end
 
   def add_toc_entry(chapter)
-    "<li>" + link_to(chapter.title.presence || "chapter", chapter_path(chapter), class: "text-blue-600 underline")
+    "<li>" + link_to(chapter.title.presence || "chapter", chapter_path(chapter), class: "ts-link")
   end
 
   def end_toc_entry

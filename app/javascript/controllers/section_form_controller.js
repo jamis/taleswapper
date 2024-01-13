@@ -6,41 +6,47 @@ const unselectedClassNames = "text-gray-400";
 export default class extends Controller {
   static targets = [
     'role', 'editor', 'destroy',
-    'primary', 'secondary',
+    'left', 'right', 'full',
     'leftSide', 'rightSide'
   ];
 
   connect() {
-    if (this.roleTarget.value == 'primary')
-      this.selectPrimary();
-    else
-      this.selectSecondary();
+    switch(this.roleTarget.value) {
+      case 'left': this.selectLeft(); break;
+      case 'right': this.selectRight(); break;
+      case 'full': this.selectFull(); break;
+    }
+  }
+
+  selectLeft() {
+    this.roleTarget.value = 'left';
+
+    this.selectButton(this.leftTarget);
+
+    this.leftSideTarget.classList.add('hidden');
+    this.rightSideTarget.classList.remove('hidden');
 
     this.resizeEditor();
   }
 
-  selectPrimary() {
-    this.roleTarget.value = 'primary';
+  selectRight() {
+    this.roleTarget.value = 'right';
 
-    this.primaryTarget.classList.remove(unselectedClassNames);
-    this.secondaryTarget.classList.remove(selectedClassNames);
-    this.primaryTarget.classList.add(selectedClassNames);
-    this.secondaryTarget.classList.add(unselectedClassNames);
-
-    this.leftSideTarget.classList.add('hidden');
-    this.rightSideTarget.classList.remove('hidden');
-  }
-
-  selectSecondary() {
-    this.roleTarget.value = 'secondary';
-
-    this.secondaryTarget.classList.remove(unselectedClassNames);
-    this.primaryTarget.classList.remove(selectedClassNames);
-    this.secondaryTarget.classList.add(selectedClassNames);
-    this.primaryTarget.classList.add(unselectedClassNames);
+    this.selectButton(this.rightTarget);
 
     this.rightSideTarget.classList.add('hidden');
     this.leftSideTarget.classList.remove('hidden');
+
+    this.resizeEditor();
+  }
+
+  selectFull() {
+    this.roleTarget.value = 'full';
+
+    this.selectButton(this.fullTarget);
+
+    this.rightSideTarget.classList.add('hidden');
+    this.leftSideTarget.classList.add('hidden');
   }
 
   deleteSection() {
@@ -56,5 +62,17 @@ export default class extends Controller {
     let currentHeight = Math.max(144, this.editorTarget.scrollHeight);
 
     this.editorTarget.style.height = currentHeight + "px";
+  }
+
+  selectButton(selected) {
+    [ this.leftTarget, this.rightTarget, this.fullTarget ].forEach((button) => {
+      if (button == selected) {
+        button.classList.remove(unselectedClassNames);
+        button.classList.add(selectedClassNames);
+      } else {
+        button.classList.remove(selectedClassNames);
+        button.classList.add(unselectedClassNames);
+      }
+    });
   }
 }

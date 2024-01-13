@@ -1,0 +1,9 @@
+.ts-link {
+  color: blue;
+  text-decoration: underline;
+}
+
+.ts-cancel {
+  color: red;
+  text-decoration: underline;
+}

@@ -60,7 +60,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
 
   create_table "sections", force: :cascade do |t|
     t.integer "chapter_id"
-    t.string "role", default: "primary"
+    t.string "role", default: "left"
     t.text "contents", default: ""
     t.integer "position", default: 0, null: false
     t.datetime "created_at", null: false
@@ -79,10 +79,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
     t.index ["creator_id"], name: "index_stories_on_creator_id"
   end
 
+  create_table "tracker_instances", force: :cascade do |t|
+    t.integer "section_id"
+    t.integer "tracker_version_id"
+    t.index ["section_id"], name: "index_tracker_instances_on_section_id"
+  end
+
   create_table "tracker_templates", force: :cascade do |t|
     t.string "name", null: false
     t.integer "creator_id"
-    t.text "definition", default: "{}"
+    t.string "type", null: false
+    t.text "definition"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_tracker_templates_on_creator_id"

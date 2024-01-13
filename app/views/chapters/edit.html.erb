@@ -1,11 +1,15 @@
 <% content_for :subheader do %>
   <div class="bg-white text-sm border-b">
-    <div class="container mx-auto flex flex-row">
+    <div class="mx-2 flex flex-row">
       <div class="flex-initial px-2 py-1">
-        <%= link_to "Scratch Pad", story_scratch_pad_path(@story), data: { turbo_stream: true }, class: "text-blue-600 underline" %>
+        <%= link_to "Scratch Pad", story_scratch_pad_path(@story), data: { turbo_stream: true }, class: "ts-link" %>
       </div>
-      <div class="flex-initial px-2 py-1"><a href="" class="text-blue-600 underline">Wulan</a></div>
-      <div class="flex-initial px-2 py-1"><a href="" class="text-blue-600 underline">+</a></div>
+      <div class="flex-initial px-2 py-1">
+        <%= link_to "Trackers", story_trackers_path(@story), data: { turbo_stream: true }, class: "ts-link" %>
+      </div>
+      <div class="ml-auto flex-initial px-2 py-1">
+        <%= link_to "Templates", tracker_templates_path, class: "ts-link" %>
+      </div>
     </div>
   </div>
 <% end %>
