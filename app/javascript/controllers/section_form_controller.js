@@ -25,8 +25,6 @@ export default class extends Controller {
 
     this.leftSideTarget.classList.add('hidden');
     this.rightSideTarget.classList.remove('hidden');
-
-    this.resizeEditor();
   }
 
   selectRight() {
@@ -36,8 +34,6 @@ export default class extends Controller {
 
     this.rightSideTarget.classList.add('hidden');
     this.leftSideTarget.classList.remove('hidden');
-
-    this.resizeEditor();
   }
 
   selectFull() {
@@ -54,14 +50,6 @@ export default class extends Controller {
       this.destroyTarget.value = 1;
       this.element.classList.add('hidden');
     }
-  }
-
-  resizeEditor() {
-    this.editorTarget.style.height = "1px";
-
-    let currentHeight = Math.max(144, this.editorTarget.scrollHeight);
-
-    this.editorTarget.style.height = currentHeight + "px";
   }
 
   selectButton(selected) {

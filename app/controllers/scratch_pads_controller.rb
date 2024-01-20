@@ -1,16 +1,17 @@
 class ScratchPadsController < ApplicationController
   before_action :require_authentication
-  before_action :find_story
+  before_action :find_chapter
 
   def update
-    @story.scratch_pad.update!(scratch_pad_params)
+    @chapter.scratch_pad.update!(scratch_pad_params)
     head :no_content
   end
 
   private
 
-  def find_story
-    @story = Current.user.stories.find(params[:story_id])
+  def find_chapter
+    @chapter = Chapter.find(params[:chapter_id])
+    @story = Current.user.stories.find(@chapter.story_id)
   end
 
   def scratch_pad_params

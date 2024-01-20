@@ -1,4 +1,0 @@
-<div class="whitespace-nowrap border rounded-xl p-2 indent-0 border-blue-300 bg-blue-50">
-  <%= element['name'] %>
-  <%= tag.input type: "checkbox", value: 'checked', disabled: local_assigns[:display] || local_assigns[:readonly], checked: (local_assigns[:value] || element['default']) == 'checked', class: "ml-1 #{(local_assigns[:readonly] || local_assigns[:display])? 'bg-gray-100 cursor-not-allowed' : nil}" %>
-</div>

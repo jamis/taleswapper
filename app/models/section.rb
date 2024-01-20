@@ -1,13 +1,19 @@
 class Section < ApplicationRecord
   belongs_to :chapter
-  has_many :tracker_instances
-  has_many :tracker_versions, through: :tracker_instances
+  has_one :track_sheet_update
 
-  accepts_nested_attributes_for :tracker_versions, allow_destroy: true
+  accepts_nested_attributes_for :track_sheet_update
 
   before_save :set_position
 
   scope :in_order, -> { order(position: :asc) }
+
+  # The state of the track sheet immediately before applying any updates
+  # from this section.
+  def current_track_sheet
+    updates = chapter.track_sheet_updates.where('sections.position < ?', position).order('sections.position': :asc)
+    chapter.track_sheet.apply(updates)
+  end
 
   private
 

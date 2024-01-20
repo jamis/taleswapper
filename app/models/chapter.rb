@@ -3,6 +3,15 @@ class Chapter < ApplicationRecord
 
   has_many :sections
   has_many :actions, foreign_key: :source_id
+  has_many :track_sheet_updates, through: :sections
+
+  has_one :scratch_pad
+  has_one :track_sheet
+
+  after_create do
+    create_scratch_pad! unless scratch_pad
+    create_track_sheet! unless track_sheet
+  end
 
   accepts_nested_attributes_for :sections, allow_destroy: true
 
@@ -18,6 +27,22 @@ class Chapter < ApplicationRecord
                 end
 
     self.published_at = published ? (published_at || Time.now) : nil
+  end
+
+  def add_sequel(chapter:, action:)
+    transaction do
+      chapter = chapter.merge(
+                  scratch_pad: ScratchPad.new(contents: scratch_pad.contents),
+                  track_sheet: TrackSheet.new(definition: final_track_sheet))
+
+      story.chapters.create!(chapter).tap do |chapter_record|
+        action_record = actions.create(action.merge(target: chapter_record))
+      end
+    end
+  end
+
+  def final_track_sheet
+    track_sheet.apply(track_sheet_updates.order('sections.position': :asc))
   end
 
   def walk(mode, &block)

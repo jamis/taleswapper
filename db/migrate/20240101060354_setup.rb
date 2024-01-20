@@ -56,7 +56,7 @@ class Setup < ActiveRecord::Migration[7.1]
 
     create_table :actions do |t|
       t.belongs_to :source, index: false
-      t.belongs_to :target, index: false
+      t.belongs_to :target
       t.belongs_to :proposal
       t.string :prompt, null: false
       t.integer :position, null: false, default: 0
@@ -65,30 +65,18 @@ class Setup < ActiveRecord::Migration[7.1]
     end
 
     create_table :scratch_pads do |t|
-      t.belongs_to :story
+      t.belongs_to :chapter
       t.text :contents, null: false, default: ''
     end
 
-    create_table :trackers do |t|
-      t.belongs_to :story
-      t.belongs_to :template, index: false
-      t.string :name
-    end
-
-    create_table :tracker_versions do |t|
-      t.belongs_to :tracker, index: false
-      t.belongs_to :original
-      t.text :data, default: '{}'
-      t.timestamps
-      t.index %i[ tracker_id created_at ]
-    end
-
-    create_table :tracker_templates do |t|
-      t.string :name, null: false
-      t.belongs_to :creator
-      t.string :type, null: false
+    create_table :track_sheets do |t|
+      t.belongs_to :chapter
       t.text :definition
-      t.timestamps
+    end
+
+    create_table :track_sheet_updates do |t|
+      t.belongs_to :section
+      t.text :definition
     end
   end
 end

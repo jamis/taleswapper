@@ -1,9 +1,0 @@
-<div class="<%= local_assigns[:display] ? "p-2" : "p-0" %> grow bg-blue-50 h-full">
-  <% if local_assigns[:display] %>
-    <div class="markdown -mt-4">
-      <%= md(local_assigns[:value] || element['default'] || element['name']) %>
-    </div>
-  <% else %>
-    <%= tag.textarea(local_assigns[:value] || element['default'] || element['name'], disabled: local_assigns[:readonly], class: "w-full h-full resize-none ring-0 focus:ring-0 px-2 py-1 #{local_assigns[:readonly] ? 'bg-gray-100 border border-gray-200 text-gray-400 cursor-not-allowed' : 'border-0'}") %>
-  <% end %>
-</div>

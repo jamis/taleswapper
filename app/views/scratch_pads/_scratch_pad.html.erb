@@ -8,7 +8,7 @@
     </header>
 
     <main class="bg-yellow-50">
-      <%= form_with model: [ @story, @story.scratch_pad ], data: { scratch_pad_target: "form" } do |f| %>
+      <%= form_with model: [ @chapter, @chapter.scratch_pad ], data: { scratch_pad_target: "form" } do |f| %>
         <%= f.text_area :contents, data: { scratch_pad_target: "text", action: "scratch-pad#autosave" }, class: "border-0 ring-0 focus:ring-0 resize-none w-full h-64 bg-yellow-50 font-mono" %>
       <% end %>
     </main>

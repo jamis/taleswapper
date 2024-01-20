@@ -1,9 +1,0 @@
-<div class="border rounded-xl p-2 indent-0 border-blue-300 bg-blue-50 self-start w-1/2">
-  <% if local_assigns[:display] %>
-    <div class="markdown">
-      <%= md(local_assigns[:value] || element['default']) %>
-    </div>
-  <% else %>
-    <%= tag.textarea(local_assigns[:value] || element['default'], disabled: local_assigns[:readonly], class: "w-full resize-none ring-0 focus:ring-0 px-2 py-1 rounded #{local_assigns[:readonly] ? 'bg-gray-100 border border-gray-200 cursor-not-allowed' : 'border-0'}") %>
-  <% end %>
-</div>

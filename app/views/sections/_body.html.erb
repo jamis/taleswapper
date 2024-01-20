@@ -2,8 +2,4 @@
   <%=md section.contents %>
 </div>
 
-<% if section.tracker_versions.any? %>
-  <div class="mt-4">
-    <%= render "trackers/list", list: section.tracker_versions, display: true %>
-  </div>
-<% end %>
+<%= render section.track_sheet_update if section.track_sheet_update %>

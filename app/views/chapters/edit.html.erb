@@ -2,13 +2,10 @@
   <div class="bg-white text-sm border-b">
     <div class="mx-2 flex flex-row">
       <div class="flex-initial px-2 py-1">
-        <%= link_to "Scratch Pad", story_scratch_pad_path(@story), data: { turbo_stream: true }, class: "ts-link" %>
+        <%= link_to "Scratch Pad", chapter_scratch_pad_path(@chapter), data: { turbo_stream: true }, class: "ts-link" %>
       </div>
       <div class="flex-initial px-2 py-1">
-        <%= link_to "Trackers", story_trackers_path(@story), data: { turbo_stream: true }, class: "ts-link" %>
-      </div>
-      <div class="ml-auto flex-initial px-2 py-1">
-        <%= link_to "Templates", tracker_templates_path, class: "ts-link" %>
+        <%= link_to "Track Sheet", chapter_track_sheet_path(@chapter), data: { turbo_stream: true }, class: "ts-link" %>
       </div>
     </div>
   </div>

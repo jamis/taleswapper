@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
     t.datetime "updated_at", null: false
     t.index ["proposal_id"], name: "index_actions_on_proposal_id"
     t.index ["source_id", "position"], name: "index_actions_on_source_id_and_position", unique: true
+    t.index ["target_id"], name: "index_actions_on_target_id"
   end
 
   create_table "chapters", force: :cascade do |t|
@@ -53,9 +54,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
   end
 
   create_table "scratch_pads", force: :cascade do |t|
-    t.integer "story_id"
+    t.integer "chapter_id"
     t.text "contents", default: "", null: false
-    t.index ["story_id"], name: "index_scratch_pads_on_story_id"
+    t.index ["chapter_id"], name: "index_scratch_pads_on_chapter_id"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -79,37 +80,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
     t.index ["creator_id"], name: "index_stories_on_creator_id"
   end
 
+  create_table "track_sheet_updates", force: :cascade do |t|
+    t.integer "section_id"
+    t.text "definition"
+    t.index ["section_id"], name: "index_track_sheet_updates_on_section_id"
+  end
+
+  create_table "track_sheets", force: :cascade do |t|
+    t.integer "chapter_id"
+    t.text "definition"
+    t.index ["chapter_id"], name: "index_track_sheets_on_chapter_id"
+  end
+
   create_table "tracker_instances", force: :cascade do |t|
     t.integer "section_id"
     t.integer "tracker_version_id"
     t.index ["section_id"], name: "index_tracker_instances_on_section_id"
-  end
-
-  create_table "tracker_templates", force: :cascade do |t|
-    t.string "name", null: false
-    t.integer "creator_id"
-    t.string "type", null: false
-    t.text "definition"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["creator_id"], name: "index_tracker_templates_on_creator_id"
-  end
-
-  create_table "tracker_versions", force: :cascade do |t|
-    t.integer "tracker_id"
-    t.integer "original_id"
-    t.text "data", default: "{}"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["original_id"], name: "index_tracker_versions_on_original_id"
-    t.index ["tracker_id", "created_at"], name: "index_tracker_versions_on_tracker_id_and_created_at"
-  end
-
-  create_table "trackers", force: :cascade do |t|
-    t.integer "story_id"
-    t.integer "template_id"
-    t.string "name"
-    t.index ["story_id"], name: "index_trackers_on_story_id"
   end
 
   create_table "users", force: :cascade do |t|

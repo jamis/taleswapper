@@ -1,8 +1,0 @@
-<div class="whitespace-nowrap border rounded-xl p-2 mr-1 mb-2 indent-0 border-blue-300 bg-blue-50 inline-block">
-  <%= element['name'] %>
-  <% if local_assigns[:display] %>
-    <%= local_assigns[:value] || element['default'] %>
-  <% else %>
-    <%= tag.input type: "text", value: local_assigns[:value] || element['default'], disabled: local_assigns[:readonly], class: "w-24 p-0 ml-1 text-center border-blue-200 #{local_assigns[:readonly] ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : nil}" %>
-  <% end %>
-</div>

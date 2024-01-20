@@ -1,0 +1,7 @@
+<% if track_sheet_update.any? %>
+  <div class="mt-4">
+    <% each_update_entry(track_sheet_update) do |sheet, entry| %>
+      <%= render_track_sheet_update_entry(sheet, entry) %>
+    <% end %>
+  </div>
+<% end %>
