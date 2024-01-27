@@ -14,12 +14,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
   create_table "actions", force: :cascade do |t|
     t.integer "source_id"
     t.integer "target_id"
-    t.integer "proposal_id"
     t.string "prompt", null: false
     t.integer "position", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["proposal_id"], name: "index_actions_on_proposal_id"
     t.index ["source_id", "position"], name: "index_actions_on_source_id_and_position", unique: true
     t.index ["target_id"], name: "index_actions_on_target_id"
   end
@@ -34,23 +32,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
     t.index ["story_id"], name: "index_chapters_on_story_id"
   end
 
-  create_table "proposals", force: :cascade do |t|
-    t.integer "chapter_id"
-    t.text "contents", null: false
-    t.string "status", default: "pending", null: false
-    t.text "reason"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["chapter_id"], name: "index_proposals_on_chapter_id"
-  end
-
-  create_table "proposers", force: :cascade do |t|
-    t.integer "proposal_id"
+  create_table "comments", force: :cascade do |t|
+    t.string "commentable_type"
+    t.integer "commentable_id"
     t.integer "user_id"
+    t.text "contents", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["proposal_id"], name: "index_proposers_on_proposal_id"
-    t.index ["user_id"], name: "index_proposers_on_user_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "scratch_pads", force: :cascade do |t|
@@ -90,12 +80,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
     t.integer "chapter_id"
     t.text "definition"
     t.index ["chapter_id"], name: "index_track_sheets_on_chapter_id"
-  end
-
-  create_table "tracker_instances", force: :cascade do |t|
-    t.integer "section_id"
-    t.integer "tracker_version_id"
-    t.index ["section_id"], name: "index_tracker_instances_on_section_id"
   end
 
   create_table "users", force: :cascade do |t|

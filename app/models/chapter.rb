@@ -3,6 +3,7 @@ class Chapter < ApplicationRecord
 
   has_many :sections
   has_many :track_sheet_updates, through: :sections
+  has_many :comments, as: :commentable
 
   has_many :actions, foreign_key: :source_id
 

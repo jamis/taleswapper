@@ -35,24 +35,16 @@ class Setup < ActiveRecord::Migration[7.1]
       t.index %i[ chapter_id position ], unique: true
     end
 
-    create_table :proposals do |t|
-      t.belongs_to :chapter
-      t.text :contents, null: false
-      t.string :status, null: false, default: 'pending'
-      t.text :reason
-      t.timestamps
-    end
-
-    create_table :proposers do |t|
-      t.belongs_to :proposal
+    create_table :comments do |t|
+      t.belongs_to :commentable, polymorphic: true
       t.belongs_to :user
+      t.text :contents, null: false, default: ''
       t.timestamps
     end
 
     create_table :actions do |t|
       t.belongs_to :source, index: false
       t.belongs_to :target
-      t.belongs_to :proposal
       t.string :prompt, null: false
       t.integer :position, null: false, default: 0
       t.timestamps

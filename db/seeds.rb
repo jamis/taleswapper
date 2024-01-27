@@ -17,7 +17,7 @@ story = jamis.stories.create!(
           subtitle: 'An Ironsworn Actual-Play',
           description: 'This is just me, playing Ironsworn. I\'ll update this description when I know more about where the story is going.')
 
-setup = story.chapters.create!(published_at: Time.now, title: 'Session Zero')
+setup = story.chapters.create!(published_at: Time.now, title: 'Session Zero', interactive: true)
 
 setup.sections << Section.new(role: 'full',
   track_sheet_update_attributes: {
@@ -161,9 +161,14 @@ those places. In the depths of the long-night...only fools venture beyond \
 their homes."
 CONTENTS
 
+setup.comments.create!(user: reader, contents: <<~COMMENT)
+  I'm so excited! I can't wait to see where this goes. Ironsworn is,
+  like, my favorite RPG. So much flavor!
+COMMENT
+
 beginning = setup.add_sequel(
               action: { prompt: "The story begins" },
-              chapter: { title: 'Chapter One', interactive: true })
+              chapter: { title: 'Chapter One', interactive: false })
 
 beginning.scratch_pad.update(contents: <<~CONTENTS)
   Lieutenant: Artiga (fevant, "refute a falsehood")

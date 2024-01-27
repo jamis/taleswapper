@@ -2,6 +2,7 @@ class Story < ApplicationRecord
   belongs_to :creator, class_name: 'User'
 
   has_many :chapters
+  has_many :comments, as: :commentable
 
   scope :active, -> { where(archived_at: nil) }
   scope :archived, -> { where.not(archived_at: nil) }

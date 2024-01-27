@@ -43,24 +43,8 @@
 
     <% if editable_story? %>
       <li class="my-4">[ <%= link_to "What happens next?", new_story_chapter_path(@story), class: "ts-link" %> ]</li>
-    <% elsif @chapter.interactive? && Current.user.present? %>
-      <li class="mt-4">
-        &rarr;
-        <% if @chapter.actions.any? %>
-          Think the story should go a different direction?
-        <% else %>
-          Have an idea for what should happen next?
-        <% end %>
-        <a href="#" class="ts-link">Let the author know!</a>
-      </li>
-      <li>
-        <p class="mt-4">Note that the following suggestions have already been declined by the author:</p>
-        <ul class="ml-8 mt-4">
-          <li class="italic">Monster appears and attacks. ("Too much action, too soon.")</li>
-          <li class="italic">Aliens. ("Not the kind of story I want to tell.")</li>
-          <li class="italic">Oden, enraged, attacks Inka. ("This isn't who I imagine Oden to be.")</li>
-        </ul>
-      </li>
     <% end %>
   </ul>
+
+  <%= render 'comments/list', commentable: @chapter %>
 </div>
