@@ -1,9 +1,9 @@
-<div class="flex-col">
+<div class="max-w-lg min-w-min mx-auto mt-28 flex-col">
   <h1 class="text-2xl font-bold">Sign In</h1>
 
   <%= form_with url: session_path, scope: :session do |f| %>
     <div class="mt-4 grid grid-cols-4 gap-4 items-center">
-      <div><label for="session_email_address">E-mail Address:</label></div>
+      <div><label for="session_email_address">E-mail:</label></div>
       <div class="col-span-3"><%= f.text_field :email_address, class: "w-full" %></div>
       <div><label for="session_password">Password:</label></div>
       <div class="col-span-3"><%= f.password_field :password, class: "w-full" %></div>

@@ -3,6 +3,11 @@
   text-decoration: underline;
 }
 
+.ts-link--white {
+  color: white;
+  text-decoration: underline;
+}
+
 .ts-cancel {
   color: red;
   text-decoration: underline;

@@ -5,7 +5,7 @@ class ChaptersController < ApplicationController
   before_action :find_story, only: %i[ new create ]
 
   def new
-    @chapter = @story.chapters.build(role: params[:role], sections: [ Section.new ])
+    @chapter = @story.chapters.build(sections: [ Section.new ])
   end
 
   def update
@@ -14,7 +14,7 @@ class ChaptersController < ApplicationController
   end
 
   def create
-    @chapter = @story.chapters.create(chapter_params)
+    @chapter = @story.chapters.create!(chapter_params)
     redirect_to @chapter
   end
 
@@ -41,6 +41,6 @@ class ChaptersController < ApplicationController
   end
 
   def chapter_params
-    params.require(:chapter).permit(:title, :interactive, :published, :role, sections_attributes: %w[ _destroy id role position contents ])
+    params.require(:chapter).permit(:title, :interactive, :published, :role, sections_attributes: {})
   end
 end

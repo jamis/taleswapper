@@ -15,6 +15,8 @@ module TrackSheetUpdateHelper
       render_track_sheet_update_update(sheet, entry)
     when 'delete'
       render_track_sheet_update_delete(sheet, entry)
+    when 'noop'
+      # do nothing, no-op
     else raise ArgumentError, "unsupported entry action #{entry['action'].inspect}"
     end
   end
@@ -33,6 +35,18 @@ module TrackSheetUpdateHelper
 
   def is_namespace?(value)
     !value.key?('_type')
+  end
+
+  def compact_namespace(name, value)
+    chain = [ name ]
+
+    while value.length == 1 && is_namespace?(value.values.first)
+      name = value.keys.first
+      value = value[name]
+      chain << name
+    end
+
+    [ chain, value ]
   end
 
   private

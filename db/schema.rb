@@ -82,7 +82,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
 
   create_table "track_sheet_updates", force: :cascade do |t|
     t.integer "section_id"
-    t.text "definition"
+    t.text "data"
     t.index ["section_id"], name: "index_track_sheet_updates_on_section_id"
   end
 

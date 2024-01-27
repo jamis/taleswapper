@@ -35,11 +35,6 @@ class Setup < ActiveRecord::Migration[7.1]
       t.index %i[ chapter_id position ], unique: true
     end
 
-    create_table :tracker_instances do |t|
-      t.belongs_to :section
-      t.belongs_to :tracker_version, index: false
-    end
-
     create_table :proposals do |t|
       t.belongs_to :chapter
       t.text :contents, null: false
@@ -76,7 +71,7 @@ class Setup < ActiveRecord::Migration[7.1]
 
     create_table :track_sheet_updates do |t|
       t.belongs_to :section
-      t.text :definition
+      t.text :data
     end
   end
 end

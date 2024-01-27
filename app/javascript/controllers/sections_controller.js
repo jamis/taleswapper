@@ -30,7 +30,7 @@ export default class extends Controller {
     this.checkMany();
 
     this.sections.forEach((section, index) => {
-      this.renumberSection(section, index);
+      this.renumberSection(section, index + 1);
     });
   }
 
@@ -40,17 +40,17 @@ export default class extends Controller {
 
     // rewrite the names
     for (let element of named) {
-      let name = this.baseNameOf(element);
-      let fullName = `chapter[sections_attributes][${position}][${name}]`;
-      element.name = fullName;
+      let name = element.name;
 
-      if (name == "position") element.value = position;
+      if (name.match(/^template/))
+        name = name.replace(/^template/, `chapter[sections_attributes][${position}]`);
+      else
+        name = name.replace(/\[sections_attributes\]\[\d+\]/, `[sections_attributes][${position}]`);
+
+      element.name = name;
+
+      if (name.match(/\[position\]/)) element.value = position;
     }
-  }
-
-  baseNameOf(element) {
-    let tail = element.name.match(/\[(\w+)\]$/);
-    return tail[1];
   }
 
   findTarget(event) {

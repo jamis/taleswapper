@@ -13,22 +13,25 @@
 
   <body>
     <header class="fixed top-0 w-full">
-      <div class="w-full px-5 py-2 flex justify-end bg-blue-200 border-solid border-b border-blue-400">
-        <% if authenticated? %>
-          Hello, <%= Current.user.display_name %>.
-          <span class="mx-4">|</span>
-          <%= form_with url: session_path, method: :delete do |form| %>
-            <%= form.submit "Sign out", class: "ts-link cursor-pointer" %>
+      <div class="px-5 py-2 flex flex-row bg-blue-700 text-white border-solid border-b border-black items-baseline">
+        <h1 class="text-lg font-bold">Taleswapper</h1>
+        <div class="flex flex-row items-baseline ml-auto">
+          <% if authenticated? %>
+            Hello, <%= Current.user.display_name %>
+            <span class="mx-4">|</span>
+            <%= form_with url: session_path, method: :delete do |form| %>
+              <%= form.submit "Sign out", class: "ts-link--white cursor-pointer" %>
+            <% end %>
+          <% else %>
+            <%= link_to "Sign in", new_session_path, class: "ts-link--white" %>
           <% end %>
-        <% else %>
-          <%= link_to "Sign in", new_session_path, class: "ts-link" %>
-        <% end %>
+        </div>
       </div>
       <%= yield :subheader %>
     </header>
 
+    <%= yield %>
     <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
     </main>
   </body>
 </html>

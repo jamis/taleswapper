@@ -1,40 +1,59 @@
-<div class="flex-col mb-16">
-  <div class="my-4">
-    &larr; <%= link_to @story.title, story_path(@story), class: "ts-link" %>
+<div class="bg-blue-200 pt-28 border-b border-blue-300">
+  <div class="container mx-auto flex flex-col">
+    <%= link_to @story.title, story_path(@story), class: "text-lg font-bold ts-link" %>
+    <% if @chapter.title.present? || Current.user == @story.creator %>
+      <div class="flex flex-row items-baseline">
+        <% if @chapter.title.present? %>
+          <h1 class="text-2xl font-bold"><%= @chapter.title %></h1>
+        <% end %>
+        <% if Current.user == @story.creator %>
+          <span class="ml-2">
+            [
+              <%= link_to "Edit", edit_chapter_path(@chapter), class: "ts-link" %> |
+              <%= form_with url: chapter_path(@chapter), method: :delete, data: { turbo_confirm: "Really delete this chapter?" }, class: "inline" do |f| %>
+                <%= f.submit "Delete", class: "ts-link cursor-pointer" %>
+              <% end %>
+            ]
+          </span>
+        <% end %>
+      </div>
+    <% end %>
   </div>
+</div>
 
-  <% if @chapter.title.present? || Current.user == @story.creator %>
-    <div class="flex flex-row items-baseline my-4">
-      <% if @chapter.title.present? %>
-        <h1 class="text-2xl font-bold"><%= @chapter.title %></h1>
-      <% end %>
-      <% if Current.user == @story.creator %>
-        <span class="ml-2">
-          [
-            <%= link_to "Edit", edit_chapter_path(@chapter), class: "ts-link" %> |
-            <%= form_with url: chapter_path(@chapter), method: :delete, data: { turbo_confirm: "Really delete this chapter?" }, class: "inline" do |f| %>
-              <%= f.submit "Delete", class: "ts-link cursor-pointer" %>
-            <% end %>
-          ]
-        </span>
-      <% end %>
-    </div>
-  <% end %>
+<% if @chapter.prior_chapter.present? %>
+<div class="bg-blue-100">
+  <div class="container mx-auto italic py-1 text-sm">
+    Flip back to <%= link_to(@chapter.prior_chapter.title.presence || 'the previous chapter', @chapter.prior_chapter, class: 'ts-link') %>
+  </div>
+</div>
+<% end %>
 
+<div class="container mx-auto flex-col mb-16">
   <%= render @chapter.sections %>
 
-  <ul class="mt-8 ml-8">
+  <ul class="mt-4 pt-4 border-t">
+    <% if @chapter.actions.none? %>
+      <li class="italic">That's all for now, but stay tuned! <%= @story.creator.display_name %> could post more at any time.</li>
+    <% end %>
+
     <% @chapter.actions.each do |action| %>
       <li>&rarr; <%= link_to action.prompt, chapter_path(action.target), class: "ts-link" %></li>
     <% end %>
 
     <% if editable_story? %>
-      <li class="my-4">[ <%= link_to "Add a chapter here", new_story_chapter_path(@chapter), class: "ts-link" %> ]</li>
-    <% end %>
-
-    <% if @chapter.interactive? && Current.user.present? %>
+      <li class="my-4">[ <%= link_to "What happens next?", new_story_chapter_path(@story), class: "ts-link" %> ]</li>
+    <% elsif @chapter.interactive? && Current.user.present? %>
+      <li class="mt-4">
+        &rarr;
+        <% if @chapter.actions.any? %>
+          Think the story should go a different direction?
+        <% else %>
+          Have an idea for what should happen next?
+        <% end %>
+        <a href="#" class="ts-link">Let the author know!</a>
+      </li>
       <li>
-        <p class="mt-4">Propose an alternative. What happens next?</p>
         <p class="mt-4">Note that the following suggestions have already been declined by the author:</p>
         <ul class="ml-8 mt-4">
           <li class="italic">Monster appears and attacks. ("Too much action, too soon.")</li>

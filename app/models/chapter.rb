@@ -2,8 +2,12 @@ class Chapter < ApplicationRecord
   belongs_to :story
 
   has_many :sections
-  has_many :actions, foreign_key: :source_id
   has_many :track_sheet_updates, through: :sections
+
+  has_many :actions, foreign_key: :source_id
+
+  has_one  :prior_action, class_name: 'Action', foreign_key: :target_id
+  has_one  :prior_chapter, through: :prior_action, source: :source
 
   has_one :scratch_pad
   has_one :track_sheet

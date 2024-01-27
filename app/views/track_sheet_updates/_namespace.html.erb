@@ -9,6 +9,7 @@
           <% if is_namespace?(value) %>
             <% if mode == :element %></div><% end %>
             <% mode = nil %>
+            <% name, value = compact_namespace(name, value) %>
             <%= render 'track_sheet_updates/namespace', name: name, children: value %>
           <% else %>
             <% if mode != :element %>

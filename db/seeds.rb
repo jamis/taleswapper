@@ -5,22 +5,19 @@ jamis = User.create!(email_address: 'jamis@jamisbuck.org',
                      password: 'password',
                      password_confirmation: 'password')
 
+reader = User.create!(email_address: 'reader@elsewhere.com',
+                     display_name: 'Reader Joe',
+                     password: 'password',
+                     password_confirmation: 'password')
+
 tracker = {}
 
 story = jamis.stories.create!(
-          title: 'An Ironsworn Actual Play',
-          subtitle: nil,
+          title: "Wulan's Blade",
+          subtitle: 'An Ironsworn Actual-Play',
           description: 'This is just me, playing Ironsworn. I\'ll update this description when I know more about where the story is going.')
 
 setup = story.chapters.create!(published_at: Time.now, title: 'Session Zero')
-
-setup.scratch_pad.update(contents: <<~CONTENTS)
-  Lieutenant: Artiga (fevant, "refute a falsehood")
-
-  Other members of the band:
-  * Kuron ("infamous", terrible singer)
-  * Valeri ("wary")
-CONTENTS
 
 setup.sections << Section.new(role: 'full',
   track_sheet_update_attributes: {
@@ -165,8 +162,16 @@ their homes."
 CONTENTS
 
 beginning = setup.add_sequel(
-              action: { prompt: "Start chapter one" },
-              chapter: { title: 'Chapter One' })
+              action: { prompt: "The story begins" },
+              chapter: { title: 'Chapter One', interactive: true })
+
+beginning.scratch_pad.update(contents: <<~CONTENTS)
+  Lieutenant: Artiga (fevant, "refute a falsehood")
+
+  Other members of the band:
+  * Kuron ("infamous", terrible singer)
+  * Valeri ("wary")
+CONTENTS
 
 beginning.sections << Section.new(contents: <<-CONTENTS.rstrip)
 I dine with my warband this night. They are raucous and coarse, as \
