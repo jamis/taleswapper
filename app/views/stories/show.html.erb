@@ -32,4 +32,6 @@
 
     <%= render_contents(@story) %>
   <% end %>
+
+  <%= render 'comments/list', commentable: @story %>
 </div>

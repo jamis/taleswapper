@@ -13,6 +13,7 @@ class Setup < ActiveRecord::Migration[7.1]
       t.string     :title, null: false
       t.string     :subtitle
       t.text       :description
+      t.boolean    :interactive, default: false
       t.belongs_to :creator, null: false
       t.timestamps
       t.datetime   :archived_at

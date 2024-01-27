@@ -63,6 +63,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
     t.string "title", null: false
     t.string "subtitle"
     t.text "description"
+    t.boolean "interactive", default: false
     t.integer "creator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

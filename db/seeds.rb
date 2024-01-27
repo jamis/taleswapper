@@ -15,7 +15,8 @@ tracker = {}
 story = jamis.stories.create!(
           title: "Wulan's Blade",
           subtitle: 'An Ironsworn Actual-Play',
-          description: 'This is just me, playing Ironsworn. I\'ll update this description when I know more about where the story is going.')
+          description: 'This is just me, playing Ironsworn. I\'ll update this description when I know more about where the story is going.',
+          interactive: true)
 
 setup = story.chapters.create!(published_at: Time.now, title: 'Session Zero', interactive: true)
 
