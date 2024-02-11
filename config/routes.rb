@@ -12,12 +12,15 @@ Rails.application.routes.draw do
   resources :stories do
     resources :chapters, only: %i[ new create ]
     resources :comments, only: %i[ create ]
+    resources :sequels, only: %i[ new create ]
   end
 
   resources :chapters do
     resource :scratch_pad
+    resource :outline
     resource :track_sheet
     resources :comments, only: %i[ create ]
+    resources :sequels, only: %i[ new create ]
   end
 
   root "creators#index"

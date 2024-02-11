@@ -1,0 +1,16 @@
+<div data-controller="scratch-pad" data-action="keydown.esc->scratch-pad#close:prevent">
+  <div class="fixed top-0 left-0 w-full h-screen bg-black opacity-20"></div>
+
+  <div class="fixed shadow-md bg-white rounded-xl border border-blue-300 w-1/2 left-1/4 top-20 overflow-hidden">
+    <header class="flex flex-row w-full px-4 py-2 bg-blue-100 border-b border-blue-300">
+      <h1 class="font-bold">Outline</h1>
+      <a class="ml-auto ts-link" href="#" data-action="scratch-pad#close:prevent">close</a>
+    </header>
+
+    <main class="bg-blue-50">
+      <%= form_with model: [ @chapter, @chapter.outline ], data: { scratch_pad_target: "form" } do |f| %>
+        <%= f.text_area :contents, data: { scratch_pad_target: "text", action: "scratch-pad#autosave" }, class: "border-0 ring-0 focus:ring-0 resize-none w-full h-64 bg-blue-50 font-mono" %>
+      <% end %>
+    </main>
+  </div>
+</div>

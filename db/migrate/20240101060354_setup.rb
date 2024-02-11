@@ -46,13 +46,26 @@ class Setup < ActiveRecord::Migration[7.1]
     create_table :actions do |t|
       t.belongs_to :source, index: false
       t.belongs_to :target
-      t.string :prompt, null: false
+      t.string :prompt
       t.integer :position, null: false, default: 0
       t.timestamps
       t.index %i[ source_id position ], unique: true
     end
 
+    # scratch pads are for tracking notes between chapters,
+    # noting plots and characters, etc. These carry over
+    # from the previous chapter. These are not shown to
+    # readers.
     create_table :scratch_pads do |t|
+      t.belongs_to :chapter
+      t.text :contents, null: false, default: ''
+    end
+
+    # outlines are for sketching out the shape of a chapter
+    # before polishing it for publication. It's the "play"
+    # part of the game. These do not carry over from previous
+    # chapters.
+    create_table :outlines do |t|
       t.belongs_to :chapter
       t.text :contents, null: false, default: ''
     end

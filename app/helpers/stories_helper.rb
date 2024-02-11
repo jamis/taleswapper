@@ -1,8 +1,9 @@
 module StoriesHelper
   def render_contents(story)
     table_of_contents = []
+    restricted = Current.user != story.creator
 
-    story.walk_chapters do |action, chapter|
+    story.walk_chapters(restricted: restricted) do |action, chapter|
       case action
       when :open        then table_of_contents << open_toc
       when :close       then table_of_contents << close_toc

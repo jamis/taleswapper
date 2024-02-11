@@ -1,6 +1,6 @@
 class Section < ApplicationRecord
   belongs_to :chapter
-  has_one :track_sheet_update
+  has_one :track_sheet_update, dependent: :destroy
 
   accepts_nested_attributes_for :track_sheet_update
 

@@ -167,12 +167,10 @@ setup.comments.create!(user: reader, contents: <<~COMMENT)
   like, my favorite RPG. So much flavor!
 COMMENT
 
-beginning = setup.add_sequel(
-              action: { prompt: "The story begins" },
-              chapter: { title: 'Chapter One', interactive: false })
+beginning = story.chapters.create(title: 'Chapter One', interactive: false, prequel: setup)
 
 beginning.scratch_pad.update(contents: <<~CONTENTS)
-  Lieutenant: Artiga (fevant, "refute a falsehood")
+  Lieutenant: Artiga (fervent, "refute a falsehood")
 
   Other members of the band:
   * Kuron ("infamous", terrible singer)
@@ -393,3 +391,20 @@ Artiga looks anxiously to me, and I nod again.
 
 "It is done," I say. "Let us return and start making preparations."
 CONTENTS
+
+untitled = story.chapters.create(interactive: false, prequel: beginning)
+untitled.outline.update(contents: <<-OUTLINE.rstrip)
+Hmm. So, he's sticking around to help prepare the villagers. Prepare \
+them for what, exactly? Is it worth playing some montage scenes from \
+this to find out?
+OUTLINE
+
+# Okay, at this point, Wulan knows he's going. It's a done deal. He has to train
+# the villagers, but... is that a thing we need to play? I think we only play it
+# if there's a chance of something going wrong.
+#
+# You know, it actually might make sense for there to be an encounter of some
+# sort with whatever is threatening the villagers. Maybe Wulan fights them one
+# more time before heading off, pushing them back and giving the villagers a bit
+# more breathing space? It'll show the reader what the stakes are, *and* give us
+# a chance to try Wulan and his band in a battle. I like that.

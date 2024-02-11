@@ -22,7 +22,7 @@
       <p>You haven't added any chapters to this story yet.</p>
       <p>
         You can
-        <%= link_to "add your first chapter now", new_story_chapter_path(@story), class: "ts-link" %>.
+        <%= link_to "add your first chapter now", new_story_sequel_path(@story), class: "ts-link" %>.
       </p>
     </div>
   <% else %>
@@ -31,6 +31,19 @@
     </div>
 
     <%= render_contents(@story) %>
+  <% end %>
+
+  <% if editable_story? %>
+    <div data-controller="draft-list" data-draft-list-key-value="<%= dom_id(@story) %>" class="my-4">
+      <h2 class="font-bold text-lg mt-4">Pending Drafts</h2>
+
+      <template data-draft-list-target="template">
+        <li><%= link_to "", new_story_sequel_path(@story), class: "ts-link" %></li>
+      </template>
+
+      <ul data-draft-list-target="list" class="list-disc mt-2 ml-8">
+      </ul>
+    </div>
   <% end %>
 
   <%= render 'comments/list', commentable: @story %>

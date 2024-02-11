@@ -1,0 +1,21 @@
+<div class="py-2 px-4 bg-white max-h-[75vh] overflow-y-scroll">
+  <% if track_sheet.definition.empty? %>
+    No track sheet has been defined, yet.
+  <% else %>
+    <% mode = nil %>
+    <% track_sheet.definition.each do |name, value| %>
+      <% if is_namespace?(value) %>
+        <% if mode == :element %></div><% end %>
+        <% mode = nil %>
+        <% name, value = compact_namespace(name, value) %>
+        <%= render 'track_sheet_updates/namespace', name: name, children: value %>
+      <% else %>
+        <% if mode != :element %>
+          <div class="flex flex-row flex-wrap gap-2">
+          <% mode = :element %>
+        <% end %>
+        <%= render_track_sheet_element(name, value['_type'], value['value']) %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

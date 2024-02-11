@@ -5,6 +5,8 @@
       <div class="flex flex-row items-baseline">
         <% if @chapter.title.present? %>
           <h1 class="text-2xl font-bold"><%= @chapter.title %></h1>
+        <% else %>
+          <h1 class="text-2xl font-bold text-blue-300">Untitled</h1>
         <% end %>
         <% if Current.user == @story.creator %>
           <span class="ml-2">
@@ -33,18 +35,38 @@
   <%= render @chapter.sections %>
 
   <ul class="mt-4 pt-4 border-t">
-    <% if @chapter.actions.none? %>
+    <% if !editable_story? && visible_sequels(@chapter).none? %>
       <li class="italic">That's all for now, but stay tuned! <%= @story.creator.display_name %> could post more at any time.</li>
     <% end %>
 
-    <% @chapter.actions.each do |action| %>
+    <% visible_sequels(@chapter).each do |action| %>
       <li>&rarr; <%= link_to action.prompt, chapter_path(action.target), class: "ts-link" %></li>
     <% end %>
 
     <% if editable_story? %>
-      <li class="my-4">[ <%= link_to "What happens next?", new_story_chapter_path(@story), class: "ts-link" %> ]</li>
+      <li>
+        <% if @chapter.actions.any? %>
+          &rarr;
+          Or, branch your story from here. <%= link_to "Write an alternative chapter.", new_chapter_sequel_path(@chapter), class: "ts-link" %>
+        <% else %>
+          Continue your story from here. <%= link_to "Add the next chapter.", new_chapter_sequel_path(@chapter), class: "ts-link" %>
+        <% end %>
+      </li>
     <% end %>
   </ul>
+
+  <% if editable_story? %>
+    <div data-controller="draft-list" data-draft-list-key-value="<%= dom_id(@chapter) %>" class="my-4">
+      <h2 class="font-bold text-lg mt-4">Sequel Drafts</h2>
+
+      <template data-draft-list-target="template">
+        <li><%= link_to "", new_chapter_sequel_path(@chapter), class: "ts-link" %></li>
+      </template>
+
+      <ul data-draft-list-target="list" class="list-disc mt-2 ml-8">
+      </ul>
+    </div>
+  <% end %>
 
   <%= render 'comments/list', commentable: @chapter %>
 </div>

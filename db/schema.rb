@@ -14,7 +14,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
   create_table "actions", force: :cascade do |t|
     t.integer "source_id"
     t.integer "target_id"
-    t.string "prompt", null: false
+    t.string "prompt"
     t.integer "position", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -41,6 +41,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "outlines", force: :cascade do |t|
+    t.integer "chapter_id"
+    t.text "contents", default: "", null: false
+    t.index ["chapter_id"], name: "index_outlines_on_chapter_id"
   end
 
   create_table "scratch_pads", force: :cascade do |t|

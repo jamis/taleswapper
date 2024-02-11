@@ -1,5 +1,22 @@
 <div class="container mx-auto mt-24 flex-col w-full">
   <h1 class="text-2xl font-bold">New Chapter</h1>
 
-  <%= render 'form', chapter: @chapter %>
+  <p class="my-2 text-small">
+    This is the chapter outline. It's great for taking notes as you play
+    your game, or sketching out ideas for how you want your story to go. Once you're
+    ready to start writing the chapter itself, click "next."
+  </p>
+
+  <%= form_with model: [ @chapter.story, @chapter ] do |f| %>
+    <%= f.fields_for :outline, f.object.outline || f.object.build_outline, skip_default_ids: true do |t| %>
+      <%= t.hidden_field :id if t.object.persisted? %>
+      <%= t.text_area :contents, class: 'focus:outline-none focus:ring-0 border-1 rounded-lg w-full overflow-hidden resize-none font-mono text-sm px-4 py-2 mt-2', data: { controller: 'textarea-resize', textarea_resize_min_height_value: 288, action: 'textarea-resize#resize' } %>
+    <% end %>
+  <% end %>
+
+  <div class="mt-4 mb-12">
+    <%= f.submit "Next", class: "rounded bg-blue-100 hover:bg-blue-300 px-4 py-2" %>
+    <span class="mx-1">or</span>
+    <%= link_to "Cancel", story_path(@chapter.story), class: "ts-cancel" %>
+  </div>
 </div>
