@@ -43,15 +43,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "outlines", force: :cascade do |t|
-    t.integer "chapter_id"
-    t.text "contents", default: "", null: false
-    t.index ["chapter_id"], name: "index_outlines_on_chapter_id"
-  end
-
   create_table "scratch_pads", force: :cascade do |t|
     t.integer "chapter_id"
+    t.string "type", null: false
     t.text "contents", default: "", null: false
+    t.integer "position", default: 0, null: false
     t.index ["chapter_id"], name: "index_scratch_pads_on_chapter_id"
   end
 
@@ -62,7 +58,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
     t.integer "position", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["chapter_id", "position"], name: "index_sections_on_chapter_id_and_position", unique: true
+    t.index ["chapter_id", "position"], name: "index_sections_on_chapter_id_and_position"
   end
 
   create_table "stories", force: :cascade do |t|

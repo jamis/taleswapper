@@ -20,11 +20,11 @@
     <%= form.text_area :contents, class: 'focus:outline-none focus:ring-0 border rounded-lg w-full overflow-hidden resize-none font-mono text-sm px-4 py-2 mt-2', data: { controller: 'textarea-resize', textarea_resize_min_height_value: 288, sequel_target: 'field', action: 'textarea-resize#resize sequel#snapshot' } %>
 
     <%= dialog title: "Scratch Pad", start: :closed, color: :yellow, id: 'scratchPad' do %>
-      <%= form.text_area :scratch_pad, class: "border-0 ring-0 focus:ring-0 resize-none w-full h-64 bg-yellow-50 font-mono", data: { sequel_target: 'field', action: 'sequel#snapshot' } %>
+      <%= form.text_area :scratch_pad, class: "border-0 ring-0 focus:ring-0 resize-none w-full h-64 bg-yellow-50 text-sm font-mono", data: { sequel_target: 'field', action: 'sequel#snapshot' } %>
     <% end %>
 
     <%= dialog title: "Track Sheet", start: :closed, color: :blue, id: 'trackSheet' do %>
-      <%= render @chapter.track_sheet %>
+      <%= render TrackSheet.new(definition: @chapter.final_track_sheet) %>
     <% end %>
 
     <div class="text-sm mt-1">

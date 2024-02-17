@@ -2,10 +2,10 @@
   <div class="bg-white text-sm border-b">
     <div class="mx-2 flex flex-row">
       <div class="flex-initial px-2 py-1">
-        <%= link_to "Scratch Pad", chapter_scratch_pad_path(@chapter), data: { turbo_stream: true }, class: "ts-link" %>
+        <%= link_to "Story Notes", scratch_pad_path(@chapter.story_notes), data: { turbo_stream: true }, class: "ts-link" %>
       </div>
       <div class="flex-initial px-2 py-1">
-        <%= link_to "Outline", chapter_outline_path(@chapter), data: { turbo_stream: true }, class: "ts-link" %>
+        <%= link_to "Outline", scratch_pad_path(@chapter.outline), data: { turbo_stream: true }, class: "ts-link" %>
       </div>
       <div class="flex-initial px-2 py-1">
         <%= link_to "Track Sheet", chapter_track_sheet_path(@chapter), data: { turbo_stream: true }, class: "ts-link" %>

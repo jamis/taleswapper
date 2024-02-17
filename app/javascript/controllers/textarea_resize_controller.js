@@ -15,9 +15,13 @@ export default class extends Controller {
   }
 
   resize() {
+    let saved = window.scrollY;
+
     this.element.style.height = "1px";
     let currentHeight = Math.max(this.minHeightValue, this.element.scrollHeight);
     this.element.style.height = currentHeight + "px";
+
+    window.scroll(window.scrollX, saved);
   }
 
   registerResizeObserver() {

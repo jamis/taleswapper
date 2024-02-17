@@ -3,13 +3,13 @@ class Chapter::Sequel
 
   attr_accessor :uuid
   attr_accessor :contents
-  attr_accessor :scratch_pad
+  attr_accessor :story_notes
 
   def self.from_chapter(chapter, uuid = nil)
-    new(uuid: uuid, contents: '', scratch_pad: chapter.scratch_pad.contents)
+    new(uuid: uuid, contents: '', story_notes: chapter.story_notes.contents)
   end
 
   def self.from_scratch(uuid = nil)
-    new(uuid: uuid, contents: '', scratch_pad: '')
+    new(uuid: uuid, contents: '', story_notes: '')
   end
 end

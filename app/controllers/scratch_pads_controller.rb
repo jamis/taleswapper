@@ -1,20 +1,26 @@
 class ScratchPadsController < ApplicationController
   before_action :require_authentication
-  before_action :find_chapter
+  before_action :find_scratch_pad
 
   def update
-    @chapter.scratch_pad.update!(scratch_pad_params)
+    @scratch_pad.update!(scratch_pad_params)
     head :no_content
   end
 
   private
 
-  def find_chapter
-    @chapter = Chapter.find(params[:chapter_id])
-    @story = Current.user.stories.find(@chapter.story_id)
+  def find_scratch_pad
+    @scratch_pad = ScratchPad.find(params[:id])
+
+    # make sure the scratch pad belongs to the user
+    chapter = Current.user.stories.joins(:chapters)
+                     .where(chapters: { id: @scratch_pad.chapter_id })
+                     .first
+
+    raise ActiveRecord::RecordNotFound unless chapter
   end
 
   def scratch_pad_params
-    params.require(:scratch_pad).permit(:contents)
+    params.require(:scratch_pad).permit(:contents, :position)
   end
 end

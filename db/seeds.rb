@@ -80,6 +80,10 @@ setup.sections << Section.new(role: 'full',
         'Wright' => { '_type' => 'card', 'value' => 'When you *Secure an Advantage* by crafting a useful item using your specialty [Blacksmithing], or when you *Face Danger* to create or repair an item in a perilous situation, add +1 and take +1 momentum on a hit.' },
         'Commander' => { '_type' => 'card', 'value' => '"You lead a warband with +4 strength." Can use them for *Face Danger*, *Secure an Advantage*, *Compel*, or *Battle*.' },
       }
+    },
+    { 'action' => 'add',
+      'parent' => [ 'Wulan', 'Resources' ],
+      'child' => { 'Strength (Commander)' => { '_type' => 'int', 'value' => 4 } }
     } ]
   },
   contents: <<~CONTENTS.rstrip)
@@ -167,9 +171,9 @@ setup.comments.create!(user: reader, contents: <<~COMMENT)
   like, my favorite RPG. So much flavor!
 COMMENT
 
-beginning = story.chapters.create(title: 'Chapter One', interactive: false, prequel: setup)
+chap01 = story.chapters.create(title: 'Chapter One - A Decision', published_at: Time.now, interactive: true, prequel: setup)
 
-beginning.scratch_pad.update(contents: <<~CONTENTS)
+chap01.story_notes.update(contents: <<~CONTENTS)
   Lieutenant: Artiga (fervent, "refute a falsehood")
 
   Other members of the band:
@@ -177,7 +181,7 @@ beginning.scratch_pad.update(contents: <<~CONTENTS)
   * Valeri ("wary")
 CONTENTS
 
-beginning.sections << Section.new(contents: <<-CONTENTS.rstrip)
+chap01.sections << Section.new(contents: <<-CONTENTS.rstrip)
 I dine with my warband this night. They are raucous and coarse, as \
 usual, and usually I am ready enough to join in their revelries, but \
 tonight...
@@ -186,7 +190,7 @@ I dine with my warband this night, but my mind is on the Ragged Coast, \
 miles and miles away.
 CONTENTS
 
-beginning.sections << Section.new(role: 'right', contents: <<-CONTENTS.rstrip)
+chap01.sections << Section.new(role: 'right', contents: <<-CONTENTS.rstrip)
 Wups. I need a name for Wulan's lieutenant. Rolling on the oracle, I \
 get 9, "Artiga." What's he like? Oracle again! Role is "refute a \
 falsehood." Descriptor is 90 = "fervent."
@@ -195,7 +199,7 @@ Might as well roll up a couple others for the warband, too. Kuron, who is \
 apparently "infamous," and Valeri, who is "wary."
 CONTENTS
 
-beginning.sections << Section.new(contents: <<-CONTENTS.rstrip)
+chap01.sections << Section.new(contents: <<-CONTENTS.rstrip)
 "Wulan!" shouts Artiga, my lieutenant. He is a fiercely intense man, \
 most times, but in moments such as these he manages to become one of \
 the most bacchanalian of revelers. "Wulan!" he shouts again, as he \
@@ -230,7 +234,7 @@ child--but we were inseparable as children, and I swore that I would always \
 be there for her.
 CONTENTS
 
-beginning.sections << Section.new(role: 'right', contents: <<-CONTENTS.rstrip)
+chap01.sections << Section.new(role: 'right', contents: <<-CONTENTS.rstrip)
 Hmmm! I don't think this is the background vow, though. It's too general. It's not \
 even a good fit for the "inciting incident" vow. I actually don't think this is anything \
 to do with an actual "iron vow." It's just a thing he told her when they were children.
@@ -238,7 +242,7 @@ to do with an actual "iron vow." It's just a thing he told her when they were ch
 Which, of course, does not diminish at all what it means to Wulan.
 CONTENTS
 
-beginning.sections << Section.new(contents: <<-CONTENTS.rstrip)
+chap01.sections << Section.new(contents: <<-CONTENTS.rstrip)
 I could go by myself, leaving my men in Artiga's care, but that doesn't sit \
 right with me. The people here call them "Wulan's Blade" for a reason, and \
 though they might follow Artiga for a time, they need *me*.
@@ -292,14 +296,14 @@ Artiga hesitates, but nods. "You're serious?"
 "Come."
 CONTENTS
 
-beginning.sections << Section.new(role: 'right', contents: <<-CONTENTS.rstrip)
+chap01.sections << Section.new(role: 'right', contents: <<-CONTENTS.rstrip)
 Given the truths I rolled at the beginning, "iron" refers not to the metal, necessarily. \
 Especially with regard to oath-swearing, "iron" refers to the mystical \
 pillars. I think they are ubiquitous enough that they are no more than \
 an hour away.
 CONTENTS
 
-beginning.sections << Section.new(contents: <<-CONTENTS.rstrip)
+chap01.sections << Section.new(contents: <<-CONTENTS.rstrip)
 I tell the men that Artiga and I will be back later. There are some \
 grumbles that I take for acknowledgment, and then we're off.
 
@@ -312,7 +316,7 @@ must do this thing.
 lands. You have a responsibility to that oath, as well."
 CONTENTS
 
-beginning.sections << Section.new(role: 'right',
+chap01.sections << Section.new(role: 'right',
   track_sheet_update_attributes: { definition: [
     { 'action' => 'add',
       'parent' => [ 'Wulan', 'Vows' ],
@@ -322,15 +326,22 @@ beginning.sections << Section.new(role: 'right',
           'Progress' => { '_type' => 'string', 'value' => '0,0' }
         }
       }
+    },
+    { 'action' => 'add',
+      'parent' => [ 'Wulan' ],
+      'child' => { 'Bonds' => { '_type' => 'string', 'value' => 'People of the Hinterlands' } }
     } ]
   },
   contents: <<-CONTENTS.rstrip)
 Ah! There's the background oath. Wulan has sworn to protect the people of \
 this area. We'll get more details as we go, but I suspect there's some force \
 that has been threatening them, perhaps one of the Firstborn tribes?
+
+I think this also is one of his beginning bonds, with the people of the \
+Hinterlands (or, at least, those in the area immediately around him).
 CONTENTS
 
-beginning.sections << Section.new(contents: <<-CONTENTS.rstrip)
+chap01.sections << Section.new(contents: <<-CONTENTS.rstrip)
 "I will keep that oath," I say. "We will return, Artiga, and I will see \
 to the people here in the Hinterlands. I've realized, though, that part \
 of that oath is teaching them to defend themselves."
@@ -353,7 +364,7 @@ I place one hand on the spike and look to the sky, where the spike seems to \
 point, and I speak the words...
 CONTENTS
 
-beginning.sections << Section.new(role: 'right',
+chap01.sections << Section.new(role: 'right',
   track_sheet_update_attributes: { definition: [
     { 'action' => 'update',
       'parent' => [ 'Wulan', 'Momentum' ],
@@ -368,7 +379,7 @@ gets +1. The roll, +heart, +1: 6+2+1 = 9 vs 2, 6. That's a strong hit!
 "It is clear what you must do next... Take +2 momentum." His momentum is at 4 now.
 CONTENTS
 
-beginning.sections << Section.new(role: 'right',
+chap01.sections << Section.new(role: 'right',
   track_sheet_update_attributes: { definition: [
     { 'action' => 'add',
       'parent' => [ 'Wulan', 'Vows' ],
@@ -383,7 +394,7 @@ beginning.sections << Section.new(role: 'right',
 He's got a new vow, now: "Find out what Nia needs, and help her." I'll  make this a Formidable quest.
 CONTENTS
 
-beginning.sections << Section.new(contents: <<-CONTENTS.rstrip)
+chap01.sections << Section.new(contents: <<-CONTENTS.rstrip)
 With portentious weight, the oath settles into me. I nod, satisfied, \
 knowing that I've chosen the right path for me, right now.
 
@@ -392,19 +403,102 @@ Artiga looks anxiously to me, and I nod again.
 "It is done," I say. "Let us return and start making preparations."
 CONTENTS
 
-untitled = story.chapters.create(interactive: false, prequel: beginning)
-untitled.outline.update(contents: <<-OUTLINE.rstrip)
-Hmm. So, he's sticking around to help prepare the villagers. Prepare \
-them for what, exactly? Is it worth playing some montage scenes from \
-this to find out?
+chap02 = story.chapters.create(title: 'Chapter Two - Baiting the Vledshka', interactive: true, prequel: chap01)
+chap02.outline.update(contents: <<-OUTLINE.rstrip)
+Okay, at this point, Wulan knows he's going. It's a done deal. He has to train the villagers, but... is that a thing we need to play? I think we only play it if there's a chance of something going wrong.
+
+You know, it actually might make sense for there to be an encounter of some sort with whatever is threatening the villagers. Maybe Wulan fights them one more time before heading off, pushing them back and giving the villagers a bit more breathing space? It'll show the reader what the stakes are, *and* give us a chance to try Wulan and his band in a battle. I like that.
+
+In Chapter One I speculated that it is one of the tribes of the Firstborn that have been harassing the people... That seems possible. Considering my options, I think the Varou seem likely: they are highly territorial, and will attack to defend their land. Perhaps the humans settled here, and a generation later a Varou leader arose who decided that the human lands were originally Varou lands. They've been striking at the human settlements to drive them back south, away from the lands of the Varou.
+
+Rolling on the Oracle for Varou names: 76 = Staysa. This is the clan leader. I think there are a half dozen tribes that have united under his banner. Staysa calls the clan "Vledshka", meaning "Roots of the Elder Tree".
+
+I think Wulan is going to take the fight to the Vledshka, next, to bloody them and make them more wary. He is going to gather a handful of men from each of the villages, forming an army of three or four dozen total, including the men of Wulan's Blade. Fighting the Varou in the forest itself seems unwise, though. I think he's going to try and be wily here.
+
+Yeah, he's going to Secure an Advantage, +shadow, which isn't great for him. But he's going to consult with Artiga, and speak with the men from the other villages. He'll note where the Vledshka have attacked in the past, and he hides up most of the men nearby. Then, he leads a small party of just a handful of men straight up the middle of a valley, attempting to lure the Vledshka out of their woods and into the open.
+
+Secure an Advantage, +shadow, then: 5 + 1 = 6 vs 7, 10. A miss! "Your assumptions betray you. Pay the Price." Oh, wait, no. He can use his band for this, to get a +4. That makes it 5 + 4 = 9 vs 7, 10, for a weak hit, instead. "Your advantage is short-lived, take +1 momentum." Momentum -> 5.
+
+The Vledshka take the bait. It's not their entire clan, of course--Wulan could never stand against that--but it's perhaps an entire tribe's worth of warriors. The Vledshka pour from the forest, descending on Wulan and his handful of men. Wulan stands his ground, raises his---sword? Yeah, sword---and shouts the command.
+
+The men of the Hinterlands emerge from their hiding places, shouting their battle cries and waving their weapons. The Vledshka hesitate a moment before screaming the louder. The two groups converge, yelling, sweating, the lupine varou howling their eerie, ululating cry.
+
+I'll run this as a "Battle" move. The objective is to force the varou back into the woods, sending them reeling and yelping away so that they will be unlikely to return to battle any time soon. Wulan is using his band, here, so gets a +4: 5 + 4 = 9 vs 2, 10. For crying out loud, what's up with the tens??? Okay, so, weak hit. "You obtain your objective, but not without cost. Pay the Price."
+
+I think the most likely negative outcome is that the Band takes -1 strength. Perhaps a couple of his men are injured. Killed? Maybe not--it's only not a fail, just a weak hit. So yeah, two of his men are injured. Rolling on the names table: Keearus and Kormak. Brothers, I think. Probably a few of the villagers as well, maybe even a death or two among them. But the Vledshka have been routed and sent reeling back into their forest.
+
+It's just a matter of time until they return, but in the meantime, the villagers of the Hinterlands have been bought some time.
+
+With that out of the way, Wulan spends a few days with the villagers, preparing for his journey and healing his men. This is a *Sojourn* roll, +heart, and +1 because of the bond Wulan has with the villagers. 6 + 2 + 1 = 9 vs 2, 4. Strong hit! He's going to recover the lost strength (back to 4), and 'Plan', taking +2 momentum (now 7). That's a strong start to his journey!
+
+In a few days, he and his men set off.
 OUTLINE
 
-# Okay, at this point, Wulan knows he's going. It's a done deal. He has to train
-# the villagers, but... is that a thing we need to play? I think we only play it
-# if there's a chance of something going wrong.
-#
-# You know, it actually might make sense for there to be an encounter of some
-# sort with whatever is threatening the villagers. Maybe Wulan fights them one
-# more time before heading off, pushing them back and giving the villagers a bit
-# more breathing space? It'll show the reader what the stakes are, *and* give us
-# a chance to try Wulan and his band in a battle. I like that.
+chap02.story_notes.update(contents: <<~CONTENTS)
+Lieutenant: Artiga (fervent, "refute a falsehood")
+
+Other members of the band:
+* Kuron ("infamous", terrible singer)
+* Valeri ("wary")
+* Two brothers, Keearus and Kormak (injured in the battle vs. the Vledshka)
+
+The Hinterlanders that Wulan has sworn to protect are being attacked by several tribes of the Varou--recently united into a single clan by a charismatic leader--who believe the humans are on their territory.
+
+Varou clan leader: Staysa. Clan Vledshka ("Roots of the Elder Tree")
+CONTENTS
+
+chap02.sections << Section.new(contents: <<-CONTENTS.rstrip)
+Somehow, I must keep the villagers safe in my absence. The Vledshka have harassed them for years, now, pouring from the forests at night, burning a hut or two, killing sheep and goats, and retreating again--typical varou skirmish tactics. Until a few years ago they were nothing but scattered, bickering tribes, too busy fighting amongst themselves to pose any serious threat to the surrounding human villages.
+CONTENTS
+
+chap02.sections << Section.new(role: 'right', contents: <<-CONTENTS.rstrip)
+Rolling on the oracle for varou names, I get 76. "Staysa."
+CONTENTS
+
+chap02.sections << Section.new(contents: <<-CONTENTS.rstrip)
+Then, Staysa came.
+
+Staysa is a massive, charismatic, and ambitious varou who has managed--against all odds--to unite the tribes beneath his banner. I really don't know much more than that--varou are not especially willing to talk with humans in the best of times--but it is largely due to Staysa's ambition that I and my men are kept so busy.
+
+The name he picked for his clan, "Vledshka," translates to something like "Roots of the Elder Tree," and the human villages apparently threaten the purity of those roots. The varou want us out, and they harass and skirmish with us regularly.
+
+I need to make sure the villagers can handle this in my absence, because the last thing I want is to return in a few months to burned homesteads and scattered corpses.
+
+I council with the men of the villages, and with my own men as well. The villagers are alarmed when I tell them that I am leaving, and fill the council room with a babble of panicked voices, but I expected this.
+CONTENTS
+
+chap02.sections << Section.new(role: 'right', contents: <<-CONTENTS.rstrip)
+I think Wulan is going to take the fight to the Vledshka, next, to bloody them and make them more wary. He is going to gather a handful of men from each of the villages, forming an army of three or four dozen total, including the men of Wulan's Blade. Fighting the Varou in the forest itself seems unwise, though. I think he's going to try and be wily here.
+CONTENTS
+
+chap02.sections << Section.new(contents: <<-CONTENTS.rstrip)
+"I have a plan," I tell them, speaking loudly to get their attention. The din subsides and I look them each in the eye. "The Vledshka have preyed on us long enough. It is time for us to take the fight to them."
+
+They look shocked, and I try not to smile.
+
+"We hit them hard," I say. "We seize the initiative and hit them hard, hard enough that they'll think twice before they return to harassing our villages. We show them that we have teeth, and claws, just as they do. And we show them that we know how to use them at least as well. Here's what we'll do..."
+CONTENTS
+
+chap02.sections << Section.new(role: 'right', contents: <<-CONTENTS.rstrip)
+Yeah, he's going to try and Secure an Advantage, +shadow, which isn't great for him. He'll note where the Vledshka have attacked in the past, and hide up most of the men nearby. Then, he'll lead a small party--just a handful of men--straight up the middle of a valley, attempting to lure the Vledshka out of their woods and into the open.
+CONTENTS
+
+chap02.sections << Section.new(contents: <<-CONTENTS.rstrip)
+---
+
+The forest looms before us, dark and unwelcoming, stretching like a wall to the northwest and southeast and laying across the rolling hills like a blanket. Long ropes of wet moss hang in limp cords from branches, and drape the trunks of some trees so thickly that I can hardly make out the bark beneath them. The underbrush is thick and seemingly impassible, but I know better.
+
+We all know better, now.
+
+The Vledshka can move through that terrain as easily as we move across open ground, flowing like ghosts through even the densest brush and thicket. It would be suicide to go in there--the varou would have us surrounded in seconds, and we'd be cut down before we had time to pull our swords clear of the foliage.
+
+No. We need to take the battle to the Vledshka, but not like that.
+
+I look to my right, where Artiga walks with head down and shoulders hunched. He feels the claws of the varou upon him already, I know, but he will fight when the fighting comes. A braver man I have never known.
+
+To my left walk the twins, Keearus and Kormak, both tall and broad shouldered with beards of such striking red that more than the once the varou have left them alone out of pure superstition. They step lightly, grinning like simpletons.
+
+"Stop that," I say to them. I speak softly, for the varou have excellent hearing and I cannot afford to have any wolf-folk ears overhearing. "We need to look a tempting target, not a brazenly confident one."
+
+Keearus--who bears a livid white scar across his left cheek--immediately looks contrite. "Sorry, Wulan," he mutters. He and his brother adopt expressions that are probably supposed to look frightened and nervous. It will have to do.
+CONTENTS

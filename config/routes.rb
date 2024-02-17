@@ -16,12 +16,12 @@ Rails.application.routes.draw do
   end
 
   resources :chapters do
-    resource :scratch_pad
-    resource :outline
     resource :track_sheet
     resources :comments, only: %i[ create ]
     resources :sequels, only: %i[ new create ]
   end
+
+  resources :scratch_pads, only: %i[ show update ]
 
   root "creators#index"
 end

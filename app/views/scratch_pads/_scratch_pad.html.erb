@@ -1,15 +1,16 @@
 <div data-controller="scratch-pad" data-action="keydown.esc->scratch-pad#close:prevent">
   <div class="fixed top-0 left-0 w-full h-screen bg-black opacity-20"></div>
 
-  <div class="fixed shadow-md bg-white rounded-xl border border-yellow-300 w-1/2 left-1/4 top-20 overflow-hidden">
-    <header class="flex flex-row w-full px-4 py-2 bg-yellow-100 border-b border-yellow-300">
-      <h1 class="font-bold">Scratch Pad</h1>
+  <div class="fixed shadow-md bg-white rounded-xl border border-<%= scratch_pad_color(@scratch_pad) %>-300 w-1/2 left-1/4 top-20 overflow-hidden">
+    <header class="flex flex-row w-full px-4 py-2 bg-<%= scratch_pad_color(@scratch_pad) %>-100 border-b border-<%= scratch_pad_color(@scratch_pad) %>-300">
+      <h1 class="font-bold"><%= scratch_pad_title(@scratch_pad) %></h1>
       <a class="ml-auto ts-link" href="#" data-action="scratch-pad#close:prevent">close</a>
     </header>
 
-    <main class="bg-yellow-50">
-      <%= form_with model: [ @chapter, @chapter.scratch_pad ], data: { scratch_pad_target: "form" } do |f| %>
-        <%= f.text_area :contents, data: { scratch_pad_target: "text", action: "scratch-pad#autosave" }, class: "border-0 ring-0 focus:ring-0 resize-none w-full h-64 bg-yellow-50 font-mono" %>
+    <main class="bg-<%= scratch_pad_color(@scratch_pad) %>-50">
+      <%= form_with model: @scratch_pad, url: scratch_pad_path(@scratch_pad), scope: :scratch_pad, data: { scratch_pad_target: "form" } do |f| %>
+        <%= f.hidden_field :position, data: { scratch_pad_target: "position" } %>
+        <%= f.text_area :contents, data: { scratch_pad_target: "text", action: "scratch-pad#autosave" }, class: "border-0 ring-0 focus:ring-0 resize-none w-full h-64 bg-#{scratch_pad_color(@scratch_pad)}-50 font-mono text-sm" %>
       <% end %>
     </main>
   </div>

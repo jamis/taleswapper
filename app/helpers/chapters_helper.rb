@@ -1,4 +1,6 @@
 module ChaptersHelper
+  include ActiveSupport::NumberHelper
+
   def render_section(section)
     render partial: "sections/roles/#{section.role}", locals: { section: section }
   end

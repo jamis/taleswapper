@@ -28,5 +28,11 @@
     li {
       @apply ml-12;
     }
+
+    hr {
+      @apply my-8;
+      @apply w-3/4;
+      @apply mx-auto;
+    }
   }
 }

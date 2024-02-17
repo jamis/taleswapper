@@ -31,7 +31,7 @@ class SequelsController < ApplicationController
   def chapter_sequel_params
     params
       .require(:chapter_sequel)
-      .permit(:uuid, :contents, :scratch_pad)
+      .permit(:uuid, :contents, :story_notes)
       .merge(prequel: @chapter)
   end
 end

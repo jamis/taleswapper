@@ -15,6 +15,10 @@ class Section < ApplicationRecord
     chapter.track_sheet.apply(updates)
   end
 
+  def word_count
+    contents.scan(/\w+/).count
+  end
+
   private
 
   def set_position

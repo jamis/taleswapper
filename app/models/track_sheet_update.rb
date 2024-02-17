@@ -8,6 +8,11 @@ class TrackSheetUpdate < ApplicationRecord
 
   attr_writer :definition
 
+  def data=(new_data)
+    @definition = nil
+    super
+  end
+
   def definition
     @definition ||= data.present? ? JSON.parse(data) : nil
   end

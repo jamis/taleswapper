@@ -10,8 +10,14 @@ class Chapter < ApplicationRecord
   has_one  :prior_action, class_name: 'Action', foreign_key: :target_id, dependent: :destroy
   has_one  :prior_chapter, through: :prior_action, source: :source
 
-  has_one :scratch_pad, dependent: :destroy
-  has_one :outline, dependent: :destroy
+  # the scratch_pads list will never have more than two entries -- one for story
+  # notes, and one for outline. This list is just for convenience is updating and
+  # clearing them.
+  has_many :scratch_pads, dependent: :destroy
+
+  has_one :story_notes, class_name: 'ScratchPad::StoryNotes'
+  has_one :outline, class_name: 'ScratchPad::Outline'
+
   has_one :track_sheet, dependent: :destroy
 
   # a reference to the prequel chapter; used during sequel creation
@@ -25,13 +31,13 @@ class Chapter < ApplicationRecord
 
   accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :outline
-  accepts_nested_attributes_for :scratch_pad
+  accepts_nested_attributes_for :story_notes
 
   def self.create_sequel(params)
     create!(prequel: params[:prequel],
             uuid: params[:uuid],
             outline_attributes: { contents: params[:contents] },
-            scratch_pad_attributes: { contents: params[:scratch_pad] })
+            story_notes_attributes: { contents: params[:story_notes] })
   end
 
   def published?(now: Time.now)
@@ -50,6 +56,14 @@ class Chapter < ApplicationRecord
 
   def final_track_sheet
     track_sheet.apply(track_sheet_updates.order('sections.position': :asc))
+  end
+
+  def word_count
+    sections.sum(&:word_count)
+  end
+
+  def time_to_read(wpm = 250)
+    word_count / wpm.to_f
   end
 
   def walk(mode, restricted: true, &block)
@@ -77,7 +91,7 @@ class Chapter < ApplicationRecord
 
   def setup_records
     setup_prequel
-    setup_scratch_pad
+    setup_story_notes
     setup_outline
     setup_track_sheet
   end
@@ -92,11 +106,11 @@ class Chapter < ApplicationRecord
     build_prior_action(source: prequel)
   end
 
-  # inherit the scratch pad from the prior chapter, if not already
+  # inherit the story notes from the prior chapter, if not already
   # present.
-  def setup_scratch_pad
-    return if scratch_pad.present?
-    build_scratch_pad(contents: pending_prior_chapter&.scratch_pad&.contents || '')
+  def setup_story_notes
+    return if story_notes.present?
+    build_story_notes(contents: pending_prior_chapter&.story_notes&.contents || '')
   end
 
   def setup_outline

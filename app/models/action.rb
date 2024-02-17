@@ -3,7 +3,7 @@ class Action < ApplicationRecord
   belongs_to :target, class_name: 'Chapter'
 
   scope :in_order, -> { order(position: :asc) }
-  scope :published, -> { joins(:target).where('chapters.published_at >= ?', Time.now) }
+  scope :published, -> { joins(:target).where('chapters.published_at <= ?', Time.now) }
 
   before_save :set_position
 
