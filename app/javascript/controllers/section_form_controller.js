@@ -6,43 +6,33 @@ const unselectedClassNames = "text-gray-400";
 export default class extends Controller {
   static targets = [
     'role', 'editor', 'destroy',
-    'left', 'right', 'full',
+    'primary', 'aside',
     'leftSide', 'rightSide'
   ];
 
   connect() {
     switch(this.roleTarget.value) {
-      case 'left': this.selectLeft(); break;
-      case 'right': this.selectRight(); break;
-      case 'full': this.selectFull(); break;
+      case 'primary': this.selectPrimary(); break;
+      case 'aside': this.selectAside(); break;
     }
   }
 
-  selectLeft() {
-    this.roleTarget.value = 'left';
+  selectPrimary() {
+    this.roleTarget.value = 'primary';
 
-    this.selectButton(this.leftTarget);
+    this.selectButton(this.primaryTarget);
 
     this.leftSideTarget.classList.add('hidden');
     this.rightSideTarget.classList.remove('hidden');
   }
 
-  selectRight() {
-    this.roleTarget.value = 'right';
+  selectAside() {
+    this.roleTarget.value = 'aside';
 
-    this.selectButton(this.rightTarget);
+    this.selectButton(this.asideTarget);
 
     this.rightSideTarget.classList.add('hidden');
     this.leftSideTarget.classList.remove('hidden');
-  }
-
-  selectFull() {
-    this.roleTarget.value = 'full';
-
-    this.selectButton(this.fullTarget);
-
-    this.rightSideTarget.classList.add('hidden');
-    this.leftSideTarget.classList.add('hidden');
   }
 
   deleteSection() {
@@ -53,7 +43,7 @@ export default class extends Controller {
   }
 
   selectButton(selected) {
-    [ this.leftTarget, this.rightTarget, this.fullTarget ].forEach((button) => {
+    [ this.primaryTarget, this.asideTarget ].forEach((button) => {
       if (button == selected) {
         button.classList.remove(unselectedClassNames);
         button.classList.add(selectedClassNames);

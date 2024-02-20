@@ -1,0 +1,72 @@
+---
+wulan_session0_notes:
+  chapter: wulan_session0
+  type: ScratchPad::StoryNotes
+  contents: |
+    Band name: "Wulan's Blade"
+wulan_session0_outlines:
+  chapter: wulan_session0
+  type: ScratchPad::Outline
+  contents: ''
+wulan_chapter1_notes:
+  chapter: wulan_chapter1
+  type: ScratchPad::StoryNotes
+  contents: |
+    Band name: "Wulan's Blade"
+
+    Lieutenant: Artiga (fervent, "refute a falsehood")
+
+    Other members of the band:
+    * Kuron ("infamous", terrible singer)
+    * Valeri ("wary")
+wulan_chapter1_outlines:
+  chapter: wulan_chapter1
+  type: ScratchPad::Outline
+  contents: ''
+wulan_chapter2_notes:
+  chapter: wulan_chapter2
+  type: ScratchPad::StoryNotes
+  contents: |
+    Band name: "Wulan's Blade"
+
+    Lieutenant: Artiga (fervent, "refute a falsehood")
+
+    Other members of the band:
+    * Kuron ("infamous", terrible singer)
+    * Valeri ("wary")
+    * Two brothers, Keearus and Kormak (injured in the battle vs. the Vledshka)
+
+    The Hinterlanders that Wulan has sworn to protect are being attacked by several tribes of the Varou--recently united into a single clan by a charismatic leader--who believe the humans are on their territory.
+
+    Varou clan leader: Staysa. Clan Vledshka ("Roots of the Elder Tree")
+wulan_chapter2_outline:
+  chapter: wulan_chapter2
+  type: ScratchPad::Outline
+  contents: |
+    Okay, at this point, Wulan knows he's going. It's a done deal. He has to train the villagers, but... is that a thing we need to play? I think we only play it if there's a chance of something going wrong.
+
+    You know, it actually might make sense for there to be an encounter of some sort with whatever is threatening the villagers. Maybe Wulan fights them one more time before heading off, pushing them back and giving the villagers a bit more breathing space? It'll show the reader what the stakes are, *and* give us a chance to try Wulan and his band in a battle. I like that.
+
+    In Chapter One I speculated that it is one of the tribes of the Firstborn that have been harassing the people... That seems possible. Considering my options, I think the Varou seem likely: they are highly territorial, and will attack to defend their land. Perhaps the humans settled here, and a generation later a Varou leader arose who decided that the human lands were originally Varou lands. They've been striking at the human settlements to drive them back south, away from the lands of the Varou.
+
+    Rolling on the Oracle for Varou names: 76 = Staysa. This is the clan leader. I think there are a half dozen tribes that have united under his banner. Staysa calls the clan "Vledshka", meaning "Roots of the Elder Tree".
+
+    I think Wulan is going to take the fight to the Vledshka, next, to bloody them and make them more wary. He is going to gather a handful of men from each of the villages, forming an army of three or four dozen total, including the men of Wulan's Blade. Fighting the Varou in the forest itself seems unwise, though. I think he's going to try and be wily here.
+
+    Yeah, he's going to Secure an Advantage, +shadow, which isn't great for him. But he's going to consult with Artiga, and speak with the men from the other villages. He'll note where the Vledshka have attacked in the past, and he hides up most of the men nearby. Then, he leads a small party of just a handful of men straight up the middle of a valley, attempting to lure the Vledshka out of their woods and into the open.
+
+    Secure an Advantage, +shadow, then: 5 + 1 = 6 vs 7, 10. A miss! "Your assumptions betray you. Pay the Price." Oh, wait, no. He can use his band for this, to get a +4. That makes it 5 + 4 = 9 vs 7, 10, for a weak hit, instead. "Your advantage is short-lived, take +1 momentum." Momentum -> 5.
+
+    The Vledshka take the bait. It's not their entire clan, of course--Wulan could never stand against that--but it's perhaps an entire tribe's worth of warriors. The Vledshka pour from the forest, descending on Wulan and his handful of men. Wulan stands his ground, raises his---sword? Yeah, sword---and shouts the command.
+
+    The men of the Hinterlands emerge from their hiding places, shouting their battle cries and waving their weapons. The Vledshka hesitate a moment before screaming the louder. The two groups converge, yelling, sweating, the lupine varou howling their eerie, ululating cry.
+
+    I'll run this as a "Battle" move. The objective is to force the varou back into the woods, sending them reeling and yelping away so that they will be unlikely to return to battle any time soon. Wulan is using his band, here, so gets a +4: 5 + 4 = 9 vs 2, 10. For crying out loud, what's up with the tens??? Okay, so, weak hit. "You obtain your objective, but not without cost. Pay the Price."
+
+    I think the most likely negative outcome is that the Band takes -1 strength. Perhaps a couple of his men are injured. Killed? Maybe not--it's only not a fail, just a weak hit. So yeah, two of his men are injured. Rolling on the names table: Keearus and Kormak. Brothers, I think. Probably a few of the villagers as well, maybe even a death or two among them. But the Vledshka have been routed and sent reeling back into their forest.
+
+    It's just a matter of time until they return, but in the meantime, the villagers of the Hinterlands have been bought some time.
+
+    With that out of the way, Wulan spends a few days with the villagers, preparing for his journey and healing his men. This is a *Sojourn* roll, +heart, and +1 because of the bond Wulan has with the villagers. 6 + 2 + 1 = 9 vs 2, 4. Strong hit! He's going to recover the lost strength (back to 4), and 'Plan', taking +2 momentum (now 7). That's a strong start to his journey!
+
+    In a few days, he and his men set off.

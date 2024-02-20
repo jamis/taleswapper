@@ -2,9 +2,8 @@
   <%= form.hidden_field :id if form.object.persisted? %>
   <div class="flex flex-row items-baseline text-xs bg-gray-200 py-1 px-3">
     <div class="rounded border border-blue-400 overflow-hidden flex flex-row bg-white">
-      <a href="#" class="w-24 px-2 py-1 border-r border-blue-400 text-center bg-blue-100" data-section-form-target="left" data-action="section-form#selectLeft:prevent">left</a>
-      <a href="#" class="w-24 px-2 py-1 border-r border-blue-400 text-center text-gray-400" data-section-form-target="full" data-action="section-form#selectFull:prevent">full</a>
-      <a href="#" class="w-24 px-2 py-1 text-center text-gray-400" data-section-form-target="right" data-action="section-form#selectRight:prevent">right</a>
+      <a href="#" class="w-24 px-2 py-1 border-r border-blue-400 text-center bg-blue-100" data-section-form-target="primary" data-action="section-form#selectPrimary:prevent">primary</a>
+      <a href="#" class="w-24 px-2 py-1 text-center text-gray-400" data-section-form-target="aside" data-action="section-form#selectAside:prevent">aside</a>
       <%= form.hidden_field :role, data: { section_form_target: 'role' } %>
       <%= form.hidden_field :position %>
       <%= form.hidden_field :_destroy, data: { section_form_target: 'destroy' } %>

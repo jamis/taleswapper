@@ -1,0 +1,14 @@
+---
+jamis:
+  email_address: 'jamis@jamisbuck.org'
+  display_name: 'Jamis Buck'
+  description: >
+    I write stories based on solo RPG actual plays. Ironsworn, SWADE, DungeonWorld,
+    and many others!
+  creator: true
+  password_digest: <%= BCrypt::Password.create('password') %>
+
+reader:
+  email_address: 'reader@elsewhere.com'
+  display_name: 'Reader Joe'
+  password_digest: <%= BCrypt::Password.create('password') %>

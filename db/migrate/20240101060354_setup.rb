@@ -23,13 +23,14 @@ class Setup < ActiveRecord::Migration[7.1]
       t.belongs_to :story
       t.string     :title
       t.boolean    :interactive, default: false
+      t.boolean    :start, default: false
       t.timestamps
       t.datetime   :published_at
     end
 
     create_table :sections do |t|
       t.belongs_to :chapter, index: false
-      t.string :role, default: "left"
+      t.string :role, default: "primary"
       t.text :contents, default: ""
       t.integer :position, null: false, default: 0
       t.timestamps
@@ -56,6 +57,8 @@ class Setup < ActiveRecord::Migration[7.1]
       t.belongs_to :chapter
       t.string :type, null: false
       t.text :contents, null: false, default: ''
+
+      # remember the cursor position when the user last viewed this scratch pad
       t.integer :position, null: false, default: 0
     end
 

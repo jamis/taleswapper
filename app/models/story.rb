@@ -9,10 +9,13 @@ class Story < ApplicationRecord
   scope :published, -> { joins(:chapters).where('chapters.published_at <= ?', Time.now).distinct }
 
   def walk_chapters(restricted: true, &block)
-    return unless chapters.any?
+    return unless chapters.starter.any?
 
     block.call(:open) # open the current list
-    chapters.first.walk(:linear, restricted: restricted, &block)
+    chapters.starter.each do |chapter|
+      chapter.walk(:linear, restricted: restricted, &block)
+    end
+
     block.call(:close) # close the current list
   end
 end

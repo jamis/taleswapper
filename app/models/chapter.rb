@@ -1,6 +1,8 @@
 class Chapter < ApplicationRecord
   belongs_to :story
 
+  scope :starter, -> { where(start: true) }
+
   has_many :sections, dependent: :destroy
   has_many :track_sheet_updates, through: :sections
   has_many :comments, as: :commentable, dependent: :destroy

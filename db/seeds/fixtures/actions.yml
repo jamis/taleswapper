@@ -1,0 +1,7 @@
+---
+wulan_sess0_chap1:
+  source: wulan_session0
+  target: wulan_chapter1
+wulan_chap1_chap2:
+  source: wulan_chapter1
+  target: wulan_chapter2
