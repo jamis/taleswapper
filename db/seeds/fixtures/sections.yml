@@ -95,11 +95,11 @@ wulan_01_03:
 
     "I'll be there soon," I say, knowing that I'm probably lying, but there's no graceful way to decline a drunk man's invitation. It suffices to put Artiga off, though, and I watch as he staggers back to the fire with the others.
 
-    My mind turns again to the Ragged Coast, and to Nia, my sister who lives there with her family. I have had troubling word from her just this afternoon. She cannot write--which makes no difference since I cannot read--but a troubadour found me today, and he had been in her village. He could not stay, alas, or our entertainment would be far better than Kuron's rendering of "the Lay of Sidan," but he said that my sister had been asking for news of me, for many months, and had bid all minstrels that found me to bid me find her in return.
+    My mind turns again to the Ragged Coast, and to Nia, my sister who lives there with her family. I have had troubling word from her just this afternoon. She cannot write---which makes no difference since I cannot read---but a troubadour found me today, and he had been in her village. He could not stay, alas, or our entertainment would be far better than Kuron's rendering of "the Lay of Sidan," but he said that my sister had been asking for news of me, for many months, and had bid all minstrels that found me to bid me find her in return.
 
-    This is a difficult request. My men are comfortable here, in the Hinterlands. We've made a reputation for ourselves among the villages hereabouts, and the people are quick to share their provisions with us in exchange for a bit of security from the bandits--and worse--that have tried to prey upon them.
+    This is a difficult request. My men are comfortable here, in the Hinterlands. We've made a reputation for ourselves among the villages hereabouts, and the people are quick to share their provisions with us in exchange for a bit of security from the bandits---and worse---that have tried to prey upon them.
 
-    It is a puzzle. I haven't seen Nia in years--not since the birth of her first child--but we were inseparable as children, and I swore that I would always be there for her.
+    It is a puzzle. I haven't seen Nia in years---not since the birth of her first child---but we were inseparable as children, and I swore that I would always be there for her.
 wulan_01_04:
   chapter: wulan_chapter1
   position: 4
@@ -209,7 +209,7 @@ wulan_02_01:
   chapter: wulan_chapter2
   position: 1
   contents: |
-    Somehow, I must keep the villagers safe in my absence. The Vledshka have harassed them for years, now, pouring from the forests at night, burning a hut or two, killing sheep and goats, and retreating again--typical varou skirmish tactics. Until a few years ago they were nothing but scattered, bickering tribes, too busy fighting amongst themselves to pose any serious threat to the surrounding human villages.
+    Somehow, I must keep the villagers safe in my absence. The Vledshka have harassed them for years, now, pouring from the forests at night, burning a hut or two, killing sheep and goats, and retreating again---typical varou skirmish tactics. Until a few years ago they were nothing but scattered, bickering tribes, too busy fighting amongst themselves to pose any serious threat to the surrounding human villages.
 wulan_02_02:
   chapter: wulan_chapter2
   position: 2
@@ -222,7 +222,7 @@ wulan_02_03:
   contents: |
     Then, Staysa came.
 
-    Staysa is a massive, charismatic, and ambitious varou who has managed--against all odds--to unite the tribes beneath his banner. I really don't know much more than that--varou are not especially willing to talk with humans in the best of times--but it is largely due to Staysa's ambition that I and my men are kept so busy.
+    Staysa is a massive, charismatic, and ambitious varou who has managed---against all odds---to unite the tribes beneath his banner. I really don't know much more than that---varou are not especially willing to talk with humans in the best of times---but it is largely due to Staysa's ambition that I and my men are kept so busy.
 
     The name he picked for his clan, "Vledshka," translates to something like "Roots of the Elder Tree," and the human villages apparently threaten the purity of those roots. The varou want us out, and they harass and skirmish with us regularly.
 
@@ -251,7 +251,7 @@ wulan_02_06:
   position: 6
   role: aside
   contents: |
-    Yeah, he's going to try and Secure an Advantage, +shadow, which isn't great for him. He'll note where the Vledshka have attacked in the past, and hide up most of the men nearby. Then, he'll lead a small party--just a handful of men--straight up the middle of a valley, attempting to lure the Vledshka out of their woods and into the open.
+    Yeah, he's going to try and Secure an Advantage, +shadow, which isn't great for him. He'll note where the Vledshka have attacked in the past, and hide up most of the men nearby. Then, he'll lead a small party---just a handful of men---straight up the middle of a valley, attempting to lure the Vledshka out of their woods and into the open.
 wulan_02_07:
   chapter: wulan_chapter2
   position: 7
