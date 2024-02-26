@@ -4,25 +4,53 @@
 
 @layer base {
   .markdown {
+    h1, h2, h3, h4, h5, h6 {
+      @apply font-bold;
+      @apply my-4;
+    }
+
+    :is(h1, h2, h3, h4, h5, h6) + p {
+      @apply indent-0;
+    }
+
     h1 {
       @apply text-2xl;
-      @apply font-bold;
-      @apply mt-4;
     }
 
     h2 {
       @apply text-xl;
-      @apply font-bold;
-      @apply mt-4;
     }
 
-    p:not(:first-of-type) {
-      @apply mt-4;
+    p {
+      @apply indent-4;
+      @apply hyphens-auto; /* requires a lang attribute on the element */
+      @apply text-justify;
     }
+
+    &.card-contents p {
+      @apply indent-0;
+    }
+
+    p:first-child {
+      @apply indent-0;
+    }
+
+    &.first-section p:first-child::first-line {
+      @apply uppercase;
+    }
+
+    /* &.first-section p:first-child:first-letter {
+      @apply float-left;
+      @apply text-6xl;
+      @apply -ml-4;
+      @apply pt-1;
+      @apply pr-1;
+      @apply text-pink-700;
+    } */
 
     ul {
       @apply list-disc;
-      @apply mt-4;
+      @apply my-4;
     }
 
     li {

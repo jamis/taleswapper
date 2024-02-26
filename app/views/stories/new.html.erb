@@ -1,4 +1,7 @@
-<div class="container mx-auto mt-28 flex-col w-1/2">
+<% crumbs_for Current.user, leaf: false %>
+<% breadcrumb 'New story' %>
+
+<div class="mx-auto flex-col w-1/2">
   <h1 class="text-2xl font-bold">Start a New Story</h1>
 
   <%= form_with model: Story.new(title: "Untitled") do |f| %>

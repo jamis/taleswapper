@@ -1,41 +1,45 @@
-<div class="bg-blue-200 pt-28 border-b border-blue-300">
-  <div class="container mx-auto flex flex-col">
-    <%= link_to @story.title, story_path(@story), class: "text-lg font-bold ts-link" %>
+<% crumbs_for @chapter %>
+
+<div class="font-serif">
+  <div class="max-w-prose mx-auto mb-4">
+    <div class="text-lg">
+      <%= link_to @story.creator.display_name, creator_path(@story.creator), class: "ts-link" %>
+      : <%= link_to @story.title, story_path(@story), class: "ts-link" %>
+    </div>
     <% if @chapter.title.present? || Current.user == @story.creator %>
       <div class="flex flex-row items-baseline">
-        <% if @chapter.title.present? %>
-          <h1 class="text-2xl font-bold"><%= @chapter.title %></h1>
-        <% else %>
-          <h1 class="text-2xl font-bold text-blue-300">Untitled</h1>
-        <% end %>
-        <% if Current.user == @story.creator %>
-          <span class="ml-2">
-            [
-              <%= link_to "Edit", edit_chapter_path(@chapter), class: "ts-link" %> |
-              <%= form_with url: chapter_path(@chapter), method: :delete, data: { turbo_confirm: "Really delete this chapter?" }, class: "inline" do |f| %>
-                <%= f.submit "Delete", class: "ts-link cursor-pointer" %>
-              <% end %>
-            ]
-          </span>
-        <% end %>
+        <h1 class="text-2xl"><%= @chapter.title.presence || 'Untitled' %></h1>
       </div>
     <% end %>
-  </div>
-</div>
+    <div class="mt-4 text-sm flex flex-row gap-1">
+      <span>
+        <%= number_to_delimited(@chapter.word_count) %> words
+        (<%= distance_of_time_in_words(@chapter.time_to_read.minutes) %>)
+      </span>
+      <% if @chapter.prior_chapter.present? %>
+        <span>
+          &mdash; Flip back to <%= link_to(@chapter.prior_chapter.title.presence || 'the previous chapter', @chapter.prior_chapter, class: 'ts-link') %>
+        </span>
+      <% end %>
+      <% if Current.user == @story.creator %>
+        <span class="ml-auto font-sans">
+          [
+            <%= link_to "Edit", edit_chapter_path(@chapter), class: "ts-link" %> |
+            <%= form_with url: chapter_path(@chapter), method: :delete, data: { turbo_confirm: "Really delete this chapter?" }, class: "inline" do |f| %>
+              <%= f.submit "Delete", class: "ts-link cursor-pointer" %>
+            <% end %>
+          ]
+        </span>
+      <% end %>
+    </div>
 
-<div class="bg-blue-100">
-  <div class="container mx-auto italic py-1 text-sm">
-    <%= number_to_delimited(@chapter.word_count) %> words
-    &mdash; <%= distance_of_time_in_words(@chapter.time_to_read.minutes) %>
-    <% if @chapter.prior_chapter.present? %>
-      &mdash; Flip back to <%= link_to(@chapter.prior_chapter.title.presence || 'the previous chapter', @chapter.prior_chapter, class: 'ts-link') %>
-    <% end %>
+    <hr class="my-6" />
   </div>
+
+  <%= render @chapter.sections %>
 </div>
 
 <div class="container mx-auto flex-col mb-16">
-  <%= render @chapter.sections %>
-
   <ul class="mt-4 pt-4 border-t">
     <% if !editable_story? && visible_sequels(@chapter).none? %>
       <li class="italic">That's all for now, but stay tuned! <%= @story.creator.display_name %> could post more at any time.</li>

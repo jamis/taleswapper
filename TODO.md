@@ -14,4 +14,5 @@ TODO:
 8. Resizable dialog boxes? Or maybe just make them generally larger?
 9. Media (images, audio, video?). Maybe treat it like the tracker updates, with each section having optional media that are displayed below the section?
 10. Allow a reader to view the track sheet at top of chapter and after each update.
-11. As with track-sheet updates, maybe have a way to display dice rolls prettily? Could be done via specialized markup, maybe? (Custom HTML tags?)
+11. As with track-sheet updates, maybe have a way to display dice rolls prettily? Could be done via specialized markup, maybe? (Custom HTML tags?) Could custom HTML tags work for the track sheet updates, too?
+12. Consolidate consecutive sections of the same type, for display?

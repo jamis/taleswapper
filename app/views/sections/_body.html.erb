@@ -1,4 +1,4 @@
-<div class="markdown <%= local_assigns[:styles] %>">
+<div class="markdown <%= local_assigns[:styles] %> <%= first ? 'first-section' : nil %>">
   <%=md section.contents %>
 </div>
 

@@ -12,24 +12,34 @@
   </head>
 
   <body>
-    <header class="fixed top-0 w-full">
-      <div class="px-5 py-2 flex flex-row bg-blue-700 text-white border-solid border-b border-black items-baseline">
-        <h1 class="text-lg font-bold">Taleswapper</h1>
-        <div class="flex flex-row items-baseline ml-auto">
+    <header class="fixed top-0 w-full bg-white">
+      <div class="px-5 py-1 flex flex-row border-solid border-b border-gray-300 items-baseline">
+        <h1 class="text-sm -indent-4 ml-4">
+          ≣
+          <%= link_to "Taleswapper", root_url, class: "ts-link" %>
+          <% breadcrumbs.each do |crumb| %>
+            <span class="<%= breadcrumb_styles(crumb) %>">: <%= crumb[:link] ? link_to(crumb[:text], crumb[:link], class: "ts-link") : crumb[:text] %></span>
+          <% end %>
+        </h1>
+        <div class="text-sm flex flex-row items-baseline ml-auto">
           <% if authenticated? %>
-            Hello, <%= Current.user.display_name %>
-            <span class="mx-4">|</span>
+            <span class="hidden sm:inline">
+              Hello, <%= Current.user.display_name %>
+              <span class="mx-3">|</span>
+            </span>
             <%= form_with url: session_path, method: :delete do |form| %>
-              <%= form.submit "Sign out", class: "ts-link--white cursor-pointer" %>
+              <%= form.submit "Sign out", class: "ts-link cursor-pointer" %>
             <% end %>
           <% else %>
-            <%= link_to "Sign in", new_session_path, class: "ts-link--white" %>
+            <%= link_to "Sign in", new_session_path, class: "ts-link" %>
           <% end %>
         </div>
       </div>
       <%= yield :subheader %>
     </header>
 
-    <%= yield %>
+    <main class="pt-28 container mx-6 md:mx-auto">
+      <%= yield %>
+    </main>
   </body>
 </html>
