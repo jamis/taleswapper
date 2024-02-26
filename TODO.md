@@ -15,3 +15,4 @@ TODO:
 * Allow a reader to view the track sheet at top of chapter and after each update.
 * As with track-sheet updates, maybe have a way to display dice rolls prettily? Could be done via specialized markup, maybe? (Custom HTML tags?) Could custom HTML tags work for the track sheet updates, too?
 * Consolidate consecutive sections of the same type, for display?
+* Return to current page after logging in
