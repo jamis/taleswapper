@@ -7,18 +7,15 @@ export default class extends Controller {
     this.checkMany();
   }
 
-  addSectionBefore(event) {
-    let target = this.findTarget(event);
-    target.parentNode.insertBefore(this.cloneTemplate(), target);
-    this.renumberSections();
-  }
+  addSectionHere(event) {
+    let target = event.target;
+    let newSection = this.cloneTemplate();
 
-  addSectionAfter(event) {
-    let target = this.findTarget(event);
     if (target.nextSibling)
-      target.parentNode.insertBefore(this.cloneTemplate(), target.nextSibling);
+      target.parentNode.insertBefore(newSection, target.nextSibling);
     else
-      target.parentNode.appendChild(this.cloneTemplate());
+      target.parentNode.appendChild(newSection);
+
     this.renumberSections();
   }
 
@@ -51,10 +48,6 @@ export default class extends Controller {
 
       if (name.match(/\[position\]/)) element.value = position;
     }
-  }
-
-  findTarget(event) {
-    return event.target.closest('.section-form');
   }
 
   cloneTemplate() {

@@ -1,31 +1,37 @@
 <div class="section-form" data-controller="section-form">
-  <%= form.hidden_field :id if form.object.persisted? %>
-  <div class="flex flex-row items-baseline text-xs bg-gray-200 py-1 px-3">
-    <div class="rounded border border-blue-400 overflow-hidden flex flex-row bg-white">
-      <a href="#" class="w-24 px-2 py-1 border-r border-blue-400 text-center bg-blue-100" data-section-form-target="primary" data-action="section-form#selectPrimary:prevent">primary</a>
-      <a href="#" class="w-24 px-2 py-1 text-center text-gray-400" data-section-form-target="aside" data-action="section-form#selectAside:prevent">aside</a>
-      <%= form.hidden_field :role, data: { section_form_target: 'role' } %>
-      <%= form.hidden_field :position %>
-      <%= form.hidden_field :_destroy, data: { section_form_target: 'destroy' } %>
-    </div>
-    <div class="ml-auto">
-      [ <%= link_to "add before", "#", class: "ts-link", data: { action: 'sections#addSectionBefore:prevent' } %>
-      | <%= link_to "add after", "#", class: "ts-link", data: { action: 'sections#addSectionAfter:prevent' } %>
-      <span class="can-delete">| <%= link_to "delete", "#", class: "ts-cancel", data: { action: 'section-form#deleteSection sections#checkMany:prevent' } %></span> ]
-    </div>
-  </div>
-  <div class="flex flex-row">
-    <div class="w-1/3 bg-gray-100 hidden" data-section-form-target="leftSide"></div>
-    <div class="w-full flex flex-col">
-      <%= form.text_area :contents, rows: 5, class: 'focus:outline-none focus:ring-0 border-none w-full overflow-hidden resize-none', data: { controller: 'textarea-resize', section_form_target: 'editor', action: 'textarea-resize#resize' } %>
-      <div class="border-t border-blue-300 border-dashed px-4" data-controller="toggle" data-toggle-hidden-class="hidden" data-toggle-alt-label-value="Close track sheet editor" data-toggle-active-value="<%= (!!form.object.track_sheet_update&.definition&.present?).inspect %>">
-        <a href="#" data-toggle-target="actuator" data-action="toggle#toggleActive:prevent" class="ts-link text-xs">Open track sheet editor</a>
-        <%= form.fields_for :track_sheet_update, form.object.track_sheet_update || form.object.build_track_sheet_update, skip_default_ids: true do |t| %>
-          <%= t.hidden_field :id if t.object.persisted? %>
-          <%= t.text_area :data, rows: 5, class: 'focus:outline-none focus:ring-0 border-none w-full overflow-hidden resize-none font-mono text-sm p-0 pt-2', data: { toggle_target: 'panel', controller: 'textarea-resize json-formatter', action: 'textarea-resize#resize' } %>
-        <% end %>
+  <div class="border rounded-lg overflow-hidden">
+    <%= form.hidden_field :id if form.object.persisted? %>
+    <div class="flex flex-row items-baseline text-xs bg-gray-200 py-1 px-3">
+      <div class="rounded border border-blue-400 overflow-hidden flex flex-row bg-white">
+        <a href="#" class="w-24 px-2 py-1 border-r border-blue-400 text-center bg-blue-100" data-section-form-target="primary" data-action="section-form#selectPrimary:prevent">primary</a>
+        <a href="#" class="w-24 px-2 py-1 text-center text-gray-400" data-section-form-target="aside" data-action="section-form#selectAside:prevent">aside</a>
+        <%= form.hidden_field :role, data: { section_form_target: 'role' } %>
+        <%= form.hidden_field :position %>
+        <%= form.hidden_field :_destroy, data: { section_form_target: 'destroy' } %>
+      </div>
+      <div class="ml-auto">
+        [ <span class="can-delete"><%= link_to "delete", "#", class: "ts-cancel", data: { action: 'section-form#deleteSection sections#checkMany:prevent' } %></span> ]
       </div>
     </div>
-    <div class="w-1/3 bg-gray-100" data-section-form-target="rightSide"></div>
+    <div class="flex flex-row">
+      <div class="w-1/3 bg-gray-100 hidden" data-section-form-target="leftSide"></div>
+      <div class="w-full flex flex-col">
+        <%= form.text_area :contents, rows: 5, class: 'focus:outline-none focus:ring-0 border-none w-full overflow-hidden resize-none', data: { controller: 'textarea-resize', section_form_target: 'editor', action: 'textarea-resize#resize' } %>
+        <div data-controller="toggle" data-toggle-hidden-class="hidden" data-toggle-alt-label-value="Close track sheet editor" data-toggle-active-value="<%= (!!form.object.track_sheet_update&.definition&.present?).inspect %>">
+          <div data-toggle-target="panel" class="border-t border-blue-300 border-dashed px-4">
+            <%= form.fields_for :track_sheet_update, form.object.track_sheet_update || form.object.build_track_sheet_update, skip_default_ids: true do |t| %>
+              <%= t.hidden_field :id if t.object.persisted? %>
+              <%= t.text_area :data, rows: 5, class: 'focus:outline-none focus:ring-0 border-none w-full overflow-hidden resize-none font-mono text-sm p-0 pt-2', data: { controller: 'textarea-resize json-formatter', action: 'textarea-resize#resize' } %>
+            <% end %>
+          </div>
+          <div class="bg-gray-50 px-4 py-1 flex flex-row items-baseline gap-2">
+            <a href="#" data-toggle-target="actuator" data-action="toggle#toggleActive:prevent" class="ts-link text-xs">Open track sheet editor</a>
+          </div>
+        </div>
+      </div>
+      <div class="w-1/3 bg-gray-100" data-section-form-target="rightSide"></div>
+    </div>
   </div>
+
+  <%= render 'sections/add_here' %>
 </div>

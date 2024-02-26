@@ -21,12 +21,14 @@
     <% end %>
   </div>
 
-  <div class="border rounded w-full my-8 p-0" data-controller="sections">
+  <div class="w-full my-8 p-0" data-controller="sections">
     <template data-sections-target="template">
       <%= fields_for :template, Section.new, skip_default_ids: true do |sf| %>
         <%= render "sections/form", form: sf %>
       <% end %>
     </template>
+
+    <%= render "sections/add_here" %>
 
     <%# set include_id to false, so we can put the id field inside the containing div %>
     <%= f.fields_for :sections, include_id: false, skip_default_ids: true do |sf| %>
