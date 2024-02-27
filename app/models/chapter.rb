@@ -38,8 +38,8 @@ class Chapter < ApplicationRecord
   def self.create_sequel(params)
     create!(prequel: params[:prequel],
             uuid: params[:uuid],
-            outline_attributes: { contents: params[:contents] },
-            story_notes_attributes: { contents: params[:story_notes] })
+            outline_attributes: { contents: params[:contents] || '' },
+            story_notes_attributes: { contents: params[:story_notes] || '' })
   end
 
   def published?(now: Time.now)

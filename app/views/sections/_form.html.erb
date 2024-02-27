@@ -10,7 +10,7 @@
         <%= form.hidden_field :_destroy, data: { section_form_target: 'destroy' } %>
       </div>
       <div class="ml-auto">
-        [ <span class="can-delete"><%= link_to "delete", "#", class: "ts-cancel", data: { action: 'section-form#deleteSection sections#checkMany:prevent' } %></span> ]
+        <span class="can-delete">[ <%= link_to "delete", "#", class: "ts-cancel", data: { action: 'section-form#deleteSection sections#checkMany:prevent' } %> ]</span>
       </div>
     </div>
     <div class="flex flex-row">

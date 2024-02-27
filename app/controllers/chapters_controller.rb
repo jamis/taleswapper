@@ -1,12 +1,8 @@
 class ChaptersController < ApplicationController
-  before_action :require_authentication, only: %i[ new create edit update destroy ]
-  before_action :find_story, only: %i[ new create ]
+  before_action :require_authentication, only: %i[ create edit update destroy ]
+  before_action :find_story, only: %i[ create ]
   before_action :find_chapter, only: %i[ show edit update destroy ]
   before_action :require_own_property, only: %i[ edit update destroy ]
-
-  def new
-    @chapter = @story.chapters.build(sections: [ Section.new ])
-  end
 
   def edit
     @chapter.ensure_at_least_one_section!

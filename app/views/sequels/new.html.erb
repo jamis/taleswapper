@@ -26,8 +26,10 @@
       <%= form.text_area :scratch_pad, class: "border-0 ring-0 focus:ring-0 resize-none w-full h-64 bg-yellow-50 text-sm font-mono", data: { sequel_target: 'field', action: 'sequel#snapshot' } %>
     <% end %>
 
-    <%= dialog title: "Track Sheet", start: :closed, color: :blue, id: 'trackSheet' do %>
-      <%= render TrackSheet.new(definition: @chapter.final_track_sheet) %>
+    <% if @chapter %>
+      <%= dialog title: "Track Sheet", start: :closed, color: :blue, id: 'trackSheet' do %>
+        <%= render TrackSheet.new(definition: @chapter.final_track_sheet) %>
+      <% end %>
     <% end %>
 
     <div class="text-sm mt-1">
@@ -37,7 +39,9 @@
 
     <div class="mt-4 mb-12">
       <button data-controller="trigger" data-trigger-dialog-outlet="#scratchPad" data-action="trigger#do:prevent" class="rounded bg-yellow-100 hover:bg-yellow-300 px-4 py-2">Story Notes</button>
-      <button data-controller="trigger" data-trigger-dialog-outlet="#trackSheet" data-action="trigger#do:prevent" class="rounded bg-yellow-100 hover:bg-yellow-300 px-4 py-2">Track Sheet</button>
+      <% if @chapter %>
+        <button data-controller="trigger" data-trigger-dialog-outlet="#trackSheet" data-action="trigger#do:prevent" class="rounded bg-yellow-100 hover:bg-yellow-300 px-4 py-2">Track Sheet</button>
+      <% end %>
       <span class="px-2">|</span>
       <% if @chapter %>
         <%= link_to "Go back to #{@chapter.title}", chapter_path(@chapter), class: "inline-block px-4 py-2 bg-blue-100 rounded hover:bg-blue-300" %>
