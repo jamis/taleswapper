@@ -1,7 +1,6 @@
 TODO:
 
 * Figure out how to make the app more resilient in the face of typos in the track sheet updates. (It hurts to lose your work because you typed an attribute name wrong, or forgot a brace.)
-* Implement stories#edit
 * Autosave for chapters#edit
 * Subscriptions (allow readers to subscribe to creators, and to specific stories)
 * Notifications

@@ -1,0 +1,14 @@
+<%= form_with model: @story do |f| %>
+  <div class="mt-4 grid grid-cols-4 gap-4 items-center">
+    <div><label for="story_title">Title:</label></div>
+    <div class="col-span-3"><%= f.text_field :title, class: "w-full" %></div>
+    <div><label for="story_subtitle">Subtitle:</label></div>
+    <div class="col-span-3"><%= f.text_field :subtitle, class: "w-full" %></div>
+    <div class="col-span-4"><label for="story_description">Description:</label></div>
+    <div class="col-span-4"><%= f.text_area :description, rows: 10, class: "w-full" %></div>
+    <div class="col-span-4 justify-self-end">
+      <%= f.submit @story.new_record? ? "Start your story" : "Update your story", class: 'px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400 cursor-pointer' %>
+      or <%= link_to 'cancel', @story.new_record? ? creator_path(Current.user) : story_path(@story), class: 'ts-cancel' %>
+    </div>
+  </div>
+<% end %>
