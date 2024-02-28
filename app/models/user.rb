@@ -1,4 +1,10 @@
 class User < ApplicationRecord
+  include User::Subscriber
+
+  # Subscribing to a creator will notify subscribers when new stories are
+  # first published, but not when updates are made to those stories.
+  include Subscribable
+
   has_secure_password
 
   has_many :stories, foreign_key: 'creator_id'

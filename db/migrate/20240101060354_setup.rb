@@ -73,5 +73,12 @@ class Setup < ActiveRecord::Migration[7.1]
       t.belongs_to :section
       t.text :data
     end
+
+    create_table :subscriptions do |t|
+      t.belongs_to :user, index: false
+      t.belongs_to :subscribable, polymorphic: true
+      t.timestamps
+      t.index %i[ user_id subscribable_type subscribable_id ], unique: true
+    end
   end
 end

@@ -1,9 +1,11 @@
 <% crumbs_for @story %>
 
-<div class="flex flex-row items-baseline">
+<div class="flex flex-row items-baseline gap-2">
   <h1 class="text-3xl font-bold"><%= @story.title %></h1>
   <% if editable_story? %>
-    <span class="ml-2">[ <%= link_to "Edit", edit_story_path(@story), class: "ts-link" %> ]</span>
+    <span>[ <%= link_to "Edit", edit_story_path(@story), class: "ts-link" %> ]</span>
+  <% else %>
+    <%= render 'subscriptions/button', subscribable: @story %>
   <% end %>
 </div>
 

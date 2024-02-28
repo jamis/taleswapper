@@ -1,4 +1,6 @@
 class Story < ApplicationRecord
+  include Subscribable
+
   belongs_to :creator, class_name: 'User'
 
   has_many :chapters, dependent: :destroy

@@ -74,6 +74,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
     t.index ["creator_id"], name: "index_stories_on_creator_id"
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "subscribable_type"
+    t.integer "subscribable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subscribable_type", "subscribable_id"], name: "index_subscriptions_on_subscribable"
+    t.index ["user_id", "subscribable_type", "subscribable_id"], name: "idx_on_user_id_subscribable_type_subscribable_id_fb68f3bd3a", unique: true
+  end
+
   create_table "track_sheet_updates", force: :cascade do |t|
     t.integer "section_id"
     t.text "data"

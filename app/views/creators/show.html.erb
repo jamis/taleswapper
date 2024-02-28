@@ -1,7 +1,10 @@
 <% crumbs_for @creator %>
 
-<div class="flex-col">
-  <h1 class="text-2xl font-bold"><%= @creator.display_name %></h1>
+<div class="flex flex-col">
+  <div class="flex flex-row gap-2">
+    <h1 class="text-2xl font-bold"><%= @creator.display_name %></h1>
+    <%= render 'subscriptions/button', subscribable: @creator %>
+  </div>
 
   <div class="mt-4">
     <p><%=md @creator.description %></p>

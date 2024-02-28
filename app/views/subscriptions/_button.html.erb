@@ -1,0 +1,16 @@
+<% if subscribing_allowed?(Current.user, subscribable) %>
+  <%= subscription_form_for(Current.user, subscribable, class: 'self-center') do |f| %>
+    <% if f.object.present? %>
+      <%= f.hidden_field :subscribable_type %>
+      <%= f.hidden_field :subscribable_id %>
+    <% end %>
+
+    <button class="text-xs border rounded-lg border-blue-400 bg-blue-50 hover:bg-blue-100 px-2">
+      <% if Current.user.subscribed?(subscribable) %>
+        Subscribed!
+      <% else %>
+        Subscribe
+      <% end %>
+    </button>
+  <% end %>
+<% end %>

@@ -23,7 +23,11 @@ Rails.application.routes.draw do
 
   resources :scratch_pads, only: %i[ show update ]
 
+  resources :subscriptions
+
   resources :users do
+    resources :subscriptions
+
     member do
       get :pending
     end

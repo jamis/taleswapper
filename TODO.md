@@ -3,7 +3,6 @@ TODO:
 * Seems like something might be wonky with the track sheet updates when editing a chapter. They seem to "leak" from one section to a previous section. Perhaps something with adding and removing sections (thus creating blank sections that don't actually get added)?
 * Figure out how to make the app more resilient in the face of typos in the track sheet updates. (It hurts to lose your work because you typed an attribute name wrong, or forgot a brace.)
 * Autosave for chapters#edit
-* Subscriptions (allow readers to subscribe to creators, and to specific stories)
 * Notifications
     - when comments are posted
     - when someone subscribes to you or one of your stories
