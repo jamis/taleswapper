@@ -2,7 +2,6 @@ import { Controller } from "@hotwired/stimulus"
 import Drafts from "../drafts";
 
 export default class extends Controller {
-
   static values = {
     uuid: String,
     parent: String

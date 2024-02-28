@@ -82,7 +82,7 @@ wulan_01_02:
   position: 2
   role: aside
   contents: |
-    Wups. I need a name for Wulan's lieutenant. Rolling on the oracle, I get 9, "Artiga." What's he like? Oracle again! Role is "refute a falsehood." Descriptor is 90 = "fervent."
+    Wups. I need a name for Wulan's lieutenant. Rolling on the oracle, I get <ts-roll value="9"></ts-roll>, "Artiga." What's he like? Oracle again! Role is "refute a falsehood." Descriptor is <ts-roll value="90"></ts-roll> = "fervent."
 
     Might as well roll up a couple others for the warband, too. Kuron, who is apparently "infamous," and Valeri, who is "wary."
 wulan_01_03:
@@ -186,7 +186,7 @@ wulan_01_10:
   position: 10
   role: aside
   contents: |
-    Okay, first roll of the game. Wulan will *Swear an Iron Vow*. Though his sister isn't present, this is for her, and he does share a bond with her, so he gets +1. The roll, +heart, +1: 6+2+1 = 9 vs 2, 6. That's a strong hit!
+    Okay, first roll of the game. Wulan will *Swear an Iron Vow*. Though his sister isn't present, this is for her, and he does share a bond with her, so he gets +1. The roll, +heart, +1: <ts-roll value="6"></ts-roll>+2+1 = 9 vs <ts-roll value="2"></ts-roll>, <ts-roll value="6"></ts-roll>. That's a strong hit!
 
     "It is clear what you must do next... Take +2 momentum."
 wulan_01_11:
@@ -276,7 +276,7 @@ wulan_02_08:
   position: 8
   role: aside
   contents: |
-    Okay, Secure an Advantage, +shadow, then... Oh, wait, no. He can use his band for this (since he is!), using their strength instead to get a +4. That makes it 5 + 4 = 9 vs 7, 10, for a weak hit. "Your advantage is short-lived, take +1 momentum."
+    Okay, Secure an Advantage, +shadow, then... Oh, wait, no. He can use his band for this (since he is!), using their strength instead to get a +4. That makes it <ts-roll value="5"></ts-roll> + 4 = 9 vs <ts-roll value="7"></ts-roll>, <ts-roll value="10"></ts-roll>, for a weak hit. "Your advantage is short-lived, take +1 momentum."
 wulan_02_09:
   chapter: wulan_chapter2
   position: 9
@@ -311,7 +311,7 @@ wulan_02_11:
   position: 11
   role: aside
   contents: |
-    I'll run this as a "Battle" move. The objective is to force the varou back into the woods, sending them reeling and yelping away so that they will be unlikely to return to battle any time soon. Wulan is using his band, here, so gets a +4 to the roll: 5 + 4 = 9 again, vs. 2, 10. For crying out loud, what's up with the tens??? Okay, so, weak hit. "You obtain your objective, but not without cost. *Pay the Price.*"
+    I'll run this as a "Battle" move. The objective is to force the varou back into the woods, sending them reeling and yelping away so that they will be unlikely to return to battle any time soon. Wulan is using his band, here, so gets a +4 to the roll: <ts-roll value="5"></ts-roll> + 4 = 9 again, vs. <ts-roll value="2"></ts-roll>, <ts-roll value="10"></ts-roll>. For crying out loud, what's up with the tens??? Okay, so, weak hit. "You obtain your objective, but not without cost. *Pay the Price.*"
 wulan_02_12:
   chapter: wulan_chapter2
   position: 12
@@ -365,7 +365,7 @@ wulan_02_16:
   position: 16
   role: aside
   contents: |
-    With that out of the way, Wulan spends a few days with the villagers, preparing for his journey and healing his men. This is a *Sojourn* roll, +heart, and +1 because of the bond Wulan has with the villagers. 6 + 2 + 1 = 9 vs 2, 4. A strong hit! He's going to recover the lost strength (perhaps by getting the twins back on their feet?), and "Plan", taking +2 momentum. That's a strong start to his journey!
+    With that out of the way, Wulan spends a few days with the villagers, preparing for his journey and healing his men. This is a *Sojourn* roll, +heart, and +1 because of the bond Wulan has with the villagers. <ts-roll value="6"></ts-roll> + 2 + 1 = 9 vs <ts-roll value="2"></ts-roll>, <ts-roll value="4"></ts-roll>. A strong hit! He's going to recover the lost strength (perhaps by getting the twins back on their feet?), and "Plan", taking +2 momentum. That's a strong start to his journey!
 wulan_02_17:
   chapter: wulan_chapter2
   position: 17

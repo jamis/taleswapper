@@ -12,6 +12,10 @@ TODO:
 * Resizable dialog boxes? Or maybe just make them generally larger?
 * Media (images, audio, video?). Maybe treat it like the tracker updates, with each section having optional media that are displayed below the section? Or a dedicated section type?
 * Allow a reader to view the track sheet at top of chapter and after each update.
-* As with track-sheet updates, maybe have a way to display dice rolls prettily? Could be done via specialized markup, maybe? (Custom HTML tags?) Could custom HTML tags work for the track sheet updates, too? <dice>d6+1</dice> <dice>d10=4,d10=7</dice>?
 * Consolidate consecutive sections of the same type, for display?
-* Return to current page after logging in
+* Sign-up page for new users.
+* Creators need to be able to moderate comments on their own content.
+* Admin interface for manually adjusting data:
+  - converting a user to a creator
+  - editing any field of any table
+  - moderating comments
