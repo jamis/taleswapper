@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email_address: session_params[:email_address])
 
     if authenticate(user, session_params[:password])
-      redirect_to root_url
+      redirect_to origin_url || root_url
     else
       redirect_to new_session_url
     end
@@ -18,5 +18,9 @@ class SessionsController < ApplicationController
 
   def session_params
     @session_params ||= params.require(:session).permit(:email_address, :password)
+  end
+
+  def origin_url
+    params[:origin_url].presence
   end
 end
