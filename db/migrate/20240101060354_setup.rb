@@ -6,6 +6,8 @@ class Setup < ActiveRecord::Migration[7.1]
       t.text :description
       t.string :password_digest
       t.boolean :creator, default: false
+      t.string :token, null: false, index: { unique: true }
+      t.datetime :confirmed_at
       t.timestamps
     end
 

@@ -6,9 +6,13 @@ jamis:
     I write stories based on solo RPG actual plays. Ironsworn, SWADE, DungeonWorld,
     and many others!
   creator: true
+  confirmed_at: <%= 3.days.ago %>
+  token: <%= SecureRandom.uuid %>
   password_digest: <%= BCrypt::Password.create('password') %>
 
 reader:
   email_address: 'reader@elsewhere.com'
   display_name: 'Reader Joe'
+  confirmed_at: <%= 3.days.ago %>
+  token: <%= SecureRandom.uuid %>
   password_digest: <%= BCrypt::Password.create('password') %>

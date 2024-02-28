@@ -92,9 +92,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_01_060354) do
     t.text "description"
     t.string "password_digest"
     t.boolean "creator", default: false
+    t.string "token", null: false
+    t.datetime "confirmed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.index ["token"], name: "index_users_on_token", unique: true
   end
 
 end

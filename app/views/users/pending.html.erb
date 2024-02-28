@@ -1,0 +1,13 @@
+<div>
+  <h1 class="text-xl font-bold mb-4">Check your Email</h1>
+
+  <p class="mb-2">We've sent an email to <%= @user.email_address %>. Please click the
+    link in it, to confirm your account.</p>
+
+  <p class="mb-2">Once your account is confirmed, you'll be able to subscribe to creators
+    and stories, and comment on stories.</p>
+
+  <p class="mb-2">If you've waited a bit and there's no email from us,
+    please check your spam folder. If there's still nothing, we can
+    <%= link_to "send you another email", resend_user_path(@user.token), class: 'ts-link' %>.</p>
+</div>

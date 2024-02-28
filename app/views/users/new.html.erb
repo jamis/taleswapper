@@ -1,0 +1,33 @@
+<div class="max-w-lg min-w-min mx-auto flex-col">
+  <h1 class="text-2xl font-bold">Sign Up</h1>
+
+  <p class="mt-2 text-sm">
+    Signing up for a Taleswapper account will allow you to subscribe to
+    creators and stories, and post comments.
+  </p>
+
+  <%= form_with model: User.new do |f| %>
+    <div class="mt-4 grid grid-cols-4 gap-4 items-center">
+      <div><%= f.label :display_name %></div>
+      <div class="col-span-3"><%= f.text_field :display_name, class: "w-full" %></div>
+      <div><%= f.label :email_address %></div>
+      <div class="col-span-3"><%= f.text_field :email_address, class: "w-full" %></div>
+      <div><%= f.label :description %></div>
+      <div class="col-span-3"><%= f.text_area :description, class: "w-full" %></div>
+      <div><%= f.label :password %></div>
+      <div class="col-span-3"><%= f.password_field :password, class: "w-full" %></div>
+      <div class="col-span-4 justify-self-end">
+        <%= f.submit "Sign Up", class: 'px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400 cursor-pointer' %>
+        or <%= link_to "cancel", root_url, class: 'ts-cancel' %>
+      </div>
+    </div>
+  <% end %>
+
+  <hr class="my-4" />
+
+  <p class="text-sm">
+    NOTE: To create your own stories, you must be a <em>creator</em>. Creator accounts
+    are currently in beta. If you are interested in helping test Taleswapper
+    as a creator, please email <a href="mailto:jamis@taleswapper.org" class="ts-link">jamis@taleswapper.org</a>.
+  </p>
+</div>

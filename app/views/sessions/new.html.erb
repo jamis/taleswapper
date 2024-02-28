@@ -11,4 +11,11 @@
       <div class="col-span-4 justify-self-end"><%= f.submit "Login", class: 'px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400 cursor-pointer' %></div>
     </div>
   <% end %>
+
+  <hr class="mt-8 mb-4" />
+
+  <div class="text-center">
+    Don't have a Taleswapper account?<br />
+    <%= link_to "Sign up for one!", new_user_path, class: 'ts-link' %>
+  </div>
 </div>

@@ -23,5 +23,14 @@ Rails.application.routes.draw do
 
   resources :scratch_pads, only: %i[ show update ]
 
+  resources :users do
+    member do
+      get :pending
+    end
+  end
+
+  get '/confirm/:token', to: 'users#confirm', as: :confirm_user
+  get '/resend/:token', to: 'users#resend', as: :resend_user
+
   root "creators#index"
 end

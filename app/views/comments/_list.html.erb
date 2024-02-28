@@ -7,7 +7,11 @@
 
       <% if commentable.interactive? %>
         <% if Current.user.present? %>
-          <%= render 'comments/form', commentable: commentable %>
+          <% if Current.user.confirmed? %>
+            <%= render 'comments/form', commentable: commentable %>
+          <% else %>
+            <div><%= link_to 'Confirm your account', pending_user_path(Current.user), class: 'ts-link' %> to join the discussion!</div>
+          <% end %>
         <% else %>
           <div><%= link_to 'Sign in', new_session_path, class: 'ts-link' %> to join the discussion!</div>
         <% end %>

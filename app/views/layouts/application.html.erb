@@ -38,7 +38,13 @@
       <%= yield :subheader %>
     </header>
 
-    <main class="pt-28 container mx-6 md:mx-auto">
+    <% if flash[:notice] %>
+      <div class="mt-16 border border-yellow-400 bg-yellow-50 rounded-lg px-6 py-2 w-1/2 m-auto">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+
+    <main class="<%= flash[:notice].present? ? 'mt-12' : 'mt-28' %> container mx-6 md:mx-auto">
       <%= yield %>
     </main>
   </body>
