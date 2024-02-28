@@ -19,7 +19,8 @@ class UsersController < ApplicationController
       redirect_to root_url, notice: "Thank you. Your account has been confirmed."
     else
       @user.confirm!
-      redirect_to root_url, notice: "Welcome to Taleswapper! Your account has been confirmed."
+      redirect_to new_session_url,
+        notice: "Welcome to Taleswapper! Your account has been confirmed. Please sign in to join our community!"
     end
   end
 
