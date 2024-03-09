@@ -1,7 +1,7 @@
 <div data-controller="dialog" data-dialog-hidden-class="hidden" data-dialog-on-close-value="remove" data-dialog-state-value="open" data-action="keydown.esc->dialog#close:prevent">
-  <div class="fixed top-0 left-0 w-full h-screen bg-black opacity-20"></div>
+  <div class="z-40 fixed top-0 left-0 w-full h-screen bg-black opacity-20"></div>
 
-  <div class="fixed shadow-md bg-white rounded-xl border border-gray-300 w-1/2 left-1/4 top-20 overflow-hidden">
+  <div class="z-50 fixed shadow-md bg-white rounded-xl border border-gray-300 w-1/2 left-1/4 top-20 overflow-hidden">
     <header class="flex flex-row w-full px-4 py-2 bg-gray-100 border-b border-gray-300">
       <h1 class="font-bold">Track Sheet</h1>
       <a class="ml-auto ts-link" href="#" data-action="dialog#close:prevent">close</a>

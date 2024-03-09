@@ -33,7 +33,6 @@ class Setup < ActiveRecord::Migration[7.1]
     create_table :sections do |t|
       t.belongs_to :chapter, index: false
       t.string :role, default: "primary"
-      t.text :contents, default: ""
       t.integer :position, null: false, default: 0
       t.timestamps
       t.index %i[ chapter_id position ]

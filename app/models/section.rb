@@ -1,5 +1,6 @@
 class Section < ApplicationRecord
   belongs_to :chapter
+  has_rich_text :content
   has_one :track_sheet_update, dependent: :destroy
 
   accepts_nested_attributes_for :track_sheet_update
@@ -16,7 +17,7 @@ class Section < ApplicationRecord
   end
 
   def word_count
-    contents.scan(/\w+/).count
+    content.to_s.scan(/\w+/).count
   end
 
   private

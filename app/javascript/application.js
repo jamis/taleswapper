@@ -2,3 +2,6 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "./tags"
+
+import "./quill-config"
+import "@rails/actiontext"

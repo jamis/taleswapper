@@ -1,5 +1,6 @@
-<div class="markdown <%= local_assigns[:styles] %> <%= first ? 'first-section' : nil %>">
-  <%=md section.contents %>
+<div class="<%= local_assigns[:styles] %> <%= first ? 'first-section' : nil %>">
+  <%#=md section.contents %>
+  <%= section.content %>
 </div>
 
 <%= render section.track_sheet_update if section.track_sheet_update %>

@@ -1,4 +1,4 @@
-dirs = [ File.expand_path('./seeds/fixtures', __dir__) ]
-sets = Dir[File.join(dirs.first, '*.yml')].map { |f| File.basename(f, '.yml').to_sym }
+dir = File.expand_path('./seeds/fixtures', __dir__)
+sets = Dir[File.join(dir, '**', '*.yml')].map { |f| f[(dir.length + 1)..-5] }
 
-ActiveRecord::FixtureSet.create_fixtures(dirs, sets)
+ActiveRecord::FixtureSet.create_fixtures([ dir ], sets)

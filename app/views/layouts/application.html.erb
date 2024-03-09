@@ -6,13 +6,14 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
+    <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.2/dist/quill.snow.css" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/quill@2.0.0-rc.2/dist/quill.js" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <header class="fixed top-0 w-full bg-white">
+    <header class="fixed top-0 w-full bg-white z-20">
       <div class="px-5 py-1 flex flex-row border-solid border-b border-gray-300 items-baseline">
         <h1 class="text-sm -indent-4 ml-4">
           ≣

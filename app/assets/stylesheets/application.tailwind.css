@@ -2,11 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+.ql-container.ql-snow {
+  border: none;
+}
+
+.ql-editor {
+  padding: 0.5rem 1rem;
+}
+
+.ql-toolbar.ql-snow {
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
 @layer base {
-  .markdown {
+  .first-section .trix-content p:first-child::first-line {
+    @apply uppercase;
+  }
+
+  .trix-content {
+    * {
+      @apply font-serif text-lg;
+    }
+
     h1, h2, h3, h4, h5, h6 {
-      @apply font-bold;
-      @apply my-4;
+      @apply font-bold my-4;
     }
 
     :is(h1, h2, h3, h4, h5, h6) + p {
@@ -22,9 +42,8 @@
     }
 
     p {
-      @apply indent-4;
-      @apply hyphens-auto; /* requires a lang attribute on the element */
-      @apply text-justify;
+      /* hyphens-auto requires a lang attribute on the element */
+      @apply indent-4 hyphens-auto text-justify;
     }
 
     &.card-contents p {
@@ -35,22 +54,8 @@
       @apply indent-0;
     }
 
-    &.first-section p:first-child::first-line {
-      @apply uppercase;
-    }
-
-    /* &.first-section p:first-child:first-letter {
-      @apply float-left;
-      @apply text-6xl;
-      @apply -ml-4;
-      @apply pt-1;
-      @apply pr-1;
-      @apply text-pink-700;
-    } */
-
     ul {
-      @apply list-disc;
-      @apply my-4;
+      @apply list-disc my-4 ml-4;
     }
 
     li {
@@ -58,9 +63,9 @@
     }
 
     hr {
-      @apply my-8;
-      @apply w-3/4;
-      @apply mx-auto;
+      @apply w-1/2 mx-auto my-8;
     }
   }
 }
+
+@import 'actiontext.css';
