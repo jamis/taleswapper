@@ -43,10 +43,4 @@
     margin-top: -0.2rem;
     content: '—';
   }
-
-  .ql-roll:before {
-    display: block;
-    margin-top: -0.2rem;
-    content: '🎲';
-  }
 }

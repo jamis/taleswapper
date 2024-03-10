@@ -28,6 +28,24 @@
       @apply text-xl;
     }
 
+    &.ql-snow .ql-editor {
+      h1, h2, h3, h4, h5, h6 {
+        @apply font-bold my-4;
+      }
+
+      :is(h1, h2, h3, h4, h5, h6) + p {
+        @apply indent-0;
+      }
+
+      h1 {
+        @apply text-2xl;
+      }
+
+      h2 {
+        @apply text-xl;
+      }
+    }
+
     p {
       /* hyphens-auto requires a lang attribute on the element */
       @apply indent-4 hyphens-auto text-justify;

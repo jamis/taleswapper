@@ -1,11 +1,9 @@
 TODO:
 
+* Breadcrumbs are messed up again, somehow. Doesn't show the intermediate crumbs...
 * Quill editor & ActionText
-  - support/insert custom tags (ts-roll)
-    https://codepen.io/javan/pen/oQpevW
-  - flesh out the toolbar
-  - add HR button to toolbar
-    https://quilljs.com/guides/cloning-medium-with-parchment#dividers
+  - support sans-serif and monotype font selection
+  - make center and right alignment work outside the editor
   - markdown-style shortcuts for certain things? (e.g. --- for mdash, etc)
 * Media (images, audio, video?). Maybe treat it like the tracker updates, with each section having optional media that are displayed below the section? Or a dedicated section type?
   - quill.js allows attaching images directly by using data URLs, which is pretty clever. It doesn't allow thumbnailing or preprocessing or anything, but I have to admit it's a neat solution. Is it good enough?
