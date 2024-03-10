@@ -23,3 +23,30 @@
     display: initial;
   }
 }
+
+.ql-container.ql-snow {
+  border: none;
+}
+
+.ql-editor {
+  padding: 0.5rem 1rem;
+}
+
+.ql-toolbar {
+  &.ql-snow {
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .ql-divider:before {
+    display: block;
+    margin-top: -0.2rem;
+    content: '—';
+  }
+
+  .ql-roll:before {
+    display: block;
+    margin-top: -0.2rem;
+    content: '🎲';
+  }
+}

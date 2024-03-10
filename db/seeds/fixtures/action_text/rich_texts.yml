@@ -54,7 +54,7 @@ wulan_01_02:
   record: wulan_01_02 (Section)
   name: content
   body: |
-    <p>Wups. I need a name for Wulan's lieutenant. Rolling on the oracle, I get <ts-roll value="9"></ts-roll>, "Artiga." What's he like? Oracle again! Role is "refute a falsehood." Descriptor is <ts-roll value="90"></ts-roll> = "fervent."</p>
+    <p>Wups. I need a name for Wulan's lieutenant. Rolling on the oracle, I get <ts-roll>9</ts-roll>, "Artiga." What's he like? Oracle again! Role is "refute a falsehood." Descriptor is <ts-roll>90</ts-roll> = "fervent."</p>
     <p>Might as well roll up a couple others for the warband, too. Kuron, who is apparently "infamous," and Valeri, who is "wary."</p>
 wulan_01_03:
   record: wulan_01_03 (Section)
@@ -125,7 +125,7 @@ wulan_01_10:
   record: wulan_01_10 (Section)
   name: content
   body: |
-    <p>Okay, first roll of the game. Wulan will <em>Swear an Iron Vow</em>. Though his sister isn't present, this is for her, and he does share a bond with her, so he gets +1. The roll, +heart, +1: <ts-roll value="6"></ts-roll>+2+1 = 9 vs <ts-roll value="2"></ts-roll>, <ts-roll value="6"></ts-roll>. That's a strong hit!</p>
+    <p>Okay, first roll of the game. Wulan will <em>Swear an Iron Vow</em>. Though his sister isn't present, this is for her, and he does share a bond with her, so he gets +1. The roll, +heart, +1: <ts-roll>6</ts-roll>+2+1 = 9 vs <ts-roll>2</ts-roll>, <ts-roll>6</ts-roll>. That's a strong hit!</p>
     <p>"It is clear what you must do next... Take +2 momentum."</p>
 wulan_01_11:
   record: wulan_01_11 (Section)
@@ -193,7 +193,7 @@ wulan_02_08:
   record: wulan_02_08 (Section)
   name: content
   body: |
-    <p>Okay, <em>Secure an Advantage</em>, +shadow, then... Oh, wait, no. He can use his band for this (since he is!), using their strength instead to get a +4. That makes it <ts-roll value="5"></ts-roll> + 4 = 9 vs <ts-roll value="7"></ts-roll>, <ts-roll value="10"></ts-roll>, for a weak hit. "Your advantage is short-lived, take +1 momentum."</p>
+    <p>Okay, <em>Secure an Advantage</em>, +shadow, then... Oh, wait, no. He can use his band for this (since he is!), using their strength instead to get a +4. That makes it <ts-roll>5</ts-roll> + 4 = 9 vs <ts-roll>7</ts-roll>, <ts-roll>10</ts-roll>, for a weak hit. "Your advantage is short-lived, take +1 momentum."</p>
 wulan_02_09:
   record: wulan_02_09 (Section)
   name: content
@@ -217,7 +217,7 @@ wulan_02_11:
   record: wulan_02_11 (Section)
   name: content
   body: |
-    <p>I'll run this as a "Battle" move. The objective is to force the varou back into the woods, sending them reeling and yelping away so that they will be unlikely to return to battle any time soon. Wulan is using his band, here, so gets a +4 to the roll: <ts-roll value="5"></ts-roll> + 4 = 9 again, vs. <ts-roll value="2"></ts-roll>, <ts-roll value="10"></ts-roll>. For crying out loud, what's up with the tens??? Okay, so, weak hit. "You obtain your objective, but not without cost. <em>Pay the Price.</em>"</p>
+    <p>I'll run this as a "Battle" move. The objective is to force the varou back into the woods, sending them reeling and yelping away so that they will be unlikely to return to battle any time soon. Wulan is using his band, here, so gets a +4 to the roll: <ts-roll>5</ts-roll> + 4 = 9 again, vs. <ts-roll>2</ts-roll>, <ts-roll>10</ts-roll>. For crying out loud, what's up with the tens??? Okay, so, weak hit. "You obtain your objective, but not without cost. <em>Pay the Price.</em>"</p>
 wulan_02_12:
   record: wulan_02_12 (Section)
   name: content
@@ -255,7 +255,7 @@ wulan_02_16:
   record: wulan_02_16 (Section)
   name: content
   body: |
-    <p>With that out of the way, Wulan spends a few days with the villagers, preparing for his journey and healing his men. This is a <em>Sojourn</em> roll, +heart, and +1 because of the bond Wulan has with the villagers. <ts-roll value="6"></ts-roll> + 2 + 1 = 9 vs <ts-roll value="2"></ts-roll>, <ts-roll value="4"></ts-roll>. A strong hit! He's going to recover the lost strength (perhaps by getting the twins back on their feet?), and "Plan", taking +2 momentum. That's a strong start to his journey!</p>
+    <p>With that out of the way, Wulan spends a few days with the villagers, preparing for his journey and healing his men. This is a <em>Sojourn</em> roll, +heart, and +1 because of the bond Wulan has with the villagers. <ts-roll>6</ts-roll> + 2 + 1 = 9 vs <ts-roll>2</ts-roll>, <ts-roll>4</ts-roll>. A strong hit! He's going to recover the lost strength (perhaps by getting the twins back on their feet?), and "Plan", taking +2 momentum. That's a strong start to his journey!</p>
 wulan_02_17:
   record: wulan_02_17 (Section)
   name: content

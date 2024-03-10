@@ -1,11 +1,18 @@
 export default class extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+  }
+
   connectedCallback() {
-    this.value = this.getAttribute('value');
-    this.render();
+    setTimeout(() => this.render(), 0);
   }
 
   render() {
-    const shadow = this.attachShadow({ mode: 'open' });
-    shadow.innerHTML = "<span style='white-space: nowrap;'>🎲" + this.value + "</span>";
+    this.shadowRoot.innerHTML = '';
+    const span = document.createElement('SPAN');
+    span.style = "white-space: nowrap;";
+    span.innerHTML = `🎲${this.innerHTML}`;
+    this.shadowRoot.appendChild(span);
   }
 }

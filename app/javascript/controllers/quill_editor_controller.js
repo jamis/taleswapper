@@ -6,7 +6,12 @@ export default class extends Controller {
   connect() {
     this.containerTarget.innerHTML = this.fieldTarget.value;
     this.quill = new Quill(this.containerTarget,
-      { modules: { toolbar: [ 'bold', 'italic', 'underline' ] },
+      { modules: { toolbar: [
+          [ 'bold', 'italic', 'underline', 'strike', 'roll' ],
+          [ 'blockquote' ],
+          [ 'link', 'formula' ],
+          [ 'divider' ]
+        ] },
         theme: 'snow' });
 
     this.quill.on('text-change', () => this.waitToCaptureEditorContents());

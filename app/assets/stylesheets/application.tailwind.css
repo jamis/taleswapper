@@ -2,19 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.ql-container.ql-snow {
-  border: none;
-}
-
-.ql-editor {
-  padding: 0.5rem 1rem;
-}
-
-.ql-toolbar.ql-snow {
-  border: none;
-  border-bottom: 1px solid #ddd;
-}
-
 @layer base {
   .first-section .trix-content p:first-child::first-line {
     @apply uppercase;
