@@ -12,3 +12,15 @@
   color: red;
   text-decoration: underline;
 }
+
+.ts-button {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid rgb(191, 219, 254);
+  border-radius: 0.25rem;
+  background-color: rgb(239, 246, 255);
+
+  &:hover {
+    background-color: rgb(219, 234, 254);
+  }
+}

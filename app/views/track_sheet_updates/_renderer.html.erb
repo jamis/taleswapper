@@ -1,0 +1,56 @@
+<div class="hidden" data-controller="track-sheet-form-renderer" data-track-sheet-form-renderer-name-value="<%= name %>">
+  <template data-track-sheet-form-renderer-target="pathFrame">
+    <div class="ts-frame my-4 border border-blue-400 rounded-lg overflow-hidden">
+      <div class="border-b border-blue-400 bg-blue-100 px-4 py-1 flex flex-row gap-2 items-baseline">
+        <span class="ts-path-label font-bold"></span>
+        <span class="ml-auto text-sm"><a href="#" class="ts-link">add tracker here</a></span>
+      </div>
+      <div class="ts-updates flex flex-row flex-wrap gap-5 p-2">
+      </div>
+    </div>
+  </template>
+
+  <template data-track-sheet-form-renderer-target="addFrame">
+    <div class="ts-frame group relative border border-blue-400 bg-blue-50 rounded-lg rounded-t-none h-min">
+      <div class="hidden w-4 group-hover:block absolute -right-4 -top-px bg-blue-50 border border-blue-400 border-l-0 text-center ts-cancel cursor-pointer">
+        X
+      </div>
+      <div class="text-xs border-b border-blue-400 px-2 py-1">
+        <select class="text-xs pl-1 py-1 w-full"><option>Pick one</option><option>Checkbox</option><option>Integer</option><option>String</option><option>Card</option></select>
+      </div>
+      <div class="ts-body p-2">
+        <div class="w-36 h-8 flex flex-col justify-center">
+          <div class="text-center text-sm font-bold text-blue-200">
+            Choose a type
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template data-track-sheet-form-renderer-target="updateFrame">
+    <div class="ts-frame group relative border border-blue-400 bg-blue-50 rounded-lg rounded-t-none h-min">
+      <div class="hidden w-4 group-hover:block absolute -right-4 -top-px bg-blue-50 border border-blue-400 border-l-0 text-center ts-cancel cursor-pointer">
+        X
+      </div>
+    </div>
+  </template>
+
+  <template data-track-sheet-form-renderer-target="addInt">
+    <div class="ts-body">
+      <input type="text" placeholder="Label" class="ts-label w-24 p-1 text-sm" />
+      <input type="text" placeholder="Num" class="ts-value w-12 p-1 text-sm" />
+    </div>
+  </template>
+
+  <template data-track-sheet-form-renderer-target="updateValue">
+    <div class="ts-body">
+      <div class="text-xs border-b border-blue-400 px-2 py-1 text-blue-400">
+        <strong class="ts-label"></strong> was <strong class="ts-original-value"></strong>
+      </div>
+      <div class="text-sm p-2">
+        Now: <input type="text" class="ts-input w-12 text-sm p-1" />
+      </div>
+    </div>
+  </template>
+</div>

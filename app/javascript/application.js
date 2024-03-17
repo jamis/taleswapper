@@ -4,3 +4,7 @@ import "controllers"
 
 import "./quill-config"
 import "@rails/actiontext"
+import Services from "services"
+
+window.TaleSwapper ||= {}
+window.TaleSwapper.Services ||= new Services();

@@ -1,13 +1,13 @@
-<div id="<%= id %>" data-controller="dialog" data-action="keydown.esc->dialog#close:prevent" data-dialog-state-value="<%= state %>" data-dialog-on-close-value="<%= on_close %>" data-dialog-hidden-class="hidden">
+<div id="<%= id %>" data-controller="dialog" data-action="keydown.esc->dialog#close:prevent" data-dialog-state-value="<%= state %>" data-dialog-on-close-value="<%= on_close %>" data-dialog-hidden-class="hidden" class="<%= 'hidden' if state == :closed %>">
   <div class="z-40 fixed top-0 left-0 w-full h-screen bg-black opacity-20"></div>
 
   <div class="z-50 fixed shadow-md bg-white rounded-xl border border-<%= color %>-300 w-1/2 left-1/4 top-20 overflow-hidden">
     <header class="flex flex-row w-full px-4 py-2 bg-<%= color %>-100 border-b border-<%= color %>-300">
-      <h1 class="font-bold"><%= title %></h1>
+      <h1 class="font-bold" data-dialog-target="title"><%= title %></h1>
       <a class="ml-auto ts-link" href="#" data-action="dialog#close:prevent">close</a>
     </header>
 
-    <main class="bg-<%= color %>-50 max-h-[75vh]">
+    <main class="bg-<%= color %>-50 max-h-[75vh] overflow-y-scroll">
       <%= yield %>
     </main>
   </div>

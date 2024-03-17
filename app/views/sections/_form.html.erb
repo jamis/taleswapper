@@ -20,15 +20,16 @@
           <%= form.hidden_field :content, data: { quill_editor_target: 'field' } %>
           <div class="trix-content" data-quill-editor-target='container'></div>
         </div>
-        <div data-controller="toggle" data-toggle-hidden-class="hidden" data-toggle-alt-label-value="Close track sheet editor" data-toggle-active-value="<%= (!!form.object.track_sheet_update&.definition&.present?).inspect %>">
-          <div data-toggle-target="panel" class="border-t border-blue-300 border-dashed px-4">
-            <%= form.fields_for :track_sheet_update, form.object.track_sheet_update || form.object.build_track_sheet_update, skip_default_ids: true do |t| %>
-              <%= t.hidden_field :id if t.object.persisted? %>
-              <%= t.text_area :data, rows: 5, class: 'focus:outline-none focus:ring-0 border-none w-full overflow-hidden resize-none font-mono text-sm p-0 pt-2', data: { controller: 'textarea-resize json-formatter', action: 'textarea-resize#resize' } %>
-            <% end %>
-          </div>
-          <div class="bg-gray-50 px-4 py-1 flex flex-row items-baseline gap-2">
-            <a href="#" data-toggle-target="actuator" data-action="toggle#toggleActive:prevent" class="ts-link text-xs">Open track sheet editor</a>
+        <div data-controller="track-sheet-editor" data-track-sheet-editor-renderer-value="TrackSheetUpdateFormRenderer" data-track-sheet-editor-dialog-outlet='#trackSheetPicker' data-track-sheet-editor-tracker-picker-outlet='.tracker-picker' data-track-sheet-editor-sections-outlet=".sections" data-toggle-target="panel" class="border-t border-blue-300 border-dashed px-4">
+          <div data-track-sheet-editor-target="entries"></div>
+          <%= form.fields_for :track_sheet_update, form.object.track_sheet_update || form.object.build_track_sheet_update, skip_default_ids: true do |t| %>
+            <%= t.hidden_field :id if t.object.persisted? %>
+            <%= t.hidden_field :data, data: { track_sheet_editor_target: 'source' }, class: 'track-sheet-update' %>
+          <% end %>
+          <div class="flex flex-row gap-2 my-2 text-xs">
+            <a href="#" class="ts-button" data-action="track-sheet-editor#addTracker:prevent">Add a tracker</a>
+            <a href="#" class="ts-button" data-action="track-sheet-editor#updateTracker:prevent">Update a tracker</a>
+            <a href="#" class="ts-button" data-action="track-sheet-editor#deleteTracker:prevent">Delete a tracker</a>
           </div>
         </div>
       </div>

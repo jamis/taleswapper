@@ -8,6 +8,12 @@ export default class extends Controller {
     onClose: { type: String, default: "hide" }
   }
 
+  static targets = [ "title" ];
+
+  set title(value) {
+    this.titleTarget.innerHTML = value;
+  }
+
   connect() {
     if (this.stateValue == "open")
       this.open();
