@@ -84,7 +84,7 @@ export default class extends Controller {
 
     this.getRenderer().then(renderer => {
       let container = this.getUpdatesContainerFor(parent, renderer);
-      renderer.renderItem('update', { name: child, defn }, container);
+      renderer.renderItem('update', { name: child, value: defn.value, defn }, container);
     });
   }
 
