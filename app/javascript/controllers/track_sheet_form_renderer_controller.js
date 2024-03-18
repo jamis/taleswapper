@@ -4,7 +4,8 @@ import { constructKeyFrom, dig } from 'utilities'
 function populateTemplate(template, values) {
   for(let key in values) {
     template.querySelectorAll('.' + key).forEach(match => {
-      match.innerHTML = values[key];
+      if (values[key] != null)
+        match.innerHTML = values[key];
     })
   }
 }
@@ -95,7 +96,6 @@ export default class extends Controller {
       if (action == 'add') {
         body = body.querySelector('.ts-body');
         body.innerHTML = "";
-        body.setAttribute('class', '');
 
         let selector = frameTemplate.querySelector('.ts-type');
         selector.value = type;

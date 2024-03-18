@@ -18,6 +18,20 @@ export default class extends Controller {
     }
 
     this.renderUpdates();
+    this.addEventListeners();
+  }
+
+  disconnect() {
+    this.removeEventListeners();
+  }
+
+  addEventListeners() {
+    this._onChangeListener = (event) => this.onChange(event);
+    this.entriesTarget.addEventListener("change", this._onChangeListener);
+  }
+
+  removeEventListeners() {
+    this.entriesTarget.removeEventListener(this._onChangeListener);
   }
 
   addTracker() {
@@ -94,5 +108,16 @@ export default class extends Controller {
     // next, need to prompt for:
     //    confirmation
     console.log('delete at', parent, child);
+  }
+
+  onChange(event) {
+    if (event.target.classList.contains('ts-type')) {
+      let type = event.target.value;
+      let body = event.target.closest('.ts-frame').querySelector('.ts-body');
+      body.innerHTML = '';
+      this.getRenderer().then(renderer => {
+        renderer[`renderItem_add_${type}`]({}, body);
+      });
+    }
   }
 }
