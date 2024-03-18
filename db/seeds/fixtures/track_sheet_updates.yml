@@ -2,7 +2,12 @@
 wulan_00_01:
   section: wulan_00_01
   data: |
-    [{"action":"add","parent":["Wulan"],"child":{"Stats":{"Edge":{"_type":"int","value":2},"Heart":{"_type":"int","value":2},"Iron":{"_type":"int","value":3},"Shadow":{"_type":"int","value":1},"Wits":{"_type":"int","value":1}},"Resources":{"Health":{"_type":"int","value":5},"Spirit":{"_type":"int","value":5},"Supply":{"_type":"int","value":5},"XP":{"_type":"int","value":0}},"Momentum":{"Current":{"_type":"int","value":2},"Reset":{"_type":"int","value":2},"Max":{"_type":"int","value":10}},"Debilities":{"Conditions":{"Wounded":{"_type":"bool","value":false},"Unprepared":{"_type":"bool","value":false},"Shaken":{"_type":"bool","value":false},"Encumbered":{"_type":"bool","value":false}},"Banes":{"Maimed":{"_type":"bool","value":false},"Corrupted":{"_type":"bool","value":false}},"Burdens":{"Cursed":{"_type":"bool","value":false},"Tormented":{"_type":"bool","value":false}}}}}]
+    [{"action":"add","parent":["Wulan","Stats"],"child":{"Edge":{"_type":"int","value":2},"Heart":{"_type":"int","value":2},"Iron":{"_type":"int","value":3},"Shadow":{"_type":"int","value":1},"Wits":{"_type":"int","value":1}}},
+     {"action":"add","parent":["Wulan","Resources"],"child":{"Health":{"_type":"int","value":5},"Spirit":{"_type":"int","value":5},"Supply":{"_type":"int","value":5},"XP":{"_type":"int","value":0}}},
+     {"action":"add","parent":["Wulan","Momentum"],"child":{"Current":{"_type":"int","value":2},"Reset":{"_type":"int","value":2},"Max":{"_type":"int","value":10}}},
+     {"action":"add","parent":["Wulan","Debilities","Conditions"],"child":{"Wounded":{"_type":"bool","value":false},"Unprepared":{"_type":"bool","value":false},"Shaken":{"_type":"bool","value":false},"Encumbered":{"_type":"bool","value":false}}},
+     {"action":"add","parent":["Wulan","Debilities","Banes"],"child":{"Maimed":{"_type":"bool","value":false},"Corrupted":{"_type":"bool","value":false}}},
+     {"action":"add","parent":["Wulan","Debilities","Burdens"],"child":{"Cursed":{"_type":"bool","value":false},"Tormented":{"_type":"bool","value":false}}}]
 wulan_00_02:
   section: wulan_00_02
   data: |
@@ -10,7 +15,8 @@ wulan_00_02:
 wulan_01_08:
   section: wulan_01_08
   data: |
-    [{"action":"add","parent":["Wulan","Vows"],"child":{"Protect the people of the Hinterlands":{"Rank":{"_type":"string","value":"Epic"},"Progress":{"_type":"string","value":"0,0"}}}},{"action":"add","parent":["Wulan"],"child":{"Bonds":{"_type":"string","value":"People of the Hinterlands"}}}]
+    [{"action":"add","parent":["Wulan","Vows","Protect the people of the Hinterlands"],"child":{"Rank":{"_type":"string","value":"Epic"},"Progress":{"_type":"string","value":"0,0"}}},
+     {"action":"add","parent":["Wulan"],"child":{"Bonds":{"_type":"string","value":"People of the Hinterlands"}}}]
 wulan_01_10:
   section: wulan_01_10
   data: |
@@ -18,7 +24,7 @@ wulan_01_10:
 wulan_01_11:
   section: wulan_01_11
   data: |
-    [{"action":"add","parent":["Wulan","Vows"],"child":{"Find out what Nia needs, and help her":{"Rank":{"_type":"string","value":"Formidable"},"Progress":{"_type":"int","value":"0"}}}}]
+    [{"action":"add","parent":["Wulan","Vows","Find out what Nia needs, and help her"],"child":{"Rank":{"_type":"string","value":"Formidable"},"Progress":{"_type":"int","value":"0"}}}]
 wulan_02_08:
   section: wulan_02_08
   data: |

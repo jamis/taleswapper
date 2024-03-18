@@ -63,11 +63,13 @@ export default class extends Controller {
       // b. for each item in the path:
       for (let update of updates) {
         for (let name in update.child) {
+          let child = update.child[name];
+
           // 1. get the info for the item
-          let info = node[name];
+          let info = child._type ? child : node[name];
 
           // 2. render the item
-          this.renderItem(update.action, { name, value: update.child[name], defn: info }, frame);
+          this.renderItem(update.action, { name, value: Object.hasOwn(child, 'value') ? child.value : child, defn: info }, frame);
         }
       }
     }
@@ -88,12 +90,48 @@ export default class extends Controller {
 
     if (info) {
       let type = info.defn._type;
-      this[`renderItem_${action}_${type}`](info, frameTemplate);
+      let body = frameTemplate;
+
+      if (action == 'add') {
+        body = body.querySelector('.ts-body');
+        body.innerHTML = "";
+        body.setAttribute('class', '');
+
+        let selector = frameTemplate.querySelector('.ts-type');
+        selector.value = type;
+      }
+
+      this[`renderItem_${action}_${type}`](info, body);
     }
 
     container.appendChild(frameTemplate);
 
     return frameTemplate;
+  }
+
+  renderItem_add_bool(info, container) {
+    let body = cloneTemplate(this.addBoolTarget, 'ts-body');
+    populateTemplate(body, { 'ts-label': info.name });
+    body.querySelector('[type=checkbox]').checked = info.value;
+    container.appendChild(body);
+  }
+
+  renderItem_add_card(info, container) {
+    let body = cloneTemplate(this.addCardTarget, 'ts-body');
+    populateTemplate(body, { 'ts-title': info.name, 'ts-value': info.value });
+    container.appendChild(body);
+  }
+
+  renderItem_add_string(info, container) {
+    let body = cloneTemplate(this.addStringTarget, 'ts-body');
+    populateTemplate(body, { 'ts-label': info.name, 'ts-value': info.value });
+    container.appendChild(body);
+  }
+
+  renderItem_add_int(info, container) {
+    let body = cloneTemplate(this.addIntTarget, 'ts-body');
+    populateTemplate(body, { 'ts-label': info.name, 'ts-value': info.value });
+    container.appendChild(body);
   }
 
   renderItem_update_int(info, container) {
@@ -109,7 +147,7 @@ export default class extends Controller {
     populateTemplate(body, { 'ts-label': info.name, 'ts-original-value': info.defn.value });
     let input = body.querySelector('.ts-input');
     input.placeholder = info.defn.value;
-    if (info.value) input.value = info.value;
+    if (info.value) input.innerHTML = info.value;
     container.appendChild(body);
   }
 }

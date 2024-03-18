@@ -44,3 +44,12 @@
     content: '—';
   }
 }
+
+span[placeholder]:empty::before {
+  content: attr(placeholder);
+  color: #555;
+}
+
+span[placeholder]:empty:focus::before {
+  content: "";
+}
