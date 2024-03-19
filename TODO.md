@@ -1,6 +1,5 @@
 TODO:
 
-* Breadcrumbs are messed up again, somehow. Doesn't show the intermediate crumbs...
 * Quill editor & ActionText
   - support sans-serif and monotype font selection
   - make center and right alignment work outside the editor

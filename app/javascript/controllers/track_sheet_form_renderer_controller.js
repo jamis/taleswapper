@@ -49,8 +49,8 @@ export default class extends Controller {
     // 1. group updates by path
     let grouped = groupUpdates(updates);
 
-    // 2. sort result by path
-    let groups = Object.keys(grouped).sort();
+    // 2. get the paths (leave the natural sorting)
+    let groups = Object.keys(grouped);
 
     // 3. for each path
     for (let key of groups) {
@@ -70,7 +70,11 @@ export default class extends Controller {
           let info = child._type ? child : node[name];
 
           // 2. render the item
-          this.renderItem(update.action, { name, value: Object.hasOwn(child, 'value') ? child.value : child, defn: info }, frame);
+          let item = this.renderItem(update.action, { name, value: Object.hasOwn(child, 'value') ? child.value : child, defn: info }, frame);
+
+          // 3. set the update on the item
+          // FIXME: handle the case of multiple children in a single update
+          item.dataset.update = JSON.stringify(update);
         }
       }
     }
@@ -111,26 +115,26 @@ export default class extends Controller {
 
   renderItem_add_bool(info, container) {
     let body = cloneTemplate(this.addBoolTarget, 'ts-body');
-    populateTemplate(body, { 'ts-label': info.name });
+    populateTemplate(body, { 'ts-name': info.name });
     body.querySelector('[type=checkbox]').checked = info.value;
     container.appendChild(body);
   }
 
   renderItem_add_card(info, container) {
     let body = cloneTemplate(this.addCardTarget, 'ts-body');
-    populateTemplate(body, { 'ts-title': info.name, 'ts-value': info.value });
+    populateTemplate(body, { 'ts-name': info.name, 'ts-value': info.value });
     container.appendChild(body);
   }
 
   renderItem_add_string(info, container) {
     let body = cloneTemplate(this.addStringTarget, 'ts-body');
-    populateTemplate(body, { 'ts-label': info.name, 'ts-value': info.value });
+    populateTemplate(body, { 'ts-name': info.name, 'ts-value': info.value });
     container.appendChild(body);
   }
 
   renderItem_add_int(info, container) {
     let body = cloneTemplate(this.addIntTarget, 'ts-body');
-    populateTemplate(body, { 'ts-label': info.name, 'ts-value': info.value });
+    populateTemplate(body, { 'ts-name': info.name, 'ts-value': info.value });
     container.appendChild(body);
   }
 
@@ -144,8 +148,8 @@ export default class extends Controller {
 
   renderItem_update_value(info, container) {
     let body = cloneTemplate(this.updateValueTarget, 'ts-body');
-    populateTemplate(body, { 'ts-label': info.name, 'ts-original-value': info.defn.value });
-    let input = body.querySelector('.ts-input');
+    populateTemplate(body, { 'ts-name': info.name, 'ts-original-value': info.defn.value });
+    let input = body.querySelector('.ts-value');
     input.placeholder = info.defn.value;
     if (info.value) input.innerHTML = info.value;
     container.appendChild(body);

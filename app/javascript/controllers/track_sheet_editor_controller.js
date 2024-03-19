@@ -28,10 +28,18 @@ export default class extends Controller {
   addEventListeners() {
     this._onChangeListener = (event) => this.onChange(event);
     this.entriesTarget.addEventListener("change", this._onChangeListener);
+
+    this._onInputListener = (event) => this.onInput(event);
+    this.entriesTarget.addEventListener("input", this._onInputListener);
+
+    this._onBlurListener = (event) => this.onBlur(event);
+    this.entriesTarget.addEventListener("blur", this._onBlurListener, true);
   }
 
   removeEventListeners() {
-    this.entriesTarget.removeEventListener(this._onChangeListener);
+    this.entriesTarget.removeEventListener("change", this._onChangeListener);
+    this.entriesTarget.removeEventListener("input", this._onInputListener);
+    this.entriesTarget.removeEventListener("blur", this._onBlurListener);
   }
 
   addTracker() {
@@ -43,6 +51,8 @@ export default class extends Controller {
   }
 
   deleteTracker() {
+    window.alert('NOT IMPLEMENTED YET');
+    return;
     this.openTrackerPicker('pick', (parent, child) => this.deleteTrackerAt(parent, child));
   }
 
@@ -118,6 +128,69 @@ export default class extends Controller {
       this.getRenderer().then(renderer => {
         renderer[`renderItem_add_${type}`]({}, body);
       });
+    } else if (event.target.type == 'checkbox') {
+      this.applyChangeToUpdate(event.target);
     }
+  }
+
+  onInput(event) {
+    if (event.target.isContentEditable) {
+      event.target.dataset.dirty = true;
+    }
+  }
+
+  onBlur(event) {
+    if (event.target.dataset.dirty) {
+      delete event.target.dataset.dirty;
+      this.applyChangeToUpdate(event.target);
+    }
+  }
+
+  applyChangeToUpdate(target) {
+    // 1. get the path from the path frame (look for closest with [data-parent])
+    let parent = JSON.parse(target.closest('[data-parent]').dataset.parent);
+    let frame = target.closest('.ts-frame');
+
+    // 2. look for closest with [data-type].
+    //   a. If present, set type, and note action is 'add'
+    //   b. Otherwise, action is either 'update' or 'delete'.
+    let type = target.closest('[data-type]')?.dataset?.type;
+    let action = type ? 'add' : null;
+
+    // 3. get name from .ts-name
+    let name = frame.querySelector('.ts-name').innerText;
+
+    // 4. Look for '.ts-value'
+    let value = frame.querySelector('.ts-value')?.innerText;
+    //   a. If present, set value, and action is 'update' if not already set.
+    //   b. Otherwise, action is 'delete'.
+    action ||= value ? 'update' : 'delete';
+
+    // 5. Compile the update and set 'data-update' on the frame.
+    let child;
+    switch(action) {
+      case 'add':
+        child = { [ name ]: { _type: type, value } }
+        break;
+      case 'update':
+        child = { [ name ]: value }
+        break;
+      case 'remove':
+        child = [ name ];
+        break;
+    }
+
+    let update = { action, parent, child };
+console.log(action, type, update)
+    frame.dataset.update = JSON.stringify(update);
+
+    // 6. Compile all updates from frames and save to the hidden field
+    this.compileUpdates();
+  }
+
+  compileUpdates() {
+    let elements = Array.from(this.element.querySelectorAll('[data-update]'));
+    this.updates = elements.map(item => JSON.parse(item.dataset.update));
+    this.saveUpdates();
   }
 }
