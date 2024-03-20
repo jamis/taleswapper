@@ -1,7 +1,5 @@
 TODO:
 
-* Tracker editor
-  - implement "add tracker here"
 * Quill editor & ActionText
   - support sans-serif and monotype font selection
   - make center and right alignment work outside the editor

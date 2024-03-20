@@ -151,20 +151,35 @@ export default class extends Controller {
   }
 
   onClick(event) {
-    if (event.target.classList.contains('ts-cancel')) {
-      let frame = event.target.closest('.ts-frame');
-      if (frame && confirm('Do you really want to delete this entry?')) {
-        let parent = frame.closest('[data-parent]');
-        let updates = parent.querySelector('.ts-updates');
-        if (updates.children.length <= 1) {
-          parent.remove();
-        } else {
-          frame.remove();
-        }
+    event.preventDefault();
 
-        this.compileUpdates();
-      }
+    if (event.target.classList.contains('ts-cancel')) {
+      this.tryRemoveEntryWithLink(event.target);
+    } else if (event.target.classList.contains('ts-add-tracker-here')) {
+      this.addTrackerHere(event.target);
     }
+  }
+
+  tryRemoveEntryWithLink(linkElement) {
+    let frame = linkElement.closest('.ts-frame');
+
+    if (!frame) return;
+    if (!confirm('Do you really want to delete this entry?')) return;
+
+    let parent = frame.closest('[data-parent]');
+    let updates = parent.querySelector('.ts-updates');
+    if (updates.children.length <= 1) {
+      parent.remove();
+    } else {
+      frame.remove();
+    }
+
+    this.compileUpdates();
+  }
+
+  addTrackerHere(target) {
+    let parent = JSON.parse(target.closest('[data-parent]').dataset.parent);
+    this.addTrackerAt(parent);
   }
 
   applyChangeToUpdate(target) {
