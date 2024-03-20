@@ -39,6 +39,13 @@ export default class extends Controller {
     if (window.confirm('Delete this section?')) {
       this.destroyTarget.value = 1;
       this.element.classList.add('hidden');
+
+      let named = this.element.querySelectorAll("[name]");
+      let newName = `deleted-${Date.now()}`;
+
+      for (let element of named) {
+        element.name = element.name.replace(/\[sections_attributes\]\[\d+\]/, `[sections_attributes][${newName}]`);;
+      }
     }
   }
 
