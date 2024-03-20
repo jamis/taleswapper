@@ -1,9 +1,24 @@
 module TrackSheetUpdateHelper
   def each_update_entry(track_sheet_update)
     sheet = track_sheet_update.section.current_track_sheet
-    track_sheet_update.definition.each do |entry|
-      yield sheet, entry
-      track_sheet_update.apply_action_to(sheet, entry)
+    track_sheet_update.consolidated.each do |path, list|
+      yield :start_cohort, path
+      list.each do |entry|
+        yield :entry, path, sheet, entry
+        track_sheet_update.apply_action_to(sheet, entry)
+      end
+      yield :end_cohort
+    end
+  end
+
+  def each_update_child(entry, sheet)
+    entry['child'].each do |name, value|
+      if value.is_a?(Hash)
+        yield name, value['_type'], value['value'], nil
+      else
+        node = sheet.dig(*entry['parent'], name)
+        yield name, node['_type'], value, node['value']
+      end
     end
   end
 

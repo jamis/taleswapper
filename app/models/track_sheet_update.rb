@@ -22,6 +22,11 @@ class TrackSheetUpdate < ApplicationRecord
     self
   end
 
+  def consolidated
+    return {} unless definition
+    definition.group_by { |e| e['parent'] }
+  end
+
   def apply_to(sheet)
     definition&.each do |action|
       apply_action_to(sheet, action)
