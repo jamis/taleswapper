@@ -1,5 +1,5 @@
 class Section < ApplicationRecord
-  belongs_to :chapter
+  belongs_to :chapter, touch: true
   has_rich_text :content
   has_one :track_sheet_update, dependent: :destroy
 

@@ -1,3 +1,3 @@
 class ScratchPad < ApplicationRecord
-  belongs_to :chapter
+  belongs_to :chapter, touch: true
 end

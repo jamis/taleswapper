@@ -1,6 +1,5 @@
 TODO:
 
-* Caching of chapters so they don't have to be re-rendered.
 * Formatting issue: lines can break BEFORE an emdash, which looks weird. Need to figure out how to avoid that, and only let lines break AFTER an emdash.
 * Hide/disable the "track sheet" link (in chapter edit) for early chapters when no track sheet has yet been defined.
 * Quill editor & ActionText

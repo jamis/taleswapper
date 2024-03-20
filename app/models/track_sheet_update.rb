@@ -1,7 +1,7 @@
 class TrackSheetUpdate < ApplicationRecord
   include Enumerable
 
-  belongs_to :section
+  belongs_to :section, touch: true
 
   validate :definition_is_valid
   before_save :convert_definition

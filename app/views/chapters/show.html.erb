@@ -12,10 +12,12 @@
       </div>
     <% end %>
     <div class="mt-4 text-sm flex flex-row gap-1">
-      <span>
-        <%= number_to_delimited(@chapter.word_count) %> words
-        (<%= distance_of_time_in_words(@chapter.time_to_read.minutes) %>)
-      </span>
+      <% cache [ @chapter, :word_count ] do %>
+        <span>
+          <%= number_to_delimited(@chapter.word_count) %> words
+          (<%= distance_of_time_in_words(@chapter.time_to_read.minutes) %>)
+        </span>
+      <% end %>
       <% if @chapter.prior_chapter.present? %>
         <span>
           &mdash; Flip back to <%= link_to(@chapter.prior_chapter.title.presence || 'the previous chapter', @chapter.prior_chapter, class: 'ts-link') %>
@@ -36,7 +38,9 @@
     <hr class="my-6" />
   </div>
 
-  <%= render @chapter.sections %>
+  <% cache @chapter do %>
+    <%= render @chapter.sections %>
+  <% end %>
 </div>
 
 <div class="max-w-prose mx-auto border-t border-dashed mt-4 pt-4">
