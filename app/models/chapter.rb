@@ -29,6 +29,7 @@ class Chapter < ApplicationRecord
   # sequel creation
   attr_accessor :uuid
 
+  before_create :possibly_set_start
   before_create :setup_records
 
   accepts_nested_attributes_for :sections, allow_destroy: true
@@ -90,6 +91,11 @@ class Chapter < ApplicationRecord
   end
 
   private
+
+  def possibly_set_start
+    return if story.chapters.starter.any?
+    self.start = true
+  end
 
   def setup_records
     setup_prequel

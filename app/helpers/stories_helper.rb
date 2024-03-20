@@ -19,7 +19,7 @@ module StoriesHelper
   private
 
   def open_toc
-    "<ul class=\"list-disc mt-4 ml-8\">"
+    "<ul class=\"list-disc ml-8\">"
   end
 
   def close_toc

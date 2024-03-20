@@ -39,31 +39,35 @@
   <%= render @chapter.sections %>
 </div>
 
-<div class="container mx-auto flex-col mb-16">
-  <ul class="mt-4 pt-4 border-t">
-    <% if !editable_story? && visible_sequels(@chapter).none? %>
-      <li class="italic">That's all for now, but stay tuned! <%= @story.creator.display_name %> could post more at any time.</li>
-    <% end %>
-
-    <% visible_sequels(@chapter).each do |action| %>
-      <li>&rarr; <%= link_to action.prompt, chapter_path(action.target), class: "ts-link" %></li>
-    <% end %>
-
+<div class="max-w-prose mx-auto border-t border-dashed mt-4 pt-4">
+  <% if !editable_story? && visible_sequels(@chapter).none? %>
+    <div class="italic mb-4">That's all for now, but stay tuned! <%= @story.creator.display_name %> could post more at any time.</div>
+  <% elsif visible_sequels(@chapter).any? %>
     <% if editable_story? %>
-      <li>
-        <% if @chapter.actions.any? %>
-          &rarr;
-          Or, branch your story from here. <%= link_to "Write an alternative chapter.", new_chapter_sequel_path(@chapter), class: "ts-link" %>
-        <% else %>
-          Continue your story from here. <%= link_to "Add the next chapter.", new_chapter_sequel_path(@chapter), class: "ts-link" %>
-        <% end %>
-      </li>
+      <div>Your story continues with:</div>
+    <% else %>
+      <div>Don't go away! The story continues here:</div>
     <% end %>
-  </ul>
+    <ul class="ml-4 mt-2 mb-4">
+      <% visible_sequels(@chapter).each do |action| %>
+        <li>&rarr; <%= link_to action.prompt, chapter_path(action.target), class: "ts-link" %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if editable_story? %>
+    <div class="mb-4">
+      <% if @chapter.actions.any? %>
+        Or, you can branch your story from here. <%= link_to "Write an alternative chapter.", new_chapter_sequel_path(@chapter), class: "ts-link" %>
+      <% else %>
+        Continue your story from here. <%= link_to "Add the next chapter.", new_chapter_sequel_path(@chapter), class: "ts-link" %>
+      <% end %>
+    </div>
+  <% end %>
 
   <% if editable_story? %>
     <div data-controller="draft-list" data-draft-list-key-value="<%= dom_id(@chapter) %>" class="my-4">
-      <h2 class="font-bold text-lg mt-4">Sequel Drafts</h2>
+      <h2 class="font-bold text-lg mb-4">Sequel Drafts</h2>
 
       <template data-draft-list-target="template">
         <li><%= link_to "", new_chapter_sequel_path(@chapter), class: "ts-link" %></li>
@@ -74,5 +78,6 @@
     </div>
   <% end %>
 
-  <%= render 'comments/list', commentable: @chapter %>
-</div>
+  <div class="flex-col mb-16">
+    <%= render 'comments/list', commentable: @chapter %>
+  </div>
