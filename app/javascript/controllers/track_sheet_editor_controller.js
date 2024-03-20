@@ -72,7 +72,7 @@ export default class extends Controller {
   }
 
   openTrackerPicker(mode, callback) {
-    let sheet = this.sectionsOutlet.trackSheetFor(this.element.closest('.section-form'));
+    let sheet = this.sectionsOutlet.trackSheetFor(this.element.closest('.section-form'), true);
     this.trackerPickerOutlet.prepare(sheet, mode, callback);
     this.dialogOutlet.open();
   }

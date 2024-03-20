@@ -1,9 +1,9 @@
 TODO:
 
-* Tracker updates need to be consolidated by path (when displaying them).
 * Tracker editor
-  - when adding a new tracker, adding text to the blank fields makes the fields' alignment wonky.
   - should probably include the section's set of updates when computing the source for a section, so that newly added attributes show up in the tracker picker.
+  - implement "add tracker here"
+  - implement the "delete" button on each entry frame
 * Quill editor & ActionText
   - support sans-serif and monotype font selection
   - make center and right alignment work outside the editor

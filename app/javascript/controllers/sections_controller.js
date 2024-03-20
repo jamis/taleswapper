@@ -70,11 +70,12 @@ export default class extends Controller {
   // Computes the track sheet as of the given section (not including the
   // updates for that section). `targetSection` is a reference to a
   // .section-form div.
-  trackSheetFor(targetSection) {
+  trackSheetFor(targetSection, includeTarget) {
     let sheet = structuredClone(this.trackSheetValue);
     for (let section of this.sections) {
-      if (section == targetSection) break;
+      if (section == targetSection && !includeTarget) break;
       sheet = this.applyUpdatesTo(sheet, section);
+      if (section == targetSection) break;
     }
 
     return sheet;
