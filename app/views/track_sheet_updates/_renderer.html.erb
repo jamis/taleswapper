@@ -11,18 +11,20 @@
   </template>
 
   <template data-track-sheet-form-renderer-target="addFrame">
-    <div class="ts-frame ts-add group relative border border-blue-400 bg-blue-50 rounded-lg rounded-t-none h-min">
-      <div class="hidden w-4 group-hover:block absolute -right-4 -top-px bg-blue-50 border border-blue-400 border-l-0 text-center ts-cancel cursor-pointer">
-        X
-      </div>
-      <div class="text-xs border-b border-blue-400 px-2 py-1">
-        <select class="ts-type text-xs pl-1 py-1 w-full">
-          <option value=''>Pick one</option>
-          <option value='bool'>Checkbox</option>
-          <option value='int'>Integer</option>
-          <option value='string'>String</option>
-          <option value='card'>Card</option>
-        </select>
+    <div class="ts-frame ts-add relative border border-blue-400 bg-blue-50 rounded-lg rounded-t-none h-min">
+      <div class="w-full flex flex-row gap-2 items-baseline border-b border-blue-400 px-2 py-1">
+        <div class="text-xs grow">
+          <select class="ts-type text-xs pl-1 py-1 w-full">
+            <option value=''>Pick one</option>
+            <option value='bool'>Checkbox</option>
+            <option value='int'>Integer</option>
+            <option value='string'>String</option>
+            <option value='card'>Card</option>
+          </select>
+        </div>
+        <div class="ts-cancel cursor-pointer center">
+          X
+        </div>
       </div>
       <div class="ts-body">
         <div class="w-36 h-8 m-2 flex flex-col justify-center">
@@ -35,10 +37,7 @@
   </template>
 
   <template data-track-sheet-form-renderer-target="updateFrame">
-    <div class="ts-frame ts-update group relative border border-blue-400 bg-blue-50 rounded-lg rounded-t-none h-min">
-      <div class="hidden w-4 group-hover:block absolute -right-4 -top-px bg-blue-50 border border-blue-400 border-l-0 text-center ts-cancel cursor-pointer">
-        X
-      </div>
+    <div class="ts-frame ts-update relative border border-blue-400 bg-blue-50 rounded-lg rounded-t-none h-min">
     </div>
   </template>
 
@@ -76,8 +75,13 @@
 
   <template data-track-sheet-form-renderer-target="updateValue">
     <div class="ts-body">
-      <div class="text-xs border-b border-blue-400 px-2 py-1 text-blue-400">
-        <strong class="ts-name"></strong> was <strong class="ts-original-value"></strong>
+      <div class="flex flex-row gap-2 items-baseline border-b border-blue-400 text-blue-400">
+        <div class="grow text-xs px-2 py-1">
+          <strong class="ts-name"></strong> was <strong class="ts-original-value"></strong>
+        </div>
+        <div class="ts-cancel cursor-pointer center pr-2">
+          X
+        </div>
       </div>
       <div class="text-sm p-2">
         Now:

@@ -34,12 +34,16 @@ export default class extends Controller {
 
     this._onBlurListener = (event) => this.onBlur(event);
     this.entriesTarget.addEventListener("blur", this._onBlurListener, true);
+
+    this._onClickListener = (event) => this.onClick(event);
+    this.entriesTarget.addEventListener("click", this._onClickListener);
   }
 
   removeEventListeners() {
     this.entriesTarget.removeEventListener("change", this._onChangeListener);
     this.entriesTarget.removeEventListener("input", this._onInputListener);
     this.entriesTarget.removeEventListener("blur", this._onBlurListener);
+    this.entriesTarget.removeEventListener("click", this._onClickListener);
   }
 
   addTracker() {
@@ -146,6 +150,23 @@ export default class extends Controller {
     }
   }
 
+  onClick(event) {
+    if (event.target.classList.contains('ts-cancel')) {
+      let frame = event.target.closest('.ts-frame');
+      if (frame && confirm('Do you really want to delete this entry?')) {
+        let parent = frame.closest('[data-parent]');
+        let updates = parent.querySelector('.ts-updates');
+        if (updates.children.length <= 1) {
+          parent.remove();
+        } else {
+          frame.remove();
+        }
+
+        this.compileUpdates();
+      }
+    }
+  }
+
   applyChangeToUpdate(target) {
     // 1. get the path from the path frame (look for closest with [data-parent])
     let parent = JSON.parse(target.closest('[data-parent]').dataset.parent);
@@ -181,7 +202,6 @@ export default class extends Controller {
     }
 
     let update = { action, parent, child };
-console.log(action, type, update)
     frame.dataset.update = JSON.stringify(update);
 
     // 6. Compile all updates from frames and save to the hidden field

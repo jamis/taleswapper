@@ -1,9 +1,7 @@
 TODO:
 
 * Tracker editor
-  - should probably include the section's set of updates when computing the source for a section, so that newly added attributes show up in the tracker picker.
   - implement "add tracker here"
-  - implement the "delete" button on each entry frame
 * Quill editor & ActionText
   - support sans-serif and monotype font selection
   - make center and right alignment work outside the editor
