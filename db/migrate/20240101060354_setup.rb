@@ -1,8 +1,8 @@
 class Setup < ActiveRecord::Migration[7.1]
   def change
     create_table :users do |t|
-      t.string :email_address, null: false, index: { unique: true }
-      t.string :display_name, null: false
+      t.string :email_address, null: false, limit: 510, index: { unique: true }
+      t.string :display_name, null: false, limit: 510
       t.text :description
       t.string :password_digest
       t.boolean :creator, default: false

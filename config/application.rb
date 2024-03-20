@@ -25,5 +25,7 @@ module Taleswapper
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.action_mailer.default_url_options = { host: 'taleswapper.org' }
+
+    config.active_record.encryption.encrypt_fixtures = true
   end
 end

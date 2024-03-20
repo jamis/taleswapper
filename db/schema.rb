@@ -134,8 +134,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_030244) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email_address", null: false
-    t.string "display_name", null: false
+    t.string "email_address", limit: 510, null: false
+    t.string "display_name", limit: 510, null: false
     t.text "description"
     t.string "password_digest"
     t.boolean "creator", default: false

@@ -7,6 +7,9 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  encrypts :display_name
+  encrypts :email_address, deterministic: true
+
   has_many :stories, foreign_key: 'creator_id'
   has_many :tracker_templates, foreign_key: 'creator_id'
   has_many :comments
