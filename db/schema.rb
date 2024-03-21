@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_02_29_030244) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -22,8 +25,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_030244) do
   end
 
   create_table "actions", force: :cascade do |t|
-    t.integer "source_id"
-    t.integer "target_id"
+    t.bigint "source_id"
+    t.bigint "target_id"
     t.string "prompt"
     t.integer "position", default: 0, null: false
     t.datetime "created_at", null: false
@@ -61,7 +64,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_030244) do
   end
 
   create_table "chapters", force: :cascade do |t|
-    t.integer "story_id"
+    t.bigint "story_id"
     t.string "title"
     t.boolean "interactive", default: false
     t.boolean "start", default: false
@@ -73,8 +76,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_030244) do
 
   create_table "comments", force: :cascade do |t|
     t.string "commentable_type"
-    t.integer "commentable_id"
-    t.integer "user_id"
+    t.bigint "commentable_id"
+    t.bigint "user_id"
     t.text "contents", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -83,7 +86,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_030244) do
   end
 
   create_table "scratch_pads", force: :cascade do |t|
-    t.integer "chapter_id"
+    t.bigint "chapter_id"
     t.string "type", null: false
     t.text "contents", default: "", null: false
     t.integer "position", default: 0, null: false
@@ -91,7 +94,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_030244) do
   end
 
   create_table "sections", force: :cascade do |t|
-    t.integer "chapter_id"
+    t.bigint "chapter_id"
     t.string "role", default: "primary"
     t.integer "position", default: 0, null: false
     t.datetime "created_at", null: false
@@ -104,7 +107,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_030244) do
     t.string "subtitle"
     t.text "description"
     t.boolean "interactive", default: false
-    t.integer "creator_id", null: false
+    t.bigint "creator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "archived_at"
@@ -112,9 +115,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_030244) do
   end
 
   create_table "subscriptions", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "subscribable_type"
-    t.integer "subscribable_id"
+    t.bigint "subscribable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["subscribable_type", "subscribable_id"], name: "index_subscriptions_on_subscribable"
@@ -122,13 +125,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_29_030244) do
   end
 
   create_table "track_sheet_updates", force: :cascade do |t|
-    t.integer "section_id"
+    t.bigint "section_id"
     t.text "data"
     t.index ["section_id"], name: "index_track_sheet_updates_on_section_id"
   end
 
   create_table "track_sheets", force: :cascade do |t|
-    t.integer "chapter_id"
+    t.bigint "chapter_id"
     t.text "definition"
     t.index ["chapter_id"], name: "index_track_sheets_on_chapter_id"
   end

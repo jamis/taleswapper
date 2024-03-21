@@ -23,7 +23,6 @@ TODO:
     - when you are mentioned in a comment (??)
 * Resizable dialog boxes? Or maybe just make them generally larger?
 * Allow a reader to view the track sheet at top of chapter and after each update.
-* Consolidate consecutive sections of the same type, for display?
 * Creators need to be able to moderate comments on their own content.
   - creators could specify how they want moderation done: no moderation, or require moderation (no comments shown that aren't approved).
 * Admin interface for manually adjusting data:

@@ -157,6 +157,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.0-x86_64-linux)
       racc (~> 1.4)
+    pg (1.5.6)
     psych (5.1.2)
       stringio
     public_suffix (5.0.4)
@@ -222,9 +223,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.7.0-aarch64-linux)
-    sqlite3 (1.7.0-arm64-darwin)
-    sqlite3 (1.7.0-x86_64-linux)
     stimulus-rails (1.3.0)
       railties (>= 6.0.0)
     stringio (3.1.0)
@@ -271,11 +269,11 @@ DEPENDENCIES
   jbuilder
   kramdown
   kramdown-parser-gfm
+  pg
   puma (>= 5.0)
   rails (~> 7.1.2)
   selenium-webdriver
   sprockets-rails
-  sqlite3 (~> 1.4)
   stimulus-rails
   tailwindcss-rails
   turbo-rails
