@@ -1,1 +1,1 @@
-import './quill-config/blots'
+import './quill-config/blots/index.js'

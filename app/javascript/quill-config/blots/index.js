@@ -1,1 +1,1 @@
-import './blots/divider'
+import './divider.js'
