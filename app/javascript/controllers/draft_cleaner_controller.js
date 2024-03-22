@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import Drafts from "../drafts";
+import Drafts from "drafts";
 
 export default class extends Controller {
   static values = {
