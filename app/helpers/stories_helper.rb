@@ -27,19 +27,10 @@ module StoriesHelper
   end
 
   def add_toc_entry(chapter)
-    tag.li do
-      link_to(chapter.title.presence || "chapter", chapter_path(chapter), class: "ts-link") +
-      possibly_unpublished_tag(chapter)
-    end
+    render "stories/toc_chapter", chapter: chapter
   end
 
   def end_toc_entry
     "</li>"
-  end
-
-  def possibly_unpublished_tag(chapter)
-    return tag.span if chapter.published?
-
-    tag.span("[draft]", class: 'mx-2 text-sm text-red-600')
   end
 end

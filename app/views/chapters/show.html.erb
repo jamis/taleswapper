@@ -11,19 +11,24 @@
         <h1 class="text-2xl font-bold"><%= @chapter.title.presence || 'Untitled' %></h1>
       </div>
     <% end %>
-    <% unless @chapter.published? %>
-      <div class="text-red-600">[draft &mdash; not yet published]</div>
-    <% end %>
-    <div class="mt-4 text-sm flex flex-row gap-1">
-      <% cache [ @chapter, :word_count ] do %>
-        <span>
-          <%= number_to_delimited(@chapter.word_count) %> words
-          (<%= distance_of_time_in_words(@chapter.time_to_read.minutes) %>)
-        </span>
-      <% end %>
+    <div class="mt-4 text-sm flex flex-col gap-1">
+      <div class="flex flex-row gap-2">
+        <% if @chapter.published? %>
+          <span><%= @chapter.published_at.strftime("%A, %B %e, %Y") %></span>
+          &mdash;
+        <% else %>
+          <span class="text-red-600">[draft &mdash; not yet published]</span>
+        <% end %>
+        <% cache [ @chapter, :word_count ] do %>
+          <span>
+            <%= number_to_delimited(@chapter.word_count) %> words
+            (<%= distance_of_time_in_words(@chapter.time_to_read.minutes) %>)
+          </span>
+        <% end %>
+      </div>
       <% if @chapter.prior_chapter.present? %>
         <span>
-          &mdash; Flip back to <%= link_to(@chapter.prior_chapter.title.presence || 'the previous chapter', @chapter.prior_chapter, class: 'ts-link') %>
+          Flip back to <%= link_to(@chapter.prior_chapter.title.presence || 'the previous chapter', @chapter.prior_chapter, class: 'ts-link') %>
         </span>
       <% end %>
       <% if Current.user == @story.creator %>

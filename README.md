@@ -1,5 +1,7 @@
 # TALESWAPPER
 
+See the app in action! Check it out at https://taleswapper.org
+
 This is a web app for story creators---and solo roleplayers specifically---to interact with readers in a new way. The flow looks something like this:
 
 1. A creator plays their RPG (solo or otherwise), and takes notes from the session.
