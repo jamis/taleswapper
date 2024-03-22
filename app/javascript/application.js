@@ -2,7 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-import "./quill-config/index.js"
+import "quill-config"
 import "@rails/actiontext"
 import Services from "services"
 
