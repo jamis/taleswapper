@@ -8,23 +8,25 @@
 # ENV_MAPPINGS variable to "MEMCACHE_SERVERS=CACHE_WORLD_HOSTS", and this
 # middleware would perform the translation for us.
 
-class EnvExpander
-  def initialize(app)
-    @app = app
-  end
-
-  def call(env)
-    env_mappings.each do |env_alias, env_var|
-      ENV[env_alias] = ENV[env_var]
+module Middleware
+  class EnvExpander
+    def initialize(app)
+      @app = app
     end
 
-    @app.call(env)
-  end
+    def call(env)
+      env_mappings.each do |env_alias, env_var|
+        ENV[env_alias] = ENV[env_var]
+      end
 
-  private
+      @app.call(env)
+    end
 
-  def env_mappings
-    source = (ENV['ENV_MAPPINGS'] || '')
-    Hash[source.split(/,/).map { |pair| pair.split(/=/, 2) }]
+    private
+
+    def env_mappings
+      source = (ENV['ENV_MAPPINGS'] || '')
+      Hash[source.split(/,/).map { |pair| pair.split(/=/, 2) }]
+    end
   end
 end
