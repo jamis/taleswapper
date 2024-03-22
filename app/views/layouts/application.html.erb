@@ -45,7 +45,7 @@
       </div>
     <% end %>
 
-    <main class="<%= flash[:notice].present? ? 'mt-12' : 'mt-28' %> container mx-6 md:mx-auto">
+    <main class="<%= flash[:notice].present? ? 'mt-12' : 'mt-28' %> md:container mx-6 md:mx-auto">
       <%= yield %>
     </main>
   </body>
