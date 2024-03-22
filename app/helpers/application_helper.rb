@@ -34,7 +34,7 @@ module ApplicationHelper
     case record
     when Chapter
       crumbs_for(record.story, leaf: false)
-      breadcrumb record.title, link: leaf ? nil : chapter_path(record)
+      breadcrumb record.title.presence || 'New Chapter', link: leaf ? nil : chapter_path(record)
     when Story
       crumbs_for(record.creator, leaf: false)
       breadcrumb record.title, link: leaf ? nil : story_path(record), priority: leaf ? nil : :md

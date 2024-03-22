@@ -1,6 +1,5 @@
 TODO:
 
-* Breadcrumbs are weird on chapter edit when chapter has no title (uses the URL for the chapter instead of the title)
 * Let's tidy up the chapter perma a bit.
 * Tidy up the creator perma as well.
 * A tracker formatted at the same level as a namespace needs spacing fixed (in the track sheet)
