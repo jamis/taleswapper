@@ -45,6 +45,10 @@
   }
 }
 
+.markdown {
+  p { margin-bottom: 1rem; }
+}
+
 span[placeholder]:empty::before {
   content: attr(placeholder);
   color: #555;

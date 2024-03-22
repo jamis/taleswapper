@@ -1,12 +1,35 @@
-<div class="flex-col">
-  <h1 class="text-2xl font-bold">Taleswapper</h1>
-  <h2 class="text-xl font-bold">A Place for Sharing Stories</h2>
+<div class="max-w-prose mx-auto flex flex-col">
+  <h1 class="text-4xl font-bold mb-4">Taleswapper</h1>
 
-  <p class="mt-8">Pick a creator to begin exploring their stories:</p>
+  <p class="mb-4">
+    <em>Share your adventures!</em> Taleswapper is a home for roleplayers
+    of all stripes to gather and tell their tales. Whether you adventure alone,
+    or with a group, your stories are welcome here.
+  </p>
 
-  <ul class="mt-4 ml-8 mb-12">
+  <p class="mb-4">The following adventurers currently have tales to tell:</p>
+
+  <ul class="ml-8 mb-4">
     <% User.creators.each do |creator| %>
-      <li class="mt-2"><%= link_to creator.display_name, creator_path(creator), class: "ts-link" %></li>
+      <li class="mb-2"><%= link_to creator.display_name, creator_path(creator), class: "ts-link" %></li>
     <% end %>
   </ul>
+
+  <hr class="mb-4" />
+
+  <div class="italic text-sm">
+    <p class="mb-4">
+      Anyone may read the stories that are posted, but <strong>creator
+      accounts</strong> are currently in beta. If you are interested in
+      testing Taleswapper as a creator, please email <a href="mailto:jamis@taleswapper.org" class="ts-link">jamis@taleswapper.org</a>
+      and let me know!
+    </p>
+
+    <p class="mb-4">
+      Note that Taleswapper is <em>not</em> a platform for actually <em>playing
+      your game</em>. The idea here is that you'll play your game in whatever
+      form you prefer, and then record its history here, for others to enjoy
+      with you.
+    </p>
+  </div>
 </div>

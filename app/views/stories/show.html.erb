@@ -1,52 +1,54 @@
 <% crumbs_for @story %>
 
-<div class="flex flex-row items-baseline gap-2">
-  <h1 class="text-3xl font-bold"><%= @story.title %></h1>
-  <% if editable_story? %>
-    <span>[ <%= link_to "Edit", edit_story_path(@story), class: "ts-link" %> ]</span>
-  <% else %>
-    <%= render 'subscriptions/button', subscribable: @story %>
-  <% end %>
-</div>
-
-<div class="flex-col max-w-screen-xl mb-12">
-  <% if @story.subtitle.present? %>
-    <h2 class="text-lg italic"><%= @story.subtitle %></h2>
-  <% end %>
-  <h2 class="font-bold">by <%= link_to @story.creator.display_name, creator_path(@story.creator), class: "ts-link" %></h2>
-
-  <div class="markdown mt-8">
-    <%=md @story.description %>
+<div class="max-w-prose mx-auto mb-4">
+  <div class="flex flex-row items-baseline gap-2">
+    <h1 class="text-3xl font-bold"><%= @story.title %></h1>
+    <% if editable_story? %>
+      <span>[ <%= link_to "Edit", edit_story_path(@story), class: "ts-link" %> ]</span>
+    <% else %>
+      <%= render 'subscriptions/button', subscribable: @story %>
+    <% end %>
   </div>
 
-  <% if @story.chapters.empty? %>
-    <div class="mt-4 rounded-lg bg-blue-100 px-6 py-3">
-      <p>You haven't added any chapters to this story yet.</p>
-      <p>
-        You can
-        <%= link_to "add your first chapter now", new_story_sequel_path(@story), class: "ts-link" %>.
-      </p>
-    </div>
-  <% else %>
-    <div class="mt-8 mb-4 flex flex-row items-baseline">
-      <h2 class="text-xl font-bold">Table of Contents</h2>
+  <div class="flex-col max-w-screen-xl mb-12">
+    <% if @story.subtitle.present? %>
+      <h2 class="text-lg italic"><%= @story.subtitle %></h2>
+    <% end %>
+    <h2 class="font-bold">by <%= link_to @story.creator.display_name, creator_path(@story.creator), class: "ts-link" %></h2>
+
+    <div class="markdown mt-8">
+      <%=md @story.description %>
     </div>
 
-    <%= render_contents(@story) %>
-  <% end %>
+    <% if @story.chapters.empty? %>
+      <div class="mt-4 rounded-lg bg-blue-100 px-6 py-3">
+        <p>You haven't added any chapters to this story yet.</p>
+        <p>
+          You can
+          <%= link_to "add your first chapter now", new_story_sequel_path(@story), class: "ts-link" %>.
+        </p>
+      </div>
+    <% else %>
+      <div class="mt-8 mb-4 flex flex-row items-baseline">
+        <h2 class="text-xl font-bold">Table of Contents</h2>
+      </div>
 
-  <% if editable_story? %>
-    <div data-controller="draft-list" data-draft-list-key-value="<%= dom_id(@story) %>" class="my-4">
-      <h2 class="font-bold text-lg mt-4">Pending Drafts</h2>
+      <%= render_contents(@story) %>
+    <% end %>
 
-      <template data-draft-list-target="template">
-        <li><%= link_to "", new_story_sequel_path(@story), class: "ts-link" %></li>
-      </template>
+    <% if editable_story? %>
+      <div data-controller="draft-list" data-draft-list-key-value="<%= dom_id(@story) %>" class="my-4">
+        <h2 class="font-bold text-lg mt-4">Pending Drafts</h2>
 
-      <ul data-draft-list-target="list" class="list-disc mt-2 ml-8">
-      </ul>
-    </div>
-  <% end %>
+        <template data-draft-list-target="template">
+          <li><%= link_to "", new_story_sequel_path(@story), class: "ts-link" %></li>
+        </template>
 
-  <%= render 'comments/list', commentable: @story %>
+        <ul data-draft-list-target="list" class="list-disc mt-2 ml-8">
+        </ul>
+      </div>
+    <% end %>
+
+    <%= render 'comments/list', commentable: @story %>
+  </div>
 </div>

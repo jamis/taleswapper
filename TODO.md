@@ -1,7 +1,5 @@
 TODO:
 
-* Let's tidy up the chapter perma a bit.
-* Tidy up the creator perma as well.
 * Show unpublished chapters' status
   - on the story perma (TOC)
   - on the chapter perma

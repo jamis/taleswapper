@@ -8,7 +8,7 @@
     </div>
     <% if @chapter.title.present? || Current.user == @story.creator %>
       <div class="flex flex-row items-baseline">
-        <h1 class="text-2xl"><%= @chapter.title.presence || 'Untitled' %></h1>
+        <h1 class="text-2xl font-bold"><%= @chapter.title.presence || 'Untitled' %></h1>
       </div>
     <% end %>
     <div class="mt-4 text-sm flex flex-row gap-1">

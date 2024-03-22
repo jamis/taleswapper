@@ -1,19 +1,37 @@
 <% crumbs_for @creator %>
 
-<div class="flex flex-col">
+<div class="max-w-prose mx-auto mb-4 flex flex-col">
   <div class="flex flex-row gap-2">
     <h1 class="text-2xl font-bold"><%= @creator.display_name %></h1>
     <%= render 'subscriptions/button', subscribable: @creator %>
   </div>
 
-  <div class="mt-4">
-    <p><%=md @creator.description %></p>
+  <div class="mt-4 markdown">
+    <%=md @creator.description %>
   </div>
 
   <h1 class="text-xl font-bold mt-4">Current Stories</h1>
 
   <% if @creator.stories.active.any? %>
     <%= render partial: 'stories/list', object: @creator.stories.active %>
+  <% else %>
+    <div>
+      <% if Current.user == @creator %>
+        You don't have any active stories right now. Go ahead and
+        <%= link_to "start one", new_story_path, class: "ts-link" %>!
+      <% else %>
+        <%= @creator.display_name %> isn't working on any stories right
+        now.
+        <% if @creator.subscriber_subscribed?(Current.user) %>
+          You'll be notified when they start a new story.
+        <% elsif Current.user %>
+          Subscribe to be notified when they start a new story.
+        <% else %>
+          If you sign up for a Taleswapper account, you can subscribe to
+          their channel and be notified when they start a new story.
+        <% end %>
+      <% end %>
+    </div>
   <% end %>
 
   <% if Current.user == @creator %>
