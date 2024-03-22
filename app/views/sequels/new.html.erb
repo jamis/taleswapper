@@ -22,8 +22,8 @@
 
     <%= form.text_area :contents, class: 'focus:outline-none focus:ring-0 border rounded-lg w-full overflow-hidden resize-none font-mono text-sm px-4 py-2 mt-2', data: { controller: 'textarea-resize', textarea_resize_min_height_value: 288, sequel_target: 'field', action: 'textarea-resize#resize sequel#snapshot' } %>
 
-    <%= dialog title: "Scratch Pad", start: :closed, color: :yellow, id: 'scratchPad' do %>
-      <%= form.text_area :scratch_pad, class: "border-0 ring-0 focus:ring-0 resize-none w-full h-64 bg-yellow-50 text-sm font-mono", data: { sequel_target: 'field', action: 'sequel#snapshot' } %>
+    <%= dialog title: "Story Notes", start: :closed, color: :yellow, id: 'storyNotes' do %>
+      <%= form.text_area :story_notes, class: "border-0 ring-0 focus:ring-0 resize-none w-full h-64 bg-yellow-50 text-sm font-mono", data: { sequel_target: 'field', action: 'sequel#snapshot' } %>
     <% end %>
 
     <% if @chapter %>
@@ -38,7 +38,7 @@
     </div>
 
     <div class="mt-4 mb-12">
-      <button data-controller="trigger" data-trigger-dialog-outlet="#scratchPad" data-action="trigger#do:prevent" class="rounded bg-yellow-100 hover:bg-yellow-300 px-4 py-2">Story Notes</button>
+      <button data-controller="trigger" data-trigger-dialog-outlet="#storyNotes" data-action="trigger#do:prevent" class="rounded bg-yellow-100 hover:bg-yellow-300 px-4 py-2">Story Notes</button>
       <% if @chapter %>
         <button data-controller="trigger" data-trigger-dialog-outlet="#trackSheet" data-action="trigger#do:prevent" class="rounded bg-yellow-100 hover:bg-yellow-300 px-4 py-2">Track Sheet</button>
       <% end %>

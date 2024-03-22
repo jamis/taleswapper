@@ -1,11 +1,17 @@
 TODO:
 
+* Breadcrumbs are weird on chapter edit when chapter has no title (uses the URL for the chapter instead of the title)
+* Let's tidy up the chapter perma a bit.
+* Tidy up the creator perma as well.
+* A tracker formatted at the same level as a namespace needs spacing fixed (in the track sheet)
 * Formatting issue: lines can break BEFORE an emdash, which looks weird. Need to figure out how to avoid that, and only let lines break AFTER an emdash.
 * Hide/disable the "track sheet" link (in chapter edit) for early chapters when no track sheet has yet been defined.
+* "new sequel" view might offer an optional full-screen view, perhaps with notes and trackers as side-bars, always open?
 * Quill editor & ActionText
   - support sans-serif and monotype font selection
   - make center and right alignment work outside the editor
   - markdown-style shortcuts for certain things? (e.g. --- for mdash, etc)
+  - keep toolbar at top of screen for long sections
 * Media (images, audio, video?). Maybe treat it like the tracker updates, with each section having optional media that are displayed below the section? Or a dedicated section type?
   - quill.js allows attaching images directly by using data URLs, which is pretty clever. It doesn't allow thumbnailing or preprocessing or anything, but I have to admit it's a neat solution. Is it good enough? Probably not, sadly. We need:
       - image captions (optional)
