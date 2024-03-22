@@ -4,11 +4,11 @@
 
 <div class="text-red-400 border border-red-400 bg-red-50 rounded-lg shadow-md flex flex-col overflow-hidden">
   <div class="text-sm <%= value ? 'border-b border-red-400' : '' %> px-2 py-1">
-    Delete <strong><%= name %></strong>
+    "<strong><%= name %></strong>" deleted.
   </div>
   <% if value %>
     <div class="text-sm px-2 py-1">
-      <%= name %> was <strong><%= value %></strong>
+      <%= name %> was <strong><%= value %></strong>.
     </div>
   <% end %>
 </div>
