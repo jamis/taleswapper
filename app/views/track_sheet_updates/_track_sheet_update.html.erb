@@ -8,6 +8,8 @@
       <% elsif action == :end_cohort %>
           </div>
         </div>
+      <% elsif entry['action'] == 'remove' %>
+        <%= render_track_sheet_update_remove(sheet, entry) %>
       <% else %>
         <% each_update_child(entry, sheet) do |name, type, value, prior| %>
           <%= render_track_sheet_element(name, type, value, prior) %>

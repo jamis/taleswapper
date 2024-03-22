@@ -31,7 +31,7 @@ export default class extends Controller {
     'pathFrame',
     'addFrame', 'addInt', 'addString', 'addBool', 'addCard',
     'updateFrame', 'updateValue', 'updateBool', 'updateCard',
-    'removeFrame', 'removeInt', 'removeString', 'removeBool', 'removeCard' ];
+    'removeFrame', 'removeGroup', 'removeValue', 'removeBool', 'removeCard' ];
 
   static values = {
     name: String
@@ -63,18 +63,31 @@ export default class extends Controller {
 
       // b. for each item in the path:
       for (let update of updates) {
-        for (let name in update.child) {
-          let child = update.child[name];
+        if (update.action == 'remove') {
+          for (let child of update.child) {
+            // 1. get the info for the item
+            let info = node[child];
+            if (!info._type) info = { _type: 'group' };
 
-          // 1. get the info for the item
-          let info = child._type ? child : node[name];
+            // 2. render the item
+            let item = this.renderItem(update.action, { name: child, value: info.value, defn: info }, frame);
 
-          // 2. render the item
-          let item = this.renderItem(update.action, { name, value: Object.hasOwn(child, 'value') ? child.value : child, defn: info }, frame);
+            // 3. set the update on the item
+            item.dataset.update = JSON.stringify({ action: update.action, parent: update.parent, child: [ child ] });
+          }
+        } else { // add, update
+          for (let name in update.child) {
+            let child = update.child[name];
 
-          // 3. set the update on the item
-          // FIXME: handle the case of multiple children in a single update
-          item.dataset.update = JSON.stringify(update);
+            // 1. get the info for the item
+            let info = child._type ? child : node[name];
+
+            // 2. render the item
+            let item = this.renderItem(update.action, { name, value: Object.hasOwn(child, 'value') ? child.value : child, defn: info }, frame);
+
+            // 3. set the update on the item
+            item.dataset.update = JSON.stringify({ ...update, child: { [name]: update.child[name] } });
+          }
         }
       }
     }
@@ -152,6 +165,26 @@ export default class extends Controller {
     let input = body.querySelector('.ts-value');
     input.placeholder = info.defn.value;
     if (info.value) input.innerHTML = info.value;
+    container.appendChild(body);
+  }
+
+  renderItem_remove_group(info, container) {
+    let body = cloneTemplate(this.removeGroupTarget, 'ts-body');
+    populateTemplate(body, { 'ts-name': info.name });
+    container.appendChild(body);
+  }
+
+  renderItem_remove_int(info, container) {
+    this.renderItem_remove_value(info, container);
+  }
+
+  renderItem_remove_string(info, container) {
+    this.renderItem_remove_value(info, container);
+  }
+
+  renderItem_remove_value(info, container) {
+    let body = cloneTemplate(this.removeValueTarget, 'ts-body');
+    populateTemplate(body, { 'ts-name': info.name, 'ts-original-value': info.defn.value });
     container.appendChild(body);
   }
 }

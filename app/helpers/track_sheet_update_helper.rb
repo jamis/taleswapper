@@ -17,6 +17,7 @@ module TrackSheetUpdateHelper
         yield name, value['_type'], value['value'], nil
       else
         node = sheet.dig(*entry['parent'], name)
+        node = { '_type' => 'group' } unless node['_type']
         yield name, node['_type'], value, node['value']
       end
     end
@@ -28,8 +29,8 @@ module TrackSheetUpdateHelper
       render_track_sheet_update_add(sheet, entry)
     when 'update'
       render_track_sheet_update_update(sheet, entry)
-    when 'delete'
-      render_track_sheet_update_delete(sheet, entry)
+    when 'remove'
+      render_track_sheet_update_remove(sheet, entry)
     when 'noop'
       # do nothing, no-op
     else raise ArgumentError, "unsupported entry action #{entry['action'].inspect}"
@@ -75,8 +76,8 @@ module TrackSheetUpdateHelper
     render 'track_sheet_updates/update', sheet: sheet, entry: entry, priors: priors
   end
 
-  def render_track_sheet_update_delete(sheet, entry)
+  def render_track_sheet_update_remove(sheet, entry)
     priors = sheet.dig(*entry['parent'])
-    render 'track_sheet_updates/delete', sheet: sheet, entry: entry, priors: priors
+    render 'track_sheet_updates/remove', sheet: sheet, entry: entry, priors: priors
   end
 end

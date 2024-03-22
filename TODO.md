@@ -1,7 +1,12 @@
 TODO:
 
+* Can the first ALL CAPS line of a chapter be restricted to the first *primary* section? Aside sections look weird with that ALL CAPS line...
 * Let's tidy up the chapter perma a bit.
 * Tidy up the creator perma as well.
+* Show unpublished chapters' status
+  - on the story perma (TOC)
+  - on the chapter perma
+* Show how long ago a chapter was published
 * A tracker formatted at the same level as a namespace needs spacing fixed (in the track sheet)
 * Formatting issue: lines can break BEFORE an emdash, which looks weird. Need to figure out how to avoid that, and only let lines break AFTER an emdash.
 * Hide/disable the "track sheet" link (in chapter edit) for early chapters when no track sheet has yet been defined.

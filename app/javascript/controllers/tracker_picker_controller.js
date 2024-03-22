@@ -17,7 +17,7 @@ export default class extends Controller {
     let labelDiv = labelSlot.closest('.label');
     labelDiv.dataset.path = JSON.stringify(path);
 
-    if (mode == 'add') {
+    if (mode == 'add' || mode == 'pick-any') {
       if (path.length > 0) {
         labelSlot.classList.add('ts-link');
         labelSlot.classList.add('cursor-pointer');

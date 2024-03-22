@@ -41,6 +41,11 @@
     </div>
   </template>
 
+  <template data-track-sheet-form-renderer-target="removeFrame">
+    <div class="ts-frame ts-remove relative min-w-36 border border-red-400 bg-red-50 rounded-lg rounded-t-none h-min">
+    </div>
+  </template>
+
   <template data-track-sheet-form-renderer-target="addBool">
     <div class="ts-body p-2 flex flex-row gap-2 items-center" data-type="bool">
       <span contenteditable="true" placeholder="Label" class="ts-name inline-block min-w-16 bg-white p-1 text-sm border border-gray-200 rounded"></span>
@@ -79,13 +84,32 @@
         <div class="grow text-xs px-2 py-1">
           <strong class="ts-name"></strong> was <strong class="ts-original-value"></strong>
         </div>
-        <div class="ts-cancel cursor-pointer center pr-2">
-          X
-        </div>
+        <div class="ts-cancel cursor-pointer center pr-2">X</div>
       </div>
       <div class="text-sm p-2">
         Now:
         <span contenteditable="true" placeholder="Label" class="ts-value inline-block min-w-8 bg-white p-1 text-sm border border-gray-200 rounded"></span>
+      </div>
+    </div>
+  </template>
+
+  <template data-track-sheet-form-renderer-target="removeValue">
+    <div class="ts-body">
+      <div class="flex flex-row gap-2 items-baseline border-b border-red-400 text-red-400">
+        <div class="grow text-xs px-2 py-1">Delete <strong class="ts-name"></strong></div>
+        <div class="ts-cancel cursor-pointer center pr-2">X</div>
+      </div>
+      <div class="text-sm p-2 text-red-400">
+        <span class="ts-name"></span> was <strong class="ts-original-value"></strong>.
+      </div>
+    </div>
+  </template>
+
+  <template data-track-sheet-form-renderer-target="removeGroup">
+    <div class="ts-body">
+      <div class="flex flex-row gap-2 items-baseline text-red-400">
+        <div class="grow text-sm px-2 py-1">Delete <strong class="ts-name"></strong></div>
+        <div class="ts-cancel cursor-pointer center pr-2">X</div>
       </div>
     </div>
   </template>

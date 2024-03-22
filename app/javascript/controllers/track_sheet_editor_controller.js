@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { constructKeyFrom } from 'utilities'
+import { constructKeyFrom, dig } from 'utilities'
 
 export default class extends Controller {
   static targets = [ 'source', 'entries' ];
@@ -55,9 +55,7 @@ export default class extends Controller {
   }
 
   deleteTracker() {
-    window.alert('NOT IMPLEMENTED YET');
-    return;
-    this.openTrackerPicker('pick', (parent, child) => this.deleteTrackerAt(parent, child));
+    this.openTrackerPicker('pick-any', (parent, child, defn) => this.deleteTrackerAt(parent, child, defn));
   }
 
   saveUpdates() {
@@ -116,12 +114,16 @@ export default class extends Controller {
     });
   }
 
-  deleteTrackerAt(parent, child) {
+  deleteTrackerAt(parent, child, defn) {
     this.dialogOutlet.close();
 
-    // next, need to prompt for:
-    //    confirmation
-    console.log('delete at', parent, child);
+    this.getRenderer().then(renderer => {
+      let realChild = child ? child : parent.pop();
+      let realDefn = defn ? defn : { _type: 'group' };
+      let container = this.getUpdatesContainerFor(parent, renderer);
+      let item = renderer.renderItem('remove', { name: realChild, value: realDefn.value, defn: realDefn }, container);
+      this.applyChangeToUpdate(item);
+    });
   }
 
   onChange(event) {
@@ -200,7 +202,7 @@ export default class extends Controller {
     let value = frame.querySelector('.ts-value')?.innerText;
     //   a. If present, set value, and action is 'update' if not already set.
     //   b. Otherwise, action is 'delete'.
-    action ||= value ? 'update' : 'delete';
+    action ||= value ? 'update' : 'remove';
 
     // 5. Compile the update and set 'data-update' on the frame.
     let child;
