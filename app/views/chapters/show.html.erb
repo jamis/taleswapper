@@ -11,6 +11,9 @@
         <h1 class="text-2xl font-bold"><%= @chapter.title.presence || 'Untitled' %></h1>
       </div>
     <% end %>
+    <% unless @chapter.published? %>
+      <div class="text-red-600">[draft &mdash; not yet published]</div>
+    <% end %>
     <div class="mt-4 text-sm flex flex-row gap-1">
       <% cache [ @chapter, :word_count ] do %>
         <span>

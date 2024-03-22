@@ -1,8 +1,5 @@
 TODO:
 
-* Show unpublished chapters' status
-  - on the story perma (TOC)
-  - on the chapter perma
 * Show how long ago a chapter was published
 * I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice.
 * Need a way to push a change from a previous chapter's tracksheet, forward... Sometimes things need to be retconned.
