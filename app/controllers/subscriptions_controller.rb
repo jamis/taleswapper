@@ -1,4 +1,5 @@
 class SubscriptionsController < ApplicationController
+  before_action :require_authentication
   before_action :find_subscription
   before_action :find_subscriber
 
@@ -19,7 +20,10 @@ class SubscriptionsController < ApplicationController
   end
 
   def find_subscriber
-    @user = User.find(params[:user_id]) if params[:user_id]
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      redirect_back_or_to :root if @user != Current.user
+    end
   end
 
   def subscription_params

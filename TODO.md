@@ -12,7 +12,6 @@ TODO:
   - editing any field of any table
   - moderating comments
 * User profile page (show, edit, update, delete)
-* Make sure comments and subscriptions are only available to confirmed users (they might be--just need to make sure)
 
 * Memory is an issue, surprisingly. (R14 errors in Heroku logs.)
 * I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice.
@@ -40,4 +39,5 @@ TODO:
   - creators could specify how they want moderation done: no moderation, or require moderation (no comments shown that aren't approved).
 * Actually persist autosaves to the database, as well as to local storage.
 * Need to make stories archivable (perhaps via stories/edit?)
+* New/edit story needs to have a toggle for "interactive" (to allow comments on the story).
 * Tests????

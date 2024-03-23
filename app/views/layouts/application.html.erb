@@ -32,7 +32,13 @@
               <%= form.submit "Sign out", class: "ts-link cursor-pointer" %>
             <% end %>
           <% else %>
+            <span>
             <%= link_to "Sign in", new_session_path, class: "ts-link" %>
+              <span class="hidden md:inline">
+                or
+                <%= link_to "Sign up", new_user_path, class: "ts-link" %>
+              </span>
+            </span>
           <% end %>
         </div>
       </div>
