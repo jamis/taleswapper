@@ -11,6 +11,8 @@ gem "sprockets-rails"
 gem "pg"
 gem 'mailgun-ruby', '~>1.2.14'
 
+gem 'dalli'
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 
