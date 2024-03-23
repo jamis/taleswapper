@@ -1,6 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    actioncable (7.1.2)
+      actionpack (= 7.1.2)
+      activesupport (= 7.1.2)
+      nio4r (~> 2.0)
+      websocket-driver (>= 0.6.1)
+      zeitwerk (~> 2.6)
     actionmailer (7.1.2)
       actionpack (= 7.1.2)
       actionview (= 7.1.2)
@@ -256,6 +262,9 @@ GEM
       railties (>= 6.0.0)
     webrick (1.8.1)
     websocket (1.2.10)
+    websocket-driver (0.7.6)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.12)
@@ -267,6 +276,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  actioncable (~> 7.1.2)
   actionmailer (~> 7.1.2)
   actionpack (~> 7.1.2)
   actiontext (~> 7.1.2)

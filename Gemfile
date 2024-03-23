@@ -4,7 +4,7 @@ ruby "3.2.3"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 #gem "rails", "~> 7.1.2"
-%w[ activerecord actionpack actionmailer actiontext ].each do |framework|
+%w[ activerecord actioncable actionpack actionmailer actiontext ].each do |framework|
   gem framework, "~> 7.1.2"
 end
 
