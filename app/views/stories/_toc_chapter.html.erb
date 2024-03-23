@@ -1,5 +1,5 @@
 <li>
-  <div class="flex flex-row gap-2 items-baseline">
+  <div class="flex flex-col md:flex-row md:gap-2 mb-2 md:mb-0 items-baseline">
     <%= link_to chapter.title.presence || "Untitled", chapter_path(chapter), class: "ts-link" %>
     <div class="text-sm">
       <% if chapter.published? %>
