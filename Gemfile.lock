@@ -1,22 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    actioncable (7.1.2)
-      actionpack (= 7.1.2)
-      activesupport (= 7.1.2)
-      nio4r (~> 2.0)
-      websocket-driver (>= 0.6.1)
-      zeitwerk (~> 2.6)
-    actionmailbox (7.1.2)
-      actionpack (= 7.1.2)
-      activejob (= 7.1.2)
-      activerecord (= 7.1.2)
-      activestorage (= 7.1.2)
-      activesupport (= 7.1.2)
-      mail (>= 2.7.1)
-      net-imap
-      net-pop
-      net-smtp
     actionmailer (7.1.2)
       actionpack (= 7.1.2)
       actionview (= 7.1.2)
@@ -79,6 +63,7 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     base64 (0.2.0)
     bcrypt (3.1.19)
+    benchmark-ips (2.13.0)
     bigdecimal (3.1.5)
     bindex (0.8.1)
     bootsnap (1.17.0)
@@ -98,16 +83,35 @@ GEM
     crass (1.0.6)
     dalli (3.2.8)
     date (3.3.4)
+    dead_end (4.0.0)
     debug (1.9.1)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    derailed (0.1.0)
+      derailed_benchmarks
+    derailed_benchmarks (2.1.2)
+      benchmark-ips (~> 2)
+      dead_end
+      get_process_mem (~> 0)
+      heapy (~> 0)
+      memory_profiler (>= 0, < 2)
+      mini_histogram (>= 0.3.0)
+      rack (>= 1)
+      rack-test
+      rake (> 10, < 14)
+      ruby-statistics (>= 2.1)
+      thor (>= 0.19, < 2)
     domain_name (0.6.20240107)
     drb (2.2.0)
       ruby2_keywords
     erubi (1.12.0)
     ffi (1.16.3)
+    get_process_mem (0.2.7)
+      ffi (~> 1.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    heapy (0.2.0)
+      thor
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
@@ -143,9 +147,11 @@ GEM
       rest-client (>= 2.0.2)
     marcel (1.0.2)
     matrix (0.4.2)
+    memory_profiler (1.0.1)
     mime-types (3.5.2)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2024.0305)
+    mini_histogram (0.3.1)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
     minitest (5.20.0)
@@ -183,20 +189,6 @@ GEM
     rackup (2.1.0)
       rack (>= 3)
       webrick (~> 1.8)
-    rails (7.1.2)
-      actioncable (= 7.1.2)
-      actionmailbox (= 7.1.2)
-      actionmailer (= 7.1.2)
-      actionpack (= 7.1.2)
-      actiontext (= 7.1.2)
-      actionview (= 7.1.2)
-      activejob (= 7.1.2)
-      activemodel (= 7.1.2)
-      activerecord (= 7.1.2)
-      activestorage (= 7.1.2)
-      activesupport (= 7.1.2)
-      bundler (>= 1.15.0)
-      railties (= 7.1.2)
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -224,6 +216,7 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rexml (3.2.6)
+    ruby-statistics (3.0.2)
     ruby-vips (2.2.1)
       ffi (~> 1.12)
     ruby2_keywords (0.0.5)
@@ -263,9 +256,6 @@ GEM
       railties (>= 6.0.0)
     webrick (1.8.1)
     websocket (1.2.10)
-    websocket-driver (0.7.6)
-      websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.12)
@@ -277,11 +267,16 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  actionmailer (~> 7.1.2)
+  actionpack (~> 7.1.2)
+  actiontext (~> 7.1.2)
+  activerecord (~> 7.1.2)
   bcrypt (~> 3.1.7)
   bootsnap
   capybara
   dalli
   debug
+  derailed
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
@@ -290,7 +285,6 @@ DEPENDENCIES
   mailgun-ruby (~> 1.2.14)
   pg
   puma (>= 5.0)
-  rails (~> 7.1.2)
   selenium-webdriver
   sprockets-rails
   stimulus-rails
