@@ -5,6 +5,8 @@ class User < ApplicationRecord
   # first published, but not when updates are made to those stories.
   include Subscribable
 
+  cattr_accessor :admin_email_address
+
   has_secure_password
 
   encrypts :display_name
@@ -18,6 +20,10 @@ class User < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   before_create :generate_unique_token
+
+  def admin?
+    email_address == admin_email_address
+  end
 
   def confirmed?
     confirmed_at.present?

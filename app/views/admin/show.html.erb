@@ -1,0 +1,7 @@
+<h1 class="text-xl font-bold">Caching</h1>
+
+<pre>
+  MEMCACHEDCLOUD_SERVERS: <%= ENV['MEMCACHEDCLOUD_SERVERS'].inspect %>
+  MEMCACHE_SERVERS: <%= ENV['MEMCACHE_SERVERS'].inspect %>
+  Rails.cache: <%= Rails.cache.class.name %> (<%= Rails.cache.options.inspect %>)
+</pre>
