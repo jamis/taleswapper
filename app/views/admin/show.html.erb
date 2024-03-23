@@ -1,7 +1,8 @@
 <h1 class="text-xl font-bold">Caching</h1>
 
 <pre>
-  MEMCACHEDCLOUD_SERVERS: <%= ENV['MEMCACHEDCLOUD_SERVERS'].inspect %>
   MEMCACHE_SERVERS: <%= ENV['MEMCACHE_SERVERS'].inspect %>
+  MEMCACHE_USERNAME: <%= ENV['MEMCACHE_USERNAME'].inspect %>
+  MEMCACHE_PASSWORD: <%= ENV['MEMCACHE_PASSWORD'].presence ? 'present' : 'missing' %>
   Rails.cache: <%= Rails.cache.class.name %> (<%= Rails.cache.options.inspect %>)
 </pre>
