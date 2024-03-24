@@ -4,7 +4,8 @@ class SubscriptionsController < ApplicationController
   before_action :find_subscriber
 
   def create
-    @user.subscriptions.create!(subscription_params)
+    subscription = @user.subscriptions.create!(subscription_params)
+    NotificationsMailer.with(subscription: subscription).new_subscription.deliver_later
     redirect_back_or_to root_url, notice: "You're now subscribed!"
   end
 

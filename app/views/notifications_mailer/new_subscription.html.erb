@@ -1,0 +1,18 @@
+<p>Hey <%= @creator.display_name %>,</p>
+
+<% if @subscribable == @creator %>
+<p>
+  <%= @subscriber.display_name %> has just subscribed to you on Taleswapper!
+  You'll be able to let them know when you start a new story, now.
+</p>
+<% else %>
+<p>
+  <%= @subscriber.display_name %> has just subscribed to your story,
+  "<%= @subscribable.title %>", on Taleswapper.
+  You'll be able to let them know when you add a new chapter.
+</p>
+<% end %>
+
+<p>Thought you'd like to know!</p>
+
+<p>&mdash; Taleswapper</p>
