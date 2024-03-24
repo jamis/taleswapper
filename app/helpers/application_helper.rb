@@ -37,7 +37,7 @@ module ApplicationHelper
       breadcrumb record.title.presence || 'New Chapter', link: leaf ? nil : chapter_path(record)
     when Story
       crumbs_for(record.creator, leaf: false)
-      breadcrumb record.title, link: leaf ? nil : story_path(record), priority: leaf ? nil : :md
+      breadcrumb record.title, link: leaf ? nil : story_path(record)
     when User
       breadcrumb record.display_name, link: leaf ? nil : creator_path(record), priority: leaf ? nil : :lg
     else raise "no crumbs for #{record.inspect}"

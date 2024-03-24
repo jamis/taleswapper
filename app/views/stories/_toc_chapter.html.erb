@@ -3,7 +3,7 @@
     <%= link_to chapter.title.presence || "Untitled", chapter_path(chapter), class: "ts-link" %>
     <div class="text-sm">
       <% if chapter.published? %>
-        <span class="text-gray-400"><%= chapter.published_at.strftime("%A, %B %e, %Y") %></span>
+        <span class="text-gray-400">(from <%= time_ago_in_words(chapter.published_at) %> ago)</span>
       <% else %>
         <span class="text-red-600">[draft]</span>
       <% end %>

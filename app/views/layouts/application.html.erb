@@ -15,11 +15,11 @@
   <body>
     <header class="fixed top-0 w-full bg-white z-20">
       <div class="px-5 py-1 flex flex-row border-solid border-b border-gray-300 items-baseline">
-        <h1 class="text-sm -indent-4 ml-4">
-          ≣
-          <%= link_to "Taleswapper", root_url, class: "ts-link" %>
+        <h1 class="text-sm whitespace-nowrap overflow-x-hidden text-ellipsis">
+          <%= link_to "≣", root_url %>
+          <%= link_to "Taleswapper", root_url, class: "hidden md:inline ts-link" %>
           <% breadcrumbs.each do |crumb| %>
-            <span class="<%= breadcrumb_styles(crumb) %>">: <%= crumb[:link] ? link_to(crumb[:text], crumb[:link], class: "ts-link") : crumb[:text] %></span>
+            <span class="text-ellipsis <%= breadcrumb_styles(crumb) %>">: <%= crumb[:link] ? link_to(crumb[:text], crumb[:link], class: "ts-link") : crumb[:text] %></span>
           <% end %>
         </h1>
         <div class="text-sm flex flex-row items-baseline ml-auto">
