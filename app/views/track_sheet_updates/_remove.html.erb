@@ -2,9 +2,9 @@
 <% node = priors[name] %>
 <% value = node['_type'] ? node['value'] : nil %>
 
-<div class="text-red-400 border border-red-400 bg-red-50 rounded-lg shadow-md flex flex-col overflow-hidden">
-  <div class="text-sm <%= value ? 'border-b border-red-400' : '' %> px-2 py-1">
-    "<strong><%= name %></strong>" deleted.
+<div class="text-slate-400 border border-slate-400 bg-slate-50 rounded-lg shadow-md flex flex-col overflow-hidden">
+  <div class="text-sm <%= value ? 'border-b border-slate-400' : '' %> px-2 py-1">
+    "<strong><%= name %></strong>" removed.
   </div>
   <% if value %>
     <div class="text-sm px-2 py-1">

@@ -1,23 +1,26 @@
 TODO:
 
-* Probably chapter titles ought to be required. Maybe the title could just default to something like "Next chapter" for those who don't want actual titles? (Only, "next chapter" does work for the "flip back to" link...)
-* Restriction: You cannot publish a chapter if the previous chapter is not published. You cannot unpublish a chapter if any sequel chapter is published.
 * Notifications
-    - when comments are posted
-    - when someone subscribes to you or one of your stories
-    - when a new chapter is published
-    - when a new story is published
-    - when you are mentioned in a comment (??)
+    - when comments are posted (creators only)
+    - when someone subscribes to you or one of your stories (creators only)
+    - when a new chapter is published (subscribers only)
+    - when a new story is published (subscribers only)
+    - when you are mentioned in a comment (?? -- not sure how to identify this)
+    - include "unsubscribe" option in every message, too
 * Allow a reader to view the track sheet at top of chapter and after each update.
 * Admin interface for manually adjusting data:
   - converting a user to a creator
   - editing any field of any table
   - moderating comments
 * User profile page (show, edit, update, delete)
+  - see and manage all subscriptions
+* I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice.
+* Creator ought to be able to decide when to send notifications to subscribers (like HEY).
 
 * Memory is an issue, surprisingly. (R14 errors in Heroku logs.)
 * Reordering sections
-* I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice.
+* Probably chapter titles ought to be required. Maybe the title could just default to something like "Next chapter" for those who don't want actual titles? (Only, "next chapter" does work for the "flip back to" link...)
+* Restriction: You cannot publish a chapter if the previous chapter is not published. You cannot unpublish a chapter if any sequel chapter is published.
 * Need a way to push a change from a previous chapter's tracksheet, forward... Sometimes things need to be retconned.
 * A tracker formatted at the same level as a namespace needs spacing fixed (in the track sheet)
 * Formatting issue: lines can break BEFORE an emdash, which looks weird. Need to figure out how to avoid that, and only let lines break AFTER an emdash.
@@ -43,4 +46,7 @@ TODO:
 * Actually persist autosaves to the database, as well as to local storage.
 * Need to make stories archivable (perhaps via stories/edit?)
 * New/edit story needs to have a toggle for "interactive" (to allow comments on the story).
+* Some way to group a set of chapters.
+* Option for a story or chapter to be downloaded (as PDF?) to be read offline. (Creator-level option)
+  - How would this work for non-linear stories? (choose-your-own-adventure style?)
 * Tests????
