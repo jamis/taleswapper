@@ -1,6 +1,8 @@
 class Chapter < ApplicationRecord
   belongs_to :story
 
+  has_one :creator, through: :story
+
   scope :starter, -> { where(start: true) }
 
   has_many :sections, dependent: :destroy

@@ -10,6 +10,10 @@ class Story < ApplicationRecord
   scope :archived, -> { where.not(archived_at: nil) }
   scope :published, -> { joins(:chapters).where('chapters.published_at <= ?', Time.now).distinct }
 
+  def creator_address
+    creator.email_address
+  end
+
   def walk_chapters(restricted: true, &block)
     return unless chapters.starter.any?
 

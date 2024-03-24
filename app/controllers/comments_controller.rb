@@ -1,9 +1,14 @@
 class CommentsController < ApplicationController
   before_action :find_commentable, only: %i[ create ]
+  before_action :require_interactive
   before_action :require_authentication
 
   def create
-    @comment = @commentable.comments.create(comment_params.merge(user: Current.user))
+    @comment = @commentable.comments.create!(comment_params.merge(user: Current.user))
+
+    if @commentable.creator != Current.user
+      NotificationsMailer.with(comment: @comment).comment_posted.deliver_later
+    end
   end
 
   private
@@ -16,6 +21,10 @@ class CommentsController < ApplicationController
     else
       raise ArgumentError, 'no commentable'
     end
+  end
+
+  def require_interactive
+    redirect_to @commentable unless @commentable.interactive?
   end
 
   def comment_params

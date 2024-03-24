@@ -1,0 +1,11 @@
+<p>Hey <%= @creator.display_name %>,</p>
+
+<p>
+  A new comment has been posted by <%= @comment.user.display_name %> to your <%= @commentable.class.name.downcase %>, "<%= @commentable.title %>".
+</p>
+
+<p><%= link_to "Click here", @commentable %> to read it.</p>
+
+<p>Thought you'd like to know. Cheers!</p>
+
+<p>&mdash; Taleswapper</p>

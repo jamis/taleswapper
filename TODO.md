@@ -1,7 +1,6 @@
 TODO:
 
 * Notifications
-    - when comments are posted (creators only)
     - when someone subscribes to you or one of your stories (creators only)
     - when a new chapter is published (subscribers only)
     - when a new story is published (subscribers only)
