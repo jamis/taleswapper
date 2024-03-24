@@ -47,7 +47,7 @@
   </div>
 
   <% cache @chapter do %>
-    <%= render @chapter.sections %>
+    <%= render @chapter.sections.in_order %>
   <% end %>
 </div>
 

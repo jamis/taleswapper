@@ -1,5 +1,7 @@
 TODO:
 
+* Probably chapter titles ought to be required. Maybe the title could just default to something like "Next chapter" for those who don't want actual titles? (Only, "next chapter" does work for the "flip back to" link...)
+* Restriction: You cannot publish a chapter if the previous chapter is not published. You cannot unpublish a chapter if any sequel chapter is published.
 * Notifications
     - when comments are posted
     - when someone subscribes to you or one of your stories
@@ -14,6 +16,7 @@ TODO:
 * User profile page (show, edit, update, delete)
 
 * Memory is an issue, surprisingly. (R14 errors in Heroku logs.)
+* Reordering sections
 * I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice.
 * Need a way to push a change from a previous chapter's tracksheet, forward... Sometimes things need to be retconned.
 * A tracker formatted at the same level as a namespace needs spacing fixed (in the track sheet)
