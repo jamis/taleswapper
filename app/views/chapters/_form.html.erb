@@ -31,7 +31,7 @@
     <%= render "sections/add_here" %>
 
     <%# set include_id to false, so we can put the id field inside the containing div %>
-    <%= f.fields_for :sections, chapter.sections.in_order, include_id: false, skip_default_ids: true do |sf| %>
+    <%= f.fields_for :sections, chapter.sections.in_order.presence || [ Section.new ], include_id: false, skip_default_ids: true do |sf| %>
       <%= render "sections/form", form: sf %>
     <% end %>
   </div>
