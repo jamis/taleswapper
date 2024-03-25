@@ -168,6 +168,12 @@ export default class extends Controller {
     container.appendChild(body);
   }
 
+  renderItem_update_card(info, container) {
+    let body = cloneTemplate(this.updateCardTarget, 'ts-body');
+    populateTemplate(body, { 'ts-name': info.name, 'ts-value': info.defn.value });
+    container.appendChild(body);
+  }
+
   renderItem_remove_group(info, container) {
     let body = cloneTemplate(this.removeGroupTarget, 'ts-body');
     populateTemplate(body, { 'ts-name': info.name });
