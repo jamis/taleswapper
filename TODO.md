@@ -16,6 +16,7 @@ TODO:
 * I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice.
 * Creator ought to be able to decide when to send notifications to subscribers (like HEY).
 
+* Improve the "update card" display, using a diff algorithm to show what text has been added/removed.
 * Memory is an issue, surprisingly. (R14 errors in Heroku logs.)
 * Reordering sections
 * Probably chapter titles ought to be required. Maybe the title could just default to something like "Next chapter" for those who don't want actual titles? (Only, "next chapter" does work for the "flip back to" link...)
