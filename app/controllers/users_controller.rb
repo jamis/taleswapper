@@ -8,6 +8,9 @@ class UsersController < ApplicationController
     UsersMailer.with(user: @user).confirmation.deliver_later
 
     redirect_to pending_user_url(@user)
+  rescue ActiveRecord::RecordInvalid => e
+    @user = e.record
+    render 'new'
   end
 
   def pending

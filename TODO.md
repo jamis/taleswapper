@@ -1,6 +1,5 @@
 TODO:
 
-* 'display name' needs to be unique
 * Notifications
     - when a new chapter is published (subscribers only)
     - when a new story is published (subscribers only)

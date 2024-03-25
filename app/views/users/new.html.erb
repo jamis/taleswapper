@@ -6,7 +6,16 @@
     creators and stories, and post comments.
   </p>
 
-  <%= form_with model: User.new do |f| %>
+  <% if @user %>
+    <ul class="mt-2 text-sm text-red-400 list-disc">
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%# data-turbo="false" -- because otherwise the error messages aren't rendered when validation fails %>
+  <%= form_with model: @user || User.new, data: { turbo: false } do |f| %>
     <div class="mt-4 grid grid-cols-4 gap-4 items-center">
       <div><%= f.label :display_name %></div>
       <div class="col-span-3"><%= f.text_field :display_name, class: "w-full" %></div>

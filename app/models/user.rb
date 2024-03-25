@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  encrypts :display_name
+  encrypts :display_name, deterministic: { fixed: false }, previous: { deterministic: false }
   encrypts :email_address, deterministic: true
 
   has_many :stories, foreign_key: 'creator_id'
@@ -20,6 +20,8 @@ class User < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   before_create :generate_unique_token
+
+  validates_uniqueness_of :display_name, :email_address
 
   def admin?
     email_address == admin_email_address
