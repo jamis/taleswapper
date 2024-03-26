@@ -22,4 +22,15 @@ class NotificationsMailer < ApplicationMailer
 
     mail to: @creator.email_address, subject: subject
   end
+
+  def new_chapter
+    @chapter = params[:chapter]
+    @subscriber = params[:subscriber]
+    @story = @chapter.story
+    @creator = @story.creator
+
+    subject = "[Taleswapper] A new chapter of \"#{@story.title}\" is available to read"
+
+    mail to: @subscriber.email_address, subject: subject
+  end
 end

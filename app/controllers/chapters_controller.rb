@@ -1,8 +1,8 @@
 class ChaptersController < ApplicationController
-  before_action :require_authentication, only: %i[ create edit update destroy ]
+  before_action :require_authentication, only: %i[ create edit update destroy publish revoke ]
   before_action :find_story, only: %i[ create ]
-  before_action :find_chapter, only: %i[ show edit update destroy ]
-  before_action :require_own_property, only: %i[ edit update destroy ]
+  before_action :find_chapter, only: %i[ show edit update destroy publish revoke ]
+  before_action :require_own_property, only: %i[ edit update destroy publish revoke ]
 
   def edit
     @chapter.ensure_at_least_one_section!
@@ -21,6 +21,17 @@ class ChaptersController < ApplicationController
   def destroy
     @chapter.destroy
     redirect_to @story
+  end
+
+  def publish
+    @chapter.publish!
+    @chapter.notify! if params['notify']
+    redirect_to @chapter
+  end
+
+  def revoke
+    @chapter.revoke!
+    redirect_to @chapter
   end
 
   private
@@ -45,6 +56,6 @@ class ChaptersController < ApplicationController
   end
 
   def chapter_params
-    params.require(:chapter).permit(:title, :interactive, :published, :role, sections_attributes: {})
+    params.require(:chapter).permit(:title, :interactive, :role, sections_attributes: {})
   end
 end

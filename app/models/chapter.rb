@@ -10,6 +10,7 @@ class Chapter < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
 
   has_many :actions, foreign_key: :source_id, dependent: :destroy
+  has_many :sequels, through: :actions, source: :target
 
   has_one  :prior_action, class_name: 'Action', foreign_key: :target_id, dependent: :destroy
   has_one  :prior_chapter, through: :prior_action, source: :source
@@ -57,6 +58,32 @@ class Chapter < ApplicationRecord
                 end
 
     self.published_at = published ? (published_at || Time.now) : nil
+  end
+
+  def publish!
+    update!(published: true)
+  end
+
+  def revoke!
+    update!(published: false)
+  end
+
+  def notify!
+    story.subscribers.each do |subscriber|
+      NotificationsMailer.with(subscriber: subscriber, chapter: self).new_chapter.deliver_later
+    end
+  end
+
+  # A chapter cannot be published if the chapter before it has not yet
+  # been published.
+  def publishable?
+    !published? && prior_chapter.published?
+  end
+
+  # A chapter cannot be revoked ("unpublished") if any chapter after it
+  # is published.
+  def revokable?
+    published? && !sequels.any?(&:published?)
   end
 
   def final_track_sheet

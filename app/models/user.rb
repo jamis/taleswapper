@@ -9,7 +9,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  encrypts :display_name, deterministic: { fixed: false }, previous: { deterministic: false }
+  encrypts :display_name, deterministic: true
   encrypts :email_address, deterministic: true
 
   has_many :stories, foreign_key: 'creator_id'

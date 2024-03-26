@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email_address: session_params[:email_address])
 
     if authenticate(user, session_params[:password])
-      redirect_to origin_url || root_url
+      redirect_to origin_url || root_url, notice: "Welcome back, #{user.display_name}!"
     else
       redirect_to new_session_url
     end

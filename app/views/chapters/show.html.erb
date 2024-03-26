@@ -6,9 +6,30 @@
       <%= link_to @story.creator.display_name, creator_path(@story.creator), class: "ts-link" %>
       : <%= link_to @story.title, story_path(@story), class: "ts-link" %>
     </div>
-    <% if @chapter.title.present? || Current.user == @story.creator %>
-      <div class="flex flex-row items-baseline">
-        <h1 class="text-2xl font-bold"><%= @chapter.title.presence || 'Untitled' %></h1>
+    <div class="flex flex-row items-baseline">
+      <h1 class="text-2xl font-bold"><%= @chapter.title.presence || 'Untitled' %></h1>
+    </div>
+    <% if Current.user == @story.creator %>
+      <div class="mt-1 text-xs font-sans">
+        <% if @chapter.publishable? %>
+          <%= form_with url: publish_chapter_path(@chapter), class: "flex flex-row items-baseline gap-2" do |f| %>
+            <input type="submit" value="Publish this chapter" class="border rounded bg-blue-50 hover:bg-blue-100 border-blue-400 px-1.5 py-0.5" />
+            <% if @story.subscriber_count > 0 %>
+              <span>
+                <input type="checkbox" name="notify" value="notify" checked />
+                and notify <%= pluralize @story.subscriber_count, 'subscriber' %>
+              </span>
+            <% end %>
+          <% end %>
+        <% elsif !@chapter.published? %>
+          <span class="text-gray-500 italic">Chapter cannot be published until all previous chapters are published</span>
+        <% elsif @chapter.revokable? %>
+          <%= form_with url: revoke_chapter_path(@chapter) do |f| %>
+            <input type="submit" value="Unpublish this chapter" class="border rounded bg-yellow-50 border-yellow-400 px-1.5 py-0.5" />
+          <% end %>
+        <% else %>
+          <span class="text-gray-500 italic">Chapter cannot be unpublished until all subsequent chapters are unpublished</span>
+        <% end %>
       </div>
     <% end %>
     <div class="mt-4 text-sm flex flex-col gap-1">

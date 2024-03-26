@@ -1,0 +1,13 @@
+<p>Hey <%= @subscriber.display_name %>,</p>
+
+<p>
+  <%= @creator.display_name %> has just added to their story, "<%= @story.title %>". The new chapter is called "<%= @chapter.title %>".
+</p>
+
+<p>
+  <%= link_to "Click here to read it!", chapter_url(@chapter) %>
+</p>
+
+<p>Cheers,</p>
+
+<p>Taleswapper</p>

@@ -9,4 +9,10 @@ class NotificationsMailerPreview < ActionMailer::Preview
     subscription = Subscription.where(subscribable_type: (params[:mode] || 'story').classify).first
     NotificationsMailer.with(subscription: subscription).new_subscription
   end
+
+  def new_chapter
+    subscriber = User.first
+    chapter = Chapter.first
+    NotificationsMailer.with(subscriber: subscriber, chapter: chapter).new_chapter
+  end
 end

@@ -20,6 +20,11 @@ Rails.application.routes.draw do
     resource :track_sheet
     resources :comments, only: %i[ create ]
     resources :sequels, only: %i[ new create ]
+
+    member do
+      post :publish
+      post :revoke
+    end
   end
 
   resources :scratch_pads, only: %i[ show update ]

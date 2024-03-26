@@ -11,16 +11,6 @@
     <%= f.check_box :interactive, class: "mr-2" %> <label for="chapter_iteractive" class="text-lg">Allow readers to submit suggestions?</label>
   </div>
 
-  <div class="flex flex-row items-baseline">
-    <%= f.check_box :published, class: "mr-2" %>
-    <label for="chapter_iteractive" class="text-lg">Publish this chapter so readers can see it?</label>
-    <% if chapter.published? %>
-      <span class="italic ml-2">(Published <%= time_ago_in_words chapter.published_at %> ago)</span>
-    <% elsif chapter.published_at %>
-      <span class="italic ml-2">(Scheduled for publication in <%= time_ago_in_words chapter.published_at %>)</span>
-    <% end %>
-  </div>
-
   <div class="sections w-full my-8 p-0" data-controller="sections" data-sections-track-sheet-value="<%= chapter.track_sheet.definition_before_type_cast %>">
     <template data-sections-target="template">
       <%= fields_for :template, Section.new, skip_default_ids: true do |sf| %>

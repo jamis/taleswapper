@@ -6,6 +6,10 @@ module Subscribable
     has_many :subscribers, through: :subscriber_subscriptions, source: :user
   end
 
+  def subscriber_count
+    subscriber_subscriptions.count
+  end
+
   def subscriber_subscribed?(user)
     subscriber_subscriptions.exists?(user: user)
   end
