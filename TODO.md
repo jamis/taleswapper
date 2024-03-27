@@ -1,7 +1,6 @@
 TODO:
 
 * Add a floating "save" button on chapter edit
-* Publishing a chapter does not update the "updated_at" timestamp on the story.
 * Need a way to push a change from a previous chapter's tracksheet, forward... Sometimes things need to be retconned.
 * Notifications
     - include "unsubscribe" option in every message, too

@@ -35,6 +35,9 @@ class Chapter < ApplicationRecord
   before_create :possibly_set_start
   before_create :setup_records
 
+  after_save :touch_story
+  after_touch :touch_story
+
   accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :outline
   accepts_nested_attributes_for :story_notes
@@ -46,6 +49,10 @@ class Chapter < ApplicationRecord
             story_notes_attributes: { contents: params[:story_notes] || '' })
   end
 
+  # TODO: Note that this does not fully implement "scheduled" publishing of
+  # a chapter. We still need a way for the story itself to reflect that
+  # it was updated at the moment the chapter (eventually) becomes
+  # published...
   def published?(now: Time.now)
     published_at && published_at <= now
   end
@@ -159,5 +166,11 @@ class Chapter < ApplicationRecord
   # present.
   def setup_track_sheet
     build_track_sheet(definition: pending_prior_chapter&.final_track_sheet || {})
+  end
+
+  def touch_story
+    return unless published?
+
+    story.touch
   end
 end
