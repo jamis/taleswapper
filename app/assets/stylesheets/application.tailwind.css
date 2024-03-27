@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  .first-section .trix-content p:first-child::first-line {
+  .first-section.trix-content p:first-child::first-line {
     /* webkit can't do first-line + uppercase for some reason, but it can
      * do small-caps, so we'll use that as a fallback. */
      font-variant: small-caps;

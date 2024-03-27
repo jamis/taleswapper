@@ -1,6 +1,5 @@
 TODO:
 
-* UGH. Deeply nested "trix-content" divs. Because I'm using the trix-wrapped content when displaying for edit!
 * Add a floating "save" button on chapter edit
 * Publishing a chapter does not update the "updated_at" timestamp on the story.
 * Need a way to push a change from a previous chapter's tracksheet, forward... Sometimes things need to be retconned.
