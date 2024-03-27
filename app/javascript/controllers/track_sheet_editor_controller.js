@@ -134,8 +134,6 @@ export default class extends Controller {
       this.getRenderer().then(renderer => {
         renderer[`renderItem_add_${type}`]({}, body);
       });
-    } else if (event.target.type == 'checkbox') {
-      this.applyChangeToUpdate(event.target);
     }
   }
 
@@ -153,12 +151,14 @@ export default class extends Controller {
   }
 
   onClick(event) {
-    event.preventDefault();
-
     if (event.target.classList.contains('ts-cancel')) {
+      event.preventDefault();
       this.tryRemoveEntryWithLink(event.target);
     } else if (event.target.classList.contains('ts-add-tracker-here')) {
+      event.preventDefault();
       this.addTrackerHere(event.target);
+    } else if (event.target.type == 'checkbox') {
+      this.applyChangeToUpdate(event.target);
     }
   }
 
@@ -199,10 +199,19 @@ export default class extends Controller {
     let name = frame.querySelector('.ts-name').innerText;
 
     // 4. Look for '.ts-value'
-    let value = frame.querySelector('.ts-value')?.innerText;
+    let value = undefined;
+    let valueElement = frame.querySelector('.ts-value');
+
+    if (valueElement) {
+      if (valueElement.type == 'checkbox')
+        value = valueElement.checked;
+      else
+        value = valueElement.innerText;
+    }
+
     //   a. If present, set value, and action is 'update' if not already set.
     //   b. Otherwise, action is 'delete'.
-    action ||= value ? 'update' : 'remove';
+    action ||= (value != undefined) ? 'update' : 'remove';
 
     // 5. Compile the update and set 'data-update' on the frame.
     let child;

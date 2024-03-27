@@ -6,6 +6,7 @@ pin "services"
 pin "utilities"
 pin "quill-config"
 pin "drafts"
+pin "track-sheet"
 
 pin_all_from "app/javascript/quill-config", under: "quill-config"
 

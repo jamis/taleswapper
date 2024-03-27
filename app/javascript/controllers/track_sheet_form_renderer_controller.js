@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { constructKeyFrom, dig } from 'utilities'
+import TrackSheet from 'track-sheet'
 
 function populateTemplate(template, values) {
   for(let key in values) {
@@ -46,6 +47,8 @@ export default class extends Controller {
   }
 
   render(updates, source, container) {
+    let sheet = new TrackSheet(source);
+
     // 1. group updates by path
     let grouped = groupUpdates(updates);
 
@@ -57,7 +60,7 @@ export default class extends Controller {
       // a. render the path frame
       let updates = grouped[key];
       let path = updates[0].parent;
-      let node = dig(source, path);
+      let node = dig(sheet.source, path);
       let pathKey = constructKeyFrom(path);
       let frame = this.renderPathFrame(path, pathKey, container).querySelector('.ts-updates');
 
@@ -89,6 +92,7 @@ export default class extends Controller {
             item.dataset.update = JSON.stringify({ ...update, child: { [name]: update.child[name] } });
           }
         }
+        sheet.applyUpdate(update);
       }
     }
   }
@@ -157,6 +161,15 @@ export default class extends Controller {
 
   renderItem_update_string(info, container) {
     this.renderItem_update_value(info, container);
+  }
+
+  renderItem_update_bool(info, container) {
+    let body = cloneTemplate(this.updateBoolTarget, 'ts-body');
+    let original = info.defn.value ? '✅' : '❌';
+    populateTemplate(body, { 'ts-name': info.name, 'ts-original-value': original });
+    let input = body.querySelector('.ts-value');
+    input.checked = info.value;
+    container.appendChild(body);
   }
 
   renderItem_update_value(info, container) {

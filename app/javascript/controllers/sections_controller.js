@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import TrackSheet from "track-sheet"
 
 export default class extends Controller {
   static targets = [ "template" ];
@@ -67,18 +68,20 @@ export default class extends Controller {
     }
   }
 
-  // Computes the track sheet as of the given section (not including the
-  // updates for that section). `targetSection` is a reference to a
-  // .section-form div.
+  // Computes the track sheet as of the given section. `targetSection` is a
+  // reference to a .section-form div.
+  //
+  // If `includeTarget` is true, the computed sheet will include the updates
+  // from the target section.
   trackSheetFor(targetSection, includeTarget) {
-    let sheet = structuredClone(this.trackSheetValue);
+    let sheet = new TrackSheet(this.trackSheetValue);
     for (let section of this.sections) {
       if (section == targetSection && !includeTarget) break;
-      sheet = this.applyUpdatesTo(sheet, section);
+      this.applyUpdatesTo(sheet, section);
       if (section == targetSection) break;
     }
 
-    return sheet;
+    return sheet.source;
   }
 
   applyUpdatesTo(sheet, section) {
@@ -87,53 +90,7 @@ export default class extends Controller {
 
     let updates = JSON.parse(json);
     for (let update of updates) {
-      sheet = this.applyUpdateTo(sheet, update);
+      sheet.applyUpdate(update);
     }
-
-    return sheet;
-  }
-
-  applyUpdateTo(sheet, update) {
-    if (update.action == 'add')
-      return this.applyAddUpdateTo(sheet, update);
-    if (update.action == 'update')
-      return this.applyUpdateUpdateTo(sheet, update);
-    if (update.action == 'remove')
-      return this.applyRemoveUpdateTo(sheet, update);
-
-    throw `not an acceptable update action: '${update.action}'`;
-  }
-
-  findParent(sheet, path) {
-    let node = sheet;
-
-    for (let name of path) {
-      node[name] ||= {};
-      node = node[name];
-    }
-
-    return node;
-  }
-
-  applyAddUpdateTo(sheet, update) {
-    let node = this.findParent(sheet, update.parent);
-    Object.assign(node, update.child);
-    return sheet;
-  }
-
-  applyUpdateUpdateTo(sheet, update) {
-    let node = this.findParent(sheet, update.parent);
-    for (let prop in update.child) {
-      node[prop].value = update.child[prop];
-    }
-    return sheet;
-  }
-
-  applyRemoveUpdateTo(sheet, update) {
-    let node = this.findParent(sheet, update.parent);
-    for (let child of update.child) {
-      delete node[child];
-    }
-    return sheet;
   }
 }

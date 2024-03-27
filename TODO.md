@@ -1,26 +1,25 @@
 TODO:
 
+* UGH. Deeply nested "trix-content" divs. Because I'm using the trix-wrapped content when displaying for edit!
+* Add a floating "save" button on chapter edit
+* "Allow readers to submit suggestions" -- let's just rephrase this as "Allow comments"
+* Publishing a chapter does not update the "updated_at" timestamp on the story.
+* Need a way to push a change from a previous chapter's tracksheet, forward... Sometimes things need to be retconned.
 * Notifications
-    - when a new chapter is published (subscribers only)
-    - when a new story is published (subscribers only)
-    - when you are mentioned in a comment (?? -- not sure how to identify this)
     - include "unsubscribe" option in every message, too
 * Allow a reader to view the track sheet at top of chapter and after each update.
+* User profile page (show, edit, update, delete)
+  - see and manage all subscriptions
+* I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice. (Could just use "update", and the display side of things doesn't show a prior value if prior == given)
 * Admin interface for manually adjusting data:
   - converting a user to a creator
   - editing any field of any table
   - moderating comments
-* User profile page (show, edit, update, delete)
-  - see and manage all subscriptions
-* I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice.
-* Creator ought to be able to decide when to send notifications to subscribers (like HEY).
 
 * Improve the "update card" display, using a diff algorithm to show what text has been added/removed.
 * Memory is an issue, surprisingly. (R14 errors in Heroku logs.)
 * Reordering sections
 * Probably chapter titles ought to be required. Maybe the title could just default to something like "Next chapter" for those who don't want actual titles? (Only, "next chapter" does work for the "flip back to" link...)
-* Restriction: You cannot publish a chapter if the previous chapter is not published. You cannot unpublish a chapter if any sequel chapter is published.
-* Need a way to push a change from a previous chapter's tracksheet, forward... Sometimes things need to be retconned.
 * A tracker formatted at the same level as a namespace needs spacing fixed (in the track sheet)
 * Formatting issue: lines can break BEFORE an emdash, which looks weird. Need to figure out how to avoid that, and only let lines break AFTER an emdash.
 * Hide/disable the "track sheet" link (in chapter edit) for early chapters when no track sheet has yet been defined.
