@@ -12,7 +12,6 @@ module TrackSheetUpdateHelper
   end
 
   def each_update_child(entry, sheet)
-Rails.logger.debug("\n\n*** ENTRY #{entry.inspect}\n\n")
     entry['child'].each do |name, value|
       if value.is_a?(Hash)
         yield name, value['_type'], value['value'], nil
@@ -64,6 +63,15 @@ Rails.logger.debug("\n\n*** ENTRY #{entry.inspect}\n\n")
     end
 
     [ chain, value ]
+  end
+
+  def value_for(value, type)
+    case type
+    when 'bool' then
+      value ? '✅' : '❌'
+    else
+      value
+    end
   end
 
   private

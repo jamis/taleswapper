@@ -32,7 +32,7 @@ export default class extends Controller {
     'pathFrame',
     'addFrame', 'addInt', 'addString', 'addBool', 'addCard',
     'updateFrame', 'updateValue', 'updateBool', 'updateCard',
-    'removeFrame', 'removeGroup', 'removeValue', 'removeBool', 'removeCard' ];
+    'removeFrame', 'removeGroup', 'removeValue', 'removeCard' ];
 
   static values = {
     name: String
@@ -204,6 +204,13 @@ export default class extends Controller {
   renderItem_remove_value(info, container) {
     let body = cloneTemplate(this.removeValueTarget, 'ts-body');
     populateTemplate(body, { 'ts-name': info.name, 'ts-original-value': info.defn.value });
+    container.appendChild(body);
+  }
+
+  renderItem_remove_bool(info, container) {
+    let body = cloneTemplate(this.removeValueTarget, 'ts-body');
+    let original = info.defn.value ? '✅' : '❌';
+    populateTemplate(body, { 'ts-name': info.name, 'ts-original-value': original });
     container.appendChild(body);
   }
 }
