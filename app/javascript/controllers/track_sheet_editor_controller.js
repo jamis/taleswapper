@@ -196,7 +196,7 @@ export default class extends Controller {
     let action = type ? 'add' : null;
 
     // 3. get name from .ts-name
-    let name = frame.querySelector('.ts-name').innerText;
+    let name = frame.querySelector('.ts-name').innerText.trim();
 
     // 4. Look for '.ts-value'
     let value = undefined;
@@ -206,7 +206,7 @@ export default class extends Controller {
       if (valueElement.type == 'checkbox')
         value = valueElement.checked;
       else
-        value = valueElement.innerText;
+        value = valueElement.innerText.trim();
     }
 
     //   a. If present, set value, and action is 'update' if not already set.

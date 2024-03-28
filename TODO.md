@@ -1,6 +1,5 @@
 TODO:
 
-* Trim leading/trailing white-space from attribute names
 * Add a floating "save" button on chapter edit
 * Need a way to push a change from a previous chapter's tracksheet, forward... Sometimes things need to be retconned.
 * Notifications
