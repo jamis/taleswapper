@@ -84,7 +84,7 @@ class Chapter < ApplicationRecord
   # A chapter cannot be published if the chapter before it has not yet
   # been published.
   def publishable?
-    !published? && prior_chapter.published?
+    !published? && (prior_chapter.nil? || prior_chapter.published?)
   end
 
   # A chapter cannot be revoked ("unpublished") if any chapter after it

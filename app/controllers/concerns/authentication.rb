@@ -9,7 +9,7 @@ module Authentication
   private
 
   def require_authentication
-    redirect_to new_session_url unless authenticated?
+    return redirect_to new_session_url unless authenticated?
     redirect_to pending_user_url(Current.user) unless Current.user.confirmed?
   end
 

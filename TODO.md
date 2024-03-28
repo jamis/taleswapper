@@ -1,5 +1,6 @@
 TODO:
 
+* Trim leading/trailing white-space from attribute names
 * Add a floating "save" button on chapter edit
 * Need a way to push a change from a previous chapter's tracksheet, forward... Sometimes things need to be retconned.
 * Notifications
@@ -40,6 +41,7 @@ TODO:
   - creators could specify how they want moderation done: no moderation, or require moderation (no comments shown that aren't approved).
 * Actually persist autosaves to the database, as well as to local storage.
 * Need to make stories archivable (perhaps via stories/edit?)
+* Need to be able to delete stories
 * New/edit story needs to have a toggle for "interactive" (to allow comments on the story).
 * Some way to group a set of chapters.
 * Option for a story or chapter to be downloaded (as PDF?) to be read offline. (Creator-level option)
