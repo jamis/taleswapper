@@ -14,6 +14,7 @@
   <div class="sections w-full my-8 p-0"
        data-controller="sections scroll-listener"
        data-sections-track-sheet-value="<%= chapter.track_sheet.definition_before_type_cast %>"
+       data-sections-convenient-button-value="#convenientSaveChapterButton"
        data-scroll-listener-header-value="body > header">
     <template data-sections-target="template">
       <%= fields_for :template, Section.new, skip_default_ids: true do |sf| %>

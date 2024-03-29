@@ -1,6 +1,6 @@
 <% content_for :subheader do %>
   <div class="bg-gray-50 px-4 text-sm border-b">
-    <div class="mx-2 flex flex-row">
+    <div class="mx-2 flex flex-row items-baseline">
       <div class="flex-initial px-2 py-1">
         <%= link_to "Story Notes", scratch_pad_path(@chapter.story_notes), data: { turbo_stream: true }, class: "ts-link" %>
       </div>
@@ -10,6 +10,10 @@
       <div class="flex-initial px-2 py-1">
         <%= link_to "Track Sheet", chapter_track_sheet_path(@chapter), data: { turbo_stream: true }, class: "ts-link" %>
       </div>
+
+      <div class="ml-auto text-xs flex-initial px-2 py-1">
+        <button id="convenientSaveChapterButton" class="px-2 py-0.5 bg-blue-50 hover:bg-blue-100 border border-blue-400 rounded">Save chapter</button>
+        or <%= link_to "Cancel", @chapter.persisted? ? chapter_path(@chapter) : story_path(@chapter.story), class: "ts-cancel" %>      </div>
     </div>
   </div>
 <% end %>

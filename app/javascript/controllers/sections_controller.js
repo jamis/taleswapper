@@ -5,11 +5,15 @@ export default class extends Controller {
   static targets = [ "template" ];
 
   static values = {
-    trackSheet: Object
+    trackSheet: Object,
+    convenientButton: String
   };
 
   connect() {
     this.checkMany();
+
+    let button = document.querySelector(this.convenientButtonValue);
+    button.addEventListener('click', (event) => this.convenientButtonClicked(event));
   }
 
   addSectionHere(event) {
@@ -66,6 +70,11 @@ export default class extends Controller {
     } else {
       this.element.classList.remove("many-sections");
     }
+  }
+
+  convenientButtonClicked(event) {
+    event.preventDefault();
+    this.element.closest('form').submit();
   }
 
   // Computes the track sheet as of the given section. `targetSection` is a
