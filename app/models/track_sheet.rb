@@ -1,5 +1,5 @@
 class TrackSheet < ApplicationRecord
-  belongs_to :chapter
+  belongs_to :chapter, touch: true
 
   serialize :definition, coder: JSON
 

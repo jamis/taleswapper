@@ -1,0 +1,7 @@
+---
+test_story_c1_c2:
+  source: test_story_chapter1
+  target: test_story_chapter2
+test_story_c2_c3:
+  source: test_story_chapter2
+  target: test_story_chapter3

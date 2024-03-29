@@ -3,7 +3,6 @@ TODO:
 * Memory is an issue, surprisingly. (R14 errors in Heroku logs.)
 * User profile page (show, edit, update, delete)
   - see and manage all subscriptions
-* Need a way to push a change from a previous chapter's tracksheet, forward... Sometimes things need to be retconned.
 * Notifications
     - include "unsubscribe" option in every message, too
 * Allow a reader to view the track sheet at top of chapter and after each update.

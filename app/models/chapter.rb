@@ -38,6 +38,8 @@ class Chapter < ApplicationRecord
   after_save :touch_story
   after_touch :touch_story
 
+  after_update :push_track_sheet_forward
+
   accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :outline
   accepts_nested_attributes_for :story_notes
@@ -172,5 +174,17 @@ class Chapter < ApplicationRecord
     return unless published?
 
     story.touch
+  end
+
+  def push_track_sheet_forward
+    return unless sequels.any?
+    final = final_track_sheet
+
+    sequels.each do |sequel|
+      if sequel.track_sheet.definition != final
+        sequel.track_sheet.update definition: final
+        sequel.save!
+      end
+    end
   end
 end

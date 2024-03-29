@@ -1,0 +1,16 @@
+---
+test_story_chapter1:
+  story: test_story
+  title: Chapter One
+  interactive: true
+  start: true
+  published_at: <%= 4.days.ago %>
+test_story_chapter2:
+  story: test_story
+  title: Chapter Two
+  interactive: true
+  published_at: <%= 1.day.ago %>
+test_story_chapter3:
+  story: test_story
+  title: Chapter Three
+  interactive: true

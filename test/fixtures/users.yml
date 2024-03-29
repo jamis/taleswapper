@@ -1,0 +1,16 @@
+---
+creator:
+  email_address: 'creator@example.com'
+  display_name: 'Creator User'
+  description: A creator
+  creator: true
+  confirmed_at: <%= 3.days.ago %>
+  token: <%= SecureRandom.uuid %>
+  password_digest: <%= BCrypt::Password.create('password') %>
+
+reader:
+  email_address: 'reader@example.com'
+  display_name: 'Reader User'
+  confirmed_at: <%= 3.days.ago %>
+  token: <%= SecureRandom.uuid %>
+  password_digest: <%= BCrypt::Password.create('password') %>

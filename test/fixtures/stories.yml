@@ -1,0 +1,7 @@
+---
+test_story:
+  title: Test Story
+  subtitle: A story about testing
+  description: Summary of the story
+  interactive: true
+  creator: creator

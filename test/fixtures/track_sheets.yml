@@ -1,0 +1,13 @@
+---
+test_story_chapter1:
+  chapter: test_story_chapter1
+  definition: |
+    {}
+test_story_chapter2:
+  chapter: test_story_chapter2
+  definition: |
+    {"Group":{"Stat":{"_type":"string","value":"test"}}}
+test_story_chapter3:
+  chapter: test_story_chapter3
+  definition: |
+    {"Group":{"Stat":{"_type":"string","value":"changed"},"Other":{"_type":"bool","value":true}}}
