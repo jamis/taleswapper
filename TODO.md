@@ -1,12 +1,14 @@
 TODO:
 
+* Memory is an issue, surprisingly. (R14 errors in Heroku logs.)
+* User profile page (show, edit, update, delete)
+  - see and manage all subscriptions
 * Add a floating "save" button on chapter edit
 * Need a way to push a change from a previous chapter's tracksheet, forward... Sometimes things need to be retconned.
 * Notifications
     - include "unsubscribe" option in every message, too
 * Allow a reader to view the track sheet at top of chapter and after each update.
-* User profile page (show, edit, update, delete)
-  - see and manage all subscriptions
+* In chapter/edit, see the current state of the track sheet at each section.
 * I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice. (Could just use "update", and the display side of things doesn't show a prior value if prior == given)
 * Admin interface for manually adjusting data:
   - converting a user to a creator
@@ -14,7 +16,6 @@ TODO:
   - moderating comments
 
 * Improve the "update card" display, using a diff algorithm to show what text has been added/removed.
-* Memory is an issue, surprisingly. (R14 errors in Heroku logs.)
 * Reordering sections
 * Probably chapter titles ought to be required. Maybe the title could just default to something like "Next chapter" for those who don't want actual titles? (Only, "next chapter" does work for the "flip back to" link...)
 * A tracker formatted at the same level as a namespace needs spacing fixed (in the track sheet)
@@ -25,7 +26,6 @@ TODO:
   - support sans-serif and monotype font selection
   - make center and right alignment work outside the editor
   - markdown-style shortcuts for certain things? (e.g. --- for mdash, etc)
-  - keep toolbar at top of screen for long sections
 * Media (images, audio, video?). Maybe treat it like the tracker updates, with each section having optional media that are displayed below the section? Or a dedicated section type?
   - quill.js allows attaching images directly by using data URLs, which is pretty clever. It doesn't allow thumbnailing or preprocessing or anything, but I have to admit it's a neat solution. Is it good enough? Probably not, sadly. We need:
       - image captions (optional)

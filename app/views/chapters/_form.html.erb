@@ -11,7 +11,10 @@
     <%= f.check_box :interactive, class: "mr-2" %> <label for="chapter_iteractive" class="text-lg">Allow comments?</label>
   </div>
 
-  <div class="sections w-full my-8 p-0" data-controller="sections" data-sections-track-sheet-value="<%= chapter.track_sheet.definition_before_type_cast %>">
+  <div class="sections w-full my-8 p-0"
+       data-controller="sections scroll-listener"
+       data-sections-track-sheet-value="<%= chapter.track_sheet.definition_before_type_cast %>"
+       data-scroll-listener-header-value="body > header">
     <template data-sections-target="template">
       <%= fields_for :template, Section.new, skip_default_ids: true do |sf| %>
         <%= render "sections/form", form: sf %>

@@ -16,7 +16,7 @@
     <div class="flex flex-row">
       <div class="w-1/3 bg-gray-100 hidden" data-section-form-target="leftSide"></div>
       <div class="w-full flex flex-col">
-        <div data-controller="quill-editor" class="flex flex-col">
+        <div data-controller="quill-editor"  data-quill-editor-scroll-listener-outlet=".sections" class="relative flex flex-col">
           <%= form.hidden_field :content, data: { quill_editor_target: 'field' } %>
           <div class="trix-content" data-quill-editor-target='container'></div>
         </div>
