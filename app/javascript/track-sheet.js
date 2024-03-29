@@ -21,8 +21,12 @@ export default class {
 
   applyUpdateUpdate(update) {
     let node = this.findParent(update.parent);
+    if (!node) return;
+
     for (let prop in update.child) {
-      node[prop].value = update.child[prop];
+      if (node[prop]) {
+        node[prop].value = update.child[prop];
+      }
     }
   }
 

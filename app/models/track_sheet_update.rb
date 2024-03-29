@@ -35,6 +35,7 @@ class TrackSheetUpdate < ApplicationRecord
 
   def apply_action_to(sheet, action)
     node = action['parent'] && find_parent(sheet, action['parent'])
+    return unless node
 
     case action['action']
     when 'noop' then
@@ -43,7 +44,7 @@ class TrackSheetUpdate < ApplicationRecord
       node.update(action['child'])
     when 'update' then
       action['child'].each do |key, value|
-        node[key]['value'] = value
+        node[key]['value'] = value if node[key]
       end
     when 'remove' then
       action['child'].each { |child| node.delete(child) }

@@ -16,7 +16,7 @@ module TrackSheetUpdateHelper
       if value.is_a?(Hash)
         yield name, value['_type'], value['value'], nil
       else
-        node = sheet.dig(*entry['parent'], name)
+        node = sheet.dig(*entry['parent'], name) || {}
         node = { '_type' => 'group' } unless node['_type']
         yield name, node['_type'], value, node['value']
       end

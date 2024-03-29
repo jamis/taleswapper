@@ -13,8 +13,6 @@ TODO:
   - converting a user to a creator
   - editing any field of any table
   - moderating comments
-* Adding a tracker, then later removing/updating it, and then going back
-  and removing the "add" action for that tracker...is problematic.
 
 * Improve the "update card" display, using a diff algorithm to show what text has been added/removed.
 * Reordering sections

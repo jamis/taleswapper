@@ -93,7 +93,7 @@ export default class extends Controller {
             let child = update.child[name];
 
             // 1. get the info for the item
-            let info = child._type ? child : node[name];
+            let info = child._type ? child : node[name] || {};
 
             // 2. render the item
             let item = this.renderItem(update.action, { name, value: Object.hasOwn(child, 'value') ? child.value : child, defn: info }, frame);
@@ -121,7 +121,7 @@ export default class extends Controller {
     let frameTemplate = cloneTemplate(this[`${action}FrameTarget`], 'ts-frame');
 
     if (info) {
-      let type = info.defn._type;
+      let type = info.defn._type || 'string';
       let body = frameTemplate;
 
       if (action == 'add') {
