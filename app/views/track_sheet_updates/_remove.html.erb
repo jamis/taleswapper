@@ -1,5 +1,5 @@
 <% name = entry['child'].first %>
-<% node = priors[name] %>
+<% node = priors[name] || {} %>
 <% type = node['_type'] %>
 <% value = type ? node['value'] : nil %>
 

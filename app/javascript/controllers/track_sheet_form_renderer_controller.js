@@ -27,18 +27,28 @@ function groupUpdates(updates) {
   return group;
 }
 
+const RendererTargets = [
+  'pathFrame',
+  'addFrame', 'addInt', 'addString', 'addBool', 'addCard',
+  'updateFrame', 'updateValue', 'updateBool', 'updateCard',
+  'removeFrame', 'removeGroup', 'removeValue', 'removeCard'
+];
+
 export default class extends Controller {
-  static targets = [
-    'pathFrame',
-    'addFrame', 'addInt', 'addString', 'addBool', 'addCard',
-    'updateFrame', 'updateValue', 'updateBool', 'updateCard',
-    'removeFrame', 'removeGroup', 'removeValue', 'removeCard' ];
+  static targets = RendererTargets;
 
   static values = {
     name: String
   };
 
   connect() {
+    // a bit of a safety check here
+    for (let target of RendererTargets) {
+      let capitalized = target.at(0).toUpperCase() + target.slice(1);
+      if (!this[`has${capitalized}Target`])
+        console.warn(`renderer target '${target}' is not defined`);
+    }
+
     window.TaleSwapper.Services.register(this.nameValue, this);
   }
 
@@ -69,7 +79,7 @@ export default class extends Controller {
         if (update.action == 'remove') {
           for (let child of update.child) {
             // 1. get the info for the item
-            let info = node[child];
+            let info = node[child] || {};
             if (!info._type) info = { _type: 'group' };
 
             // 2. render the item
@@ -204,6 +214,12 @@ export default class extends Controller {
   renderItem_remove_value(info, container) {
     let body = cloneTemplate(this.removeValueTarget, 'ts-body');
     populateTemplate(body, { 'ts-name': info.name, 'ts-original-value': info.defn.value });
+    container.appendChild(body);
+  }
+
+  renderItem_remove_card(info, container) {
+    let body = cloneTemplate(this.removeCardTarget, 'ts-body');
+    populateTemplate(body, { 'ts-name': info.name });
     container.appendChild(body);
   }
 
