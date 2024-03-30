@@ -40,6 +40,7 @@
 
   <% if @creator.stories.alive.archived.any? %>
     <h1 class="text-xl font-bold mt-8">Archived Stories</h1>
+    <div class="italic text-sm">These stories are not currently being worked on.</div>
 
     <%= render partial: 'stories/list', object: @creator.stories.alive.archived %>
   <% end %>
