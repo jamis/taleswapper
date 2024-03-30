@@ -32,6 +32,7 @@ class Chapter < ApplicationRecord
   # sequel creation
   attr_accessor :uuid
 
+  before_save :set_default_title
   before_create :possibly_set_start
   before_create :setup_records
 
@@ -185,6 +186,12 @@ class Chapter < ApplicationRecord
         sequel.track_sheet.update definition: final
         sequel.save!
       end
+    end
+  end
+
+  def set_default_title
+    if title.blank?
+      self.title = 'Untitled'
     end
   end
 end

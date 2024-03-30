@@ -2,8 +2,7 @@
   <div class="flex flex-row items-baseline w-full my-4">
     <div><label for="chapter_title" class="text-lg">Title:</label></div>
     <div class="flex flex-col ml-3 w-1/2">
-      <%= f.text_field :title, class: 'focus:outline-none focus:ring-0 border-x-0 border-t-0 pb-0 px-1 text-lg' %>
-      <div class="text-sm text-gray-400 italic mx-1">Optional, but helpful when referring to your chapter.</div>
+      <%= f.text_field :title, required: true, class: 'focus:outline-none focus:ring-0 border-x-0 border-t-0 pb-0 px-1 text-lg' %>
     </div>
   </div>
 

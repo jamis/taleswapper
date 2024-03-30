@@ -1,6 +1,14 @@
 require "test_helper"
 
 class ChapterTest < ActiveSupport::TestCase
+  test "sets default title if not set" do
+    story = stories(:test_story)
+    chapter = story.chapters.create!
+
+    assert chapter.persisted?
+    assert_equal "Untitled", chapter.title
+  end
+
   test "updates push track sheet changes forward" do
     chapter = chapters(:test_story_chapter1)
 
