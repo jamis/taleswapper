@@ -37,7 +37,7 @@ class ChaptersController < ApplicationController
   private
 
   def require_own_property
-    if !Current.user.stories.find(@story.id)
+    if !Current.user.stories.alive.find(@story.id)
       redirect_to @chapter
     end
   end
@@ -46,13 +46,15 @@ class ChaptersController < ApplicationController
     @chapter = Chapter.find(params[:id])
     @story = @chapter.story
 
-    if !@chapter.published? && @story.creator != Current.user
+    if @story.deleted?
+      render_404
+    elsif !@chapter.published? && @story.creator != Current.user
       redirect_to @story
     end
   end
 
   def find_story
-    @story = Current.user.stories.find(params[:story_id])
+    @story = Current.user.stories.alive.find(params[:story_id])
   end
 
   def chapter_params

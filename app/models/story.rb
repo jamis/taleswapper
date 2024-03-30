@@ -6,6 +6,8 @@ class Story < ApplicationRecord
   has_many :chapters, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
+  scope :alive, -> { where(deleted_at: nil) }
+  scope :deleted, -> { where.not(deleted_at: nil) }
   scope :active, -> { where(archived_at: nil) }
   scope :archived, -> { where.not(archived_at: nil) }
   scope :published, -> { joins(:chapters).where('chapters.published_at <= ?', Time.now).distinct }
@@ -22,6 +24,18 @@ class Story < ApplicationRecord
                 end
 
     self.archived_at = archived ? (archived_at || Time.now) : nil
+  end
+
+  def soft_delete!(now: Time.now)
+    update!(deleted_at: now)
+  end
+
+  def undelete!
+    update!(deleted_at: nil)
+  end
+
+  def deleted?
+    deleted_at.present?
   end
 
   def creator_address

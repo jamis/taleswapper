@@ -12,8 +12,8 @@
 
   <h1 class="text-xl font-bold mt-4">Current Stories</h1>
 
-  <% if @creator.stories.active.any? %>
-    <%= render partial: 'stories/list', object: @creator.stories.active %>
+  <% if @creator.stories.alive.active.any? %>
+    <%= render partial: 'stories/list', object: @creator.stories.alive.active %>
   <% else %>
     <div>
       <% if Current.user == @creator %>
@@ -38,9 +38,9 @@
     <p class="mt-4 ml-4"><%= link_to "Start a new story", new_story_path, class: "ts-link" %></p>
   <% end %>
 
-  <% if @creator.stories.archived.any? %>
+  <% if @creator.stories.alive.archived.any? %>
     <h1 class="text-xl font-bold mt-8">Archived Stories</h1>
 
-    <%= render partial: 'stories/list', object: @creator.stories.archived %>
+    <%= render partial: 'stories/list', object: @creator.stories.alive.archived %>
   <% end %>
 </div>

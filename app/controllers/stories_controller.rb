@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
-  before_action :find_story, only: %i[ show edit update ]
-  before_action :require_authentication, only: %i[ new create ]
+  before_action :find_story, only: %i[ show edit update destroy ]
+  before_action :require_authentication, only: %i[ new edit update create destroy ]
 
   def new
     @story = Story.new(title: "Untitled")
@@ -16,10 +16,15 @@ class StoriesController < ApplicationController
     redirect_to @story
   end
 
+  def destroy
+    @story.soft_delete!
+    redirect_to creator_path(@story.creator), notice: "\"#{@story.title}\" has been deleted."
+  end
+
   private
 
   def find_story
-    @story = Story.find(params[:id])
+    @story = Story.alive.find(params[:id])
   end
 
   def story_params
