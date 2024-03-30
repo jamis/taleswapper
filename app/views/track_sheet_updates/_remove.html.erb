@@ -3,9 +3,9 @@
 <% type = node['_type'] %>
 <% value = type ? node['value'] : nil %>
 
-<div class="text-slate-400 border border-slate-400 bg-slate-50 rounded-lg shadow-md flex flex-col overflow-hidden">
+<div class="text-slate-400 border border-slate-400 bg-slate-50 rounded-lg shadow-md flex flex-col overflow-hidden mb-2">
   <div class="text-sm <%= value ? 'border-b border-slate-400' : '' %> px-2 py-1">
-    "<strong><%= name %></strong>" removed.
+    <strong><%= name %></strong> removed.
   </div>
   <% if value %>
     <div class="text-sm px-2 py-1">

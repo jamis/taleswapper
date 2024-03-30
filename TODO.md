@@ -10,9 +10,6 @@ TODO:
   - editing any field of any table
   - moderating comments
 
-* A tracker formatted at the same level as a namespace needs spacing fixed (in the track sheet)
-* Need to be able to delete stories
-
 * Improve the "update card" display, using a diff algorithm to show what text has been added/removed. (perhaps https://github.com/deadusr/html-diff-ts)
 * Reordering sections
 * Allow a reader to view the track sheet at top of chapter and after each update.
