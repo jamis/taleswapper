@@ -11,10 +11,7 @@ TODO:
   - moderating comments
 
 * A tracker formatted at the same level as a namespace needs spacing fixed (in the track sheet)
-* Hide/disable the "track sheet" link (in chapter edit) for early chapters when no track sheet has yet been defined.
-* Need to make stories archivable (perhaps via stories/edit?)
 * Need to be able to delete stories
-* New/edit story needs to have a toggle for "interactive" (to allow comments on the story).
 
 * Improve the "update card" display, using a diff algorithm to show what text has been added/removed. (perhaps https://github.com/deadusr/html-diff-ts)
 * Reordering sections

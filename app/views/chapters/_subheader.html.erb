@@ -7,9 +7,11 @@
       <div class="flex-initial px-2 py-1">
         <%= link_to "Chapter Outline", scratch_pad_path(@chapter.outline), data: { turbo_stream: true }, class: "ts-link" %>
       </div>
-      <div class="flex-initial px-2 py-1">
-        <%= link_to "Track Sheet", chapter_track_sheet_path(@chapter), data: { turbo_stream: true }, class: "ts-link" %>
-      </div>
+      <% if @chapter.track_sheet.definition.present? %>
+        <div class="flex-initial px-2 py-1">
+          <%= link_to "Track Sheet", chapter_track_sheet_path(@chapter), data: { turbo_stream: true }, class: "ts-link" %>
+        </div>
+      <% end %>
 
       <div class="ml-auto text-xs flex-initial px-2 py-1">
         <button id="convenientSaveChapterButton" class="px-2 py-0.5 bg-blue-50 hover:bg-blue-100 border border-blue-400 rounded">Save chapter</button>
