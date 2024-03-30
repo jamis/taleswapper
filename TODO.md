@@ -10,7 +10,6 @@ TODO:
 
 * Quill editor & ActionText
   - support sans-serif and monotype font selection
-  - make center and right alignment work outside the editor
   - markdown-style shortcuts for certain things? (e.g. --- for mdash, etc)
 * Media (images, audio, video?). Maybe treat it like the tracker updates, with each section having optional media that are displayed below the section? Or a dedicated section type?
   - quill.js allows attaching images directly by using data URLs, which is pretty clever. It doesn't allow thumbnailing or preprocessing or anything, but I have to admit it's a neat solution. Is it good enough? Probably not, sadly. We need:
@@ -34,4 +33,4 @@ TODO:
 * Some way to group a set of chapters.
 * Option for a story or chapter to be downloaded (as PDF?) to be read offline. (Creator-level option)
   - How would this work for non-linear stories? (choose-your-own-adventure style?)
-* Tests????
+* Better front page. Perhaps cards for each creator? What will the page look like with hundreds of creators?
