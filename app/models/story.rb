@@ -10,6 +10,20 @@ class Story < ApplicationRecord
   scope :archived, -> { where.not(archived_at: nil) }
   scope :published, -> { joins(:chapters).where('chapters.published_at <= ?', Time.now).distinct }
 
+  def archived?(now: Time.now)
+    archived_at && archived_at <= now
+  end
+  alias archived archived?
+
+  def archived=(archived)
+    archived = case archived
+                when "0", 0, "false", false, "no" then false
+                else true
+                end
+
+    self.archived_at = archived ? (archived_at || Time.now) : nil
+  end
+
   def creator_address
     creator.email_address
   end
