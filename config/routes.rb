@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
     member do
       get :pending
+      get :cancel
     end
   end
 

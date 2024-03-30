@@ -1,7 +1,5 @@
 TODO:
 
-* User profile page (show, edit, update, delete)
-  - see and manage all subscriptions
 * Notifications
     - include "unsubscribe" option in every message, too
 * I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice. (Could just use "update", and the display side of things doesn't show a prior value if prior == given)
@@ -10,12 +8,6 @@ TODO:
   - editing any field of any table
   - moderating comments
 
-* Improve the "update card" display, using a diff algorithm to show what text has been added/removed. (perhaps https://github.com/deadusr/html-diff-ts)
-* Reordering sections
-* Allow a reader to view the track sheet at top of chapter and after each update.
-* In chapter/edit, see the current state of the track sheet at each section.
-* Formatting issue: lines can break BEFORE an emdash, which looks weird. Need to figure out how to avoid that, and only let lines break AFTER an emdash.
-* "new sequel" view might offer an optional full-screen view, perhaps with notes and trackers as side-bars, always open?
 * Quill editor & ActionText
   - support sans-serif and monotype font selection
   - make center and right alignment work outside the editor
@@ -29,6 +21,12 @@ TODO:
       - resizing?
 * Banner image for (1) stories, and (2) chapters.
 * Autosave for chapters#edit
+* Improve the "update card" display, using a diff algorithm to show what text has been added/removed. (perhaps https://github.com/deadusr/html-diff-ts)
+* Reordering sections
+* Allow a reader to view the track sheet at top of chapter and after each update.
+* In chapter/edit, see the current state of the track sheet at each section.
+* Formatting issue: lines can break BEFORE an emdash, which looks weird. Need to figure out how to avoid that, and only let lines break AFTER an emdash.
+* "new sequel" view might offer an optional full-screen view, perhaps with notes and trackers as side-bars, always open?
 * Resizable dialog boxes? Or maybe just make them generally larger?
 * Creators need to be able to moderate comments on their own content.
   - creators could specify how they want moderation done: no moderation, or require moderation (no comments shown that aren't approved).

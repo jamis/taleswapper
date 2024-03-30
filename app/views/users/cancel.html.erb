@@ -1,0 +1,41 @@
+<div class="max-w-lg min-w-min mx-auto flex-col">
+  <h1 class="text-2xl font-bold">Really cancel your Taleswapper account?</h1>
+
+  <p class="mt-8 text-lg">
+    You cannot undo this.
+    <% if @user.stories.alive.any? %>
+      Your stories will be deleted, and all comments on your stories will be erased.
+    <% end %>
+  </p>
+
+  <%= form_with url: user_path(@user), method: :delete, data: { turbo: false } do %>
+    <p class="text-lg mt-8">
+      If you really want to do this, please type "<strong><%= @user.display_name %></strong>"
+      (without the quotes) into the box below:
+    </p>
+
+    <div class="text-lg mt-8">
+      <input type="text" name="confirm" required autofocus class="w-[75%] text-2xl border-red-400 border-2 rounded bg-red-50 text-red-500 focus:ring-red-500 focus:border-red-500 mx-auto block font-bold text-center" />
+      <% if @user.errors.any? %>
+        <div class="text-red-500 text-xs mx-auto italic w-[75%]">You must type "<%= @user.display_name %>" into this box.</div>
+      <% end %>
+    </div>
+
+    <p class="text-lg mt-8">
+      Then, press this button:
+    </p>
+
+    <div class="text-lg mt-8">
+      <input type="submit" value="CANCEL and DELETE my account"
+             class="text-lg font-bold border-2 rounded border-red-400 bg-red-50 hover:bg-red-100 text-red-500 px-4 py-2 block mx-auto" />
+    </div>
+
+    <p class="text-lg mt-8">
+      Thanks for trying Taleswapper. We're sorry to see you go!
+    </p>
+
+    <p class="text-lg mt-8">
+      If you've changed your mind, you can <%= link_to "go back to your profile page", user_path(@user), class: 'ts-link' %>.
+    </p>
+  <% end %>
+</div>

@@ -1,0 +1,64 @@
+<div class="max-w-lg min-w-min mx-auto flex-col">
+  <div class="flex flex-row gap-3 items-center">
+    <h1 class="text-2xl font-bold"><%= @user.display_name %></h1>
+    <% if @user.creator? %>
+      <div class="text-sm text-green-600 border rounded border-green-400 bg-green-50 px-2">creator ✅</div>
+    <% end %>
+  </div>
+  <h2 class="text-md">&lt;<%= @user.email_address %>&gt;</h2>
+  <div class="text-sm mt-2">
+    <%= link_to "Edit your profile", edit_user_path(@user), class: 'ts-link' %>
+    or
+    <%= link_to "Cancel your account", cancel_user_path(@user), class: 'ts-cancel' %>
+  </div>
+
+  <% if @user.creator? && @user.description.present? %>
+    <div class="markdown mt-4">
+      <%=md @user.description %>
+    </div>
+  <% end %>
+
+  <% if @user.creator? %>
+    <div class="mt-4">
+      Go to <%= link_to "your creator page", creator_path(@user), class: 'ts-link' %>
+    </div>
+  <% end %>
+
+  <% if @user.stories.alive.any? %>
+    <h2 class="text-lg font-bold mt-8">Your Stories</h2>
+    <ul class="list-disc ml-8 mt-2">
+      <% @user.stories.alive.order(title: :asc).each do |story| %>
+        <li>
+          <%= link_to story.title, story_path(story), class: 'ts-link' %>
+          <% if story.archived? %>
+            <span class="text-gray-400">(archived)</span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <h2 class="text-lg font-bold mt-8">Your Subscriptions</h2>
+  <p class="mt-2 text-sm">
+    To unsubscribe from any of these, click on the story or the creator,
+    and then click on the button that says "Subscribed!".
+  </p>
+
+  <% if @user.subscriptions.empty? %>
+    <p class="mt-2">You are not currently subscribed to any creators or stories.</p>
+  <% else %>
+    <ul class="list-disc ml-8 mt-2">
+      <% @user.subscriptions.each do |sub| %>
+        <li>
+          <% if sub.subscribable_type == 'User' %>
+            <%= link_to sub.subscribable.display_name, creator_path(sub.subscribable), class: 'ts-link' %>
+            (creator)
+          <% else %>
+            <%= link_to sub.subscribable.title, story_path(sub.subscribable), class: 'ts-link' %>
+            by <%= link_to sub.subscribable.creator.display_name, creator_path(sub.subscribable.creator), class: 'ts-link' %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

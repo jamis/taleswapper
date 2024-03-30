@@ -5,8 +5,6 @@ class User < ApplicationRecord
   # first published, but not when updates are made to those stories.
   include Subscribable
 
-  cattr_accessor :admin_email_address
-
   has_secure_password
 
   encrypts :display_name, deterministic: true
@@ -21,10 +19,11 @@ class User < ApplicationRecord
 
   before_create :generate_unique_token
 
+  validates_presence_of :display_name, :email_address
   validates_uniqueness_of :display_name, :email_address
 
   def admin?
-    email_address == admin_email_address
+    email_address == Rails.application.config.x.admin_email_address
   end
 
   def confirmed?

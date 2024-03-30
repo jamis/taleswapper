@@ -1,0 +1,43 @@
+<div class="max-w-lg min-w-min mx-auto flex-col">
+  <h1 class="text-2xl font-bold">Edit your <%= @user.creator? ? 'creator' : '' %> profile</h1>
+
+  <% if @user.errors.any? %>
+    <ul class="mt-2 text-sm text-red-400 list-disc">
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%# data-turbo="false" -- because otherwise the error messages aren't rendered when validation fails %>
+  <%= form_with model: @user, data: { turbo: false } do |f| %>
+    <div class="mt-4 grid grid-cols-4 gap-4 items-center">
+      <% if Current.user.admin? %>
+        <div><%= f.label :creator %></div>
+        <div class="col-span-3"><%= f.check_box :creator %></div>
+      <% end %>
+
+      <div><%= f.label :display_name %></div>
+      <div class="col-span-3"><%= f.text_field :display_name, class: "w-full" %></div>
+      <div><%= f.label :email_address %></div>
+      <div class="col-span-3"><%= f.text_field :email_address, class: "w-full" %></div>
+      <div class="self-start mt-2"><%= f.label :password %></div>
+      <div class="col-span-3">
+        <%= f.password_field :password, class: "w-full" %>
+        <div class="text-sm text-gray-500">Leave blank to keep your current password.</div>
+      </div>
+
+      <% if @user.creator? %>
+        <div class="self-start mt-2"><%= f.label :description %></div>
+        <div class="col-span-3">
+          <%= f.text_area :description, class: "w-full", rows: 5 %>
+          <div class="text-sm text-gray-500">Introduce yourself and your writings! You can use <a href="https://www.markdownguide.org/basic-syntax" class="ts-link">markdown syntax</a> to add formatting.</div>
+        </div>
+      <% end %>
+
+      <div class="col-span-4 justify-self-end">
+        <%= f.submit "Save", class: 'px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400 cursor-pointer' %>
+        or <%= link_to "cancel", user_path(@user), class: 'ts-cancel' %>
+      </div>
+    </div>
+  <% end %>
