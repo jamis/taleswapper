@@ -1,10 +1,10 @@
 TODO:
 
-* Could there be some way to "bulk publish" multiple chapters simultaneously?
 * paragraphs following an <hr> should not be indented.
-* Should stories have their own "published" flag, independent of whether any chapters are currently published?
 * Tracker picker should allow searching for a tracker by typing its name
 * I just realized that updating a card's title probably won't work like I expect... title is just the name of the tracker, and should probably be immutable...
+* Could there be some way to "bulk publish" multiple chapters simultaneously?
+* Should stories have their own "published" flag, independent of whether any chapters are currently published? Or maybe its enough to just not publish any chapters, and then release them all at once? (See "could there be a way to bulk publish multiple chapters"...)
 * Notifications
     - include "unsubscribe" option in every message, too
 * I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice. (Could just use "update", and the display side of things doesn't show a prior value if prior == given)
@@ -15,6 +15,7 @@ TODO:
 
 * Quill editor & ActionText
   - support sans-serif and monotype font selection (Quill thinks default is sans-serif; need to figure out how to override that.)
+  - colored text? does it actually work?
   - markdown-style shortcuts for certain things? (e.g. --- for mdash, etc)
 * Media (images, audio, video?). Maybe treat it like the tracker updates, with each section having optional media that are displayed below the section? Or a dedicated section type?
   - quill.js allows attaching images directly by using data URLs, which is pretty clever. It doesn't allow thumbnailing or preprocessing or anything, but I have to admit it's a neat solution. Is it good enough? Probably not, sadly. We need:

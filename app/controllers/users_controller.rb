@@ -73,7 +73,7 @@ class UsersController < ApplicationController
   ADMIN_USER_PARAMS = [ *USER_PARAMS, :creator ]
 
   def user_params
-    permitted_params = Current.user.admin? ? ADMIN_USER_PARAMS : USER_PARAMS
+    permitted_params = Current.user&.admin? ? ADMIN_USER_PARAMS : USER_PARAMS
     params.require(:user).permit(*permitted_params).tap do |user|
       user.delete(:password) if user[:password].blank?
     end
