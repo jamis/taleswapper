@@ -1,5 +1,6 @@
 TODO:
 
+* Need to implement a gate to prevent renotifying people when a chapter is unpublished and then republished.
 * paragraphs following an <hr> should not be indented.
 * Tracker picker should allow searching for a tracker by typing its name
 * I just realized that updating a card's title probably won't work like I expect... title is just the name of the tracker, and should probably be immutable...

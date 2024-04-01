@@ -1,4 +1,6 @@
 class Chapter < ApplicationRecord
+  include Announceable
+
   belongs_to :story
 
   has_one :creator, through: :story
@@ -79,6 +81,9 @@ class Chapter < ApplicationRecord
   end
 
   def notify!
+    return if announced?
+
+    announce!
     story.subscribers.each do |subscriber|
       NotificationsMailer.with(subscriber: subscriber, chapter: self).new_chapter.deliver_later
     end

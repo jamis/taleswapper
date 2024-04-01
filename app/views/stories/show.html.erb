@@ -21,6 +21,15 @@
     <% end %>
     <h2 class="font-bold">by <%= link_to @story.creator.display_name, creator_path(@story.creator), class: "ts-link" %></h2>
 
+    <% if editable_story? && @story.published? && !@story.announced? && @story.creator.subscriber_count > 0 %>
+      <div class="mt-2">
+        <%= form_with url: announce_story_path(@story), data: { turbo_confirm: "Announce this story to #{pluralize @story.creator.subscriber_count, 'subscriber'}? You can only do this once per story." } do |f| %>
+          <%= f.submit "Announce this story", class: 'ts-link cursor-pointer' %>
+          to <%= pluralize @story.creator.subscriber_count, 'subscriber' %>
+        <% end %>
+      </div>
+    <% end %>
+
     <div class="markdown mt-8">
       <%=md @story.description %>
     </div>

@@ -1,0 +1,20 @@
+<p>Hey <%= @subscriber.display_name %>,</p>
+
+<p>
+  <%= @creator.display_name %> has just started a new story, titled
+  "<%= @story.title %>"<%= @story.subtitle.present? ? " (#{@story.subtitle})" : '' %>.
+</p>
+
+<% if @story.description.present? %>
+<blockquote>
+  <%=md @story.description %>
+</blockquote>
+<% end %>
+
+<p>
+  <%= link_to "Click here to read it!", story_url(@story) %>
+</p>
+
+<p>Cheers,</p>
+
+<p>Taleswapper</p>

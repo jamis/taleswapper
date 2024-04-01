@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_30_013101) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_01_230435) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_30_013101) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "published_at"
+    t.datetime "announced_at"
     t.index ["story_id"], name: "index_chapters_on_story_id"
   end
 
@@ -112,6 +113,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_30_013101) do
     t.datetime "updated_at", null: false
     t.datetime "archived_at"
     t.datetime "deleted_at"
+    t.datetime "announced_at"
     t.index ["creator_id"], name: "index_stories_on_creator_id"
     t.index ["deleted_at"], name: "index_stories_on_deleted_at"
   end

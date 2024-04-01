@@ -15,4 +15,10 @@ class NotificationsMailerPreview < ActionMailer::Preview
     chapter = Chapter.first
     NotificationsMailer.with(subscriber: subscriber, chapter: chapter).new_chapter
   end
+
+  def new_story
+    subscriber = User.first
+    story = Story.first
+    NotificationsMailer.with(subscriber: subscriber, story: story).new_story
+  end
 end

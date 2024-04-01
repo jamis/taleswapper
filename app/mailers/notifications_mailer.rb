@@ -1,4 +1,6 @@
 class NotificationsMailer < ApplicationMailer
+  helper :application
+
   def comment_posted
     @comment = params[:comment]
     @creator = @comment.commentable.creator
@@ -30,6 +32,22 @@ class NotificationsMailer < ApplicationMailer
     @creator = @story.creator
 
     subject = "[Taleswapper] A new chapter of \"#{@story.title}\" is available to read"
+
+    mail to: @subscriber.email_address, subject: subject
+  end
+
+  def new_story
+    @story = params[:story]
+    @chapter = @story.chapters.starter.first
+
+    if @chapter.nil? || !@chapter.published?
+      raise ArgumentError, 'cannot notify if story is no first chapter'
+    end
+
+    @subscriber = params[:subscriber]
+    @creator = @story.creator
+
+    subject = "[Taleswapper] A new story from #{@creator.display_name} is available to read"
 
     mail to: @subscriber.email_address, subject: subject
   end

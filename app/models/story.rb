@@ -1,4 +1,5 @@
 class Story < ApplicationRecord
+  include Announceable
   include Subscribable
 
   belongs_to :creator, class_name: 'User'
@@ -11,6 +12,10 @@ class Story < ApplicationRecord
   scope :active, -> { where(archived_at: nil) }
   scope :archived, -> { where.not(archived_at: nil) }
   scope :published, -> { joins(:chapters).where('chapters.published_at <= ?', Time.now).distinct }
+
+  def published?
+    chapters.starter.any?(&:published?)
+  end
 
   def archived?(now: Time.now)
     archived_at && archived_at <= now
@@ -40,6 +45,15 @@ class Story < ApplicationRecord
 
   def creator_address
     creator.email_address
+  end
+
+  def notify!
+    return if announced?
+
+    announce!
+    creator.subscribers.each do |subscriber|
+      NotificationsMailer.with(subscriber: subscriber, story: self).new_story.deliver_later
+    end
   end
 
   def walk_chapters(restricted: true, &block)
