@@ -2,7 +2,7 @@
   <%= link_to story_path(story), class: "block rounded-lg px-6 py-4 bg-blue-100 hover:bg-blue-200" do %>
     <div>
       <span class="font-bold text-lg"><%= story.title %></span>
-      <%= story.subtitle ? "(#{story.subtitle})" : '' %>
+      <%= story.subtitle.present? ? "(#{story.subtitle})" : '' %>
     </div>
 
     <div class="mt-2">

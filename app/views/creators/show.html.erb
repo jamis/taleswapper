@@ -12,8 +12,10 @@
 
   <h1 class="text-xl font-bold mt-4">Current Stories</h1>
 
-  <% if @creator.stories.alive.active.any? %>
+  <% if Current.user == @creator && @creator.stories.alive.active.any? %>
     <%= render partial: 'stories/list', object: @creator.stories.alive.active %>
+  <% elsif Current.user != @creator && @creator.stories.alive.active.published.any? %>
+    <%= render partial: 'stories/list', object: @creator.stories.alive.active.published %>
   <% else %>
     <div>
       <% if Current.user == @creator %>
