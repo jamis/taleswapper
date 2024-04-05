@@ -2,7 +2,6 @@ TODO:
 
 * Bookmark feature (suggested by Eyes). Set a bookmark, attach an optional note to it.
 * It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.
-* RSS feed for creators and stories
 * Reset password feature
 * paragraphs following an <hr> should not be indented.
 * Tracker picker should allow searching for a tracker by typing its name
