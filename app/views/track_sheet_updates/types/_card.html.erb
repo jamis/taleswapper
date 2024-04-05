@@ -1,5 +1,5 @@
 <% if prior.present? %>
   <%= render "track_sheet_updates/types/card_with_value", name: name, value: prior, old: true %>
-  &rarr;
+  <div class="self-center">&rarr;</div>
 <% end %>
 <%= render "track_sheet_updates/types/card_with_value", name: name, value: value, old: false %>

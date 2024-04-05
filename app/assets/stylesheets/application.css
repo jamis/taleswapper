@@ -60,6 +60,11 @@
 
 .markdown {
   p { margin-bottom: 1rem; }
+
+  ul {
+    list-style-type: disc;
+    margin-left: 1rem;
+  }
 }
 
 span[placeholder]:empty::before {

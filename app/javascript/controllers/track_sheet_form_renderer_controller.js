@@ -193,7 +193,7 @@ export default class extends Controller {
 
   renderItem_update_card(info, container) {
     let body = cloneTemplate(this.updateCardTarget, 'ts-body');
-    populateTemplate(body, { 'ts-name': info.name, 'ts-value': info.defn.value });
+    populateTemplate(body, { 'ts-name': info.name, 'ts-value': info.value });
     container.appendChild(body);
   }
 
