@@ -21,7 +21,13 @@
         to write the next chapter of your tale, click "Next."
       </p>
 
-      <%= form.text_area :contents, class: 'focus:outline-none focus:ring-0 border rounded-lg w-full overflow-hidden resize-none font-mono text-sm px-4 py-2 mt-2', data: { controller: 'textarea-resize', textarea_resize_min_height_value: 288, sequel_target: 'field', action: 'textarea-resize#resize sequel#snapshot' } %>
+      <div class="ml-2 mt-2 mb-1 text-sm">
+        <a href='#' data-controller="trigger" data-trigger-dialog-outlet="#storyNotes" data-action="trigger#do:prevent" class="ts-link">Story Notes</a>
+        <% if @chapter %>
+          | <a href='#' data-controller="trigger" data-trigger-dialog-outlet="#trackSheet" data-action="trigger#do:prevent" class="ts-link">Track Sheet</a>
+        <% end %>
+      </div>
+      <%= form.text_area :contents, class: 'focus:outline-none focus:ring-0 border rounded-lg w-full overflow-hidden resize-none font-mono text-sm px-4 py-2', data: { controller: 'textarea-resize', textarea_resize_min_height_value: 288, sequel_target: 'field', action: 'textarea-resize#resize sequel#snapshot' } %>
 
       <%= dialog title: "Story Notes", start: :closed, color: :yellow, id: 'storyNotes' do %>
         <%= form.text_area :story_notes, class: "border-0 ring-0 focus:ring-0 resize-none w-full h-64 bg-yellow-50 text-sm font-mono", data: { sequel_target: 'field', action: 'sequel#snapshot' } %>
@@ -38,14 +44,11 @@
         resume your work.
       </div>
 
-      <div class="mt-4 mb-12">
-        <button data-controller="trigger" data-trigger-dialog-outlet="#storyNotes" data-action="trigger#do:prevent" class="rounded bg-yellow-100 hover:bg-yellow-300 px-4 py-2">Story Notes</button>
+      <div class="mt-4 mb-12 flex flex-row items-center">
         <% if @chapter %>
-          <button data-controller="trigger" data-trigger-dialog-outlet="#trackSheet" data-action="trigger#do:prevent" class="rounded bg-yellow-100 hover:bg-yellow-300 px-4 py-2">Track Sheet</button>
-        <% end %>
-        <span class="px-2">|</span>
-        <% if @chapter %>
-          <%= link_to "Go back to #{@chapter.title}", chapter_path(@chapter), class: "inline-block px-4 py-2 bg-blue-100 rounded hover:bg-blue-300" %>
+          <%= link_to chapter_path(@chapter), class: "flex flex-row items-baseline px-4 py-2 bg-blue-100 rounded hover:bg-blue-300 whitespace-nowrap max-w-[60%]" do %>
+            Go back to &ldquo;<span class="truncate"><%= @chapter.title %></span>&rdquo;
+          <% end %>
         <% else %>
           <%= link_to "Go back to the story", story_path(@story), class: "inline-block px-4 py-2 bg-blue-100 rounded hover:bg-blue-300" %>
         <% end %>

@@ -1,11 +1,16 @@
 TODO:
 
-* Need to implement a gate to prevent renotifying people when a chapter is unpublished and then republished.
+* Add a new tracker type: "list"
+* Bookmark feature (suggested by Eyes). Set a bookmark, attach an optional note to it.
+* It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.
+* Update Card needs a max-width (it grows horizontally with the text, instead of wrapping the text)
+* Updating a multi-line card (with newlines) seems to lose the newlines.
+* RSS feed for creators and stories
+* Reset password feature
 * paragraphs following an <hr> should not be indented.
 * Tracker picker should allow searching for a tracker by typing its name
 * I just realized that updating a card's title probably won't work like I expect... title is just the name of the tracker, and should probably be immutable...
 * Could there be some way to "bulk publish" multiple chapters simultaneously?
-* Should stories have their own "published" flag, independent of whether any chapters are currently published? Or maybe its enough to just not publish any chapters, and then release them all at once? (See "could there be a way to bulk publish multiple chapters"...)
 * Notifications
     - include "unsubscribe" option in every message, too
 * I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice. (Could just use "update", and the display side of things doesn't show a prior value if prior == given)
