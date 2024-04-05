@@ -6,6 +6,13 @@ class StoriesController < ApplicationController
     @story = Story.new(title: "Untitled")
   end
 
+  def show
+    respond_to do |format|
+      format.html
+      format.rss
+    end
+  end
+
   def announce
     @story.notify!
     redirect_to story_url(@story), notice: "Your story has been announced!"

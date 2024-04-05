@@ -1,5 +1,9 @@
 <% crumbs_for @story %>
 
+<% content_for :rss do %>
+  <%= auto_discovery_link_tag :rss, story_url(@story, format: :rss) %>
+<% end %>
+
 <div class="max-w-prose mx-auto mb-4">
   <div class="flex flex-row items-baseline gap-2">
     <h1 class="text-3xl font-bold"><%= @story.title %></h1>

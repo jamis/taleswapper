@@ -1,5 +1,9 @@
 <% crumbs_for @creator %>
 
+<% content_for :rss do %>
+  <%= auto_discovery_link_tag :rss, creator_url(@creator, format: :rss) %>
+<% end %>
+
 <div class="max-w-prose mx-auto mb-4 flex flex-col">
   <div class="flex flex-row gap-2">
     <h1 class="text-2xl font-bold"><%= @creator.display_name %></h1>

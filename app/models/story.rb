@@ -13,6 +13,18 @@ class Story < ApplicationRecord
   scope :archived, -> { where.not(archived_at: nil) }
   scope :published, -> { joins(:chapters).where('chapters.published_at <= ?', Time.now).distinct }
 
+  def long_title
+    if subtitle.present?
+      "#{title} (#{subtitle})"
+    else
+      title
+    end
+  end
+
+  def published_at
+    chapters.starter.first&.published_at
+  end
+
   def published?
     chapters.starter.any?(&:published?)
   end
