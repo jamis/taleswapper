@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+  ts-tracker-updates {
+    @apply block my-4;
+  }
+
   .editor-container {
     .tox.tox-tinymce-inline .tox-editor-header {
       @apply border rounded-b-none relative;

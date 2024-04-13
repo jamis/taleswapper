@@ -1,7 +1,3 @@
-<% content_for :javascript do %>
-  <%= javascript_include_tag "/assets/tinymce/tinymce.min.js" %>
-<% end %>
-
 <%= form_with model: (chapter.new_record? ? [ chapter.story, chapter ] : chapter) do |f| %>
   <div class="flex flex-row items-baseline w-full my-4">
     <div><label for="chapter_title" class="text-lg">Title:</label></div>
