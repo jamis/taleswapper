@@ -4,3 +4,29 @@
 require_relative "config/application"
 
 Rails.application.load_tasks
+
+Rake::Task["assets:precompile"].enhance do
+  Rake::Task["tinymce"].invoke
+end
+
+task tinymce: "environment" do
+  source_root = Rails.root.join('node_modules', 'tinymce')
+  target_root = Rails.root.join('public', 'assets', 'tinymce')
+
+  puts "copying tinymce assets..."
+
+  %w[
+    tinymce.min.js
+    themes/silver/theme.min.js
+    models/dom/model.min.js
+    icons/default/icons.min.js
+    skins/ui/oxide/skin.min.css
+    skins/ui/oxide/content.inline.min.css
+  ].each do |file|
+    source = File.join(source_root, file)
+    target = File.join(target_root, file)
+
+    mkdir_p File.dirname(target)
+    cp source, target
+  end
+end

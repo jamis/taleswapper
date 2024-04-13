@@ -2,8 +2,6 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-import "quill-config"
-import "@rails/actiontext"
 import Services from "services"
 
 window.TaleSwapper ||= {}

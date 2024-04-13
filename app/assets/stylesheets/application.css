@@ -14,50 +14,6 @@
  *= require_self
  */
 
-.can-delete {
-  display: none;
-}
-
-.many-sections {
-  .can-delete {
-    display: initial;
-  }
-}
-
-.ql-container.ql-snow {
-  border: none;
-}
-
-.ql-editor {
-  padding: 0.5rem 1rem;
-}
-
-.ql-toolbar {
-  background-color: white;
-  z-index: 10;
-
-  &.ql-snow {
-    border: none;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .ql-divider:before {
-    display: block;
-    margin-top: -0.2rem;
-    content: '—';
-  }
-}
-
-.trix-content .ql-align-center {
-  text-indent: 0;
-  text-align: center;
-}
-
-.trix-content .ql-align-right {
-  text-indent: 0;
-  text-align: right;
-}
-
 .markdown {
   p { margin-bottom: 1rem; }
 

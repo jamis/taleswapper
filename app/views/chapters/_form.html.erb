@@ -1,3 +1,7 @@
+<% content_for :javascript do %>
+  <%= javascript_include_tag "/assets/tinymce/tinymce.min.js" %>
+<% end %>
+
 <%= form_with model: (chapter.new_record? ? [ chapter.story, chapter ] : chapter) do |f| %>
   <div class="flex flex-row items-baseline w-full my-4">
     <div><label for="chapter_title" class="text-lg">Title:</label></div>
@@ -10,23 +14,9 @@
     <%= f.check_box :interactive, class: "mr-2" %> <label for="chapter_iteractive" class="text-lg">Allow comments?</label>
   </div>
 
-  <div class="sections w-full my-8 p-0"
-       data-controller="sections scroll-listener"
-       data-sections-track-sheet-value="<%= chapter.track_sheet.definition_before_type_cast %>"
-       data-sections-convenient-button-value="#convenientSaveChapterButton"
-       data-scroll-listener-header-value="body > header">
-    <template data-sections-target="template">
-      <%= fields_for :template, Section.new, skip_default_ids: true do |sf| %>
-        <%= render "sections/form", form: sf %>
-      <% end %>
-    </template>
-
-    <%= render "sections/add_here" %>
-
-    <%# set include_id to false, so we can put the id field inside the containing div %>
-    <%= f.fields_for :sections, chapter.sections.in_order.presence || [ Section.new ], include_id: false, skip_default_ids: true do |sf| %>
-      <%= render "sections/form", form: sf %>
-    <% end %>
+  <div class="editor-container mt-4" data-controller="chapter-editor" data-chapter-editor-header-selector-value="header">
+    <div class="toolbar" data-chapter-editor-target="toolbar"></div>
+    <div class="editor prose--traditional" data-chapter-editor-target="editor"></div>
   </div>
 
   <div class="mt-4 mb-12">
