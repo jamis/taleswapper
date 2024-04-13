@@ -4,10 +4,6 @@ class ChaptersController < ApplicationController
   before_action :find_chapter, only: %i[ show edit update destroy publish revoke ]
   before_action :require_own_property, only: %i[ edit update destroy publish revoke ]
 
-  def edit
-    @chapter.ensure_at_least_one_section!
-  end
-
   def update
     @chapter.update(chapter_params)
     redirect_to @chapter

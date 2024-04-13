@@ -7,8 +7,6 @@ class Chapter < ApplicationRecord
 
   scope :starter, -> { where(start: true) }
 
-  has_many :sections, dependent: :destroy
-  has_many :track_sheet_updates, through: :sections
   has_many :comments, as: :commentable, dependent: :destroy
 
   has_many :actions, foreign_key: :source_id, dependent: :destroy
@@ -27,6 +25,8 @@ class Chapter < ApplicationRecord
 
   has_one :track_sheet, dependent: :destroy
 
+  has_rich_text :content
+
   # a reference to the prequel chapter; used during sequel creation
   attr_accessor :prequel
 
@@ -43,7 +43,6 @@ class Chapter < ApplicationRecord
 
   after_update :push_track_sheet_forward
 
-  accepts_nested_attributes_for :sections, allow_destroy: true
   accepts_nested_attributes_for :outline
   accepts_nested_attributes_for :story_notes
 
@@ -106,7 +105,9 @@ class Chapter < ApplicationRecord
   end
 
   def word_count
-    sections.sum(&:word_count)
+    # FIXME: make this smart enough to ignore HTML tags, and attributes
+    # on HTML tags.
+    content.to_s.scan(/\w+/).count
   end
 
   def time_to_read(wpm = 250)
@@ -128,10 +129,6 @@ class Chapter < ApplicationRecord
 
     block.call(:close) if mode == :branching
     block.call(:end_entry)
-  end
-
-  def ensure_at_least_one_section!
-    sections.build if sections.empty?
   end
 
   private
@@ -183,6 +180,8 @@ class Chapter < ApplicationRecord
   end
 
   def push_track_sheet_forward
+warn "FIXME"
+return
     return unless sequels.any?
     final = final_track_sheet
 

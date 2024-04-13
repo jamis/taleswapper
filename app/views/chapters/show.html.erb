@@ -68,7 +68,9 @@
   </div>
 
   <% cache @chapter do %>
-    <%= render @chapter.sections.in_order %>
+    <div class="prose--traditional prose--display mt-4">
+      <%= @chapter.content %>
+    </div>
   <% end %>
 </div>
 

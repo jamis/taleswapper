@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_01_230435) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_13_140708) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,15 +94,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_01_230435) do
     t.index ["chapter_id"], name: "index_scratch_pads_on_chapter_id"
   end
 
-  create_table "sections", force: :cascade do |t|
-    t.bigint "chapter_id"
-    t.string "role", default: "primary"
-    t.integer "position", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["chapter_id", "position"], name: "index_sections_on_chapter_id_and_position"
-  end
-
   create_table "stories", force: :cascade do |t|
     t.string "title", null: false
     t.string "subtitle"
@@ -126,12 +117,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_01_230435) do
     t.datetime "updated_at", null: false
     t.index ["subscribable_type", "subscribable_id"], name: "index_subscriptions_on_subscribable"
     t.index ["user_id", "subscribable_type", "subscribable_id"], name: "idx_on_user_id_subscribable_type_subscribable_id_fb68f3bd3a", unique: true
-  end
-
-  create_table "track_sheet_updates", force: :cascade do |t|
-    t.bigint "section_id"
-    t.text "data"
-    t.index ["section_id"], name: "index_track_sheet_updates_on_section_id"
   end
 
   create_table "track_sheets", force: :cascade do |t|

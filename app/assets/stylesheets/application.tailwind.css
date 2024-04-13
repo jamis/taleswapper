@@ -24,7 +24,7 @@
       @apply pointer-events-none z-[5];
     }
 
-    .editor p {
+    .editor :not(aside) {
       @apply max-w-prose;
     }
 
@@ -42,7 +42,7 @@
       @apply font-bold my-4;
     }
 
-    :is(:not(p)) + p {
+    :not(p) + p {
       @apply indent-0;
     }
 
@@ -81,88 +81,20 @@
 
     aside {
       @apply my-4 ml-auto md:mr-4 min-w-[90%] md:min-w-[30%] w-1/2 max-w-prose;
-      @apply text-gray-600;
+      @apply text-gray-400;
     }
   }
 
-  .first-section.trix-content p:first-child::first-line {
+  .prose--traditional.prose--display > :not(aside) {
+    max-width: 40rem;
+    @apply w-full mx-auto;
+  }
+
+  .prose--traditional.prose--display > p:first-child::first-line {
     /* webkit can't do first-line + uppercase for some reason, but it can
      * do small-caps, so we'll use that as a fallback. */
      font-variant: small-caps;
 
      @apply uppercase;
-  }
-
-  .trix-content {
-    * {
-      @apply font-serif text-lg;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      @apply font-bold my-4;
-    }
-
-    :is(h1, h2, h3, h4, h5, h6) + p {
-      @apply indent-0;
-    }
-
-    h1 {
-      @apply text-3xl;
-    }
-
-    h2 {
-      @apply text-2xl;
-    }
-
-    h3 {
-      @apply text-xl;
-    }
-
-    &.ql-snow .ql-editor {
-      h1, h2, h3, h4, h5, h6 {
-        @apply font-bold my-4;
-      }
-
-      :is(h1, h2, h3, h4, h5, h6) + p {
-        @apply indent-0;
-      }
-
-      h1 {
-        @apply text-3xl;
-      }
-
-      h2 {
-        @apply text-2xl;
-      }
-
-      h3 {
-        @apply text-xl;
-      }
-    }
-
-    p {
-      /* hyphens-auto requires a lang attribute on the element */
-      @apply indent-4 hyphens-auto text-justify;
-    }
-
-    &.card-contents p {
-      @apply indent-0;
-    }
-
-    p:first-child {
-      @apply indent-0;
-    }
-
-    ul {
-      @apply list-disc my-4 ml-4;
-    }
-
-    li {
-      @apply ml-12;
-    }
-
-    hr {
-      @apply w-1/2 mx-auto my-8;
-    }
   }
 }
