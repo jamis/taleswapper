@@ -37,7 +37,7 @@ class ConsolidateSections < ActiveRecord::Migration[7.1]
         body = section.content.to_s
 
         if updates.present?
-          body = "#{body}<ts-tracker-updates data-updates=#{CGI.escape_html(updates.to_json.inspect)}></ts-tracker-updates>\n"
+          body = "#{body}<ts-tracker-updates data-updates=\"#{CGI.escape_html(updates.to_json)}\"></ts-tracker-updates>\n"
         end
 
         body = "<aside>\n#{body}</aside>\n" if section.role == 'aside'
