@@ -16,5 +16,21 @@ export default class TrackerUpdatesTag extends HTMLElement {
     wrapper.style.height = "4rem";
 
     shadow.appendChild(wrapper);
+
+    if (document.readyState != 'complete') {
+      window.addEventListener('load', this.render.bind(this));
+    } else {
+      this.render();
+    }
+  }
+
+  render() {
+    this.getRenderer(renderer => {
+      console.log('got renderer', renderer);
+    });
+  }
+
+  getRenderer(callback) {
+    window.TaleSwapper.Services.lookup('renderer').then(callback);
   }
 }
