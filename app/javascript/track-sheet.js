@@ -3,6 +3,12 @@ export default class {
     this.source = structuredClone(source);
   }
 
+  applyUpdates(updates) {
+    for (let update of updates) {
+      this.applyUpdate(update);
+    }
+  }
+
   applyUpdate(update) {
     if (update.action == 'add')
       return this.applyAddUpdate(update);

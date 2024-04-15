@@ -68,7 +68,7 @@
   </div>
 
   <% cache @chapter do %>
-    <div class="prose--traditional prose--display mt-4">
+    <div data-controller="track-sheet-manager" data-track-sheet-manager-source-value="<%= @chapter.track_sheet.definition.to_json %>" class="prose--traditional prose--display mt-4">
       <%= @chapter.content %>
     </div>
   <% end %>
@@ -118,4 +118,46 @@
   </div>
 </div>
 
-<div class="hidden" data-controller="track-sheet-updates-renderer"></div>
+<div data-controller="track-sheet-updates-display-renderer">
+  <template data-track-sheet-updates-display-renderer-target='container'>
+    <%= stylesheet_link_tag "tailwind", "inter-font" %>
+    <div class="content flex flex-col gap-2 font-sans text-base"></div>
+  </template>
+
+  <template data-track-sheet-updates-display-renderer-target='path'>
+    <div class="border border-blue-400 rounded-lg overflow-hidden">
+      <div class="content--name font-bold text-black border-b border-blue-400 bg-blue-100 px-2 py-1"></div>
+      <div class="content flex flex-row flex-wrap gap-2 p-2"></div>
+    </div>
+  </template>
+
+  <template data-track-sheet-updates-display-renderer-target='missing'>
+    <div class="border border-red-400 text-red-700 bg-red-50 rounded overflow-hidden px-2 py-1">
+      missing <strong class="content--message"></strong>
+      (<span class="content--name"></span>)
+    </div>
+  </template>
+
+  <template data-track-sheet-updates-display-renderer-target='addCard'>
+    <div class="border border-blue-500 rounded-lg w-48 flex flex-col overflow-hidden">
+      <div class="content--name px-2 py-0 font-bold text-white bg-blue-500"></div>
+      <div class="content--value p-2 text-sm grow markdown h-full bg-blue-50"></div>
+    </div>
+  </template>
+
+  <template data-track-sheet-updates-display-renderer-target='addValue'>
+    <div class="border rounded-lg bg-blue-50 border-blue-400 text-black px-2 py-1">
+      <span class="content--name"></span>:
+      <span class="content--value font-bold"></span>
+    </div>
+  </template>
+
+  <template data-track-sheet-updates-display-renderer-target='updateValue'>
+    <div class="border rounded-lg bg-blue-50 border-blue-400 text-black px-2 py-1">
+      <span class="content--name"></span>:
+      <span class="content--prior text-gray-400"></span>
+      &rarr;
+      <span class="content--value font-bold"></span>
+    </div>
+  </template>
+</div>

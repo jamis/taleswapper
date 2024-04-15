@@ -26,7 +26,7 @@ export default class extends Controller {
       fixed_toolbar_container_target: this.toolbarTarget,
       toolbar_persist: true,
 
-      extended_valid_elements: 'ts-tracker-updates[data-updates]',
+      extended_valid_elements: 'ts-tracker-updates[class,data-updates]',
       custom_elements: 'ts-tracker-updates',
 
       setup: this.setupEditor.bind(this),

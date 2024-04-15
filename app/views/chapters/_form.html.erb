@@ -10,7 +10,7 @@
     <%= f.check_box :interactive, class: "mr-2" %> <label for="chapter_iteractive" class="text-lg">Allow comments?</label>
   </div>
 
-  <div class="editor-container mt-4" data-controller="chapter-editor" data-chapter-editor-header-selector-value="header">
+  <div class="editor-container mt-4" data-controller="chapter-editor track-sheet-manager" data-track-sheet-manager-source-value="<%= @chapter.track_sheet.definition.to_json %>" data-chapter-editor-header-selector-value="header">
     <div class="toolbar" data-chapter-editor-target="toolbar"></div>
     <div class="editor prose--traditional" data-chapter-editor-target="editor"><%= @chapter.content %></div>
   </div>
