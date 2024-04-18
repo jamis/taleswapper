@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 const AsideFormatter = 'ts-aside-formatter';
 const AsideButton = 'ts-aside-btn';
+const TrackerButton = 'ts-tracker-btn';
 
 export default class extends Controller {
   static targets = [ "toolbar", "editor" ];
@@ -31,7 +32,7 @@ export default class extends Controller {
 
       setup: this.setupEditor.bind(this),
 
-      toolbar: `${AsideButton}`
+      toolbar: `${AsideButton} ${TrackerButton}`
     });
   }
 
@@ -60,6 +61,16 @@ export default class extends Controller {
       text: 'Aside',
       onAction: () => {
         this.editor.formatter.toggle(AsideFormatter);
+      }
+    });
+
+    this.editor.ui.registry.addButton(TrackerButton, {
+      text: 'Trackers',
+      onAction: () => {
+        // TODO: ensure we create a new block context here (or are
+        // already in a clean block context) before we insert this
+        // tag.
+        this.editor.insertContent('<ts-tracker-updates data-updates="[]"></ts-tracker-updates>');
       }
     });
   }

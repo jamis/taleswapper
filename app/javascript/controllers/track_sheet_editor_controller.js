@@ -1,23 +1,10 @@
-import { Controller } from "@hotwired/stimulus"
+// This is an ad-hoc controller, not a stimulus one.
+
 import { constructKeyFrom, dig } from 'utilities'
 
-export default class extends Controller {
-  static targets = [ 'source', 'entries' ];
-
-  static outlets = [ 'dialog', 'sections', 'tracker-picker' ];
-
-  static values = {
-    renderer: String
-  }
-
-  connect() {
-    try {
-      this.updates = JSON.parse(this.sourceTarget.value);
-    } catch (error) {
-      this.updates = [];
-    }
-
-    this.renderUpdates();
+export default class {
+  constructor(parent) {
+    this.parent = parent;
     this.addEventListeners();
   }
 
@@ -25,58 +12,67 @@ export default class extends Controller {
     this.removeEventListeners();
   }
 
+  get root() {
+    return this.parent.shadow;
+  }
+
   addEventListeners() {
     this._onChangeListener = (event) => this.onChange(event);
-    this.entriesTarget.addEventListener("change", this._onChangeListener);
+    this.root.addEventListener("change", this._onChangeListener);
 
     this._onInputListener = (event) => this.onInput(event);
-    this.entriesTarget.addEventListener("input", this._onInputListener);
+    this.root.addEventListener("input", this._onInputListener);
 
     this._onBlurListener = (event) => this.onBlur(event);
-    this.entriesTarget.addEventListener("blur", this._onBlurListener, true);
+    this.root.addEventListener("blur", this._onBlurListener, true);
 
     this._onClickListener = (event) => this.onClick(event);
-    this.entriesTarget.addEventListener("click", this._onClickListener);
+    this.root.addEventListener("click", this._onClickListener);
   }
 
   removeEventListeners() {
-    this.entriesTarget.removeEventListener("change", this._onChangeListener);
-    this.entriesTarget.removeEventListener("input", this._onInputListener);
-    this.entriesTarget.removeEventListener("blur", this._onBlurListener);
-    this.entriesTarget.removeEventListener("click", this._onClickListener);
+    this.root.removeEventListener("change", this._onChangeListener);
+    this.root.removeEventListener("input", this._onInputListener);
+    this.root.removeEventListener("blur", this._onBlurListener);
+    this.root.removeEventListener("click", this._onClickListener);
   }
 
   addTracker() {
-    this.openTrackerPicker('add', (parent) => this.addTrackerAt(parent));
+    this.openTrackerPicker('add', (path) => this.addTrackerAt(path));
   }
 
   updateTracker() {
-    this.openTrackerPicker('pick', (parent, child, defn) => this.updateTrackerAt(parent, child, defn));
+    this.openTrackerPicker('pick', (path, child, defn) => this.updateTrackerAt(path, child, defn));
   }
 
   deleteTracker() {
-    this.openTrackerPicker('pick-any', (parent, child, defn) => this.deleteTrackerAt(parent, child, defn));
+    this.openTrackerPicker('pick-any', (path, child, defn) => this.deleteTrackerAt(path, child, defn));
   }
 
   saveUpdates() {
-    this.sourceTarget.value = JSON.stringify(this.updates);
+    console.log('IMPLEMENT: trackSheetEditor.saveUpdates()');
   }
 
   getRenderer() {
-    return window.TaleSwapper.Services.lookup(this.rendererValue);
-  }
-
-  renderUpdates() {
-    let sheet = this.sectionsOutlet.trackSheetFor(this.element.closest('.section-form'));
-    this.getRenderer().then(renderer => {
-      renderer.render(this.updates, sheet, this.entriesTarget);
-    });
+    return this.parent.getRenderer();
   }
 
   openTrackerPicker(mode, callback) {
-    let sheet = this.sectionsOutlet.trackSheetFor(this.element.closest('.section-form'), true);
-    this.trackerPickerOutlet.prepare(sheet, mode, callback);
-    this.dialogOutlet.open();
+    this.parent.withTrackSheet(sheet => {
+      this.openPicker(sheet, mode, callback);
+    }, true);
+  }
+
+  getTrackerPicker() {
+    return window.TaleSwapper.Services.lookup('trackerPicker');
+  }
+
+  openPicker(sheet, mode, callback) {
+    this.getTrackerPicker().then(picker => picker.open(sheet, mode, callback));
+  }
+
+  closePicker() {
+    this.getTrackerPicker().then(picker => picker.close());
   }
 
   getRenderer() {
@@ -97,7 +93,7 @@ export default class extends Controller {
   }
 
   addTrackerAt(parent) {
-    this.dialogOutlet.close();
+    this.closePicker();
 
     this.getRenderer().then(renderer => {
       let container = this.getUpdatesContainerFor(parent, renderer);
@@ -106,7 +102,7 @@ export default class extends Controller {
   }
 
   updateTrackerAt(parent, child, defn) {
-    this.dialogOutlet.close();
+    this.closePicker();
 
     this.getRenderer().then(renderer => {
       let container = this.getUpdatesContainerFor(parent, renderer);
@@ -115,7 +111,7 @@ export default class extends Controller {
   }
 
   deleteTrackerAt(parent, child, defn) {
-    this.dialogOutlet.close();
+    this.closePicker();
 
     this.getRenderer().then(renderer => {
       let realChild = child ? child : parent.pop();
@@ -151,9 +147,12 @@ export default class extends Controller {
   }
 
   onClick(event) {
-    if (event.target.classList.contains('ts-cancel')) {
+    if (event.target.classList.contains('command--delete')) {
       event.preventDefault();
       this.tryRemoveEntryWithLink(event.target);
+    } else if (event.target.id == 'newTracker') {
+      event.preventDefault();
+      this.addTracker();
     } else if (event.target.classList.contains('ts-add-tracker-here')) {
       event.preventDefault();
       this.addTrackerHere(event.target);

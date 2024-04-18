@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import Handlebars from "handlebars"
 
 export default class extends Controller {
   static targets = [
@@ -6,6 +7,7 @@ export default class extends Controller {
   ];
 
   connect() {
+    Handlebars.doSomething();
     window.TaleSwapper.Services.register('track-sheet-updates-renderer', this);
   }
 

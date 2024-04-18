@@ -14,15 +14,17 @@ export default class extends Controller {
     window.TaleSwapper.Services.unregister('track-sheet-manager');
   }
 
-  trackSheetAt(tag) {
+  trackSheetAt(tag, include = false) {
     let updateTags = this.element.querySelectorAll('ts-tracker-updates');
     let sheet = new TrackSheet(this.sourceValue);
 
     for (let candidate of updateTags) {
-      if (candidate == tag) break;
+      if (candidate == tag && !include) break;
 
       let updates = JSON.parse(candidate.dataset.updates);
       sheet.applyUpdates(updates);
+
+      if (candidate == tag) break;
     }
 
     return sheet;

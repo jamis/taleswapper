@@ -1,16 +1,18 @@
-<%= render 'layouts/dialog', id: id, state: :closed, on_close: :hide, color: :blue, title: 'Tracker Selector' do %>
-  <div data-controller="tracker-picker" class="tracker-picker px-4 py-2">
-    <template data-tracker-picker-target="treeTemplate">
-      <li>
-        <div data-state="closed" class="label group"><span class="toggle cursor-pointer">[+]</span> <span class="label-slot"></span> <span class="text-xs invisible group-hover:visible">[ <a href="#" class="ts-link add-group">new tracker group</a> ]</span></div>
-        <ul class="hidden ml-3 pl-2 border-l children-slot">
-        </ul>
-      </li>
-    </template>
-    <template data-tracker-picker-target="leafTemplate">
-      <li class="label-slot"></li>
-    </template>
-    <div data-tracker-picker-target="view" data-action="click->tracker-picker#viewClicked">
+<div data-controller="tracker-picker-service" data-tracker-picker-service-dialog-outlet="#dialog_<%= id %>" data-tracker-picker-service-tracker-picker-outlet="#picker_<%= id %>">
+  <%= render 'layouts/dialog', id: "dialog_#{id}", state: :closed, on_close: :hide, color: :blue, title: 'Tracker Selector' do %>
+    <div data-controller="tracker-picker" id="picker_<%= id %>" class="tracker-picker px-4 py-2">
+      <template data-tracker-picker-target="treeTemplate">
+        <li>
+          <div data-state="closed" class="label group"><span class="toggle cursor-pointer">[+]</span> <span class="label-slot"></span> <span class="text-xs invisible group-hover:visible">[ <a href="#" class="ts-link add-group">new tracker group</a> ]</span></div>
+          <ul class="hidden ml-3 pl-2 border-l children-slot">
+          </ul>
+        </li>
+      </template>
+      <template data-tracker-picker-target="leafTemplate">
+        <li class="label-slot"></li>
+      </template>
+      <div data-tracker-picker-target="view" data-action="click->tracker-picker#viewClicked">
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>

@@ -12,5 +12,3 @@ pin "@hotwired/stimulus", to: "stimulus.min.js", preload: true
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from "app/javascript/elements", under: "elements"
-pin "dompurify" # @3.1.0
-pin "marked" # @12.0.1

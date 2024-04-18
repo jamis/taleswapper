@@ -44,7 +44,6 @@ export default class extends TrackSheetUpdatesRendererController {
   }
 
   renderUpdate_update_value(name, prop, update, template) {
-    console.log(name, prop, update);
     let body = this.instantiate(template, { name, prior: prop.value, value: update.child[name] });
     return this.renderUpdateTracker(body);
   }
