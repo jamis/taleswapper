@@ -9,7 +9,7 @@
 
   .editor-container {
     .tox.tox-tinymce-inline .tox-editor-header {
-      @apply border rounded-b-none relative;
+      @apply border rounded-none relative bg-gray-50;
     }
 
     .toolbar {

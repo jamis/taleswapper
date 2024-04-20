@@ -1,5 +1,15 @@
 import TrackSheetEditorController from '../controllers/track_sheet_editor_controller';
 
+const NO_PROPAGATION_EVENTS = [
+  'keyup', 'keydown', 'keypress',
+  'mousedown', 'mouseup', 'click', 'mousemove',
+  'drop', 'dragstart', 'dragover', 'dragend',
+  'touchstart', 'touchend', 'touchmove', 'touchcancel', 'longpress',
+  'remove', 'blur', 'focus', 'focusin', 'focusout', 'compositionstart', 'compositionend',
+  'beforeinput', 'input', 'change', 'cut', 'copy', 'paste', 'contextmenu',
+  'reset', 'submit'
+];
+
 export default class TrackerUpdatesTag extends HTMLElement {
   constructor() {
     super();
@@ -9,12 +19,31 @@ export default class TrackerUpdatesTag extends HTMLElement {
 
   connectedCallback() {
     this.determineMode();
+
+    if (this.mode == 'edit') {
+      this.setAttribute('contenteditable', false);
+    }
+
+    this.installListeners();
     this.installControllers();
     this.maybeWaitToRender();
   }
 
   disconnectedCallback() {
+    this.removeListeners();
     this.controller?.disconnect();
+  }
+
+  installListeners() {
+    this._stopPropagation = this.stopPropagation.bind(this);
+
+    NO_PROPAGATION_EVENTS.forEach(eventName =>
+      this.shadow.addEventListener(eventName, this._stopPropagation));
+  }
+
+  removeListeners() {
+    NO_PROPAGATION_EVENTS.forEach(eventName =>
+      this.shadow.removeEventListener(eventName, this._stopPropagation));
   }
 
   withTrackSheet(callback, include = false) {
@@ -62,5 +91,10 @@ export default class TrackerUpdatesTag extends HTMLElement {
 
   saveUpdates(updates) {
     this.setAttribute('data-updates', JSON.stringify(updates));
+  }
+
+  // disallow this event from escaping the shadow DOM.
+  stopPropagation(event) {
+    event.stopPropagation();
   }
 }
