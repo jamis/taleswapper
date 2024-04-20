@@ -1,9 +1,15 @@
 {
   "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.4",
     "dompurify": "^3.1.0",
     "esbuild": "^0.20.2",
     "esbuild-plugin-copy": "^2.1.1",
+    "handlebars": "^4.7.8",
     "marked": "^12.0.1",
     "tinymce": "^7.0.1"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
   }
 }

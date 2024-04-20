@@ -1,3 +1,4 @@
+import { constructKeyFrom } from '../utilities';
 import { Controller } from "@hotwired/stimulus"
 import Handlebars from "handlebars"
 
@@ -7,83 +8,75 @@ export default class extends Controller {
   ];
 
   connect() {
-    Handlebars.doSomething();
+    this.registerPartials();
     window.TaleSwapper.Services.register('track-sheet-updates-renderer', this);
   }
 
   disconnect() {
     window.TaleSwapper.Services.unregister('track-sheet-updates-renderer');
+    // TODO: unregister all registered partials
+  }
+
+  registerPartials() {
+    this.handlebars = Handlebars.create();
+
+    this.containerTemplate = this.handlebars.compile(this.containerTarget.innerHTML);
+    this.pathTemplate = this.handlebars.compile('{{> path}}');
+    this.missingTemplate = this.handlebars.compile('{{> missing}}');
+
+    this.handlebars.registerPartial('path', this.pathTarget.innerHTML);
+    this.handlebars.registerPartial('missing', this.missingTarget.innerHTML);
   }
 
   render(sheet, updates) {
-    let container = this.renderContainer();
-    let containerContent = container.querySelector('.content');
-
     let updatesMap = this.organizeUpdatesByParent(updates);
+    let paths = [];
 
     updatesMap.forEach((list, parent) => {
-      let pathContainer = this.renderPathContainer(parent);
-      let pathContainerContent = pathContainer.querySelector('.content');
-      containerContent.appendChild(pathContainer);
+      let updates = [];
+
       for (let update of list) {
         for (let propName in update.child) {
-          let node = this.renderUpdate(sheet, update, propName);
-          pathContainerContent.appendChild(node);
+          let context = this.contextFor(sheet, update, propName);
+          updates.push(context);
         }
         sheet.applyUpdate(update);
       }
+
+      paths.push({ path: parent, key: constructKeyFrom(parent), updates });
     });
 
-    return container;
+    return this.parseHTML(this.containerTemplate({ paths }));
   }
 
-  instantiate(templateTarget, mappings = {}) {
-    let template = templateTarget.content.cloneNode(true);
-
-    for (let key in mappings) {
-      let selector = `.content--${key}`;
-      let element = template.querySelector(selector);
-      if (!element) continue;
-
-      if (element.tagName.toLowerCase() === 'input') {
-        if (element.getAttribute('type') === 'checkbox') {
-          element.checked = mappings[key];
-        } else {
-          element.value = mappings[key];
-        }
-      } else {
-        element.innerHTML = mappings[key];
-      }
-    }
-
-    return template;
-  }
-
-  renderContainer() {
-    return this.instantiate(this.containerTarget);
-  }
-
-  renderPathContainer(parent) {
-    let name = parent.join(' &rarr; ');
-    return this.instantiate(this.pathTarget, { name });
+  renderPathFrame(path, key) {
+    return this.parseHTML(this.pathTemplate({ path, key }));
   }
 
   renderMissing(message, name) {
-    console.log('%cMISSING', 'color: red', message, name);
-    return this.instantiate(this.missingTarget, { message, name });
+    return this.parseHTML(this.missingTemplate({ message, name }));
   }
 
-  renderUpdate(sheet, update, propName) {
+  isMissing(message) {
+    return !this[message];
+  }
+
+  contextFor(sheet, update, propName) {
     let node = sheet.findParent(update.parent);
     let prop = node[propName] || update.child[propName];
 
-    let message = `renderUpdate_${update.action}_${prop._type}`;
+    let message = `contextFor_${update.action}_${prop._type}`;
 
     if (this[message]) {
       return this[message](propName, prop, update);
     } else {
-      return this.renderMissing(message, propName);
+      return this.missingContext(message, propName);
     }
+  }
+
+  missingContext(message, name) {
+    console.log('%cMISSING', 'color: red', message, name);
+    return { partial: 'missing', update: { message, name } };
   }
 
   organizeUpdatesByParent(updates) {
@@ -99,5 +92,17 @@ export default class extends Controller {
     }
 
     return map;
+  }
+
+  parseHTML(html) {
+    let div = document.createElement('div');
+    div.innerHTML = html;
+
+    if (div.children.length > 1) {
+      console.log(html);
+      throw "template produced too many children";
+    }
+
+    return div.children[0];
   }
 }

@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import TrackSheet from 'track-sheet';
+import TrackSheet from '../track-sheet';
 
 export default class extends Controller {
   static values = {

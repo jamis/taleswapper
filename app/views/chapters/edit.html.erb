@@ -3,6 +3,10 @@
 
 <%= render 'subheader' %>
 
+<% content_for :javascript do %>
+  <%= javascript_include_tag "/assets/tinymce/tinymce.min.js", id: 'tinymceScript' %>
+<% end %>
+
 <div class="flex-col w-full">
   <h1 class="text-2xl font-bold">Edit Chapter</h1>
 

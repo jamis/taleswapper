@@ -1,0 +1,56 @@
+<div data-controller="track-sheet-updates-display-renderer">
+  <script type="text/x-handlebars-template" data-track-sheet-updates-display-renderer-target='container'>
+    <div>
+      <%= stylesheet_link_tag "tailwind", "inter-font" %>
+      <div class="flex flex-col gap-2 font-sans text-base">
+        {{#each paths}}
+          {{> path}}
+        {{/each}}
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-display-renderer-target='path'>
+    <div class="border border-blue-400 rounded-lg overflow-hidden">
+      <div class="font-bold text-black border-b border-blue-400 bg-blue-100 px-2 py-1">
+        {{#each path}}
+          {{this}}
+          {{#unless @last}}&rarr;{{/unless}}
+        {{/each}}
+      </div>
+      <div class="flex flex-row flex-wrap gap-2 p-2">
+        {{#each updates}}
+          {{> (lookup . 'partial') update}}
+        {{/each}}
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-display-renderer-target='missing'>
+    <div class="border border-red-400 text-red-700 bg-red-50 rounded overflow-hidden px-2 py-1">
+      missing <strong>{{message}}</strong> ({{name}})
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-display-renderer-target='addCard'>
+    <div class="border border-blue-500 rounded-lg w-48 flex flex-col overflow-hidden">
+      <div class="px-2 py-0 font-bold text-white bg-blue-500">{{name}}</div>
+      <div class="p-2 text-sm grow markdown h-full bg-blue-50">{{value}}</div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-display-renderer-target='addValue'>
+    <div class="border rounded-lg bg-blue-50 border-blue-400 text-black px-2 py-1">
+      {{name}}: <span class="font-bold">{{value}}</span>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-display-renderer-target='updateValue'>
+    <div class="border rounded-lg bg-blue-50 border-blue-400 text-black px-2 py-1">
+      {{name}}:
+      <span class="text-gray-400">{{prior}}</span>
+      &rarr;
+      <span class="font-bold">{{value}}</span>
+    </div>
+  </script>
+</div>

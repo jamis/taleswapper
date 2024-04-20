@@ -12,6 +12,14 @@ export default class extends Controller {
   };
 
   connect() {
+    // since tinymce is only loaded in edit mode, we need to wait for the
+    // script to finish loading before we actually try and do anything
+    // with it.
+    let script = document.querySelector('#tinymceScript');
+    script.addEventListener('load', this.onLoad.bind(this), { once: true });
+  }
+
+  onLoad() {
     let header = document.querySelector(this.headerSelectorValue);
     let height = header.clientHeight;
 

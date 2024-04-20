@@ -1,6 +1,6 @@
 // This is an ad-hoc controller, not a stimulus one.
 
-import { constructKeyFrom, dig } from 'utilities'
+import { constructKeyFrom, dig } from '../utilities'
 
 export default class {
   constructor(parent) {
@@ -17,16 +17,16 @@ export default class {
   }
 
   addEventListeners() {
-    this._onChangeListener = (event) => this.onChange(event);
+    this._onChangeListener = this.onChange.bind(this);
     this.root.addEventListener("change", this._onChangeListener);
 
-    this._onInputListener = (event) => this.onInput(event);
+    this._onInputListener = this.onInput.bind(this);
     this.root.addEventListener("input", this._onInputListener);
 
-    this._onBlurListener = (event) => this.onBlur(event);
+    this._onBlurListener = this.onBlur.bind(this);
     this.root.addEventListener("blur", this._onBlurListener, true);
 
-    this._onClickListener = (event) => this.onClick(event);
+    this._onClickListener = this.onClick.bind(this);
     this.root.addEventListener("click", this._onClickListener);
   }
 
@@ -53,8 +53,8 @@ export default class {
     console.log('IMPLEMENT: trackSheetEditor.saveUpdates()');
   }
 
-  getRenderer() {
-    return this.parent.getRenderer();
+  getRenderer(callback) {
+    return this.parent.getRenderer(callback);
   }
 
   openTrackerPicker(mode, callback) {
@@ -68,57 +68,55 @@ export default class {
   }
 
   openPicker(sheet, mode, callback) {
-    this.getTrackerPicker().then(picker => picker.open(sheet, mode, callback));
+    this.getTrackerPicker().then(picker => picker.open(sheet.source, mode, callback));
   }
 
   closePicker() {
     this.getTrackerPicker().then(picker => picker.close());
   }
 
-  getRenderer() {
-    return window.TaleSwapper.Services.lookup(this.rendererValue);
-  }
-
   getUpdatesContainerFor(parent, renderer) {
     // does the given parent already have a frame present?
     // if not, create one.
-    let parentKey = constructKeyFrom(parent);
-    let frame = this.entriesTarget.querySelector(`[data-parent-key="${parentKey}"]`);
+    let pathKey = constructKeyFrom(parent);
+    let frame = this.root.querySelector(`[data-path-key="${pathKey}"]`);
 
     if (!frame) {
-      frame = renderer.renderPathFrame(parent, parentKey, this.entriesTarget);
+      frame = renderer.renderPathFrame(parent, pathKey);
+      this.root.querySelector('.paths').appendChild(frame);
     }
 
-    return frame.querySelector('.ts-updates');
+    return frame.querySelector('.updates');
   }
 
   addTrackerAt(parent) {
     this.closePicker();
 
-    this.getRenderer().then(renderer => {
+    this.getRenderer(renderer => {
       let container = this.getUpdatesContainerFor(parent, renderer);
-      renderer.renderItem('add', undefined, container);
+      container.appendChild(renderer.renderNewAdd());
     });
   }
 
   updateTrackerAt(parent, child, defn) {
     this.closePicker();
 
-    this.getRenderer().then(renderer => {
+    this.getRenderer(renderer => {
       let container = this.getUpdatesContainerFor(parent, renderer);
-      renderer.renderItem('update', { name: child, value: defn.value, defn }, container);
+      container.appendChild(renderer.renderNewUpdate(child, defn));
     });
   }
 
   deleteTrackerAt(parent, child, defn) {
     this.closePicker();
 
-    this.getRenderer().then(renderer => {
+    this.getRenderer(renderer => {
+      // determine if we're deleting an actual tracker, or a tracker group
       let realChild = child ? child : parent.pop();
       let realDefn = defn ? defn : { _type: 'group' };
+
       let container = this.getUpdatesContainerFor(parent, renderer);
-      let item = renderer.renderItem('remove', { name: realChild, value: realDefn.value, defn: realDefn }, container);
-      this.applyChangeToUpdate(item);
+      container.appendChild(renderer.renderNewDelete(realChild, realDefn));
     });
   }
 
@@ -127,7 +125,7 @@ export default class {
       let type = event.target.value;
       let body = event.target.closest('.ts-frame').querySelector('.ts-body');
       body.innerHTML = '';
-      this.getRenderer().then(renderer => {
+      this.getRenderer(renderer => {
         renderer[`renderItem_add_${type}`]({}, body);
       });
     }
@@ -153,6 +151,12 @@ export default class {
     } else if (event.target.id == 'newTracker') {
       event.preventDefault();
       this.addTracker();
+    } else if (event.target.id == 'updateTracker') {
+      event.preventDefault();
+      this.updateTracker();
+    } else if (event.target.id == 'removeTracker') {
+      event.preventDefault();
+      this.deleteTracker();
     } else if (event.target.classList.contains('ts-add-tracker-here')) {
       event.preventDefault();
       this.addTrackerHere(event.target);
@@ -167,8 +171,8 @@ export default class {
     if (!frame) return;
     if (!confirm('Do you really want to delete this entry?')) return;
 
-    let parent = frame.closest('[data-parent]');
-    let updates = parent.querySelector('.ts-updates');
+    let parent = frame.closest('[data-path-key]');
+    let updates = parent.querySelector('.updates');
     if (updates.children.length <= 1) {
       parent.remove();
     } else {
@@ -234,8 +238,9 @@ export default class {
   }
 
   compileUpdates() {
-    let elements = Array.from(this.element.querySelectorAll('[data-update]'));
-    this.updates = elements.map(item => JSON.parse(item.dataset.update));
-    this.saveUpdates();
+    console.log('IMPLEMENT: trackSheetEditor.compileUpdates()');
+    // let elements = Array.from(this.element.querySelectorAll('[data-update]'));
+    // this.updates = elements.map(item => JSON.parse(item.dataset.update));
+    // this.saveUpdates();
   }
 }

@@ -1,82 +1,121 @@
 import TrackSheetUpdatesRendererController from "./track_sheet_updates_renderer_controller"
 
+const newTrackerTitle = 'NEW TRACKER';
+const updateTrackerTitle = 'UPDATE TRACKER';
+const removeTrackerTitle = 'REMOVE TRACKER';
+
 export default class extends TrackSheetUpdatesRendererController {
   static targets = [
     'updateContainer', 'addFrame',
     'addBool', 'addCard', 'addInt', 'addString',
-    'updateValue'
+    'updateBool', 'updateCard', 'updateValue'
   ];
 
-  renderUpdateContainer(title, contents) {
-    let container = this.instantiate(this.updateContainerTarget, { title });
+  registerPartials() {
+    super.registerPartials();
 
-    if (contents) {
-      let contentElement = container.querySelector('.content');
-      contentElement.replaceWith(contents);
+    this.updateContainerTemplate = this.handlebars.compile('{{> updateContainer}}');
+
+    this.handlebars.registerPartial('updateContainer', this.updateContainerTarget.innerHTML);
+    this.handlebars.registerPartial('addFrame', this.addFrameTarget.innerHTML);
+    this.handlebars.registerPartial('addBool', this.addBoolTarget.innerHTML);
+    this.handlebars.registerPartial('addCard', this.addCardTarget.innerHTML);
+    this.handlebars.registerPartial('addInt', this.addIntTarget.innerHTML);
+    this.handlebars.registerPartial('addString', this.addStringTarget.innerHTML);
+    this.handlebars.registerPartial('updateBool', this.updateBoolTarget.innerHTML);
+    this.handlebars.registerPartial('updateCard', this.updateCardTarget.innerHTML);
+    this.handlebars.registerPartial('updateValue', this.updateValueTarget.innerHTML);
+  }
+
+  renderNewAdd() {
+    let context = this.contextFor_add_value();
+    return this.parseHTML(this.updateContainerTemplate(context));
+  }
+
+  renderNewUpdate(name, prop) {
+    let message = `contextFor_update_${prop._type}`;
+
+    if (this.isMissing(message))
+      return this.renderMissing(message, name);
+    else {
+      let context = this[message](name, prop, { child: { [name]: prop.value } });
+      return this.parseHTML(this.updateContainerTemplate(context));
     }
-
-    return container;
   }
 
-  renderNewTracker(contents) {
-    return this.renderUpdateContainer('NEW TRACKER', contents);
-  }
+  renderNewDelete(name, prop) {
+    let message = `contextFor_delete_${prop._type}`;
 
-  renderUpdateTracker(contents) {
-    return this.renderUpdateContainer('UPDATED TRACKER', contents);
-  }
-
-  renderAddFrame(selectedType, contents) {
-    let container = this.instantiate(this.addFrameTarget);
-    let selectTag = container.querySelector('.content--type');
-
-    if (selectedType) {
-      selectTag.querySelector('.content--pick-one').remove();
-      selectTag.value = selectedType;
+    if (this.isMissing(message))
+      return this.renderMissing(message, name);
+    else {
+      let context = this[message](name, prop);
+      return this.parseHTML(this.updateContainerTemplate(context));
     }
-
-    if (contents) {
-      let contentElement = container.querySelector('.content');
-      contentElement.replaceWith(contents);
-    }
-
-    return container;
   }
 
-  renderUpdate_update_value(name, prop, update, template) {
-    let body = this.instantiate(template, { name, prior: prop.value, value: update.child[name] });
-    return this.renderUpdateTracker(body);
+  contextFor_update_value(name, prop, update) {
+    return {
+      title: updateTrackerTitle,
+      partial: 'updateValue',
+      update: { name, prior: prop.value, value: update.child[name] }
+    };
   }
 
-  renderUpdate_update_int(name, prop, update) {
-    return this.renderUpdate_update_value(name, prop, update, this.updateValueTarget);
+  contextFor_update_bool(name, prop, update) {
+    return {
+      title: updateTrackerTitle,
+      partial: 'updateBool',
+      update: { name, prior: prop.value, value: update.child[name] }
+    };
   }
 
-  renderUpdate_update_string(name, prop, update) {
-    return this.renderUpdate_update_value(name, prop, update, this.updateValueTarget);
+  contextFor_update_card(name, prop, update) {
+    return {
+      title: updateTrackerTitle,
+      partial: 'updateCard',
+      update: { name, prior: prop.value, value: update.child[name] }
+    };
   }
 
-  renderUpdate_add_value(name, prop, update, template) {
-    let body = this.instantiate(template, { name, value: prop.value });
-    let frame = this.renderAddFrame(prop._type, body);
-    let container = this.renderNewTracker(frame);
-
-    return container;
+  contextFor_update_int(name, prop, update) {
+    return this.contextFor_update_value(name, prop, update);
   }
 
-  renderUpdate_add_int(name, prop, update) {
-    return this.renderUpdate_add_value(name, prop, update, this.addIntTarget);
+  contextFor_update_string(name, prop, update) {
+    return this.contextFor_update_value(name, prop);
   }
 
-  renderUpdate_add_bool(name, prop, update) {
-    return this.renderUpdate_add_value(name, prop, update, this.addBoolTarget);
+  contextFor_add_value(name, prop, template) {
+    return {
+      title: newTrackerTitle,
+      partial: 'addFrame',
+      update: {
+        partial: template,
+        isBool: prop?._type === 'bool',
+        isInt: prop?._type === 'int',
+        isString: prop?._type === 'string',
+        isCard: prop?._type === 'card',
+        isNew: !prop?._type,
+        name,
+        value: prop?.value
+      }
+    };
   }
 
-  renderUpdate_add_card(name, prop, update) {
-    return this.renderUpdate_add_value(name, prop, update, this.addCardTarget);
+  contextFor_add_int(name, prop, update) {
+    return this.contextFor_add_value(name, prop, 'addInt');
   }
 
-  renderUpdate_add_string(name, prop, update) {
-    return this.renderUpdate_add_value(name, prop, update, this.addStringTarget);
+  contextFor_add_bool(name, prop, update) {
+    return this.contextFor_add_value(name, prop, 'addBool');
+  }
+
+  contextFor_add_card(name, prop, update) {
+    return this.contextFor_add_value(name, prop, 'addCard');
+  }
+
+  contextFor_add_string(name, prop, update) {
+    return this.contextFor_add_value(name, prop, 'addString');
   }
 }

@@ -1,4 +1,4 @@
-import TrackSheetEditorController from 'controllers/track_sheet_editor_controller';
+import TrackSheetEditorController from '../controllers/track_sheet_editor_controller';
 
 export default class TrackerUpdatesTag extends HTMLElement {
   constructor() {

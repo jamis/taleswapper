@@ -1,105 +1,144 @@
 <div data-controller='track-sheet-updates-edit-renderer'>
-  <template data-track-sheet-updates-edit-renderer-target='container'>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "application" %>
-    <div class="flex flex-col gap-4 font-sans text-base text-black">
-      <div class="content flex flex-col gap-2"></div>
-      <div class="flex flex-row gap-2 text-xs">
-        <button id="newTracker" class="border rounded px-2 py-1 border-blue-400 bg-blue-50 hover:bg-blue-100">(+) New Tracker</button>
-        <button id="updateTracker" class="border rounded px-2 py-1 border-blue-400 bg-blue-50 hover:bg-blue-100">(+) Update Tracker</button>
-        <button id="removeTracker" class="border rounded px-2 py-1 border-blue-400 bg-blue-50 hover:bg-blue-100">(+) Remove Tracker</button>
-      </div>
-    </div>
-  </template>
-
-  <template data-track-sheet-updates-edit-renderer-target='path'>
-    <div class="border border-blue-400 rounded-lg overflow-hidden">
-      <div class="content--name font-bold border-b border-blue-400 bg-blue-100 px-2 py-1"></div>
-      <div class="content flex flex-row flex-wrap gap-2 p-2"></div>
-    </div>
-  </template>
-
-  <template data-track-sheet-updates-edit-renderer-target='missing'>
-    <div class="border border-red-400 text-red-700 bg-red-50 rounded rounded-t-none">
-      <div class="bg-red-400 text-red-50 text-xs px-1">MISSING</div>
-      <div class="px-2 py-1">
-        <strong class="content--message"></strong>
-        (<span class="content--name"></span>)
-      </div>
-    </div>
-  </template>
-
-  <template data-track-sheet-updates-edit-renderer-target='updateContainer'>
-    <div class="border border-blue-400 rounded rounded-t-none">
-      <div class="flex flex-row gap-4 bg-blue-400 text-xs px-1">
-        <div class="content--title text-blue-50"></div>
-        <div class="command--delete hover:text-white text-blue-200 font-bold cursor-pointer center ml-auto">X</div>
-      </div>
-      <div class="content"></div>
-    </div>
-  </template>
-
-  <template data-track-sheet-updates-edit-renderer-target='addFrame'>
-    <div class="flex flex-col">
-      <div class="text-xs">
-        <select class="content--type border-0 border-b border-blue-400 focus:ring-0 focus:outline-none text-xs pl-1 py-1 w-full">
-          <option class="content--pick-one" value=''>Pick one</option>
-          <option value='bool'>Checkbox</option>
-          <option value='int'>Short</option>
-          <option value='string'>Long</option>
-          <option value='card'>Card</option>
-        </select>
-      </div>
-      <div class="content">
-        <div class="min-w-36 h-8 m-2 flex flex-col justify-center">
-          <div class="text-center text-sm font-bold text-blue-200">
-            Choose a type
-          </div>
+  <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target='container'>
+    <div>
+      <%= stylesheet_link_tag "tailwind", "inter-font", "application" %>
+      <div class="flex flex-col gap-4 font-sans text-base text-black">
+        <div class="paths flex flex-col gap-2">
+          {{#each paths}}
+            {{> path}}
+          {{/each}}
+        </div>
+        <div class="flex flex-row gap-2 text-xs">
+          <button id="newTracker" class="border rounded px-2 py-1 border-blue-400 bg-blue-50 hover:bg-blue-100">(+) New Tracker</button>
+          <button id="updateTracker" class="border rounded px-2 py-1 border-blue-400 bg-blue-50 hover:bg-blue-100">(+) Update Tracker</button>
+          <button id="removeTracker" class="border rounded px-2 py-1 border-blue-400 bg-blue-50 hover:bg-blue-100">(+) Remove Tracker</button>
         </div>
       </div>
     </div>
-  </template>
+  </script>
 
-  <template data-track-sheet-updates-edit-renderer-target='addBool'>
-    <div class="content p-2 flex flex-row gap-2 items-center" data-type="bool">
-      <span contenteditable="true" placeholder="Label" class="content--name inline-block min-w-16 bg-white p-1 text-sm border border-gray-200"></span>
-      <input type="checkbox" value="1" class="content--value" />
+  <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target='path'>
+    <div class="border border-blue-400 rounded-lg overflow-hidden" data-path-key="{{key}}">
+      <div class="font-bold border-b border-blue-400 bg-blue-100 px-2 py-1">
+        {{#each path}}{{this}}{{#unless @last}} &rarr; {{/unless}}{{/each}}
+      </div>
+      <div class="updates flex flex-row flex-wrap gap-2 p-2">
+        {{#each updates}}
+          {{> updateContainer}}
+        {{/each}}
+      </div>
     </div>
-  </template>
+  </script>
 
-  <template data-track-sheet-updates-edit-renderer-target='addCard'>
-    <div class="content--body" data-type="card">
+  <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target='missing'>
+    <div class="border border-red-400 text-red-700 bg-red-50 rounded rounded-t-none">
+      <div class="bg-red-400 text-red-50 text-xs px-1">MISSING</div>
+      <div class="px-2 py-1">
+        <strong>{{message}}</strong> ({{name}})
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target='updateContainer'>
+    <div class="ts-frame border border-blue-400 rounded rounded-t-none">
+      <div class="flex flex-row gap-4 bg-blue-400 text-xs px-1">
+        <div class="text-blue-50">{{title}}</div>
+        <div class="command--delete hover:text-white text-blue-200 font-bold cursor-pointer center ml-auto">X</div>
+      </div>
+      <div class="content">
+        {{> (lookup . 'partial') update}}
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target='addFrame'>
+    <div class="flex flex-col">
+      <div class="text-xs">
+        <select class="border-0 border-b border-blue-400 focus:ring-0 focus:outline-none text-xs pl-1 py-1 w-full">
+          {{#if isNew}}
+            <option value=''>Pick one</option>
+          {{/if}}
+          <option value='bool' {{#if isBool}}selected{{/if}}>Checkbox</option>
+          <option value='int' {{#if isInt}}selected{{/if}}>Short</option>
+          <option value='string' {{#if isString}}selected{{/if}}>Long</option>
+          <option value='card' {{#if isCard}}selected{{/if}}>Card</option>
+        </select>
+      </div>
+      {{#if isNew}}
+        <div class="content">
+          <div class="min-w-36 h-8 m-2 flex flex-col justify-center">
+            <div class="text-center text-sm font-bold text-blue-200">
+              Choose a type
+            </div>
+          </div>
+        </div>
+      {{else}}
+        {{> (lookup . 'partial')}}
+      {{/if}}
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target='addBool'>
+    <div class="content p-2 flex flex-row gap-2 items-center" data-type="bool">
+      <span contenteditable="true" placeholder="Label" class="inline-block min-w-16 bg-white p-1 text-sm border border-gray-200">{{name}}</span>
+      <input type="checkbox" value="1" {{#if value}}checked{{/if}} />
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target='addCard'>
+    <div class="content" data-type="card">
       <div class="p-2 border-b border-blue-400">
-        <span contenteditable="true" placeholder="Title" class="content--name w-48 inline-block p-1 text-sm bg-white border border-gray-200"></span>
+        <span contenteditable="true" placeholder="Title" class="w-48 inline-block p-1 text-sm bg-white border border-gray-200">{{name}}</span>
       </div>
       <div class="p-2">
-        <div contenteditable="true" class="content--value w-48 min-h-40 p-1 text-sm bg-white border border-gray-200 whitespace-pre-wrap"></div>
+        <div contenteditable="true" class="w-48 min-h-40 p-1 text-sm bg-white border border-gray-200 whitespace-pre-wrap">{{value}}</div>
       </div>
     </div>
-  </template>
+  </script>
 
-  <template data-track-sheet-updates-edit-renderer-target='addInt'>
+  <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target='addInt'>
     <div class="content p-2 flex flex-row gap-2" data-type="int">
-      <span contenteditable="true" placeholder="Label" class="content--name inline-block min-w-16 p-1 text-sm bg-white border border-gray-200"></span>
-      <span contenteditable="true" placeholder="Val" class="content--value inline-block min-w-12 p-1 text-sm bg-white border border-gray-200"></span>
+      <span contenteditable="true" placeholder="Label" class="inline-block min-w-16 p-1 text-sm bg-white border border-gray-200">{{name}}</span>
+      <span contenteditable="true" placeholder="Val" class="inline-block min-w-12 p-1 text-sm bg-white border border-gray-200">{{value}}</span>
     </div>
-  </template>
+  </script>
 
-  <template data-track-sheet-updates-edit-renderer-target='addString'>
+  <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target='addString'>
     <div class="content p-2 flex flex-row gap-2" data-type="string">
-      <span contenteditable="true" placeholder="Label" class="content--name inline-block min-w-16 p-1 text-sm bg-white border border-gray-200"></span>
-      <span contenteditable="true" placeholder="String" class="content--value inline-block min-w-24 p-1 text-sm bg-white border border-gray-200"></span>
+      <span contenteditable="true" placeholder="Label" class="inline-block min-w-16 p-1 text-sm bg-white border border-gray-200">{{name}}</span>
+      <span contenteditable="true" placeholder="String" class="inline-block min-w-24 p-1 text-sm bg-white border border-gray-200">{{value}}</span>
     </div>
-  </template>
+  </script>
 
-  <template data-track-sheet-updates-edit-renderer-target='updateValue'>
+  <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target='updateValue'>
     <div class="content">
       <div class="border-b border-blue-400 text-blue-400 text-xs px-2 py-1">
-        <strong class="content--name"></strong> was <strong class="content--prior"></strong>
+        <strong>{{name}}</strong> was <strong>{{prior}}</strong>
       </div>
       <div class="text-sm p-2">
         Now:
-        <span contenteditable="true" placeholder="Label" class="content--value inline-block min-w-8 bg-white p-1 text-sm border border-gray-200"></span>
+        <span contenteditable="true" placeholder="Label" class="inline-block min-w-8 bg-white p-1 text-sm border border-gray-200">{{value}}</span>
       </div>
     </div>
-  </template>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target="updateBool">
+    <div class="content p-2 flex flex-row gap-2 items-center">
+      <span class="text-sm">{{name}}</span>
+      <input type="checkbox" class="opacity-30 cursor-not-allowed" disabled {{#if prior}}checked{{/if}} />
+      <span>&rarr;</span>
+      <input type="checkbox" value="1" {{#if value}}checked{{/if}} />
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target="updateCard">
+    <div class="content max-w-48">
+      <div class="flex flex-row gap-2 p-2 border-b border-blue-400 flex flex-row items-baseline">
+        <div class="font-bold text-sm">{{name}}</div>
+      </div>
+      <div class="p-2">
+        <div contenteditable="true" class="min-h-40 p-1 text-sm bg-white border border-gray-200 whitespace-pre-wrap">{{value}}</div>
+      </div>
+    </div>
+  </script>
 </div>
