@@ -1,7 +1,5 @@
 // This is an ad-hoc controller, not a stimulus one.
 
-import { constructKeyFrom, dig } from '../utilities'
-
 export default class {
   constructor(parent) {
     this.parent = parent;
@@ -78,11 +76,11 @@ export default class {
   getUpdatesContainerFor(parent, renderer) {
     // does the given parent already have a frame present?
     // if not, create one.
-    let pathKey = constructKeyFrom(parent);
-    let frame = this.root.querySelector(`[data-path-key="${pathKey}"]`);
+    let pattern = CSS.escape(JSON.stringify(parent));
+    let frame = this.root.querySelector(`[data-path="${pattern}"]`);
 
     if (!frame) {
-      frame = renderer.renderPathFrame(parent, pathKey);
+      frame = renderer.renderPathFrame(parent);
       this.root.querySelector('.paths').appendChild(frame);
     }
 
@@ -116,17 +114,24 @@ export default class {
       let realDefn = defn ? defn : { _type: 'group' };
 
       let container = this.getUpdatesContainerFor(parent, renderer);
-      container.appendChild(renderer.renderNewDelete(parent, realChild, realDefn));
+      let element = renderer.renderNewDelete(parent, realChild, realDefn);
+      container.appendChild(element);
+
+      this.applyChangeToUpdate(element);
     });
   }
 
   onChange(event) {
-    if (event.target.classList.contains('ts-type')) {
-      let type = event.target.value;
-      let body = event.target.closest('.ts-frame').querySelector('.ts-body');
-      body.innerHTML = '';
+    if (event.target.classList.contains('ts-type-select')) {
+      let select = event.target;
+      let type = select.value;
+      let content = select.closest('.ts-frame').querySelector('.content');
       this.getRenderer(renderer => {
-        renderer[`renderItem_add_${type}`]({}, body);
+        let typeBody = renderer.renderNewAddType(type);
+        content.replaceWith(typeBody);
+
+        let pickOne = select.querySelector('option[value=""]');
+        if (pickOne) pickOne.remove();
       });
     }
   }
@@ -171,7 +176,7 @@ export default class {
     if (!frame) return;
     if (!confirm('Do you really want to delete this entry?')) return;
 
-    let parent = frame.closest('[data-path-key]');
+    let parent = frame.closest('[data-path]');
     let updates = parent.querySelector('.updates');
     if (updates.children.length <= 1) {
       parent.remove();
@@ -188,15 +193,12 @@ export default class {
   }
 
   applyChangeToUpdate(target) {
-    // 1. get the path from the path frame (look for closest with [data-parent])
-    let parent = JSON.parse(target.closest('[data-parent]').dataset.parent);
+    // 1. get the path from the path frame (look for closest with [data-path])
+    let parent = JSON.parse(target.closest('[data-path]').dataset.path);
     let frame = target.closest('.ts-frame');
 
-    // 2. look for closest with [data-type].
-    //   a. If present, set type, and note action is 'add'
-    //   b. Otherwise, action is either 'update' or 'delete'.
-    let type = target.closest('[data-type]')?.dataset?.type;
-    let action = type ? 'add' : null;
+    // 2. look for closest with [data-action].
+    let action = target.closest('[data-action]').dataset.action;
 
     // 3. get name from .ts-name
     let name = frame.querySelector('.ts-name').innerText.trim();
@@ -212,14 +214,11 @@ export default class {
         value = valueElement.innerText.trim();
     }
 
-    //   a. If present, set value, and action is 'update' if not already set.
-    //   b. Otherwise, action is 'delete'.
-    action ||= (value != undefined) ? 'update' : 'remove';
-
     // 5. Compile the update and set 'data-update' on the frame.
     let child;
     switch(action) {
       case 'add':
+        let type = target.closest('[data-type]').dataset.type;
         child = { [ name ]: { _type: type, value } }
         break;
       case 'update':
@@ -238,9 +237,8 @@ export default class {
   }
 
   compileUpdates() {
-    console.log('IMPLEMENT: trackSheetEditor.compileUpdates()');
-    // let elements = Array.from(this.element.querySelectorAll('[data-update]'));
-    // this.updates = elements.map(item => JSON.parse(item.dataset.update));
-    // this.saveUpdates();
+    let elements = Array.from(this.root.querySelectorAll('[data-update]'));
+    let updates = elements.map(item => JSON.parse(item.dataset.update));
+    this.parent.saveUpdates(updates);
   }
 }

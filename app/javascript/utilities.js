@@ -1,5 +1,5 @@
-function constructKeyFrom(elements) {
-  return elements.map(el => btoa(el)).join('.')
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function dig(object, path) {
@@ -10,4 +10,4 @@ function dig(object, path) {
   return object;
 }
 
-export { constructKeyFrom, dig }
+export { capitalize, dig }

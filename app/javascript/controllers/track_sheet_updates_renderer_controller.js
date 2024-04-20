@@ -1,4 +1,3 @@
-import { constructKeyFrom } from '../utilities';
 import { Controller } from "@hotwired/stimulus"
 import Handlebars from "handlebars"
 
@@ -43,14 +42,14 @@ export default class extends Controller {
         sheet.applyUpdate(update);
       }
 
-      paths.push({ path: parent, key: constructKeyFrom(parent), updates });
+      paths.push({ path: parent, updates });
     });
 
     return this.parseHTML(this.containerTemplate({ paths }));
   }
 
-  renderPathFrame(path, key) {
-    return this.parseHTML(this.pathTemplate({ path, key }));
+  renderPathFrame(path) {
+    return this.parseHTML(this.pathTemplate({ path }));
   }
 
   renderMissing(message, name) {

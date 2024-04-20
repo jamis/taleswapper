@@ -1,3 +1,4 @@
+import { capitalize } from '../utilities';
 import TrackSheetUpdatesRendererController from "./track_sheet_updates_renderer_controller"
 
 const newTrackerTitle = 'NEW TRACKER';
@@ -16,6 +17,7 @@ export default class extends TrackSheetUpdatesRendererController {
     super.registerPartials();
 
     this.updateContainerTemplate = this.handlebars.compile('{{> updateContainer}}');
+    this.typeTemplate = this.handlebars.compile('{{> (lookup . "partial") data}}');
 
     this.handlebars.registerPartial('updateContainer', this.updateContainerTarget.innerHTML);
     this.handlebars.registerPartial('addFrame', this.addFrameTarget.innerHTML);
@@ -36,6 +38,18 @@ export default class extends TrackSheetUpdatesRendererController {
   renderNewAdd() {
     let context = this.contextFor_add_value();
     return this.parseHTML(this.updateContainerTemplate(context));
+  }
+
+  renderNewAddType(type) {
+    let message = `contextFor_add_${type}`;
+
+    if (this.isMissing(message))
+      return this.renderMissing(message);
+    else {
+      let data = this[message](undefined, {});
+      let context = { partial: `add${capitalize(type)}`, data };
+      return this.parseHTML(this.typeTemplate(context));
+    }
   }
 
   renderNewUpdate(parent, name, prop) {
@@ -64,6 +78,7 @@ export default class extends TrackSheetUpdatesRendererController {
     return {
       title: updateTrackerTitle,
       partial: 'updateValue',
+      action: 'update',
       update,
       data: { name, prior: prop.value, value: update.child[name] }
     };
@@ -73,6 +88,7 @@ export default class extends TrackSheetUpdatesRendererController {
     return {
       title: updateTrackerTitle,
       partial: 'updateBool',
+      action: 'update',
       update,
       data: { name, prior: prop.value, value: update.child[name] }
     };
@@ -82,6 +98,7 @@ export default class extends TrackSheetUpdatesRendererController {
     return {
       title: updateTrackerTitle,
       partial: 'updateCard',
+      action: 'update',
       update,
       data: { name, prior: prop.value, value: update.child[name] }
     };
@@ -99,6 +116,7 @@ export default class extends TrackSheetUpdatesRendererController {
     return {
       title: newTrackerTitle,
       partial: 'addFrame',
+      action: 'add',
       data: {
         partial: template,
         isBool: prop?._type === 'bool',
@@ -112,19 +130,19 @@ export default class extends TrackSheetUpdatesRendererController {
     };
   }
 
-  contextFor_add_int(name, prop, update) {
+  contextFor_add_int(name, prop) {
     return this.contextFor_add_value(name, prop, 'addInt');
   }
 
-  contextFor_add_bool(name, prop, update) {
+  contextFor_add_bool(name, prop) {
     return this.contextFor_add_value(name, prop, 'addBool');
   }
 
-  contextFor_add_card(name, prop, update) {
+  contextFor_add_card(name, prop) {
     return this.contextFor_add_value(name, prop, 'addCard');
   }
 
-  contextFor_add_string(name, prop, update) {
+  contextFor_add_string(name, prop) {
     return this.contextFor_add_value(name, prop, 'addString');
   }
 
@@ -152,6 +170,7 @@ export default class extends TrackSheetUpdatesRendererController {
     return {
       title: removeTrackerTitle,
       partial: 'removeValue',
+      action: 'remove',
       update,
       data: { name }
     };

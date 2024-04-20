@@ -59,4 +59,8 @@ export default class TrackerUpdatesTag extends HTMLElement {
       this.controller = new TrackSheetEditorController(this);
     }
   }
+
+  saveUpdates(updates) {
+    this.setAttribute('data-updates', JSON.stringify(updates));
+  }
 }
