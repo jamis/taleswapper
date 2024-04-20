@@ -8,7 +8,8 @@ export default class extends TrackSheetUpdatesRendererController {
   static targets = [
     'updateContainer', 'addFrame',
     'addBool', 'addCard', 'addInt', 'addString',
-    'updateBool', 'updateCard', 'updateValue'
+    'updateBool', 'updateCard', 'updateValue',
+    'removeValue'
   ];
 
   registerPartials() {
@@ -25,6 +26,11 @@ export default class extends TrackSheetUpdatesRendererController {
     this.handlebars.registerPartial('updateBool', this.updateBoolTarget.innerHTML);
     this.handlebars.registerPartial('updateCard', this.updateCardTarget.innerHTML);
     this.handlebars.registerPartial('updateValue', this.updateValueTarget.innerHTML);
+    this.handlebars.registerPartial('removeValue', this.removeValueTarget.innerHTML);
+
+    this.handlebars.registerHelper('json', function(object) {
+      return JSON.stringify(object);
+    });
   }
 
   renderNewAdd() {
@@ -32,24 +38,24 @@ export default class extends TrackSheetUpdatesRendererController {
     return this.parseHTML(this.updateContainerTemplate(context));
   }
 
-  renderNewUpdate(name, prop) {
+  renderNewUpdate(parent, name, prop) {
     let message = `contextFor_update_${prop._type}`;
 
     if (this.isMissing(message))
       return this.renderMissing(message, name);
     else {
-      let context = this[message](name, prop, { child: { [name]: prop.value } });
+      let context = this[message](name, prop, { action: 'update', parent, child: { [name]: prop.value } });
       return this.parseHTML(this.updateContainerTemplate(context));
     }
   }
 
-  renderNewDelete(name, prop) {
-    let message = `contextFor_delete_${prop._type}`;
+  renderNewDelete(parent, name, prop) {
+    let message = `contextFor_remove_${prop._type}`;
 
     if (this.isMissing(message))
       return this.renderMissing(message, name);
     else {
-      let context = this[message](name, prop);
+      let context = this[message](name, prop, { action: 'remove', parent, child: [ name ] });
       return this.parseHTML(this.updateContainerTemplate(context));
     }
   }
@@ -58,7 +64,8 @@ export default class extends TrackSheetUpdatesRendererController {
     return {
       title: updateTrackerTitle,
       partial: 'updateValue',
-      update: { name, prior: prop.value, value: update.child[name] }
+      update,
+      data: { name, prior: prop.value, value: update.child[name] }
     };
   }
 
@@ -66,7 +73,8 @@ export default class extends TrackSheetUpdatesRendererController {
     return {
       title: updateTrackerTitle,
       partial: 'updateBool',
-      update: { name, prior: prop.value, value: update.child[name] }
+      update,
+      data: { name, prior: prop.value, value: update.child[name] }
     };
   }
 
@@ -74,7 +82,8 @@ export default class extends TrackSheetUpdatesRendererController {
     return {
       title: updateTrackerTitle,
       partial: 'updateCard',
-      update: { name, prior: prop.value, value: update.child[name] }
+      update,
+      data: { name, prior: prop.value, value: update.child[name] }
     };
   }
 
@@ -83,14 +92,14 @@ export default class extends TrackSheetUpdatesRendererController {
   }
 
   contextFor_update_string(name, prop, update) {
-    return this.contextFor_update_value(name, prop);
+    return this.contextFor_update_value(name, prop, update);
   }
 
   contextFor_add_value(name, prop, template) {
     return {
       title: newTrackerTitle,
       partial: 'addFrame',
-      update: {
+      data: {
         partial: template,
         isBool: prop?._type === 'bool',
         isInt: prop?._type === 'int',
@@ -117,5 +126,34 @@ export default class extends TrackSheetUpdatesRendererController {
 
   contextFor_add_string(name, prop, update) {
     return this.contextFor_add_value(name, prop, 'addString');
+  }
+
+  contextFor_remove_int(name, prop, update) {
+    return this.contextFor_remove_value(name, prop, update);
+  }
+
+  contextFor_remove_bool(name, prop, update) {
+    return this.contextFor_remove_value(name, prop, update);
+  }
+
+  contextFor_remove_card(name, prop, update) {
+    return this.contextFor_remove_value(name, prop, update);
+  }
+
+  contextFor_remove_group(name, prop, update) {
+    return this.contextFor_remove_value(name, prop, update);
+  }
+
+  contextFor_remove_string(name, prop, update) {
+    return this.contextFor_remove_value(name, prop, update);
+  }
+
+  contextFor_remove_value(name, prop, update) {
+    return {
+      title: removeTrackerTitle,
+      partial: 'removeValue',
+      update,
+      data: { name }
+    };
   }
 }

@@ -103,7 +103,7 @@ export default class {
 
     this.getRenderer(renderer => {
       let container = this.getUpdatesContainerFor(parent, renderer);
-      container.appendChild(renderer.renderNewUpdate(child, defn));
+      container.appendChild(renderer.renderNewUpdate(parent, child, defn));
     });
   }
 
@@ -116,7 +116,7 @@ export default class {
       let realDefn = defn ? defn : { _type: 'group' };
 
       let container = this.getUpdatesContainerFor(parent, renderer);
-      container.appendChild(renderer.renderNewDelete(realChild, realDefn));
+      container.appendChild(renderer.renderNewDelete(parent, realChild, realDefn));
     });
   }
 

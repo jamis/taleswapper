@@ -40,13 +40,13 @@
   </script>
 
   <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target='updateContainer'>
-    <div class="ts-frame border border-blue-400 rounded rounded-t-none">
+    <div class="ts-frame border border-blue-400 rounded rounded-t-none"{{#if update}} data-update="{{json update}}"{{/if}}>
       <div class="flex flex-row gap-4 bg-blue-400 text-xs px-1">
         <div class="text-blue-50">{{title}}</div>
         <div class="command--delete hover:text-white text-blue-200 font-bold cursor-pointer center ml-auto">X</div>
       </div>
       <div class="content">
-        {{> (lookup . 'partial') update}}
+        {{> (lookup . 'partial') data}}
       </div>
     </div>
   </script>
@@ -139,6 +139,12 @@
       <div class="p-2">
         <div contenteditable="true" class="min-h-40 p-1 text-sm bg-white border border-gray-200 whitespace-pre-wrap">{{value}}</div>
       </div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target="removeValue">
+    <div class="text-sm p-2">
+      "<strong>{{name}}</strong>" removed.
     </div>
   </script>
 </div>
