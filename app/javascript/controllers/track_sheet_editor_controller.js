@@ -26,6 +26,9 @@ export default class {
 
     this._onClickListener = this.onClick.bind(this);
     this.root.addEventListener("click", this._onClickListener);
+
+    this._onKeyDownListener = this.onKeyDown.bind(this);
+    this.root.addEventListener("keydown", this._onKeyDownListener);
   }
 
   removeEventListeners() {
@@ -33,6 +36,7 @@ export default class {
     this.root.removeEventListener("input", this._onInputListener);
     this.root.removeEventListener("blur", this._onBlurListener);
     this.root.removeEventListener("click", this._onClickListener);
+    this.root.removeEventListener("keydown", this._onKeyDownListener);
   }
 
   addTracker() {
@@ -167,6 +171,12 @@ export default class {
       this.addTrackerHere(event.target);
     } else if (event.target.type == 'checkbox') {
       this.applyChangeToUpdate(event.target);
+    }
+  }
+
+  onKeyDown(event) {
+    if (event.key === 'Enter' && event.target.tagName === 'SPAN') {
+      event.preventDefault();
     }
   }
 
