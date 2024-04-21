@@ -5,13 +5,15 @@ const AsideButton = 'ts-aside-btn';
 const TrackerButton = 'ts-tracker-btn';
 
 export default class extends Controller {
-  static targets = [ "toolbar", "editor" ];
+  static targets = [ "toolbar", "editor", "content" ];
 
   static values = {
     headerSelector: String
   };
 
   connect() {
+    this.editorTarget.innerHTML = this.contentTarget.value;
+
     // since tinymce is only loaded in edit mode, we need to wait for the
     // script to finish loading before we actually try and do anything
     // with it.
@@ -31,6 +33,7 @@ export default class extends Controller {
 
       target: this.editorTarget,
       inline: true,
+      hidden_input: false,
 
       fixed_toolbar_container_target: this.toolbarTarget,
       toolbar_persist: true,
@@ -47,6 +50,12 @@ export default class extends Controller {
   disconnect() {
     if (this.editor) {
       tinymce.remove(this.editor);
+    }
+  }
+
+  finalize() {
+    if (this.editor) {
+      this.contentTarget.value = this.editor.getContent();
     }
   }
 

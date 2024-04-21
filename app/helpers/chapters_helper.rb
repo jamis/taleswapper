@@ -13,4 +13,8 @@ module ChaptersHelper
     scope = scope.published if chapter.story.creator != Current.user
     scope
   end
+
+  def chapter_content(chapter)
+    CGI.escapeHTML(chapter.content.to_s).html_safe
+  end
 end

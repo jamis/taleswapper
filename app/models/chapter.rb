@@ -101,7 +101,15 @@ class Chapter < ApplicationRecord
   end
 
   def final_track_sheet
-    track_sheet.apply(track_sheet_updates.order('sections.position': :asc))
+    track_sheet.apply(track_sheet_updates)
+  end
+
+  def track_sheet_updates
+    content.
+      body.
+      fragment.
+      find_all('ts-tracker-updates').
+      flat_map { |el| JSON.parse(el['data-updates'] || '[]') }
   end
 
   def word_count
@@ -180,8 +188,6 @@ class Chapter < ApplicationRecord
   end
 
   def push_track_sheet_forward
-warn "FIXME"
-return
     return unless sequels.any?
     final = final_track_sheet
 

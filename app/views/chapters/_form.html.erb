@@ -1,4 +1,9 @@
-<%= form_with model: (chapter.new_record? ? [ chapter.story, chapter ] : chapter) do |f| %>
+<%= form_with model: (chapter.new_record? ? [ chapter.story, chapter ] : chapter),
+              data: {
+                controller: 'chapter-editor',
+                chapter_editor_header_selector_value: 'header',
+                action: 'chapter-editor#finalize'
+              } do |f| %>
   <div class="flex flex-row items-baseline w-full my-4">
     <div><label for="chapter_title" class="text-lg">Title:</label></div>
     <div class="flex flex-col ml-3 w-1/2">
@@ -10,9 +15,10 @@
     <%= f.check_box :interactive, class: "mr-2" %> <label for="chapter_iteractive" class="text-lg">Allow comments?</label>
   </div>
 
-  <div class="editor-container mt-4" data-controller="chapter-editor track-sheet-manager" data-track-sheet-manager-source-value="<%= @chapter.track_sheet.definition.to_json %>" data-chapter-editor-header-selector-value="header">
+  <div class="editor-container mt-4" data-controller="track-sheet-manager" data-track-sheet-manager-source-value="<%= @chapter.track_sheet.definition.to_json %>">
+    <%= f.hidden_field :content, value: chapter_content(chapter), data: { chapter_editor_target: 'content' } %>
     <div class="toolbar" data-chapter-editor-target="toolbar"></div>
-    <div class="editor prose--traditional" data-chapter-editor-target="editor"><%= @chapter.content %></div>
+    <div class="editor prose--traditional" data-chapter-editor-target="editor"></div>
   </div>
 
   <div class="mt-4 mb-12">
