@@ -43,7 +43,7 @@ export default class extends Controller {
 
       setup: this.setupEditor.bind(this),
 
-      toolbar: `${AsideButton} ${TrackerButton}`
+      toolbar: `bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | forecolor hilitecolor | link image | ${AsideButton} ${TrackerButton}`
     });
   }
 

@@ -2,16 +2,18 @@
   <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target='container'>
     <div>
       <%= stylesheet_link_tag "tailwind", "inter-font", "application" %>
-      <div class="flex flex-col gap-4 font-sans text-base text-black">
+      <div class="flex flex-col gap-2 font-sans text-base text-black">
+        <div class="flex flex-row gap-2 text-xs">
+          <button id="newTracker" class="border rounded px-2 py-1 border-blue-400 bg-blue-50 hover:bg-blue-100">New</button>
+          <button id="updateTracker" class="border rounded px-2 py-1 border-blue-400 bg-blue-50 hover:bg-blue-100">Update</button>
+          <button id="renameTracker" class="border rounded px-2 py-1 border-blue-400 bg-blue-50 hover:bg-blue-100">Rename</button>
+          <button id="removeTracker" class="border rounded px-2 py-1 border-blue-400 bg-blue-50 hover:bg-blue-100">Remove</button>
+          <button id="clearTrackers" class="ml-auto border rounded px-2 py-1 border-red-400 bg-red-50 text-red-400 over:bg-red-100">Clear</button>
+        </div>
         <div class="paths flex flex-col gap-2">
           {{#each paths}}
             {{> path}}
           {{/each}}
-        </div>
-        <div class="flex flex-row gap-2 text-xs">
-          <button id="newTracker" class="border rounded px-2 py-1 border-blue-400 bg-blue-50 hover:bg-blue-100">(+) New Tracker</button>
-          <button id="updateTracker" class="border rounded px-2 py-1 border-blue-400 bg-blue-50 hover:bg-blue-100">(+) Update Tracker</button>
-          <button id="removeTracker" class="border rounded px-2 py-1 border-blue-400 bg-blue-50 hover:bg-blue-100">(+) Remove Tracker</button>
         </div>
       </div>
     </div>

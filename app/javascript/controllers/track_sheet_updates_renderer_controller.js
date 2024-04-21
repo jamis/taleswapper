@@ -29,15 +29,22 @@ export default class extends Controller {
 
   render(sheet, updates) {
     let updatesMap = this.organizeUpdatesByParent(updates);
-    let paths = [];
+    let paths = [] ;
 
     updatesMap.forEach((list, parent) => {
       let updates = [];
 
       for (let update of list) {
-        for (let propName in update.child) {
-          let context = this.contextFor(sheet, update, propName);
-          updates.push(context);
+        if (update.action === 'remove') {
+          for (let propName of update.child) {
+            let context = this.contextFor_remove(propName, update);
+            updates.push(context);
+          }
+        } else {
+          for (let propName in update.child) {
+            let context = this.contextFor(sheet, update, propName);
+            updates.push(context);
+          }
         }
         sheet.applyUpdate(update);
       }
@@ -63,7 +70,6 @@ export default class extends Controller {
   contextFor(sheet, update, propName) {
     let node = sheet.findParent(update.parent);
     let prop = node[propName] || update.child[propName];
-
     let message = `contextFor_${update.action}_${prop._type}`;
 
     if (this[message]) {

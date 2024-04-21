@@ -20,7 +20,7 @@
       </div>
       <div class="flex flex-row flex-wrap gap-2 p-2">
         {{#each updates}}
-          {{> (lookup . 'partial') update}}
+          {{> (lookup . 'partial') data}}
         {{/each}}
       </div>
     </div>
@@ -51,6 +51,12 @@
       <span class="text-gray-400">{{prior}}</span>
       &rarr;
       <span class="font-bold">{{value}}</span>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-display-renderer-target='removeValue'>
+    <div class="border rounded-lg bg-blue-50 border-blue-400 text-black px-2 py-1">
+      "<strong>{{name}}</strong>" removed.
     </div>
   </script>
 </div>

@@ -1,7 +1,12 @@
 TODO:
 
 * Forbid pasting newlines into span elements in tracker updates tag.
-* horizontal rule in edit mode doesn't needs more right margin or something (overlaps the margin)
+* difference in update format in edit vs display mode is unfortunate. Would be nice to make it more WYSIWYG
+* rename tracker
+* clear all trackers
+* Why does tinymce fail to load sometimes?
+  - when reloading the "edit" page
+  - when clicking "next" after the "new sequel" page.
 
 * Bookmark feature (suggested by Eyes). Set a bookmark, attach an optional note to it.
 * It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.

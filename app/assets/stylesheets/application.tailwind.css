@@ -28,8 +28,12 @@
       @apply pointer-events-none z-[5];
     }
 
-    .editor :not(aside) {
+    .editor :not(aside,hr) {
       @apply max-w-prose;
+    }
+
+    .editor hr {
+      margin-left: 10rem;
     }
 
     .editor aside {
@@ -81,6 +85,7 @@
 
     hr {
       @apply w-1/2 mx-auto my-8;
+      max-width: 20rem;
     }
 
     aside {
@@ -89,7 +94,7 @@
     }
   }
 
-  .prose--traditional.prose--display > :not(aside) {
+  .prose--traditional.prose--display > :not(aside,hr) {
     max-width: 40rem;
     @apply w-full mx-auto;
   }

@@ -64,7 +64,7 @@ export default class extends TrackSheetUpdatesRendererController {
   }
 
   renderNewDelete(parent, name, prop) {
-    let message = `contextFor_remove_${prop._type}`;
+    let message = 'contextFor_remove';
 
     if (this.isMissing(message))
       return this.renderMissing(message, name);
@@ -166,7 +166,7 @@ export default class extends TrackSheetUpdatesRendererController {
     return this.contextFor_remove_value(name, prop, update);
   }
 
-  contextFor_remove_value(name, prop, update) {
+  contextFor_remove(name, update) {
     return {
       title: removeTrackerTitle,
       partial: 'removeValue',
