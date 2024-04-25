@@ -13,6 +13,8 @@ task tinymce: "environment" do
   source_root = Rails.root.join('node_modules', 'tinymce')
   target_root = Rails.root.join('public', 'assets', 'tinymce')
 
+  rm_rf target_root
+
   puts "copying tinymce assets..."
 
   %w[
@@ -20,6 +22,8 @@ task tinymce: "environment" do
     themes/silver/theme.min.js
     models/dom/model.min.js
     icons/default/icons.min.js
+    plugins/link/plugin.min.js
+    plugins/lists/plugin.min.js
     skins/ui/oxide/skin.min.css
     skins/ui/oxide/content.inline.min.css
   ].each do |file|

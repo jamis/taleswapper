@@ -1,49 +1,20 @@
+import TSEmbeddedTag from './ts_embedded_tag';
 import TrackSheetEditorController from '../controllers/track_sheet_editor_controller';
 
-const NO_PROPAGATION_EVENTS = [
-  'keyup', 'keydown', 'keypress',
-  'mousedown', 'mouseup', 'click', 'mousemove',
-  'drop', 'dragstart', 'dragover', 'dragend',
-  'touchstart', 'touchend', 'touchmove', 'touchcancel', 'longpress',
-  'remove', 'blur', 'focus', 'focusin', 'focusout', 'compositionstart', 'compositionend',
-  'beforeinput', 'input', 'change', 'cut', 'copy', 'paste', 'contextmenu',
-  'reset', 'submit'
-];
-
-export default class TrackerUpdatesTag extends HTMLElement {
+export default class TrackerUpdatesTag extends TSEmbeddedTag {
   constructor() {
     super();
     this.updates = JSON.parse(this.getAttribute('data-updates'));
-    this.shadow = this.attachShadow({ mode: "closed" });
   }
 
   connectedCallback() {
-    this.determineMode();
-
-    if (this.mode == 'edit') {
-      this.setAttribute('contenteditable', false);
-    }
-
-    this.installListeners();
+    super.connectedCallback();
     this.installControllers();
-    this.maybeWaitToRender();
   }
 
   disconnectedCallback() {
-    this.removeListeners();
+    super.disconnectedCallback();
     this.controller?.disconnect();
-  }
-
-  installListeners() {
-    this._stopPropagation = this.stopPropagation.bind(this);
-
-    NO_PROPAGATION_EVENTS.forEach(eventName =>
-      this.shadow.addEventListener(eventName, this._stopPropagation));
-  }
-
-  removeListeners() {
-    NO_PROPAGATION_EVENTS.forEach(eventName =>
-      this.shadow.removeEventListener(eventName, this._stopPropagation));
   }
 
   withTrackSheet(callback, include = false) {
@@ -71,18 +42,6 @@ export default class TrackerUpdatesTag extends HTMLElement {
     window.TaleSwapper.Services.lookup('track-sheet-manager').then(callback);
   }
 
-  maybeWaitToRender() {
-    if (document.readyState != 'complete') {
-      window.addEventListener('load', this.render.bind(this), { once: true });
-    } else {
-      this.render();
-    }
-  }
-
-  determineMode() {
-    this.mode = this.closest('.editor') ? 'edit' : 'display';
-  }
-
   installControllers() {
     if (this.mode == 'edit') {
       this.controller = new TrackSheetEditorController(this);
@@ -91,10 +50,5 @@ export default class TrackerUpdatesTag extends HTMLElement {
 
   saveUpdates(updates) {
     this.setAttribute('data-updates', JSON.stringify(updates));
-  }
-
-  // disallow this event from escaping the shadow DOM.
-  stopPropagation(event) {
-    event.stopPropagation();
   }
 }

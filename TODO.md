@@ -4,6 +4,9 @@ TODO:
 * difference in update format in edit vs display mode is unfortunate. Would be nice to make it more WYSIWYG
 * rename tracker
 * clear all trackers
+* Trying to move the cursor to the end of a tracker block (or moving the cursor around a tracker block).
+    - research data-mce-caret="before/after" and data-mce-selected, mce-visual-caret and mce-visual-caret-hidden
+    - maybe clicking on a non-editable, non-interactive part of the tracker tag should select the tag?
 * Why does tinymce fail to load sometimes?
   - when reloading the "edit" page
   - when clicking "next" after the "new sequel" page.

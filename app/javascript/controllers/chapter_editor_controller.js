@@ -1,14 +1,18 @@
 import { Controller } from "@hotwired/stimulus"
+import { DirectUpload } from "@rails/activestorage"
 
 const AsideFormatter = 'ts-aside-formatter';
 const AsideButton = 'ts-aside-btn';
 const TrackerButton = 'ts-tracker-btn';
+const ImageButton = 'ts-image-btn';
 
 export default class extends Controller {
   static targets = [ "toolbar", "editor", "content" ];
 
   static values = {
-    headerSelector: String
+    headerSelector: String,
+    directUploadUrl: String,
+    imageUrlTemplate: String
   };
 
   connect() {
@@ -38,12 +42,13 @@ export default class extends Controller {
       fixed_toolbar_container_target: this.toolbarTarget,
       toolbar_persist: true,
 
-      extended_valid_elements: 'ts-tracker-updates[class,data-updates]',
-      custom_elements: 'ts-tracker-updates',
+      extended_valid_elements: 'ts-tracker-updates[class|data-updates],ts-image[src|alt|caption|ack|metadata]',
+      custom_elements: 'ts-tracker-updates,ts-image',
 
       setup: this.setupEditor.bind(this),
 
-      toolbar: `bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | forecolor hilitecolor | link image | ${AsideButton} ${TrackerButton}`
+      plugins: 'link lists',
+        toolbar: `bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | numlist bullist | forecolor backcolor | link ${ImageButton} | ${AsideButton} ${TrackerButton}`,
     });
   }
 
@@ -60,7 +65,7 @@ export default class extends Controller {
   }
 
   initEditorInstance(editor) {
-    this.setupAsideFeature(editor);
+    this.setupFeatures(editor);
   }
 
   setupEditor(editor) {
@@ -69,7 +74,7 @@ export default class extends Controller {
     editor.on('init', this.initEditorInstance.bind(this));
   }
 
-  setupAsideFeature() {
+  setupFeatures() {
     this.editor.formatter.register(AsideFormatter,
       { block: 'aside', wrapper: true }
     );
@@ -90,5 +95,58 @@ export default class extends Controller {
         this.editor.insertContent('<ts-tracker-updates data-updates="[]"></ts-tracker-updates>');
       }
     });
+
+    this.editor.ui.registry.addButton(ImageButton, {
+      icon: 'image',
+      tooltip: 'Insert an image',
+      onAction: this.showImagePicker.bind(this)
+    });
+  }
+
+  showImagePicker() {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.addEventListener('change', this.imagePicked.bind(this));
+    input.click();
+  }
+
+  // <ts-image src="..." alt="..." caption="..." ack="..."></ts-image>
+  imagePicked(event) {
+    const file = event.target.files[0];
+    const promise = this.getImageMetadata(file);
+
+    const upload = new DirectUpload(file, this.directUploadUrlValue);
+    upload.create((error, blob) => {
+      promise.then(data => {
+        // TODO: ensure we create a new block context here (or are
+        // already in a clean block context) before we insert this
+        // tag.
+        const url = this.imageUrl(blob);
+        const metadata = JSON.stringify(data).replaceAll('"', "&quot;");
+        const defn = `<ts-image src="${url}" metadata="${metadata}"></ts-image>`;
+        this.editor.insertContent(defn);
+      });
+    });
+  }
+
+  getImageMetadata(file) {
+    return new Promise((resolve) => {
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      img.addEventListener('load', () => {
+        URL.revokeObjectURL(img.src);
+        const width = img.naturalWidth;
+        const height = img.naturalHeight;
+        const ratio = width / height;
+        resolve({ width, height, ratio });
+      });
+    });
+  }
+
+  imageUrl(blob) {
+    return this.imageUrlTemplateValue.
+    replaceAll(':signed-id:', blob.signed_id).
+    replaceAll(':filename:', blob.filename);
   }
 }

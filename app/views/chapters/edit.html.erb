@@ -22,3 +22,20 @@
 
 <%= render 'track_sheet_updates/picker', id: 'trackSheetPicker' %>
 <%= render 'chapters/edit_renderer' %>
+
+<script id="tsImageTagTemplate" type="text/x-handlebars-template">
+  <%= stylesheet_link_tag "tailwind", "inter-font", "application" %>
+  <div class="flex flex-col text-black gap-2">
+    <div>
+      <img src="{{src}}" alt="{{alt}}" width="{{width}}" height="{{height}}" class="max-h-[75vh] w-auto h-auto mx-auto" />
+    </div>
+    <div class="w-3/4 mx-auto flex flex-col">
+      <span class="text-sm text-gray-400 ml-2">Image Alt Text/Title/Tooltip:</span>
+      <input type="text" name="alt" value="{{alt}}" class="px-2 py-1 rounded border-gray-400" />
+      <span class="text-sm text-gray-400 ml-2">Image Caption:</span>
+      <input type="text" name="caption" value="{{caption}}" class="px-2 py-1 rounded border-gray-400" />
+      <span class="text-sm text-gray-400 ml-2">Image Credits:</span>
+      <input type="text" name="ack" value="{{ack}}" class="px-2 py-1 rounded border-gray-400" />
+    </div>
+  </div>
+</script>
