@@ -213,6 +213,8 @@ class Chapter < ApplicationRecord
   end
 
   def refresh_attachments
+    return unless content.body
+
     prior = images_blob_ids
     current = embedded_images.blob_ids
 

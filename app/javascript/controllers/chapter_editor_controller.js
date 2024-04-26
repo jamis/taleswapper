@@ -125,7 +125,6 @@ export default class extends Controller {
         // TODO: ensure we create a new block context here (or are
         // already in a clean block context) before we insert this
         // tag.
-        const url = this.imageUrl(blob);
         const filename = blob.filename.replace('"', "&quot;");
         const defn = `<ts-image signed-id="${blob.signed_id}" filename="${filename}" width="${data.width}" height="${data.height}"></ts-image>`;
         this.editor.insertContent(defn);

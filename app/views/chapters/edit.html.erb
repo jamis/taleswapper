@@ -25,9 +25,10 @@
 
 <script id="tsImageTagTemplate" type="text/x-handlebars-template">
   <%= stylesheet_link_tag "tailwind", "inter-font", "application" %>
-  <div class="flex flex-col text-black gap-2">
+  <div class="flex flex-col text-black gap-2 border border-gray-300 bg-gray-50 px-2 pb-4">
+    <div class="text-sm text-gray-300 pt-1">{{filename}}</div>
     <div>
-      <img src="{{url}}" alt="{{alt}}" width="{{width}}" height="{{height}}" class="max-h-[75vh] w-auto h-auto mx-auto" />
+      <img src="{{url}}" alt="{{alt}}" width="{{width}}" height="{{height}}" class="max-h-[75vh] border border-dashed border-gray-300 w-auto h-auto mx-auto" />
     </div>
     <div class="w-3/4 mx-auto flex flex-col">
       <span class="text-sm text-gray-400 ml-2">Image Alt Text:</span>
