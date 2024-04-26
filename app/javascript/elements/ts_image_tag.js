@@ -21,12 +21,14 @@ export default class TSImageTag extends TSEmbeddedTag {
     const templateTag = document.getElementById('tsImageTagTemplate');
     const template = Handlebars.compile(templateTag.innerHTML);
     const context = {
-      src: this.getAttribute('src'),
+      signed_id: this.getAttribute('signed-id'),
+      filename: this.getAttribute('filename'),
+      url: this.buildUrl(),
       alt: this.getAttribute('alt'),
       ack: this.getAttribute('ack'),
       caption: this.getAttribute('caption'),
-      width: this.metadata.width,
-      height: this.metadata.height,
+      width: this.getAttribute('width'),
+      height: this.getAttribute('height')
     };
 
     this.shadow.innerHTML = template(context);
@@ -40,5 +42,15 @@ export default class TSImageTag extends TSEmbeddedTag {
 
   update(attr, value) {
     this.setAttribute(attr, value);
+  }
+
+  buildUrl() {
+    const signedId = this.getAttribute('signed-id');
+    const filename = this.getAttribute('filename');
+    const template = document.querySelector('meta[name=ts-image-url-pattern]').getAttribute('value');
+
+    return template.
+      replaceAll(':signed-id:', signedId).
+      replaceAll(':filename:', filename);
   }
 }

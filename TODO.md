@@ -1,5 +1,6 @@
 TODO:
 
+* Link chapters to the attachment records for images.
 * Forbid pasting newlines into span elements in tracker updates tag.
 * difference in update format in edit vs display mode is unfortunate. Would be nice to make it more WYSIWYG
 * rename tracker
@@ -25,17 +26,9 @@ TODO:
   - editing any field of any table
   - moderating comments
 
-* Quill editor & ActionText
-  - support sans-serif and monotype font selection (Quill thinks default is sans-serif; need to figure out how to override that.)
-  - colored text? does it actually work?
+* Editor
+  - support sans-serif and monotype font selection
   - markdown-style shortcuts for certain things? (e.g. --- for mdash, etc)
-* Media (images, audio, video?). Maybe treat it like the tracker updates, with each section having optional media that are displayed below the section? Or a dedicated section type?
-  - quill.js allows attaching images directly by using data URLs, which is pretty clever. It doesn't allow thumbnailing or preprocessing or anything, but I have to admit it's a neat solution. Is it good enough? Probably not, sadly. We need:
-      - image captions (optional)
-      - attribution
-      - alt text
-      - querying metadata (dimensions, others?)
-      - resizing?
 * Banner image for (1) stories, and (2) chapters.
 * Autosave for chapters#edit
 * Improve the "update card" display, using a diff algorithm to show what text has been added/removed. (perhaps https://github.com/deadusr/html-diff-ts)

@@ -26,6 +26,7 @@ class Chapter < ApplicationRecord
   has_one :track_sheet, dependent: :destroy
 
   has_rich_text :content
+  has_many_attached :images
 
   # a reference to the prequel chapter; used during sequel creation
   attr_accessor :prequel
@@ -42,6 +43,7 @@ class Chapter < ApplicationRecord
   after_touch :touch_story
 
   after_update :push_track_sheet_forward
+  after_save :refresh_attachments
 
   accepts_nested_attributes_for :outline
   accepts_nested_attributes_for :story_notes
@@ -139,6 +141,11 @@ class Chapter < ApplicationRecord
     block.call(:end_entry)
   end
 
+  def embedded_images(reload = false)
+    @embedded_images = nil if reload
+    @embedded_images ||= EmbeddedImages.new(self)
+  end
+
   private
 
   def possibly_set_start
@@ -202,6 +209,23 @@ class Chapter < ApplicationRecord
   def set_default_title
     if title.blank?
       self.title = 'Untitled'
+    end
+  end
+
+  def refresh_attachments
+    prior = images_blob_ids
+    current = embedded_images.blob_ids
+
+    prior_only = prior - current
+    if prior_only.any?
+      # anything in prior and not in current is removable
+      ActiveStorage::Attachment.where(blob_id: prior_only).destroy_all
+    end
+
+    current_only = current - prior
+    # anything in current and not in prior must be added
+    current_only.each do |blob_id|
+      ActiveStorage::Attachment.create!(name: 'images', record: self, blob_id: blob_id);
     end
   end
 end

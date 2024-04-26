@@ -1,0 +1,4 @@
+test_story_chapter2_image_attachment:
+  record: test_story_chapter2 (Chapter)
+  blob: test_story_chapter2_image_blob
+  name: images

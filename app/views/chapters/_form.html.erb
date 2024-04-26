@@ -3,7 +3,6 @@
                 controller: 'chapter-editor',
                 chapter_editor_header_selector_value: 'header',
                 chapter_editor_direct_upload_url_value: rails_direct_uploads_url,
-                chapter_editor_image_url_template_value: rails_service_blob_url(signed_id: ':signed-id:', filename: ':filename:'),
                 action: 'chapter-editor#finalize',
                 turbo: false # force the page to refresh to avoid using the wrong update renderer
               } do |f| %>

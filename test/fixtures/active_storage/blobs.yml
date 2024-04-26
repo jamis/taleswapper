@@ -1,0 +1,7 @@
+test_story_chapter2_image_blob:
+  key: abc1234567890
+  service_name: local
+  filename: hey.png
+  content_type: image/png
+  checksum: abc1234567890
+  byte_size: 123456

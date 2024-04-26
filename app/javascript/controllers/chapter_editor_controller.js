@@ -12,7 +12,6 @@ export default class extends Controller {
   static values = {
     headerSelector: String,
     directUploadUrl: String,
-    imageUrlTemplate: String
   };
 
   connect() {
@@ -21,8 +20,12 @@ export default class extends Controller {
     // since tinymce is only loaded in edit mode, we need to wait for the
     // script to finish loading before we actually try and do anything
     // with it.
-    let script = document.querySelector('#tinymceScript');
-    script.addEventListener('load', this.onLoad.bind(this), { once: true });
+    if (!window.tinymce) {
+      let script = document.querySelector('#tinymceScript');
+      script.addEventListener('load', this.onLoad.bind(this), { once: true });
+    } else {
+      this.onLoad();
+    }
   }
 
   onLoad() {
@@ -42,7 +45,7 @@ export default class extends Controller {
       fixed_toolbar_container_target: this.toolbarTarget,
       toolbar_persist: true,
 
-      extended_valid_elements: 'ts-tracker-updates[class|data-updates],ts-image[src|alt|caption|ack|metadata]',
+      extended_valid_elements: 'ts-tracker-updates[class|data-updates],ts-image[signed-id|filename|alt|caption|ack|width|height]',
       custom_elements: 'ts-tracker-updates,ts-image',
 
       setup: this.setupEditor.bind(this),
@@ -123,8 +126,8 @@ export default class extends Controller {
         // already in a clean block context) before we insert this
         // tag.
         const url = this.imageUrl(blob);
-        const metadata = JSON.stringify(data).replaceAll('"', "&quot;");
-        const defn = `<ts-image src="${url}" metadata="${metadata}"></ts-image>`;
+        const filename = blob.filename.replace('"', "&quot;");
+        const defn = `<ts-image signed-id="${blob.signed_id}" filename="${filename}" width="${data.width}" height="${data.height}"></ts-image>`;
         this.editor.insertContent(defn);
       });
     });
@@ -142,11 +145,5 @@ export default class extends Controller {
         resolve({ width, height, ratio });
       });
     });
-  }
-
-  imageUrl(blob) {
-    return this.imageUrlTemplateValue.
-    replaceAll(':signed-id:', blob.signed_id).
-    replaceAll(':filename:', blob.filename);
   }
 }
