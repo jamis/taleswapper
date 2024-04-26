@@ -41,7 +41,7 @@
     }
 
     .editor aside {
-      @apply relative px-2 py-1 bg-gray-50 z-[7];
+      @apply px-2 py-1 bg-gray-50 z-[7];
     }
   }
 

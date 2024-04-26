@@ -1,16 +1,14 @@
 TODO:
 
-* Link chapters to the attachment records for images.
+* Trying to move the cursor to the end of a tracker block (or moving the cursor around a tracker block).
+    - research data-mce-caret="before/after" and data-mce-selected, mce-visual-caret and mce-visual-caret-hidden
+    - maybe clicking on a non-editable, non-interactive part of the tracker tag should select the tag?
+    - moving the cursor works okay in ordinary elements, but inside of an aside element, it doesn't.
+    - interesting! The aside was marked 'relative'. Removing that fixed the problem. Can't remember why that was there in the first place...
 * Forbid pasting newlines into span elements in tracker updates tag.
 * difference in update format in edit vs display mode is unfortunate. Would be nice to make it more WYSIWYG
 * rename tracker
 * clear all trackers
-* Trying to move the cursor to the end of a tracker block (or moving the cursor around a tracker block).
-    - research data-mce-caret="before/after" and data-mce-selected, mce-visual-caret and mce-visual-caret-hidden
-    - maybe clicking on a non-editable, non-interactive part of the tracker tag should select the tag?
-* Why does tinymce fail to load sometimes?
-  - when reloading the "edit" page
-  - when clicking "next" after the "new sequel" page.
 
 * Bookmark feature (suggested by Eyes). Set a bookmark, attach an optional note to it.
 * It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.
