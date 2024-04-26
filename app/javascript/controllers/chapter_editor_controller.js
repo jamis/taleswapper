@@ -51,7 +51,8 @@ export default class extends Controller {
       setup: this.setupEditor.bind(this),
 
       plugins: 'link lists',
-        toolbar: `bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | numlist bullist | forecolor backcolor | link ${ImageButton} | ${AsideButton} ${TrackerButton}`,
+      toolbar: `bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | numlist bullist | forecolor backcolor | link ${ImageButton} | ${AsideButton} ${TrackerButton}`,
+      menubar: false,
     });
   }
 
@@ -83,14 +84,16 @@ export default class extends Controller {
     );
 
     this.editor.ui.registry.addButton(AsideButton, {
-      text: 'Aside',
+      icon: 'comment',
+      tooltip: 'Toggle Aside Block',
       onAction: () => {
         this.editor.formatter.toggle(AsideFormatter);
       }
     });
 
     this.editor.ui.registry.addButton(TrackerButton, {
-      text: 'Trackers',
+      icon: 'user',
+      tooltip: 'Insert Tracker Updates',
       onAction: () => {
         // TODO: ensure we create a new block context here (or are
         // already in a clean block context) before we insert this

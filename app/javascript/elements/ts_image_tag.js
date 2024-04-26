@@ -1,11 +1,18 @@
 import TSEmbeddedTag from './ts_embedded_tag';
 import ImageEditorController from '../controllers/image_editor_controller';
 import Handlebars from "handlebars"
+import { marked } from "marked";
+import DOMPurify from "dompurify";
 
 export default class TSImageTag extends TSEmbeddedTag {
   constructor() {
     super();
     this.metadata = JSON.parse(this.getAttribute('metadata'));
+    this.handlebars = Handlebars.create();
+
+    this.handlebars.registerHelper('md', function(markdown) {
+      return new Handlebars.SafeString(DOMPurify.sanitize(marked.parse(markdown)));
+    });
   }
 
   connectedCallback() {
@@ -19,7 +26,7 @@ export default class TSImageTag extends TSEmbeddedTag {
 
   render() {
     const templateTag = document.getElementById('tsImageTagTemplate');
-    const template = Handlebars.compile(templateTag.innerHTML);
+    const template = this.handlebars.compile(templateTag.innerHTML);
     const context = {
       signed_id: this.getAttribute('signed-id'),
       filename: this.getAttribute('filename'),
