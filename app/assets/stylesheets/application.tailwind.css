@@ -29,7 +29,7 @@
       @apply block text-transparent absolute w-full max-w-prose h-full;
       @apply border-r border-dashed border-gray-200 top-0 left-0;
       @apply content-['.'] mx-4 text-lg;
-      @apply pointer-events-none z-[5];
+      @apply pointer-events-none z-[-5];
     }
 
     .editor :not(aside,hr) {
@@ -41,7 +41,7 @@
     }
 
     .editor aside {
-      @apply px-2 py-1 bg-gray-50 z-[7];
+      @apply px-2 py-1 bg-gray-50;
     }
   }
 
