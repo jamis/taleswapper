@@ -54,7 +54,7 @@
       @apply font-bold my-4;
     }
 
-    :not(p) + p {
+    p[data-mce-caret="after"] + p, :not(p) + p {
       @apply indent-0;
     }
 

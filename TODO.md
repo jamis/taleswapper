@@ -1,6 +1,6 @@
 TODO:
 
-* Moving the cursor to the end of a tracker block causes a subsequent <p> to be indented until the cursor is moved again.
+* Refactor track sheet rendering (reuse client-side rendering for this?)
 * Forbid pasting newlines into span elements in tracker updates tag.
 * difference in update format in edit vs display mode is unfortunate. Would be nice to make it more WYSIWYG
 * rename tracker
