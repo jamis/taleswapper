@@ -128,7 +128,10 @@ export default class {
 
   renameTrackerAt(parent, child, defn) {
     this.closePicker();
-    console.log(parent, child, defn);
+    this.getRenderer(renderer => {
+      let container = this.getUpdatesContainerFor(parent, renderer);
+      container.appendChild(renderer.renderNewRename(parent, child, defn));
+    });
   }
 
   deleteTrackerAt(parent, child, defn) {
@@ -276,7 +279,7 @@ export default class {
         let type = target.closest('[data-type]').dataset.type;
         child = { [ name ]: { _type: type, value } }
         break;
-      case 'update':
+      case 'update', 'rename':
         child = { [ name ]: value }
         break;
       case 'remove':

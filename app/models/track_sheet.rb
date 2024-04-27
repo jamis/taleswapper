@@ -22,6 +22,10 @@ class TrackSheet < ApplicationRecord
       update['child'].each do |key, value|
         node[key]['value'] = value if node[key]
       end
+    when 'rename' then
+      update['child'].each do |old_name, new_name|
+        node[new_name] = node.delete(old_name)
+      end
     when 'remove' then
       update['child'].each { |child| node.delete(child) }
     else

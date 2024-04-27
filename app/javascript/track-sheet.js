@@ -14,6 +14,8 @@ export default class {
       return this.applyAddUpdate(update);
     if (update.action == 'update')
       return this.applyUpdateUpdate(update);
+    if (update.action == 'rename')
+      return this.applyRenameUpdate(update);
     if (update.action == 'remove')
       return this.applyRemoveUpdate(update);
 
@@ -32,6 +34,19 @@ export default class {
     for (let prop in update.child) {
       if (node[prop]) {
         node[prop].value = update.child[prop];
+      }
+    }
+  }
+
+  applyRenameUpdate(update) {
+    let node = this.findParent(update.parent);
+    if (!node) return;
+
+    for (let prop in update.child) {
+      if (node[prop]) {
+        const saved = node[prop];
+        delete node[prop];
+        node[update.child[prop]] = saved;
       }
     }
   }

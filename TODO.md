@@ -2,8 +2,6 @@ TODO:
 
 * Refactor track sheet rendering (reuse client-side rendering for this?)
 * difference in update format in edit vs display mode is unfortunate. Would be nice to make it more WYSIWYG
-* rename tracker
-* clear all trackers (also, should this be an "X" button, instead of the word "clear"?)
 * button for removing an image (communicates intention better than expecting a user to backspace over it).
 * test images with the s3 service
 * Tracker picker should remember your last selection, and automatically open to that path.

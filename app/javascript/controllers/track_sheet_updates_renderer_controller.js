@@ -70,10 +70,16 @@ export default class extends Controller {
   contextFor(sheet, update, propName) {
     let node = sheet.findParent(update.parent);
     let prop = node[propName] || update.child[propName];
-    let message = `contextFor_${update.action}_${prop._type}`;
+    let message = `contextFor_${update.action}`;
+
+    if (update.action != 'rename')
+      message += `_${prop._type}`;
 
     if (this[message]) {
-      return this[message](propName, prop, update);
+      if (update.action === 'rename')
+        return this[message](propName, update);
+      else
+        return this[message](propName, prop, update);
     } else {
       return this.missingContext(message, propName);
     }
@@ -81,7 +87,7 @@ export default class extends Controller {
 
   missingContext(message, name) {
     console.log('%cMISSING', 'color: red', message, name);
-    return { partial: 'missing', update: { message, name } };
+    return { partial: 'missing', data: { message, name } };
   }
 
   organizeUpdatesByParent(updates) {

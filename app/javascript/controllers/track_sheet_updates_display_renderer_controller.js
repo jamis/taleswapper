@@ -6,7 +6,7 @@ import Handlebars from "handlebars";
 export default class extends TrackSheetUpdatesRendererController {
   static targets = [
     'addCard', 'addValue',
-    'updateValue', 'removeValue'
+    'updateValue', 'removeValue', 'renameValue'
   ];
 
   registerPartials() {
@@ -16,6 +16,7 @@ export default class extends TrackSheetUpdatesRendererController {
     this.handlebars.registerPartial('addValue', this.addValueTarget.innerHTML);
     this.handlebars.registerPartial('updateValue', this.updateValueTarget.innerHTML);
     this.handlebars.registerPartial('removeValue', this.removeValueTarget.innerHTML);
+    this.handlebars.registerPartial('renameValue', this.renameValueTarget.innerHTML);
   }
 
   contextFor_add_bool(name, prop, update) {
@@ -58,6 +59,13 @@ export default class extends TrackSheetUpdatesRendererController {
     return {
       partial: 'removeValue',
       data: { name }
+    }
+  }
+
+  contextFor_rename(name, update) {
+    return {
+      partial: 'renameValue',
+      data: { oldName: name, newName: update.child[name] }
     }
   }
 }

@@ -3,6 +3,7 @@ import TrackSheetUpdatesRendererController from "./track_sheet_updates_renderer_
 
 const newTrackerTitle = 'NEW TRACKER';
 const updateTrackerTitle = 'UPDATE TRACKER';
+const renameTrackerTitle = 'RENAME TRACKER';
 const removeTrackerTitle = 'REMOVE TRACKER';
 
 export default class extends TrackSheetUpdatesRendererController {
@@ -10,7 +11,7 @@ export default class extends TrackSheetUpdatesRendererController {
     'updateContainer', 'addFrame',
     'addBool', 'addCard', 'addInt', 'addString',
     'updateBool', 'updateCard', 'updateValue',
-    'removeValue'
+    'removeValue', 'renameValue'
   ];
 
   registerPartials() {
@@ -29,6 +30,7 @@ export default class extends TrackSheetUpdatesRendererController {
     this.handlebars.registerPartial('updateCard', this.updateCardTarget.innerHTML);
     this.handlebars.registerPartial('updateValue', this.updateValueTarget.innerHTML);
     this.handlebars.registerPartial('removeValue', this.removeValueTarget.innerHTML);
+    this.handlebars.registerPartial('renameValue', this.renameValueTarget.innerHTML);
 
     this.handlebars.registerHelper('json', function(object) {
       return JSON.stringify(object);
@@ -63,13 +65,24 @@ export default class extends TrackSheetUpdatesRendererController {
     }
   }
 
+  renderNewRename(parent, name, prop) {
+    let message = 'contextFor_rename';
+
+    if (this.isMissing(message))
+      return this.renderMissing(message, name);
+    else {
+      let context = this[message](name, { action: 'rename', parent, child: { [name]: name } });
+      return this.parseHTML(this.updateContainerTemplate(context));
+    }
+  }
+
   renderNewDelete(parent, name, prop) {
     let message = 'contextFor_remove';
 
     if (this.isMissing(message))
       return this.renderMissing(message, name);
     else {
-      let context = this[message](name, prop, { action: 'remove', parent, child: [ name ] });
+      let context = this[message](name, { action: 'remove', parent, child: [ name ] });
       return this.parseHTML(this.updateContainerTemplate(context));
     }
   }
@@ -146,26 +159,6 @@ export default class extends TrackSheetUpdatesRendererController {
     return this.contextFor_add_value(name, prop, 'addString');
   }
 
-  contextFor_remove_int(name, prop, update) {
-    return this.contextFor_remove_value(name, prop, update);
-  }
-
-  contextFor_remove_bool(name, prop, update) {
-    return this.contextFor_remove_value(name, prop, update);
-  }
-
-  contextFor_remove_card(name, prop, update) {
-    return this.contextFor_remove_value(name, prop, update);
-  }
-
-  contextFor_remove_group(name, prop, update) {
-    return this.contextFor_remove_value(name, prop, update);
-  }
-
-  contextFor_remove_string(name, prop, update) {
-    return this.contextFor_remove_value(name, prop, update);
-  }
-
   contextFor_remove(name, update) {
     return {
       title: removeTrackerTitle,
@@ -173,6 +166,16 @@ export default class extends TrackSheetUpdatesRendererController {
       action: 'remove',
       update,
       data: { name }
+    };
+  }
+
+  contextFor_rename(name, update) {
+    return {
+      title: renameTrackerTitle,
+      partial: 'renameValue',
+      action: 'rename',
+      update,
+      data: { oldName: name, newName: update.child[name] }
     };
   }
 }
