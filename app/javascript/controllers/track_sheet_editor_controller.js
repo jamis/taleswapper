@@ -129,8 +129,12 @@ export default class {
   renameTrackerAt(parent, child, defn) {
     this.closePicker();
     this.getRenderer(renderer => {
+      // determine if we're renaming an actual tracker, or a tracker group
+      let realChild = child ? child : parent.pop();
+      let realDefn = defn ? defn : { _type: 'group' };
+
       let container = this.getUpdatesContainerFor(parent, renderer);
-      container.appendChild(renderer.renderNewRename(parent, child, defn));
+      container.appendChild(renderer.renderNewRename(parent, realChild, realDefn));
     });
   }
 

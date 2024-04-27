@@ -1,6 +1,5 @@
 TODO:
 
-* Renaming a group doesn't work
 * Adding a new tracker to an existing set, then removing it, and then clicking the "clear" button, does not prompt before removing the tag.
 * Refactor track sheet rendering (reuse client-side rendering for this?)
 * button for removing an image (communicates intention better than expecting a user to backspace over it).
