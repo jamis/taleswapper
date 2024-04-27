@@ -6,6 +6,7 @@ TODO:
 * clear all trackers (also, should this be an "X" button, instead of the word "clear"?)
 * button for removing an image (communicates intention better than expecting a user to backspace over it).
 * test images with the s3 service
+* Tracker picker should remember your last selection, and automatically open to that path.
 
 * Bookmark feature (suggested by Eyes). Set a bookmark, attach an optional note to it.
 * It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.

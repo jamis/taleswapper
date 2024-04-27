@@ -51,8 +51,21 @@ export default class {
     this.openTrackerPicker('pick', (path, child, defn) => this.updateTrackerAt(path, child, defn));
   }
 
+  renameTracker() {
+    this.openTrackerPicker('pick', (path, child, defn) => this.renameTrackerAt(path, child, defn));
+  }
+
   deleteTracker() {
     this.openTrackerPicker('pick-any', (path, child, defn) => this.deleteTrackerAt(path, child, defn));
+  }
+
+  clearTrackers() {
+    if (this.parent.updates.length > 0) {
+      if (!confirm("Really clear all of these tracker updates?"))
+        return;
+    }
+
+    this.parent.remove();
   }
 
   saveUpdates() {
@@ -111,6 +124,11 @@ export default class {
       let container = this.getUpdatesContainerFor(parent, renderer);
       container.appendChild(renderer.renderNewUpdate(parent, child, defn));
     });
+  }
+
+  renameTrackerAt(parent, child, defn) {
+    this.closePicker();
+    console.log(parent, child, defn);
   }
 
   deleteTrackerAt(parent, child, defn) {
@@ -173,9 +191,15 @@ export default class {
     } else if (event.target.id == 'updateTracker') {
       event.preventDefault();
       this.updateTracker();
+    } else if (event.target.id == 'renameTracker') {
+      event.preventDefault();
+      this.renameTracker();
     } else if (event.target.id == 'removeTracker') {
       event.preventDefault();
       this.deleteTracker();
+    } else if (event.target.id == 'clearTrackers') {
+      event.preventDefault();
+      this.clearTrackers();
     } else if (event.target.classList.contains('ts-add-tracker-here')) {
       event.preventDefault();
       this.addTrackerHere(event.target);

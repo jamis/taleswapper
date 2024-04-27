@@ -49,6 +49,7 @@ export default class TrackerUpdatesTag extends TSEmbeddedTag {
   }
 
   saveUpdates(updates) {
+    this.updates = updates;
     this.setAttribute('data-updates', JSON.stringify(updates));
   }
 }
