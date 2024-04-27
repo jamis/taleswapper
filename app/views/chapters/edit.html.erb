@@ -27,6 +27,7 @@
   <%= stylesheet_link_tag "tailwind", "inter-font", "application" %>
   <div class="group relative flex flex-col text-black gap-2 border border-white hover:border-gray-300 hover:bg-gray-50 p-2">
     <div class="invisible group-hover:visible absolute top-0 left-0 bg-gray-50 opacity-70 text-sm ml-2 mt-2 px-2 py-1">{{filename}}</div>
+    <div class="remove-image invisible group-hover:visible absolute top-0 right-0 bg-red-50 hover:bg-red-100 text-red-500 font-sans text-sm opacity-70 mr-2 mt-2 px-2 py-1 cursor-pointer">X</div>
     <div>
       <img src="{{url}}" alt="{{alt}}" width="{{width}}" height="{{height}}" class="border border-dashed border-white group-hover:border-gray-300 w-auto h-auto mx-auto" />
     </div>

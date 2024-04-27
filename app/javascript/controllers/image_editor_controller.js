@@ -29,19 +29,21 @@ export default class {
   addEventListeners() {
     this._onInput = this.onInput.bind(this);
     this._onBlur = this.onBlur.bind(this);
+    this._onClick = this.onClick.bind(this);
 
     this.root.addEventListener('input', this._onInput);
     this.root.addEventListener('focusout', this._onBlur);
+    this.root.addEventListener('click', this._onClick);
   }
 
   removeEventListeners() {
     this.root.removeEventListener('input', this._onInput);
     this.root.removeEventListener('focusout', this._onBlur);
+    this.root.removeEventListener('click', this._onClick);
   }
 
   onInput(event) {
     event.target.dataset.dirty = true;
-    console.log('input detected');
   }
 
   onBlur(event) {
@@ -52,6 +54,16 @@ export default class {
       this.parent.update(name, value);
 
       event.target.dataset.dirty = false;
+    }
+  }
+
+  onClick(event) {
+    if (event.target.classList.contains('remove-image')) {
+      event.preventDefault();
+
+      if (confirm('Really remove this image?')) {
+        this.parent.remove();
+      }
     }
   }
 }
