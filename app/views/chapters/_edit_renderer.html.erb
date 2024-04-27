@@ -112,12 +112,9 @@
 
   <script type="text/x-handlebars-template" data-track-sheet-updates-edit-renderer-target='updateValue'>
     <div class="content">
-      <div class="border-b border-blue-400 text-blue-400 text-xs px-2 py-1">
-        <strong class="ts-name">{{name}}</strong> was <strong>{{prior}}</strong>
-      </div>
-      <div class="text-sm p-2">
-        Now:
-        <span contenteditable="true" placeholder="Label" class="ts-value inline-block min-w-8 bg-white p-1 text-sm border border-gray-200">{{value}}</span>
+      <div class="p-2">
+        <span class="ts-name">{{name}}</span>: <span class="text-gray-400">{{prior}}</span> &rarr;
+        <span contenteditable="true" placeholder="Label" class="ts-value inline-block min-w-8 bg-white p-1 text-sm border border-gray-200 font-bold">{{value}}</span>
       </div>
     </div>
   </script>

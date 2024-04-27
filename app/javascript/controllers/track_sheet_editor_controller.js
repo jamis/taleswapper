@@ -52,7 +52,7 @@ export default class {
   }
 
   renameTracker() {
-    this.openTrackerPicker('pick', (path, child, defn) => this.renameTrackerAt(path, child, defn));
+    this.openTrackerPicker('pick-any', (path, child, defn) => this.renameTrackerAt(path, child, defn));
   }
 
   deleteTracker() {
@@ -279,7 +279,8 @@ export default class {
         let type = target.closest('[data-type]').dataset.type;
         child = { [ name ]: { _type: type, value } }
         break;
-      case 'update', 'rename':
+      case 'update':
+      case 'rename':
         child = { [ name ]: value }
         break;
       case 'remove':
