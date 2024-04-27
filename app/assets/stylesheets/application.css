@@ -21,6 +21,11 @@
     list-style-type: disc;
     margin-left: 1rem;
   }
+
+  a {
+    color: blue;
+    text-decoration: underline;
+  }
 }
 
 span[placeholder]:empty::before {

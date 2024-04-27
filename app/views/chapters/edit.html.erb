@@ -25,10 +25,10 @@
 
 <script id="tsImageTagTemplate" type="text/x-handlebars-template">
   <%= stylesheet_link_tag "tailwind", "inter-font", "application" %>
-  <div class="group relative flex flex-col text-black gap-2 border border-white hover:border-gray-300 hover:bg-gray-50 px-2 py-4">
-    <div class="invisible group-hover:visible absolute top-0 left-0 bg-gray-50 opacity-70 text-sm text-gray-400 px-2 py-1">{{filename}}</div>
+  <div class="group relative flex flex-col text-black gap-2 border border-white hover:border-gray-300 hover:bg-gray-50 p-2">
+    <div class="invisible group-hover:visible absolute top-0 left-0 bg-gray-50 opacity-70 text-sm ml-2 mt-2 px-2 py-1">{{filename}}</div>
     <div>
-      <img src="{{url}}" alt="{{alt}}" width="{{width}}" height="{{height}}" class="max-h-[75vh] border border-dashed border-white group-hover:border-gray-300 w-auto h-auto mx-auto" />
+      <img src="{{url}}" alt="{{alt}}" width="{{width}}" height="{{height}}" class="border border-dashed border-white group-hover:border-gray-300 w-auto h-auto mx-auto" />
     </div>
     <div class="w-3/4 mx-auto flex flex-col">
       <span class="text-sm text-gray-400 ml-2">Image Alt Text:</span>

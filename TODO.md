@@ -1,11 +1,11 @@
 TODO:
 
 * Refactor track sheet rendering (reuse client-side rendering for this?)
-* Forbid pasting newlines into span elements in tracker updates tag.
 * difference in update format in edit vs display mode is unfortunate. Would be nice to make it more WYSIWYG
 * rename tracker
 * clear all trackers (also, should this be an "X" button, instead of the word "clear"?)
 * button for removing an image (communicates intention better than expecting a user to backspace over it).
+* test images with the s3 service
 
 * Bookmark feature (suggested by Eyes). Set a bookmark, attach an optional note to it.
 * It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.

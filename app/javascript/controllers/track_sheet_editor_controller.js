@@ -29,6 +29,9 @@ export default class {
 
     this._onKeyDownListener = this.onKeyDown.bind(this);
     this.root.addEventListener("keydown", this._onKeyDownListener);
+
+    this._onPasteListener = this.onPaste.bind(this);
+    this.root.addEventListener("paste", this._onPasteListener);
   }
 
   removeEventListeners() {
@@ -37,6 +40,7 @@ export default class {
     this.root.removeEventListener("blur", this._onBlurListener);
     this.root.removeEventListener("click", this._onClickListener);
     this.root.removeEventListener("keydown", this._onKeyDownListener);
+    this.root.removeEventListener("paste", this._onPasteListener);
   }
 
   addTracker() {
@@ -143,6 +147,12 @@ export default class {
   onInput(event) {
     if (event.target.isContentEditable) {
       event.target.dataset.dirty = true;
+
+      // account for issue where selecting all the next in a field
+      // and deleting it results in the field being vertically offset
+      // weirdly.
+      if (event.target.textContent.length == 0)
+        event.target.innerHTML = "<br>";
     }
   }
 
@@ -177,6 +187,17 @@ export default class {
   onKeyDown(event) {
     if (event.key === 'Enter' && event.target.tagName === 'SPAN') {
       event.preventDefault();
+    }
+  }
+
+  onPaste(event) {
+    if (event.target.isContentEditable) {
+      event.preventDefault();
+      const content = event.clipboardData.getData('text');
+      let sanitized = content.replaceAll("\n", ' ');
+      let range = window.getSelection().getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(document.createTextNode(sanitized));
     }
   }
 

@@ -11,7 +11,7 @@ export default class TSImageTag extends TSEmbeddedTag {
     this.handlebars = Handlebars.create();
 
     this.handlebars.registerHelper('md', function(markdown) {
-      return new Handlebars.SafeString(DOMPurify.sanitize(marked.parse(markdown)));
+      return new Handlebars.SafeString(DOMPurify.sanitize(marked.parseInline(markdown)));
     });
   }
 
