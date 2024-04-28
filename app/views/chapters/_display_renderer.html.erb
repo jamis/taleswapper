@@ -1,10 +1,14 @@
-<div data-controller="track-sheet-updates-display-renderer">
+<div data-controller="track-sheet-updates-display-renderer" <%= "data-track-sheet-updates-display-renderer-service-name-value=#{service_name}" if local_assigns[:service_name] %>>
   <script type="text/x-handlebars-template" data-track-sheet-updates-display-renderer-target='container'>
     <div>
       <%= stylesheet_link_tag "tailwind", "inter-font" %>
       <div class="flex flex-col gap-2 font-sans text-base">
-        {{#each paths}}
-          {{> path}}
+        {{#each elements}}
+          {{#if path}}
+            {{> path}}
+          {{else}}
+            {{> (lookup . 'partial') data}}
+          {{/if}}
         {{/each}}
       </div>
     </div>
@@ -19,8 +23,12 @@
         {{/each}}
       </div>
       <div class="flex flex-row flex-wrap gap-2 p-2">
-        {{#each updates}}
-          {{> (lookup . 'partial') data}}
+        {{#each elements}}
+          {{#if path}}
+            {{> path}}
+          {{else}}
+            {{> (lookup . 'partial') data}}
+          {{/if}}
         {{/each}}
       </div>
     </div>

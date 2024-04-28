@@ -7,8 +7,9 @@
       <a class="ml-auto ts-link" href="#" data-action="dialog#close:prevent">close</a>
     </header>
 
-    <main class="bg-white">
-      <%= render 'track_sheet', track_sheet: @track_sheet %>
+    <main class="bg-white p-2 max-h-[75vh] overflow-y-scroll">
+      <ts-track-sheet data-renderer="track-sheet-renderer" data-definition="<%= @track_sheet.definition.to_json %>"></ts-track-sheet>
     </main>
   </div>
+  <%= render 'chapters/display_renderer', service_name: 'track-sheet-renderer' %>
 </div>

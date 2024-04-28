@@ -6,13 +6,18 @@ export default class extends Controller {
     'container', 'path', 'missing'
   ];
 
+  static values = {
+    serviceName: { type: String, default: 'track-sheet-updates-renderer' },
+  };
+
   connect() {
     this.registerPartials();
-    window.TaleSwapper.Services.register('track-sheet-updates-renderer', this);
+    console.log('renderer will register as', this.serviceNameValue);
+    window.TaleSwapper.Services.register(this.serviceNameValue, this);
   }
 
   disconnect() {
-    window.TaleSwapper.Services.unregister('track-sheet-updates-renderer');
+    window.TaleSwapper.Services.unregister(this.serviceNameValue);
     // TODO: unregister all registered partials
   }
 
@@ -29,7 +34,7 @@ export default class extends Controller {
 
   render(sheet, updates) {
     let updatesMap = this.organizeUpdatesByParent(updates);
-    let paths = [] ;
+    let elements = [] ;
 
     updatesMap.forEach((list, parent) => {
       let updates = [];
@@ -49,10 +54,10 @@ export default class extends Controller {
         sheet.applyUpdate(update);
       }
 
-      paths.push({ path: parent, updates });
+      elements.push({ path: parent, elements: updates });
     });
 
-    return this.parseHTML(this.containerTemplate({ paths }));
+    return this.parseHTML(this.containerTemplate({ elements }));
   }
 
   renderPathFrame(path) {

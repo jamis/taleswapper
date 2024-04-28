@@ -1,7 +1,0 @@
-<%= render 'track_sheet_updates/namespace', name: entry['parent'] do %>
-  <div class="flex flex-row flex-wrap gap-2">
-    <% entry['child'].each do |name, value| %>
-      <%= render_track_sheet_element(name, priors[name]['_type'], value, priors[name]['value']) %>
-    <% end %>
-  </div>
-<% end %>

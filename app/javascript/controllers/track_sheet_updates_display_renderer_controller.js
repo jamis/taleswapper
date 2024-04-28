@@ -19,6 +19,28 @@ export default class extends TrackSheetUpdatesRendererController {
     this.handlebars.registerPartial('renameValue', this.renameValueTarget.innerHTML);
   }
 
+  renderTrackSheet(sheet) {
+    let elements = this.elementsForGroup(sheet);
+    return this.parseHTML(this.containerTemplate({ elements }));
+  }
+
+  elementsForGroup(group) {
+    let elements = [];
+
+    for (let key in group) {
+      let value = group[key];
+      if (value._type) {
+        const method = `contextFor_add_${value._type}`;
+        const context = this[method](key, value);
+        elements.push(context);
+      } else {
+        elements.push({ path: [ key ], elements: this.elementsForGroup(value) });
+      }
+    }
+
+    return elements;
+  }
+
   contextFor_add_bool(name, prop, update) {
     return this.contextFor_add_value(name, { value: new Handlebars.SafeString(prop.value ? '❌' : '&mdash;') }, update);
   }

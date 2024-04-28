@@ -12,6 +12,8 @@ window.TaleSwapper.Services ||= new Services();
 
 import TrackerUpdatesTag from "./elements/tracker_updates_tag"
 import TSImageTag from "./elements/ts_image_tag"
+import TSTrackSheetTag from "./elements/ts_track_sheet_tag"
 
 customElements.define("ts-tracker-updates", TrackerUpdatesTag);
 customElements.define("ts-image", TSImageTag);
+customElements.define("ts-track-sheet", TSTrackSheetTag);
