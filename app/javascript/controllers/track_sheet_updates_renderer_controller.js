@@ -34,8 +34,9 @@ export default class extends Controller {
     let updatesMap = this.organizeUpdatesByParent(updates);
     let elements = [] ;
 
-    updatesMap.forEach((list, parent) => {
+    updatesMap.forEach(list => {
       let updates = [];
+      let parent = list[0].parent;
 
       for (let update of list) {
         if (update.action === 'remove') {
@@ -97,11 +98,12 @@ export default class extends Controller {
     let map = new Map();
 
     for (let update of updates) {
-      let list = map.get(update.parent);
+      let key = JSON.stringify(update.parent);
+      let list = map.get(key);
       if (list) {
         list.push(update);
       } else {
-        map.set(update.parent, [ update ]);
+        map.set(key, [ update ]);
       }
     }
 
