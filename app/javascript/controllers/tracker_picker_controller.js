@@ -1,65 +1,66 @@
 import { Controller } from "@hotwired/stimulus"
+import Handlebars from "handlebars"
 
 export default class extends Controller {
   static targets = [ 'view', 'treeTemplate', 'leafTemplate' ];
 
+  initialize() {
+    this.handlebars = Handlebars.create();
+
+    this.treeTemplate = this.handlebars.compile(this.treeTemplateTarget.innerHTML);
+
+    this.handlebars.registerPartial('tree', this.treeTemplateTarget.innerHTML);
+    this.handlebars.registerPartial('leaf', this.leafTemplateTarget.innerHTML);
+  }
+
   prepare(source, mode, callback) {
     this.callback = callback;
-    this.viewTarget.innerHTML = '<ul></ul>';
-    this.renderTree('Trackers', [], source, mode, this.viewTarget.querySelector('ul'));
+
+    let context = this.treeContext('Trackers', [], source, mode)
+    this.viewTarget.innerHTML = '<ul>' + this.treeTemplate(context) + '</ul>';
   }
 
-  renderTree(label, path, node, mode, container) {
-    let tree = this.cloneTemplate(this.treeTemplateTarget);
-    let labelSlot = tree.querySelector('.label-slot');
-    labelSlot.innerHTML = label;
+  treeContext(label, path, node, mode) {
+    let context = {
+      label,
+      partial: 'tree',
+      state: 'closed',
+      toggle: '[+]',
+      childrenVisibility: 'hidden',
+      path: JSON.stringify(path)
+    };
 
-    let labelDiv = labelSlot.closest('.label');
-    labelDiv.dataset.path = JSON.stringify(path);
-
-    if (mode == 'add' || mode == 'pick-any') {
-      if (path.length > 0) {
-        labelSlot.classList.add('ts-link');
-        labelSlot.classList.add('cursor-pointer');
-        labelSlot.classList.add('tree');
-      }
-    } else {
-      labelSlot.closest('.group').classList.remove('group');
+    if ((mode == 'add' || mode == 'pick-any') && path.length > 0) {
+      context.labelClasses = 'ts-link group cursor-pointer tree';
     }
 
-    let childrenSlot = tree.querySelector('.children-slot');
-
+    context.children = [];
     for (let prop in node) {
       if (node[prop]._type) {
-        this.renderLeaf(prop, path, node[prop], mode, childrenSlot);
+        context.children.push(this.leafContext(prop, path, node[prop], mode));
       } else {
-        this.renderTree(prop, [ ...path, prop ], node[prop], mode, childrenSlot);
+        context.children.push(this.treeContext(prop, [ ...path, prop ], node[prop], mode));
       }
     }
 
-    container.appendChild(tree);
+    return context;
   }
 
-  renderLeaf(label, path, node, mode, container) {
-    let leaf = this.cloneTemplate(this.leafTemplateTarget);
-    let labelSlot = leaf.querySelector('.label-slot');
-    labelSlot.innerHTML = label;
+  leafContext(label, path, node, mode) {
+    let context = {
+      label,
+      partial: 'leaf'
+    };
 
     if (mode == 'add') {
-      labelSlot.classList.add('text-gray-400');
+      context.classList = 'text-gray-400';
     } else {
-      labelSlot.classList.add('leaf');
-      labelSlot.classList.add('ts-link');
-      labelSlot.classList.add('cursor-pointer');
-      labelSlot.dataset.path = JSON.stringify(path);
-      labelSlot.dataset.source = JSON.stringify(node);
+      context.classList = 'leaf ts-link cursor-pointer';
+      context.path = JSON.stringify(path);
+      context.source = JSON.stringify(node);
     }
 
-    container.append(leaf);
-  }
-
-  cloneTemplate(template) {
-    return template.content.cloneNode(true);
+    return context;
   }
 
   viewClicked(event) {
