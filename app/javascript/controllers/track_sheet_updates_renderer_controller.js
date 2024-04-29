@@ -12,13 +12,11 @@ export default class extends Controller {
 
   connect() {
     this.registerPartials();
-    console.log('renderer will register as', this.serviceNameValue);
     window.TaleSwapper.Services.register(this.serviceNameValue, this);
   }
 
   disconnect() {
     window.TaleSwapper.Services.unregister(this.serviceNameValue);
-    // TODO: unregister all registered partials
   }
 
   registerPartials() {

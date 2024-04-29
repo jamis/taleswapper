@@ -6,8 +6,14 @@ const AsideButton = 'ts-aside-btn';
 const TrackerButton = 'ts-tracker-btn';
 const ImageButton = 'ts-image-btn';
 
+const MaxImageSizeMB = 2;
+const MaxImageSize = MaxImageSizeMB * 1024 * 1024;
+
 export default class extends Controller {
-  static targets = [ "toolbar", "editor", "content" ];
+  static targets = [
+    "toolbar", "editor", "content",
+    "progressDialog", "filename", "progressBar", "progressPercent"
+  ];
 
   static values = {
     headerSelector: String,
@@ -120,10 +126,30 @@ export default class extends Controller {
   // <ts-image src="..." alt="..." caption="..." ack="..."></ts-image>
   imagePicked(event) {
     const file = event.target.files[0];
+
+    if (!file.type.startsWith('image/')) {
+      alert("That doesn't look like an image. Please choose a different one.");
+      return;
+    }
+
+    if (file.size > MaxImageSize) {
+      alert(`Uploaded files may not be more than ${MaxImageSizeMB}MB.`);
+      return;
+    }
+
+    this.filenameTarget.textContent = file.name;
+
     const promise = this.getImageMetadata(file);
 
-    const upload = new DirectUpload(file, this.directUploadUrlValue);
+    const upload = new DirectUpload(file, this.directUploadUrlValue, this);
     upload.create((error, blob) => {
+      this.progressDialogTarget.classList.replace('block', 'hidden');
+
+      if (error) {
+        alert(error);
+        return;
+      }
+
       promise.then(data => {
         // TODO: ensure we create a new block context here (or are
         // already in a clean block context) before we insert this
@@ -147,5 +173,23 @@ export default class extends Controller {
         resolve({ width, height, ratio });
       });
     });
+  }
+
+  directUploadWillStoreFileWithXHR(request) {
+    this.progressDialogTarget.classList.replace('hidden', 'block');
+    this.progressBarTarget.style.width = "0%";
+    this.progressPercentTarget.textContent = "0%";
+
+    request.upload.addEventListener("progress",
+      event => this.directUploadDidProgress(event))
+  }
+
+  directUploadDidProgress(event) {
+    const pct = Math.round(100 * event.loaded / event.total) + '%';
+    this.progressBarTarget.style.width = pct;
+    this.progressPercentTarget.textContent = pct;
+
+    event.loaded
+    event.total
   }
 }

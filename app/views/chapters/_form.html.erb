@@ -28,4 +28,16 @@
     <span class="mx-1">or</span>
     <%= link_to "Cancel", chapter.persisted? ? chapter_path(chapter) : story_path(chapter.story), class: "ts-cancel" %>
   </div>
+
+  <div class="hidden" data-chapter-editor-target="progressDialog">
+    <div class="z-40 fixed top-0 left-0 w-full h-screen bg-black opacity-20"></div>
+
+    <div class="z-50 fixed shadow-md bg-white rounded-xl border border-gray-400 w-1/3 min-w-20 mx-auto top-20 overflow-hidden px-4 py-2 flex flex-col gap-2">
+      <div class="text-center text-sm color-gray-400" data-chapter-editor-target="filename"></div>
+      <div class="border border-gray-400 relative rounded overflow-hidden">
+        <div class="absolute top-0 left-0 h-full bg-gray-200 z-10" data-chapter-editor-target="progressBar"></div>
+        <div class="text-center text-sm color-gray-400 z-20 relative" data-chapter-editor-target="progressPercent"></div>
+      </div>
+    </div>
+  </div>
 <% end %>
