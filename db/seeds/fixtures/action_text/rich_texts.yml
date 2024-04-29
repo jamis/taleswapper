@@ -1,18 +1,12 @@
-wulan_00_01:
-  record: wulan_00_01 (Section)
+wulan_session0:
+  record: wulan_session0 (Chapter)
   name: content
   body: |
     <p>The main character will be named <em>Wulan</em>. I picture him as a big, hulking thing, all muscle. He's gruff and distant to most people, intimidating and off-putting. He's not unintelligent, but his effort and time have gone into martial prowess, not intellectual skill.</p>
     <p>His stats will be:</p>
-wulan_00_02:
-  record: wulan_00_02 (Section)
-  name: content
-  body: |
+    <ts-tracker-updates data-updates="[{&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Stats&quot;],&quot;child&quot;:{&quot;Edge&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:2},&quot;Heart&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:2},&quot;Iron&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:3},&quot;Shadow&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:1},&quot;Wits&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:1}}}, {&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Resources&quot;],&quot;child&quot;:{&quot;Health&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:5},&quot;Spirit&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:5},&quot;Supply&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:5},&quot;XP&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:0}}}, {&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Momentum&quot;],&quot;child&quot;:{&quot;Current&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:2},&quot;Reset&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:2},&quot;Max&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:10}}}, {&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Debilities&quot;,&quot;Conditions&quot;],&quot;child&quot;:{&quot;Wounded&quot;:{&quot;_type&quot;:&quot;bool&quot;,&quot;value&quot;:false},&quot;Unprepared&quot;:{&quot;_type&quot;:&quot;bool&quot;,&quot;value&quot;:false},&quot;Shaken&quot;:{&quot;_type&quot;:&quot;bool&quot;,&quot;value&quot;:false},&quot;Encumbered&quot;:{&quot;_type&quot;:&quot;bool&quot;,&quot;value&quot;:false}}}, {&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Debilities&quot;,&quot;Banes&quot;],&quot;child&quot;:{&quot;Maimed&quot;:{&quot;_type&quot;:&quot;bool&quot;,&quot;value&quot;:false},&quot;Corrupted&quot;:{&quot;_type&quot;:&quot;bool&quot;,&quot;value&quot;:false}}}, {&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Debilities&quot;,&quot;Burdens&quot;],&quot;child&quot;:{&quot;Cursed&quot;:{&quot;_type&quot;:&quot;bool&quot;,&quot;value&quot;:false},&quot;Tormented&quot;:{&quot;_type&quot;:&quot;bool&quot;,&quot;value&quot;:false}}}]"></ts-tracker-updates>
     <p>He has the following assets:</p>
-wulan_00_03:
-  record: wulan_00_03 (Section)
-  name: content
-  body: |
+    <ts-tracker-updates data-updates="[{&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Assets&quot;],&quot;child&quot;:{&quot;Swordmaster&quot;:{&quot;_type&quot;:&quot;card&quot;,&quot;value&quot;:&quot;When you *Strike* or *Clash* and burn momentum to improve your result, inflict +2 harm. If the fight continues, add +1 on your next move.&quot;},&quot;Wright&quot;:{&quot;_type&quot;:&quot;card&quot;,&quot;value&quot;:&quot;When you *Secure an Advantage* by crafting a useful item using your specialty [Blacksmithing], or when you *Face Danger* to create or repair an item in a perilous situation, add +1 and take +1 momentum on a hit.&quot;},&quot;Commander&quot;:{&quot;_type&quot;:&quot;card&quot;,&quot;value&quot;:&quot;\&quot;You lead a warband with +4 strength.\&quot; Can use them for *Face Danger*, *Secure an Advantage*, *Compel*, or *Battle*.&quot;}}},{&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Resources&quot;],&quot;child&quot;:{&quot;Strength (Commander)&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:4}}}]"></ts-tracker-updates>
     <p>I think his warband is called "Wulan's Blade."</p>
     <p>His three starting bonds:</p>
     <ul>
@@ -44,38 +38,26 @@ wulan_00_03:
     <h2>Horrors</h2>
     <p>"We are wary of dark forests and deep waterways, for monsters lurk in those places. In the depths of the long-night...only fools venture beyond their homes."</p>
 
-wulan_01_01:
-  record: wulan_01_01 (Section)
+wulan_chapter1:
+  record: wulan_chapter1 (Chapter)
   name: content
   body: |
     <p>I dine with my warband this night. They are raucous and coarse, as ever, and usually I am ready enough to join in their revelries, but tonight...</p>
     <p>I dine with my warband this night, but my mind is on the Ragged Coast, miles and miles away.</p>
-wulan_01_02:
-  record: wulan_01_02 (Section)
-  name: content
-  body: |
-    <p>Wups. I need a name for Wulan's lieutenant. Rolling on the oracle, I get 🎲9, "Artiga." What's he like? Oracle again! Role is "refute a falsehood." Descriptor is 🎲90 = "fervent."</p>
-    <p>Might as well roll up a couple others for the warband, too. Kuron, who is apparently "infamous," and Valeri, who is "wary."</p>
-wulan_01_03:
-  record: wulan_01_03 (Section)
-  name: content
-  body: |
+    <aside>
+      <p>Wups. I need a name for Wulan's lieutenant. Rolling on the oracle, I get 🎲9, "Artiga." What's he like? Oracle again! Role is "refute a falsehood." Descriptor is 🎲90 = "fervent."</p>
+      <p>Might as well roll up a couple others for the warband, too. Kuron, who is apparently "infamous," and Valeri, who is "wary."</p>
+    </aside>
     <p>"Wulan!" shouts Artiga, my lieutenant. He is a fiercely intense man, most times, but in moments such as these he manages to become one of the most bacchanalian of revelers. "Wulan!" he shouts again, as he staggers, drunken, to my side. "Come! Join us! Kuron promises to sing the Lay of Sidan again."</p>
     <p>I am tempted, not because Kuron sings particularly well, but because the <em>last</em> time he sang that lay, we laughed until we had no breath left in us. The man has a voice like a rock toad in the best of times, and when he's drunk his talent declines yet farther.</p>
     <p>"I'll be there soon," I say, knowing that I'm probably lying, but there's no graceful way to decline a drunk man's invitation. It suffices to put Artiga off, though, and I watch as he staggers back to the fire with the others.</p>
     <p>My mind turns again to the Ragged Coast, and to Nia, my sister who lives there with her family. I have had troubling word from her just this afternoon. She cannot write&mdash;which makes no difference since I cannot read&mdash;but a troubadour found me today, and he had been in her village. He could not stay, alas, or our entertainment would be far better than Kuron's rendering of "the Lay of Sidan," but he said that my sister had been asking for news of me, for many months, and had bid all minstrels that found me to bid me find her in return.</p>
     <p>This is a difficult request. My men are comfortable here, in the Hinterlands. We've made a reputation for ourselves among the villages hereabouts, and the people are quick to share their provisions with us in exchange for a bit of security from those that have tried to prey upon them.</p>
     <p>It is a puzzle. I haven't seen Nia in years&mdash;not since the birth of her first child&mdash;but we were inseparable as children, and I swore that I would always be there for her.</p>
-wulan_01_04:
-  record: wulan_01_04 (Section)
-  name: content
-  body: |
-    <p>Hmmm! I don't think this is the background vow, though. It's too general. It's not even a good fit for the "inciting incident" vow. I actually don't think this is anything to do with an actual "iron vow." It's just a thing he told her when they were children.</p>
-    <p>Which, of course, does not diminish at all what it means to Wulan.</p>
-wulan_01_05:
-  record: wulan_01_05 (Section)
-  name: content
-  body: |
+    <aside>
+      <p>Hmmm! I don't think this is the background vow, though. It's too general. It's not even a good fit for the "inciting incident" vow. I actually don't think this is anything to do with an actual "iron vow." It's just a thing he told her when they were children.</p>
+      <p>Which, of course, does not diminish at all what it means to Wulan.</p>
+    </aside>
     <p>I could go by myself, leaving my men in Artiga's care, but that doesn't sit right with me. The people here call them "Wulan's Blade" for a reason, and though they might follow Artiga for a time, they need <em>me</em>.</p>
     <p>And, frankly, I need them.</p>
     <p>So, do I command them to follow me to the Ragged Coast? They would come, and they would even come willingly. But Ironlanders are a suspicious lot, by and large, and a band of armed men would not sit comfortably with most settlements. A dozen men eat a lot, and unless they are kept busy, they also cause a lot of mischief. Villages would not welcome such company willingly.</p>
@@ -94,93 +76,56 @@ wulan_01_05:
     <p>"Very."</p>
     <p>"I will witness your oath, then."</p>
     <p>"Come."</p>
-wulan_01_06:
-  record: wulan_01_06 (Section)
-  name: content
-  body: |
-    <p>Given the truths I rolled at the beginning, "iron" refers not to the metal, necessarily. Especially with regard to oath-swearing, "iron" refers to the mystical pillars. I think they are ubiquitous enough that they are no more than an hour away.</p>
-wulan_01_07:
-  record: wulan_01_07 (Section)
-  name: content
-  body: |
+    <aside>
+      <p>Given the truths I rolled at the beginning, "iron" refers not to the metal, necessarily. Especially with regard to oath-swearing, "iron" refers to the mystical pillars. I think they are ubiquitous enough that they are no more than an hour away.</p>
+    </aside>
     <p>I tell the men that Artiga and I will be back later. There are some grumbles that I take for acknowledgment, and then we're off.</p>
     <p>There is an Irondale an hour's walk from us, and we make for it. I tell Artiga about how I arrived at my decision, and ask for his council. He is not a particularly wise man, but he knows me well. He understands why I must do this thing.</p>
     <p>"But Wulan," he says. "You've also sworn to protect the people of these lands. You have a responsibility to that oath, as well."</p>
-wulan_01_08:
-  record: wulan_01_08 (Section)
-  name: content
-  body: |
-    <p>Ah! There's the background oath. Wulan has sworn to protect the people of this area. We'll get more details as we go, but I suspect there's some force that has been threatening them, perhaps one of the Firstborn tribes?</p>
-    <p>I think this also is one of his beginning bonds, with the people of the Hinterlands (or, at least, those in the area immediately around him).</p>
-wulan_01_09:
-  record: wulan_01_09 (Section)
-  name: content
-  body: |
+    <aside>
+      <p>Ah! There's the background oath. Wulan has sworn to protect the people of this area. We'll get more details as we go, but I suspect there's some force that has been threatening them, perhaps one of the Firstborn tribes?</p>
+      <p>I think this also is one of his beginning bonds, with the people of the Hinterlands (or, at least, those in the area immediately around him).</p>
+      <ts-tracker-updates data-updates="[{&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Vows&quot;,&quot;Protect the people of the Hinterlands&quot;],&quot;child&quot;:{&quot;Rank&quot;:{&quot;_type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;Epic&quot;},&quot;Progress&quot;:{&quot;_type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;0,0&quot;}}}, {&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;],&quot;child&quot;:{&quot;Bonds&quot;:{&quot;_type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;People of the Hinterlands&quot;}}}]"><ts-tracker-updates>
+    </aside>
     <p>"I will keep that oath," I say. "We will return, Artiga, and I will see to the people here in the Hinterlands. I've realized, though, that part of that oath is teaching them to defend themselves."</p>
     <p>When we finally reach the Irondale, the sun is warm upon us and we are both glad to finally sit and rest a moment. Below us, in the dale, are four black metal spikes, each one as tall as several men. The largest is wide enough at its base that I cannot reach my arms around it. The smallest is as thick as my thigh.</p>
     <p>Though we call this an "Irondale," the spikes are not truly iron. No man can dent them. No smith can work them. Though they are metal, they are hardy and impenetrable. We swear our oaths on them, that our determination may be as durable as these.</p>
     <p>We make our way down the hill and stand among the spikes. Artiga nods and urges me to begin.</p>
     <p>I place one hand on the spike and look to the sky, where the spike seems to point, and I speak the words...</p>
-wulan_01_10:
-  record: wulan_01_10 (Section)
-  name: content
-  body: |
-    <p>Okay, first roll of the game. Wulan will <em>Swear an Iron Vow</em>. Though his sister isn't present, this is for her, and he does share a bond with her, so he gets +1. The roll, +heart, +1: 🎲6+2+1 = 9 vs 🎲2, 🎲6. That's a strong hit!</p>
-    <p>"It is clear what you must do next... Take +2 momentum."</p>
-wulan_01_11:
-  record: wulan_01_11 (Section)
-  name: content
-  body: |
-    <p>He's got a new vow, now: "Find out what Nia needs, and help her." I'll make this a Formidable quest.</p>
-wulan_01_12:
-  record: wulan_01_12 (Section)
-  name: content
-  body: |
+    <aside>
+      <p>Okay, first roll of the game. Wulan will <em>Swear an Iron Vow</em>. Though his sister isn't present, this is for her, and he does share a bond with her, so he gets +1. The roll, +heart, +1: 🎲6+2+1 = 9 vs 🎲2, 🎲6. That's a strong hit!</p>
+      <p>"It is clear what you must do next... Take +2 momentum."</p>
+      <ts-tracker-updates data-updates="[{&quot;action&quot;:&quot;update&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Momentum&quot;],&quot;child&quot;:{&quot;Current&quot;:4}}]"><ts-tracker-updates>
+      <p>He's got a new vow, now: "Find out what Nia needs, and help her." I'll make this a Formidable quest.</p>
+      <ts-tracker-updates data-updates="[{&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Vows&quot;,&quot;Find out what Nia needs, and help her&quot;],&quot;child&quot;:{&quot;Rank&quot;:{&quot;_type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;Formidable&quot;},&quot;Progress&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:&quot;0&quot;}}}]"></ts-tracker-updates>
+    </aside>
     <p>With portentious weight, the oath settles into me. I nod, satisfied, knowing that I've chosen the right path for me, right now.</p>
     <p>Artiga looks anxiously to me, and I nod again.</p>
     <p>"It is done," I say. "Let us return and start making preparations."</p>
 
-wulan_02_01:
-  record: wulan_02_01 (Section)
+wulan_chapter2:
+  record: wulan_chapter2 (Chapter)
   name: content
   body: |
     <p>Somehow, I must keep the villagers safe in my absence. The Vledshka have harassed them for years, now, pouring from the forests at night, burning a hut or two, killing sheep and goats, and retreating again&mdash;typical varou skirmish tactics. Until a few years ago they were nothing but scattered, bickering tribes, too busy fighting amongst themselves to pose any serious threat to the surrounding human villages.</p>
-wulan_02_02:
-  record: wulan_02_02 (Section)
-  name: content
-  body: |
-    <p>Rolling on the oracle for varou names, I get 🎲76. "Staysa."</p>
-wulan_02_03:
-  record: wulan_02_03 (Section)
-  name: content
-  body: |
+    <aside>
+      <p>Rolling on the oracle for varou names, I get 🎲76. "Staysa."</p>
+    </aside>
     <p>Then, Staysa came.</p>
     <p>Staysa is a massive, charismatic, and ambitious varou who has managed&mdash;against all odds&mdash;to unite the tribes beneath his banner. I really don't know much more than that&mdash;varou are not especially willing to talk with humans in the best of times&mdash;but it is largely due to Staysa's ambition that I and my men are kept so busy.</p>
     <p>The name he picked for his clan, "Vledshka," translates to something like "Roots of the Elder Tree," and the human villages apparently threaten the purity of those roots. The varou want us out, and they harass and skirmish with us regularly.</p>
     <p>I need to make sure the villagers can handle this in my absence, because the last thing I want is to return in a few months to burned homesteads and scattered corpses.</p>
     <p>I council with the men of the villages, and with my own men as well. The villagers are alarmed when I tell them that I am leaving, and fill the council room with a babble of panicked voices, but I expected this.</p>
-wulan_02_04:
-  record: wulan_02_04 (Section)
-  name: content
-  body: |
-    <p>I think Wulan is going to take the fight to the Vledshka, next, to bloody them and make them more wary. He is going to gather a handful of men from each of the villages, forming an army of three or four dozen total, including the men of Wulan's Blade. Fighting the Varou in the forest itself seems unwise, though. I think he's going to try and be wily here.</p>
-wulan_02_05:
-  record: wulan_02_05 (Section)
-  name: content
-  body: |
+    <aside>
+      <p>I think Wulan is going to take the fight to the Vledshka, next, to bloody them and make them more wary. He is going to gather a handful of men from each of the villages, forming an army of three or four dozen total, including the men of Wulan's Blade. Fighting the Varou in the forest itself seems unwise, though. I think he's going to try and be wily here.</p>
+    </aside>
     <p>"I have a plan," I tell them, speaking loudly to get their attention. The din subsides and I look them each in the eye. "The Vledshka have preyed on us long enough. It is time for us to take the fight to them."</p>
     <p>They look shocked, and I try not to smile.</p>
     <p>"We hit them hard," I say. "We seize the initiative and hit them hard, hard enough that they'll think twice before they return to harassing our villages. We show them that we have teeth, and claws, just as they do. And we show them that we know how to use them at least as well. Here's what we'll do..."</p>
     <hr>
-wulan_02_06:
-  record: wulan_02_06 (Section)
-  name: content
-  body: |
-    <p>Yeah, he's going to try and <em>Secure an Advantage</em>, +shadow, which isn't great for him. He'll note where the Vledshka have attacked in the past, and hide up most of the men nearby. Then, he'll lead a small party&mdash;just a handful of men&mdash;straight up the middle of a valley, attempting to lure the Vledshka out of their woods and into the open.</p>
-wulan_02_07:
-  record: wulan_02_07 (Section)
-  name: content
-  body: |
+    <aside>
+      <p>Yeah, he's going to try and <em>Secure an Advantage</em>, +shadow, which isn't great for him. He'll note where the Vledshka have attacked in the past, and hide up most of the men nearby. Then, he'll lead a small party&mdash;just a handful of men&mdash;straight up the middle of a valley, attempting to lure the Vledshka out of their woods and into the open.</p>
+    </aside>
     <p>The forest looms before us, dark and unwelcoming, stretching like a wall to the northwest and southeast and laying across the rolling hills like a blanket. Long ropes of wet moss hang in limp cords from branches, and drape the trunks of some trees so thickly that I can hardly make out the bark beneath them. The underbrush is thick and seemingly impassible, but I know better.</p>
     <p>We all know better, now.</p>
     <p>The Vledshka can move through that terrain as easily as we move across open ground, flowing like ghosts through even the densest brush and thicket. It would be suicide to go in there&mdash;the varou would have us surrounded in seconds, and we'd be cut down before we had time to pull our swords clear of the foliage.</p>
@@ -189,20 +134,11 @@ wulan_02_07:
     <p>To my left walk the twins, Keearus and Kormak, both tall and broad shouldered with beards of such striking red that more than the once the varou have left them alone out of pure superstition. They step lightly, grinning like simpletons.</p>
     <p>"Stop that," I say to them. I speak softly, for the varou have excellent hearing and I cannot afford to have any wolf-folk ears overhearing. "We need to look a tempting target, not a brazenly confident one."</p>
     <p>Keearus&mdash;who bears a livid white scar across his left cheek&mdash;immediately looks contrite. "Sorry, Wulan," he mutters. He and his brother adopt expressions that are probably supposed to look frightened and nervous. It will have to do.</p>
-wulan_02_08:
-  record: wulan_02_08 (Section)
-  name: content
-  body: |
-    <p>Okay, <em>Secure an Advantage</em>, +shadow, then... Oh, wait, no. He can use his band for this (since he is!), using their strength instead to get a +4. That makes it 🎲5 + 4 = 9 vs 🎲7, 🎲10, for a weak hit. "Your advantage is short-lived, take +1 momentum."</p>
-wulan_02_09:
-  record: wulan_02_09 (Section)
-  name: content
-  body: |
-    <p>The Vledshka take the bait. It's not their entire clan, of course&mdash;Wulan could never stand against that&mdash;but it's perhaps an entire tribe's worth of warriors. The Vledshka pour from the forest, descending on Wulan and his handful of men...</p>
-wulan_02_10:
-  record: wulan_02_10 (Section)
-  name: content
-  body: |
+    <aside>
+      <p>Okay, <em>Secure an Advantage</em>, +shadow, then... Oh, wait, no. He can use his band for this (since he is!), using their strength instead to get a +4. That makes it 🎲5 + 4 = 9 vs 🎲7, 🎲10, for a weak hit. "Your advantage is short-lived, take +1 momentum."</p>
+      <ts-tracker-updates data-updates="[ { &quot;action&quot;: &quot;update&quot;, &quot;parent&quot;: [ &quot;Wulan&quot;, &quot;Momentum&quot; ], &quot;child&quot;: { &quot;Current&quot;: 5 } } ]"></ts-tracker-updates>
+      <p>The Vledshka take the bait. It's not their entire clan, of course&mdash;Wulan could never stand against that&mdash;but it's perhaps an entire tribe's worth of warriors. The Vledshka pour from the forest, descending on Wulan and his handful of men...</p>
+    </aside>
     <p>I begin to question the wisdom of my plan, as we walk for nearly a quarter of an hour, farther and farther from where the others are hidden. If we go much farther we'll truly be isolated, and easy meat for the Vledshka. I grow uneasy. Finally, I turn to Artiga, the words "turn around" on my very lips&mdash;</p>
     <p>A howl erupts from the woods. First one, then another, and another. It is a sound we've grown to hate&mdash;if not to fear&mdash;over the last year of fighting the Vledshka.</p>
     <p>"Finally," I hear one of the twins say, followed by the sounds of steel sliding free of scabbards.</p>
@@ -213,15 +149,9 @@ wulan_02_10:
     <p>We are a hundred yards away, now. I pray for the villagers to hold themselves still. If they emerge from hiding too soon, the Vledshka will realize the trap and run for the forest. <em>Hold</em>, I pray. <em>Hold.</em></p>
     <p>Fifty yards. Thirty. Twenty...</p>
     <p>"To arms!" I yell and I turn to face the horde behind me. My sword comes free of its scabbard in a single practiced motion. "Up, and to arms!"</p>
-wulan_02_11:
-  record: wulan_02_11 (Section)
-  name: content
-  body: |
-    <p>I'll run this as a "Battle" move. The objective is to force the varou back into the woods, sending them reeling and yelping away so that they will be unlikely to return to battle any time soon. Wulan is using his band, here, so gets a +4 to the roll: 🎲5 + 4 = 9 again, vs. 🎲2, 🎲10. For crying out loud, what's up with the tens??? Okay, so, weak hit. "You obtain your objective, but not without cost. <em>Pay the Price.</em>"</p>
-wulan_02_12:
-  record: wulan_02_12 (Section)
-  name: content
-  body: |
+    <aside>
+      <p>I'll run this as a "Battle" move. The objective is to force the varou back into the woods, sending them reeling and yelping away so that they will be unlikely to return to battle any time soon. Wulan is using his band, here, so gets a +4 to the roll: 🎲5 + 4 = 9 again, vs. 🎲2, 🎲10. For crying out loud, what's up with the tens??? Okay, so, weak hit. "You obtain your objective, but not without cost. <em>Pay the Price.</em>"</p>
+    </aside>
     <p>I just have time to take a breath before the first of the varou is upon me. He is enormous, with massive teeth and a huge scythe-like sword that he swings at me with a howl. I dodge aside and answer with my own strike, drawing the sword across his belly and spinning to meet the next attacker.</p>
     <p>Screams and howls mingle, the cries of the dying and the grunts of the living, the smell of blood sharp on the air, and heat rising up and surrounding everything in its merciless grasp. The ringing sound of metal on metal punctuates the battle like a heartbeat, and I dance to its martial rhythm.</p>
     <p>Time seems to slow, and then stop. This desperate moment stretches on, and on, and on. The ground beneath me turns slowly muddy with the blood of the dying, and the footing becomes treacherous. I dance on, dodging and swinging, retreating and advancing. I gasp for each breath.</p>
@@ -229,20 +159,11 @@ wulan_02_12:
     <p>"Stop!" I cry. "Let them run. The day is ours!" I lift my blood sword above my head, surprised to find my strength barely sufficient to do so. I feel utterly exhausted.</p>
     <p>There is a ragged cheer from the others, who also lift their weapons high. The day is ours. We've won.</p>
     <p>But as I turn to face the band of men who fought so bravely beside me, I have to wonder: <em>at what cost?</em></p>
-wulan_02_13:
-  record: wulan_02_13 (Section)
-  name: content
-  body: |
-    <p>I think the most likely negative outcome is that the Band takes -1 strength.</p>
-wulan_02_14:
-  record: wulan_02_14 (Section)
-  name: content
-  body: |
-    <p>Perhaps a couple of his men are injured. Killed? Maybe not&mdash;it's not a fail, just a weak hit. So yeah, two of his men are injured. Let's make it Keearus and Kormak. Probably a few of the villagers as well, maybe even a death or two among them. But the Vledshka have been routed and sent reeling back into their forest.</p>
-wulan_02_15:
-  record: wulan_02_15 (Section)
-  name: content
-  body: |
+    <aside>
+      <p>I think the most likely negative outcome is that the Band takes -1 strength.</p>
+      <ts-tracker-updates data-updates="[ { &quot;action&quot;: &quot;update&quot;, &quot;parent&quot;: [ &quot;Wulan&quot;, &quot;Resources&quot; ], &quot;child&quot;: { &quot;Strength (Commander)&quot;: 3 } } ]"></ts-tracker-updates>
+      <p>Perhaps a couple of his men are injured. Killed? Maybe not&mdash;it's not a fail, just a weak hit. So yeah, two of his men are injured. Let's make it Keearus and Kormak. Probably a few of the villagers as well, maybe even a death or two among them. But the Vledshka have been routed and sent reeling back into their forest.</p>
+    </aside>
     <p>The field is littered with a dozen or more fallen varou and men, some groaning in pain, others dead and still. I see two red-headed men struggling to get to their feet, and rush to them.</p>
     <p>"Keearus!" I cry. "Kormak!" The brothers look up at me, and I see that Kormak will have a new scar on his face to match his brother's. For a moment, I feel a surge of relief that they are not more badly hurt, but then I see blood running freely from Keearus' side, and from Kormak's leg, and I step quickly to help them.</p>
     <p>"Here," I say. "Lay back down. Your wounds must be tended immediately."</p>
@@ -251,15 +172,10 @@ wulan_02_15:
     <p>The village men are likewise seeking out their wounded, and calling for healing. Others are lifting a few of the still bodies, preparing to carry the dead back to their villages for burial. My heart aches for them, and for the families left without brother, father, husband, but all knew the risks going into this. All knew that some would not return.</p>
     <p>We do what we can in the field to stabilize the wounded, and gather the dead, and then return to the nearest village. We leave the varou dead and wounded where they lay, trusting that the Vledshka will know best how to care for them.</p>
     <hr>
-wulan_02_16:
-  record: wulan_02_16 (Section)
-  name: content
-  body: |
-    <p>With that out of the way, Wulan spends a few days with the villagers, preparing for his journey and healing his men. This is a <em>Sojourn</em> roll, +heart, and +1 because of the bond Wulan has with the villagers. 🎲6 + 2 + 1 = 9 vs 🎲2, 🎲4. A strong hit! He's going to recover the lost strength (perhaps by getting the twins back on their feet?), and "Plan", taking +2 momentum. That's a strong start to his journey!</p>
-wulan_02_17:
-  record: wulan_02_17 (Section)
-  name: content
-  body: |
+    <aside>
+      <p>With that out of the way, Wulan spends a few days with the villagers, preparing for his journey and healing his men. This is a <em>Sojourn</em> roll, +heart, and +1 because of the bond Wulan has with the villagers. 🎲6 + 2 + 1 = 9 vs 🎲2, 🎲4. A strong hit! He's going to recover the lost strength (perhaps by getting the twins back on their feet?), and "Plan", taking +2 momentum. That's a strong start to his journey!</p>
+      <ts-tracker-updates data-updates="[ { &quot;action&quot;: &quot;update&quot;, &quot;parent&quot;: [ &quot;Wulan&quot;, &quot;Resources&quot; ], &quot;child&quot;: { &quot;Strength (Commander)&quot;: 4 } }, { &quot;action&quot;: &quot;update&quot;, &quot;parent&quot;: [ &quot;Wulan&quot;, &quot;Momentum&quot; ], &quot;child&quot;: { &quot;Current&quot;: 7 } } ]"></ts-tracker-updates>
+    </aside>
     <p>The villagers welcome my band, and we join them in remembering their dead. The fallen men fought bravely, and we sing a dirge in their honor as we burn their bodies on the traditional pyre. The smoke carries their spirits away to paradise.</p>
     <p>I remain with the villagers for the better part of a week, planning our trek and gathering provisions. The twins regain their strength quickly, and though I try to leave them behind&mdash;to heal, and to organize the defense of the Hinterlanders&mdash;they seem determined to spite my efforts by healing quickly. By the time we are ready to leave, they are on their feet and walking again.</p>
     <p>I smile wryly, simultaneously glad to have them, and frustrated at their refusal to rest. Well, it is what it is.</p>
