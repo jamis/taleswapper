@@ -2,9 +2,12 @@ import { Controller } from "@hotwired/stimulus"
 import { DirectUpload } from "@rails/activestorage"
 
 const AsideFormatter = 'ts-aside-formatter';
+const BlockParagraphFormatter = 'ts-block-paragraph-formatter';
+
 const AsideButton = 'ts-aside-btn';
 const TrackerButton = 'ts-tracker-btn';
 const ImageButton = 'ts-image-btn';
+const BlockParagraphButton = 'ts-block-para-btn';
 
 const MaxImageSizeMB = 2;
 const MaxImageSize = MaxImageSizeMB * 1024 * 1024;
@@ -57,7 +60,7 @@ export default class extends Controller {
       setup: this.setupEditor.bind(this),
 
       plugins: 'link lists',
-      toolbar: `bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | numlist bullist | forecolor backcolor | link ${ImageButton} | ${AsideButton} ${TrackerButton}`,
+      toolbar: `bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | ${BlockParagraphButton} | numlist bullist | forecolor backcolor | link ${ImageButton} | ${AsideButton} ${TrackerButton}`,
       menubar: false,
     });
   }
@@ -89,12 +92,37 @@ export default class extends Controller {
       { block: 'aside', wrapper: true }
     );
 
-    this.editor.ui.registry.addButton(AsideButton, {
+    this.editor.formatter.register(BlockParagraphFormatter,
+      { block: 'p', classes: 'ts--block-para' }
+    );
+
+    this.editor.ui.registry.addToggleButton(AsideButton, {
       icon: 'comment',
       tooltip: 'Toggle Aside Block',
       onAction: () => {
         this.editor.formatter.toggle(AsideFormatter);
-      }
+      },
+      onSetup: (api) => {
+        // set the initial state of the button depending on the initial cursor position
+        api.setActive(this.editor.formatter.match(AsideFormatter));
+        // set up the handler to listen for changes in format as the cursor moves
+        const handler = this.editor.formatter.formatChanged(AsideFormatter, (state) => api.setActive(state));
+        // return the teardown function that unbinds the event listener
+        return () => handler.unbind();
+      },
+    });
+
+    this.editor.ui.registry.addToggleButton(BlockParagraphButton, {
+      icon: 'paragraph',
+      tooltip: 'Toggle Indented vs Block Paragraph',
+      onAction: () => {
+        this.editor.formatter.toggle(BlockParagraphFormatter);
+      },
+      onSetup: (api) => {
+        api.setActive(this.editor.formatter.match(BlockParagraphFormatter));
+        const handler = this.editor.formatter.formatChanged(BlockParagraphFormatter, (state) => api.setActive(state));
+        return () => handler.unbind();
+      },
     });
 
     this.editor.ui.registry.addButton(TrackerButton, {

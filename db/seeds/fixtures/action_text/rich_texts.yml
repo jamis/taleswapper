@@ -85,7 +85,7 @@ wulan_chapter1:
     <aside>
       <p>Ah! There's the background oath. Wulan has sworn to protect the people of this area. We'll get more details as we go, but I suspect there's some force that has been threatening them, perhaps one of the Firstborn tribes?</p>
       <p>I think this also is one of his beginning bonds, with the people of the Hinterlands (or, at least, those in the area immediately around him).</p>
-      <ts-tracker-updates data-updates="[{&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Vows&quot;,&quot;Protect the people of the Hinterlands&quot;],&quot;child&quot;:{&quot;Rank&quot;:{&quot;_type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;Epic&quot;},&quot;Progress&quot;:{&quot;_type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;0,0&quot;}}}, {&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;],&quot;child&quot;:{&quot;Bonds&quot;:{&quot;_type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;People of the Hinterlands&quot;}}}]"><ts-tracker-updates>
+      <ts-tracker-updates data-updates="[{&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Vows&quot;,&quot;Protect the people of the Hinterlands&quot;],&quot;child&quot;:{&quot;Rank&quot;:{&quot;_type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;Epic&quot;},&quot;Progress&quot;:{&quot;_type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;0,0&quot;}}}, {&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;],&quot;child&quot;:{&quot;Bonds&quot;:{&quot;_type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;People of the Hinterlands&quot;}}}]"></ts-tracker-updates>
     </aside>
     <p>"I will keep that oath," I say. "We will return, Artiga, and I will see to the people here in the Hinterlands. I've realized, though, that part of that oath is teaching them to defend themselves."</p>
     <p>When we finally reach the Irondale, the sun is warm upon us and we are both glad to finally sit and rest a moment. Below us, in the dale, are four black metal spikes, each one as tall as several men. The largest is wide enough at its base that I cannot reach my arms around it. The smallest is as thick as my thigh.</p>
@@ -95,7 +95,7 @@ wulan_chapter1:
     <aside>
       <p>Okay, first roll of the game. Wulan will <em>Swear an Iron Vow</em>. Though his sister isn't present, this is for her, and he does share a bond with her, so he gets +1. The roll, +heart, +1: 🎲6+2+1 = 9 vs 🎲2, 🎲6. That's a strong hit!</p>
       <p>"It is clear what you must do next... Take +2 momentum."</p>
-      <ts-tracker-updates data-updates="[{&quot;action&quot;:&quot;update&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Momentum&quot;],&quot;child&quot;:{&quot;Current&quot;:4}}]"><ts-tracker-updates>
+      <ts-tracker-updates data-updates="[{&quot;action&quot;:&quot;update&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Momentum&quot;],&quot;child&quot;:{&quot;Current&quot;:4}}]"></ts-tracker-updates>
       <p>He's got a new vow, now: "Find out what Nia needs, and help her." I'll make this a Formidable quest.</p>
       <ts-tracker-updates data-updates="[{&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Wulan&quot;,&quot;Vows&quot;,&quot;Find out what Nia needs, and help her&quot;],&quot;child&quot;:{&quot;Rank&quot;:{&quot;_type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;Formidable&quot;},&quot;Progress&quot;:{&quot;_type&quot;:&quot;int&quot;,&quot;value&quot;:&quot;0&quot;}}}]"></ts-tracker-updates>
     </aside>

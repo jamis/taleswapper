@@ -79,6 +79,10 @@
       @apply indent-0;
     }
 
+    p.ts--block-para {
+      @apply indent-0 my-4;
+    }
+
     ul {
       @apply list-disc my-4 ml-4;
     }

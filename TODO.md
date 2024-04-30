@@ -14,6 +14,7 @@ TODO:
   - editing any field of any table
   - moderating comments
 
+* Toggling block paragraphs off within an aside block doesn't behave well.
 * Editor
   - support sans-serif and monotype font selection
   - markdown-style shortcuts for certain things? (e.g. --- for mdash, etc)
