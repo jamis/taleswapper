@@ -1,6 +1,18 @@
 import { Controller } from "@hotwired/stimulus"
 import Handlebars from "handlebars"
 
+function prefixEq(a, b) {
+  if (!a || !b) return false;
+
+  const length = Math.min(a.length, b.length);
+
+  for (let i = 0; i < length; i++) {
+    if (a[i] != b[i]) return false;
+  }
+
+  return true;
+}
+
 export default class extends Controller {
   static targets = [ 'view', 'treeTemplate', 'leafTemplate' ];
 
@@ -21,12 +33,14 @@ export default class extends Controller {
   }
 
   treeContext(label, path, node, mode) {
+    let matched = prefixEq(this.savedPath, path);
+
     let context = {
       label,
       partial: 'tree',
-      state: 'closed',
-      toggle: '[+]',
-      childrenVisibility: 'hidden',
+      state: matched ? 'open' : 'closed',
+      toggle: matched ? '[-]' : '[+]',
+      childrenVisibility: matched ? '' : 'hidden',
       path: JSON.stringify(path)
     };
 
@@ -94,16 +108,16 @@ export default class extends Controller {
   }
 
   leafClicked(leaf) {
-    let path = JSON.parse(leaf.dataset.path);
+    this.savedPath = JSON.parse(leaf.dataset.path);
     let source = JSON.parse(leaf.dataset.source);
     let value = leaf.innerHTML;
-    this.callback(path, value, source);
+    this.callback(this.savedPath, value, source);
   }
 
   treeClicked(labelSlot) {
     let label = labelSlot.closest('.label');
-    let path = JSON.parse(label.dataset.path);
-    this.callback(path);
+    this.savedPath = JSON.parse(label.dataset.path);
+    this.callback(this.savedPath);
   }
 
   addGroupClicked(link) {

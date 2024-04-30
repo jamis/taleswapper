@@ -1,6 +1,5 @@
 TODO:
 
-* Tracker picker should remember your last selection, and automatically open to that path.
 * Bookmark feature (suggested by Eyes). Set a bookmark, attach an optional note to it.
 * It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.
 * Reset password feature
