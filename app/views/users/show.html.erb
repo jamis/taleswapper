@@ -1,4 +1,4 @@
-<div class="max-w-lg min-w-min mx-auto flex-col">
+<div class="max-w-lg min-w-min mx-auto flex-col pb-16">
   <div class="flex flex-row gap-3 items-center">
     <h1 class="text-2xl font-bold"><%= @user.display_name %></h1>
     <% if @user.creator? %>
@@ -33,6 +33,37 @@
           <% if story.archived? %>
             <span class="text-gray-400">(archived)</span>
           <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <h2 class="text-lg font-bold mt-8">Your Bookmarks</h2>
+
+  <% if @user.bookmarks.empty? %>
+    <p class="mt-2">You haven't set any bookmarks yet, but once you do, you can
+      find them all right here.</p>
+    <p class="mt-2">To set a bookmark, drag the bookmark from the top-right of
+      the page onto the paragraph that you want to mark. You'll be able to name
+      the bookmark, and add an optional description to it.</p>
+  <% else %>
+    <ul class="list-disc ml-8 mt-2">
+      <% data = @user.bookmarks.organized %>
+      <% data[:chapters_by_story].each do |story, chapters| %>
+        <li>
+          <%= link_to story.title, story, class: 'ts-link' %> (by <%= link_to story.creator.display_name, creator_path(story.creator), class: 'ts-link' %>)
+          <ul class="list-disc ml-8 mt-2">
+            <% chapters.each do |chapter| %>
+              <li class="mt-2">
+                <%= link_to chapter.title, chapter, class: 'ts-link' %>
+                <ul class="list-disc ml-8 mt-2">
+                  <% data[:bookmarks_by_chapter][chapter].each do |bookmark| %>
+                    <%= render bookmark %>
+                  <% end %>
+                </ul>
+              </li>
+            <% end %>
+          </ul>
         </li>
       <% end %>
     </ul>

@@ -1,0 +1,24 @@
+---
+session0_li:
+  user: jamis
+  chapter: wulan_session0
+  anchor: li_7
+  name: "Is this necessary?"
+  description: |
+    A parenthetical within a parenthetical, ultimately. Either remove the
+    parentheses, or remove the whole thing.
+session0_h2:
+  user: jamis
+  chapter: wulan_session0
+  anchor: h2_22
+  name: "Mysticism"
+  description: |
+    I'm excited for this take on magic.
+irondale_bookmark:
+  user: jamis
+  chapter: wulan_chapter1
+  anchor: p_63
+  name: "Irondale?"
+  description: |
+    "There is an Irondale an hour's walk from us..." I really kind of like
+    that term. I need to make sure I use it consistently...

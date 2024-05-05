@@ -1,0 +1,34 @@
+<div class="font-sans">
+  <%= dialog title: 'Add Bookmark', start: :closed, service_name: 'add-bookmark-dialog' do %>
+    <div class="px-4 py-2 flex flex-col">
+      <%= form_with model: [ Current.user, Bookmark.new(chapter_id: @chapter.id) ],
+            class: "group",
+            data: {
+              chapter_presenter_target: 'bookmarkForm',
+              action: "chapter-presenter#bookmarkSubmitted turbo:submit-end->chapter-presenter#bookmarkFinished"
+            } do |f| %>
+        <%= f.hidden_field :chapter_id %>
+        <%= f.hidden_field :anchor, data: { chapter_presenter_target: 'bookmarkAnchor' } %>
+        <div class="text-sm text-gray-500">
+          Name this bookmark:
+        </div>
+        <div>
+          <%= f.text_field :name, class: "w-full px-2 py-1", data: { chapter_presenter_target: "bookmarkName" } %>
+        </div>
+        <div class="text-sm text-gray-500 mt-2">
+          Describe this bookmark:
+        </div>
+        <div>
+          <%= f.text_area :description, class: "w-full h-40 px-2 py-1", data: { chapter_presenter_target: "bookmarkDescription" } %>
+        </div>
+        <div class="group-[[aria-busy]]:hidden flex flex-row items-baseline gap-4 mt-2">
+          <%= f.submit class: "ml-auto border border-blue-400 bg-blue-200 hover:bg-blue-300 rounded px-4 py-2", value: "Add this bookmark" %>
+          <a href="#" data-action="dialog#close:prevent" class="ts-cancel">Cancel</a>
+        </div>
+        <div class="hidden group-[[aria-busy]]:flex flex-row items-baseline gap-4 mt-2">
+          <div class="inline-block ml-auto border border-blue-400 bg-blue-200 rounded px-4 py-2">Saving...</div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

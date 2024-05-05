@@ -8,6 +8,7 @@ class Chapter < ApplicationRecord
   scope :starter, -> { where(start: true) }
 
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
 
   has_many :actions, foreign_key: :source_id, dependent: :destroy
   has_many :sequels, through: :actions, source: :target

@@ -1,6 +1,9 @@
 TODO:
 
-* Bookmark feature (suggested by Eyes). Set a bookmark, attach an optional note to it.
+* Need a way to get to the user profile page on mobile (currently hidden on small screens)
+* Dialogs are too narrow on mobile (see bookmark form for example)
+* Toolbar needs a way to select header (h1,h2,etc.)
+* Pasting into the editor creates divs (at least when the copied text came from VSCode...?)
 * It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.
 * Reset password feature
 * paragraphs following an <hr> should not be indented.

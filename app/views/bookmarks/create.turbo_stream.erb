@@ -1,0 +1,5 @@
+<%= turbo_stream.append @bookmark.anchor do %>
+  <%= link_to user_bookmark_path(@user, @bookmark), class: 'bookmark', data: { turbo_stream: true } do %>
+    <%= image_tag "bookmark.svg", class: "w-full h-full" %>
+  <% end %>
+<% end %>

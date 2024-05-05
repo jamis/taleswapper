@@ -1,0 +1,23 @@
+<%= turbo_stream.append_all 'body' do %>
+  <%= dialog title: 'Bookmarks', on_close: :remove do %>
+    <div class="px-4 py-4">
+      <% if @bookmarks.empty? %>
+        <p>You haven't set any bookmarks on this page yet. Once you do,
+          they'll show up here.</p>
+        <p class="mt-2">To set a bookmark, drag the bookmark you just clicked on to some
+          place in this chapter, and release it. A bookmark will be created
+          at that point.</p>
+        <div class="flex flex-row mt-4">
+          <button class="mx-auto rounded border border-blue-400 bg-blue-100 hover:bg-blue-200 px-8 py-1" data-action="dialog#close">OK</button>
+        </div>
+      <% else %>
+        <p>Bookmarks in this chapter:</p>
+        <ul class="list-disc ml-8 mt-2">
+          <% @bookmarks.each do |mark| %>
+            <%= render mark %>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

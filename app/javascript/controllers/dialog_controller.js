@@ -5,7 +5,8 @@ export default class extends Controller {
 
   static values = {
     state: { type: String, default: "closed" },
-    onClose: { type: String, default: "hide" }
+    onClose: { type: String, default: "hide" },
+    serviceName: String
   }
 
   static targets = [ "title" ];
@@ -15,10 +16,20 @@ export default class extends Controller {
   }
 
   connect() {
+    if (this.serviceNameValue.length > 0) {
+      window.TaleSwapper.Services.register(this.serviceNameValue, this);
+    }
+
     if (this.stateValue == "open")
       this.open();
     else
       this.close();
+  }
+
+  disconnect() {
+    if (this.serviceNameValue.length > 0) {
+      window.TaleSwapper.Services.unregister(this.serviceNameValue);
+    }
   }
 
   toggle() {

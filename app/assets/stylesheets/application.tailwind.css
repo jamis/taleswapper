@@ -100,6 +100,24 @@
       @apply my-4 ml-auto md:mr-4 min-w-[90%] md:min-w-[30%] w-1/2 max-w-prose;
       @apply text-gray-400;
     }
+
+    .bookmark-target {
+      @apply bg-yellow-50;
+    }
+
+    p, li, h1, h2, h3, h4, h5, h6 { @apply relative }
+
+    .bookmark {
+      @apply block absolute top-1 -left-6 w-4 h-8 cursor-pointer;
+    }
+
+    .bookmark:hover {
+      @apply contrast-75;
+    }
+
+    li .bookmark {
+      @apply -left-10;
+    }
   }
 
   .prose--traditional.prose--display > :not(aside,hr) {

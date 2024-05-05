@@ -2,19 +2,19 @@ test_story_chapter1:
   record: test_story_chapter1 (Chapter)
   name: content
   body: |
-    <p>Thus our story begins.</p>
+    <p id="p_1">Thus our story begins.</p>
     <ts-tracker-updates data-updates="[{&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Group&quot;],&quot;child&quot;:{&quot;Stat&quot;:{&quot;_type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;test&quot;}}}]"></ts-tracker-updates>
-    <p>Stay tuned for next time!</p>
+    <p id="p_2">Stay tuned for next time!</p>
 test_story_chapter2:
   record: test_story_chapter2 (Chapter)
   name: content
   body: |
-    <p>When last we left our hero...</p>
+    <p id="p_3">When last we left our hero...</p>
     <ts-tracker-updates data-updates="[{&quot;action&quot;:&quot;add&quot;,&quot;parent&quot;:[&quot;Group&quot;],&quot;child&quot;:{&quot;Other&quot;:{&quot;_type&quot;:&quot;bool&quot;,&quot;value&quot;:true}}},{&quot;action&quot;:&quot;update&quot;,&quot;parent&quot;:[&quot;Group&quot;],&quot;child&quot;:{&quot;Stat&quot;:&quot;changed&quot;}}]"></ts-tracker-updates>
-    <p>Will he make it? Find out next time!</p>
+    <p id="p_4">Will he make it? Find out next time!</p>
     <ts-image signed-id="<%= ActiveStorage::Blob.signed_id_verifier.generate(ActiveRecord::FixtureSet.identify(:test_story_chapter2_image_blob), purpose: :blob_id) %>" filename="hey.png" alt="alt text" caption="caption text" ack="ack text" width="200" height="100"></ts-image>
 test_story_chapter3:
   record: test_story_chapter3 (Chapter)
   name: content
   body: |
-    <p>The thrilling conclusion of our epic tale...</p>
+    <p id="p_5">The thrilling conclusion of our epic tale...</p>

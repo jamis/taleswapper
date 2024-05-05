@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resource :track_sheet
     resources :comments, only: %i[ create ]
     resources :sequels, only: %i[ new create ]
+    resources :bookmarks, only: %i[ index ]
 
     member do
       post :publish
@@ -37,6 +38,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :subscriptions
+    resources :bookmarks
 
     member do
       get :pending

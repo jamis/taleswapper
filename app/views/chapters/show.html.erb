@@ -1,6 +1,22 @@
 <% crumbs_for @chapter %>
 
-<div class="font-serif">
+<div class="font-serif"
+     data-controller="chapter-presenter"
+     data-chapter-presenter-bookmarks-value="<%= bookmarks_for(Current.user, @chapter) %>"
+     data-chapter-presenter-add-bookmark-service-value="add-bookmark-dialog"
+     data-chapter-presenter-bookmark-image-path-value="<%= image_path('bookmark.svg') %>"
+     data-action="turbo:load@document->chapter-presenter#checkLocationHash hashchange@window->chapter-presenter#checkLocationHash">
+  <% if authenticated? %>
+    <%= link_to chapter_bookmarks_path(@chapter),
+          class: "fixed right-16 top-[28px] w-8 h-16 cursor-pointer z-20 touch-none select-none hover:contrast-75",
+          data: {
+            turbo_stream: true,
+            chapter_presenter_target: "bookmark",
+            action: "chapter-presenter#considerBookmarkClick"
+          } do %>
+      <%= image_tag "bookmark.svg", class: 'w-full h-full' %>
+    <% end %>
+  <% end %>
   <div class="max-w-prose mx-auto mb-4">
     <div class="text-lg">
       <%= link_to @story.creator.display_name, creator_path(@story.creator), class: "ts-link" %>
@@ -67,10 +83,14 @@
     <hr class="my-6" />
   </div>
 
-  <% cache @chapter do %>
-    <div data-controller="track-sheet-manager" data-track-sheet-manager-source-value="<%= @chapter.track_sheet.definition.to_json %>" class="prose--traditional prose--display mt-4">
-      <%= @chapter.content %>
-    </div>
+  <div data-controller="track-sheet-manager"
+       data-track-sheet-manager-source-value="<%= @chapter.track_sheet.definition.to_json %>"
+       class="prose--traditional prose--display mt-4">
+    <%= @chapter.content %>
+  </div>
+
+  <% if authenticated? %>
+    <%= render "bookmarks/new" %>
   <% end %>
 </div>
 

@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :stories, foreign_key: 'creator_id'
   has_many :tracker_templates, foreign_key: 'creator_id'
   has_many :comments
+  has_many :bookmarks, dependent: :destroy
 
   scope :creators, -> { where(creator: true) }
   scope :confirmed, -> { where.not(confirmed_at: nil) }

@@ -12,6 +12,8 @@ const BlockParagraphButton = 'ts-block-para-btn';
 const MaxImageSizeMB = 2;
 const MaxImageSize = MaxImageSizeMB * 1024 * 1024;
 
+const IDElements = new Set([ 'P', 'LI', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6' ]);
+
 export default class extends Controller {
   static targets = [
     "toolbar", "editor", "content",
@@ -54,7 +56,7 @@ export default class extends Controller {
       fixed_toolbar_container_target: this.toolbarTarget,
       toolbar_persist: true,
 
-      extended_valid_elements: 'ts-tracker-updates[class|data-updates],ts-image[signed-id|filename|alt|caption|ack|width|height]',
+      extended_valid_elements: `ts-tracker-updates[id|class|data-updates],ts-image[id|signed-id|filename|alt|caption|ack|width|height]`,
       custom_elements: 'ts-tracker-updates,ts-image',
 
       setup: this.setupEditor.bind(this),
@@ -77,14 +79,15 @@ export default class extends Controller {
     }
   }
 
-  initEditorInstance(editor) {
-    this.setupFeatures(editor);
+  initEditorInstance(event) {
+    this.setupFeatures(event.target);
   }
 
   setupEditor(editor) {
     this.editor = editor;
 
     editor.on('init', this.initEditorInstance.bind(this));
+    editor.on('NewBlock', this.onNewBlock.bind(this));
   }
 
   setupFeatures() {
@@ -141,6 +144,13 @@ export default class extends Controller {
       tooltip: 'Insert an image',
       onAction: this.showImagePicker.bind(this)
     });
+  }
+
+  onNewBlock(event) {
+    if (IDElements.has(event.newBlock.tagName)) {
+      const prefix = event.newBlock.tagName.toLowerCase();
+      event.newBlock.id = `${prefix}_${Date.now()}`;
+    }
   }
 
   showImagePicker() {
@@ -216,8 +226,5 @@ export default class extends Controller {
     const pct = Math.round(100 * event.loaded / event.total) + '%';
     this.progressBarTarget.style.width = pct;
     this.progressPercentTarget.textContent = pct;
-
-    event.loaded
-    event.total
   }
 }
