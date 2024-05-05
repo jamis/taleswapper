@@ -43,13 +43,20 @@
   <script type="text/x-handlebars-template" data-track-sheet-updates-display-renderer-target='addCard'>
     <div class="border border-blue-500 rounded-lg w-48 flex flex-col overflow-hidden">
       <div class="px-2 py-0 font-bold text-white bg-blue-500">{{name}}</div>
-      <div class="p-2 text-sm grow markdown h-full bg-blue-50">{{value}}</div>
+      <div class="p-2 text-sm grow markdown text-black h-full bg-blue-50">{{value}}</div>
     </div>
   </script>
 
   <script type="text/x-handlebars-template" data-track-sheet-updates-display-renderer-target='addValue'>
     <div class="border rounded-lg bg-blue-50 border-blue-400 text-black px-2 py-1">
       {{name}}: <span class="font-bold">{{value}}</span>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" data-track-sheet-updates-display-renderer-target='updateCard'>
+    <div class="border border-blue-500 rounded-lg w-48 flex flex-col overflow-hidden">
+      <div class="px-2 py-0 font-bold text-white bg-blue-500">{{name}}</div>
+      <div class="p-2 text-sm grow markdown text-black h-full bg-blue-50">{{value}}</div>
     </div>
   </script>
 

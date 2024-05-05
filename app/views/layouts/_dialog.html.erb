@@ -3,7 +3,7 @@
      data-action="keydown.esc->dialog#close:prevent"
      data-dialog-state-value="<%= state %>"
      data-dialog-on-close-value="<%= on_close %>"
-     data-dialog-service-name-value="<%= service_name %>"
+     data-dialog-service-name-value="<%= local_assigns[:service_name] %>"
      data-dialog-hidden-class="hidden"
      class="<%= 'hidden' if state == :closed %>">
   <div class="z-40 fixed top-0 left-0 w-full h-screen bg-black opacity-20"></div>
