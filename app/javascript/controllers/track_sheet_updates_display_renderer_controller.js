@@ -74,8 +74,9 @@ export default class extends TrackSheetUpdatesRendererController {
   contextFor_update_card(name, prop, update) {
     let prior = prop.value;
     let value = update.child[name];
+    let formatted = new Handlebars.SafeString(DOMPurify.sanitize(marked.parse(value)));
 
-    return { partial: 'updateCard', data: { name, prior, value } };
+    return { partial: 'updateCard', data: { name, value: formatted } };
   }
 
   contextFor_update_value(name, prop, update) {
