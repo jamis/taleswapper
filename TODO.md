@@ -1,6 +1,5 @@
 TODO:
 
-* Toolbar needs a way to select header (h1,h2,etc.)
 * Pasting into the editor creates divs (at least when the copied text came from VSCode...?)
 * It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.
 * Need a way to get to the user profile page on mobile (currently hidden on small screens)

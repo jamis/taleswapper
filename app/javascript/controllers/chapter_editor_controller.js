@@ -62,7 +62,7 @@ export default class extends Controller {
       setup: this.setupEditor.bind(this),
 
       plugins: 'link lists',
-      toolbar: `bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | ${BlockParagraphButton} | numlist bullist | forecolor backcolor | link ${ImageButton} | ${AsideButton} ${TrackerButton}`,
+      toolbar: `styles | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | ${BlockParagraphButton} | numlist bullist | forecolor backcolor | link ${ImageButton} | ${AsideButton} ${TrackerButton}`,
       menubar: false,
     });
   }

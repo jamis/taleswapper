@@ -70,6 +70,10 @@
       @apply text-xl;
     }
 
+    blockquote {
+      @apply px-8 md:px-16 my-4;
+    }
+
     p {
       /* hyphens-auto requires a lang attribute on the element */
       @apply indent-4 hyphens-auto text-justify;
