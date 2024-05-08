@@ -1,5 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { DirectUpload } from "@rails/activestorage"
+import DOMPurify from "dompurify";
+import RTF from "../rtf"
 
 const AsideFormatter = 'ts-aside-formatter';
 const BlockParagraphFormatter = 'ts-block-paragraph-formatter';
@@ -11,8 +13,6 @@ const BlockParagraphButton = 'ts-block-para-btn';
 
 const MaxImageSizeMB = 2;
 const MaxImageSize = MaxImageSizeMB * 1024 * 1024;
-
-const IDElements = new Set([ 'P', 'LI', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6' ]);
 
 export default class extends Controller {
   static targets = [
@@ -87,7 +87,7 @@ export default class extends Controller {
     this.editor = editor;
 
     editor.on('init', this.initEditorInstance.bind(this));
-    editor.on('NewBlock', this.onNewBlock.bind(this));
+    editor.on('paste', this.handlePaste.bind(this));
   }
 
   setupFeatures() {
@@ -144,13 +144,6 @@ export default class extends Controller {
       tooltip: 'Insert an image',
       onAction: this.showImagePicker.bind(this)
     });
-  }
-
-  onNewBlock(event) {
-    if (IDElements.has(event.newBlock.tagName)) {
-      const prefix = event.newBlock.tagName.toLowerCase();
-      event.newBlock.id = `${prefix}_${Date.now()}`;
-    }
   }
 
   showImagePicker() {
@@ -226,5 +219,47 @@ export default class extends Controller {
     const pct = Math.round(100 * event.loaded / event.total) + '%';
     this.progressBarTarget.style.width = pct;
     this.progressPercentTarget.textContent = pct;
+  }
+
+  handlePaste(event) {
+    let html, rtf, plain;
+    Array.from(event.clipboardData.items).forEach(item => {
+      if (item.type === "text/html") html = item;
+      else if (item.type === "text/rtf") rtf = item;
+      else if (item.type === "text/plain") plain = item;
+    });
+
+    if (html || rtf || plain) {
+      event.preventDefault();
+
+      if (html) return this.handleHtmlPaste(html);
+      if (rtf) return this.handleRtfPaste(rtf);
+      if (plain) return this.handlePlainPaste(plain);
+    }
+  }
+
+  handleHtmlPaste(html) {
+    html.getAsString(string => {
+      const result = DOMPurify.sanitize(string);
+      this.insertHTMLContent(result);
+    });
+  }
+
+  handleRtfPaste(rtf) {
+    rtf.getAsString(string => {
+      const html = RTF.toHTML(string);
+      this.insertHTMLContent(html);
+    });
+  }
+
+  handlePlainPaste(text) {
+    text.getAsString(string => {
+      const html = string.replaceAll(/[^\n]+/g, match => `<p>${match}</p>`);
+      this.insertHTMLContent(html);
+    });
+  }
+
+  insertHTMLContent(html) {
+    this.editor.insertContent(html);
   }
 }

@@ -1,6 +1,6 @@
 TODO:
 
-* Pasting into the editor creates divs (at least when the copied text came from VSCode...?)
+* would be nice to have a "save" button in the editor toolbar, maybe?
 * It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.
 * Need a way to get to the user profile page on mobile (currently hidden on small screens)
 * Reset password feature
@@ -14,8 +14,8 @@ TODO:
   - converting a user to a creator
   - editing any field of any table
   - moderating comments
+* Pasting images into the document
 
-* Toggling block paragraphs off within an aside block doesn't behave well.
 * Editor
   - support sans-serif and monotype font selection
   - markdown-style shortcuts for certain things? (e.g. --- for mdash, etc)

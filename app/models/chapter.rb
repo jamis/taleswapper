@@ -1,4 +1,7 @@
 class Chapter < ApplicationRecord
+  BOOKMARKABLE_BLOCKS = %w[ p li h1 h2 h3 h4 h5 h6 ]
+  BOOKMARKABLE_BLOCKS_SELECTOR = BOOKMARKABLE_BLOCKS.join(',')
+
   include Announceable
 
   belongs_to :story
@@ -39,6 +42,7 @@ class Chapter < ApplicationRecord
   before_save :set_default_title
   before_create :possibly_set_start
   before_create :setup_records
+  before_save :identify_bookmarkable_blocks
 
   after_save :touch_story
   after_touch :touch_story
@@ -230,5 +234,21 @@ class Chapter < ApplicationRecord
     current_only.each do |blob_id|
       ActiveStorage::Attachment.create!(name: 'images', record: self, blob_id: blob_id);
     end
+  end
+
+  def identify_bookmarkable_blocks
+    count = 0
+    now = Time.now.to_i
+
+    new_fragment = content.body.fragment.replace(BOOKMARKABLE_BLOCKS_SELECTOR) do |node|
+      if node['id']
+        node
+      else
+        count += 1
+        node.tap { |n| n['id'] = "#{n.name}_#{now}_#{count}" }
+      end
+    end
+
+    self.content = new_fragment.to_html if count > 0
   end
 end
