@@ -3,7 +3,7 @@
     <div data-controller="tracker-picker" id="picker_<%= id %>" class="tracker-picker px-4 py-2">
       <script type="text/x-handlebars-template" data-tracker-picker-target="treeTemplate">
         <li>
-          <div data-state="{{state}}" data-path="{{path}}" class="label"><span class="toggle font-mono cursor-pointer">{{toggle}}</span> <span class="{{labelClasses}}">{{label}}</span> <span class="text-xs invisible group-hover:visible">[ <a href="#" class="ts-link add-group">new tracker group</a> ]</span></div>
+          <div data-state="{{state}}" data-path="{{path}}" class="label {{labelGroup}}"><span class="toggle font-mono cursor-pointer">{{toggle}}</span> <span class="{{labelClasses}}">{{label}}</span> <span class="text-xs invisible group-hover:visible">[ <a href="#" class="ts-link add-group">new tracker group</a> ]</span></div>
           <ul class="{{childrenVisibility}} ml-3 pl-2 border-l">
             {{#each children}}
               {{> (lookup . 'partial')}}

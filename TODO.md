@@ -1,7 +1,10 @@
 TODO:
 
-* would be nice to have a "save" button in the editor toolbar, maybe?
+* delete bookmarks from the list (because a bookmark may be orphaned)
+  - also, indicate somehow that a bookmark is orphaned.
+  - and somehow sort bookmarks by their position in the chapter
 * It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.
+  - in general, I should rethink the "new chapter" flow
 * Need a way to get to the user profile page on mobile (currently hidden on small screens)
 * Reset password feature
 * Tracker picker should allow searching for a tracker by typing its name
@@ -23,9 +26,7 @@ TODO:
 * Improve the "update card" display, using a diff algorithm to show what text has been added/removed. (perhaps https://github.com/deadusr/html-diff-ts)
 * Allow a reader to view the track sheet at top of chapter and after each update.
 * In chapter/edit, see the current state of the track sheet at each tracker update.
-* Formatting issue: lines can break BEFORE an emdash, which looks weird. Need to figure out how to avoid that, and only let lines break AFTER an emdash.
 * "new sequel" view might offer an optional full-screen view, perhaps with notes and trackers as side-bars, always open?
-* Resizable dialog boxes? Or maybe just make them generally larger?
 * Creators need to be able to moderate comments on their own content.
   - creators could specify how they want moderation done: no moderation, or require moderation (no comments shown that aren't approved).
 * Actually persist autosaves to the database, as well as to local storage.

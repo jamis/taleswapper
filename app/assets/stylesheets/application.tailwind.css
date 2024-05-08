@@ -115,7 +115,7 @@
       @apply bg-yellow-50;
     }
 
-    p, li, h1, h2, h3, h4, h5, h6 { @apply relative }
+    p, li, h1, h2, h3, h4, h5, h6, div { @apply relative }
 
     .bookmark {
       @apply block absolute top-1 -left-6 w-4 h-8 cursor-pointer;

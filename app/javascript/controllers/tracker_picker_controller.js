@@ -44,8 +44,9 @@ export default class extends Controller {
       path: JSON.stringify(path)
     };
 
-    if ((mode == 'add' || mode == 'pick-any') && path.length > 0) {
-      context.labelClasses = 'ts-link group cursor-pointer tree';
+    if (mode == 'add' || mode == 'pick-any') {
+      context.labelClasses = 'ts-link cursor-pointer tree';
+      context.labelGroup = 'group';
     }
 
     context.children = [];
@@ -91,17 +92,17 @@ export default class extends Controller {
   }
 
   toggleClicked(reference, mode) {
-    let label = reference.closest('.label');
-    let toggle = label.querySelector('.toggle');
-    let list = label.nextElementSibling;
-    let state = label.dataset.state;
+    let root = reference.closest('[data-state]');
+    let toggle = root.querySelector('.toggle');
+    let list = root.nextElementSibling;
+    let state = root.dataset.state;
 
-    if (mode == 'open' || (!mode && label.dataset.state == 'closed')) {
-      label.dataset.state = 'open';
+    if (mode == 'open' || (!mode && root.dataset.state == 'closed')) {
+      root.dataset.state = 'open';
       toggle.innerHTML = '[-]';
       list.classList.remove('hidden');
     } else {
-      label.dataset.state = 'closed';
+      root.dataset.state = 'closed';
       toggle.innerHTML = '[+]';
       list.classList.add('hidden');
     }
@@ -124,11 +125,14 @@ export default class extends Controller {
     let name = prompt('Choose a name for the group');
     if (!name) return;
 
-    let label = link.closest('.label');
-    let path = JSON.parse(label.dataset.path);
-    let list = label.nextElementSibling;
+    let group = link.closest('.group');
+    let path = JSON.parse(group.dataset.path);
+    let list = group.nextElementSibling;
 
-    this.renderTree(name, [ ...path, name ], {}, 'add', list);
+    const context = this.treeContext(name, [ ...path, name ], {}, 'add');
+    const html = this.treeTemplate(context);
+    list.insertAdjacentHTML('beforeend', html);
+
     this.toggleClicked(link, 'open');
   }
 }

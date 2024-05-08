@@ -24,6 +24,7 @@ task tinymce: "environment" do
     icons/default/icons.min.js
     plugins/link/plugin.min.js
     plugins/lists/plugin.min.js
+    plugins/save/plugin.min.js
     skins/ui/oxide/skin.min.css
     skins/ui/oxide/content.inline.min.css
   ].each do |file|

@@ -61,9 +61,11 @@ export default class extends Controller {
 
       setup: this.setupEditor.bind(this),
 
-      plugins: 'link lists',
-      toolbar: `styles | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | ${BlockParagraphButton} | numlist bullist | forecolor backcolor | link ${ImageButton} | ${AsideButton} ${TrackerButton}`,
+      plugins: 'link lists save',
+      toolbar: `save | styles | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | ${BlockParagraphButton} | numlist bullist | forecolor backcolor | link ${ImageButton} | ${AsideButton} ${TrackerButton}`,
       menubar: false,
+
+      save_onsavecallback: () => this.element.requestSubmit(),
     });
   }
 

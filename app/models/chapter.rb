@@ -1,5 +1,5 @@
 class Chapter < ApplicationRecord
-  BOOKMARKABLE_BLOCKS = %w[ p li h1 h2 h3 h4 h5 h6 ]
+  BOOKMARKABLE_BLOCKS = %w[ p li h1 h2 h3 h4 h5 h6 div ]
   BOOKMARKABLE_BLOCKS_SELECTOR = BOOKMARKABLE_BLOCKS.join(',')
 
   include Announceable
