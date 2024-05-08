@@ -4,7 +4,6 @@ TODO:
 * It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.
 * Need a way to get to the user profile page on mobile (currently hidden on small screens)
 * Reset password feature
-* paragraphs following an <hr> should not be indented.
 * Tracker picker should allow searching for a tracker by typing its name
 * Could there be some way to "bulk publish" multiple chapters simultaneously?
 * Notifications
@@ -22,9 +21,8 @@ TODO:
 * Banner image for (1) stories, and (2) chapters.
 * Autosave for chapters#edit
 * Improve the "update card" display, using a diff algorithm to show what text has been added/removed. (perhaps https://github.com/deadusr/html-diff-ts)
-* Reordering sections
 * Allow a reader to view the track sheet at top of chapter and after each update.
-* In chapter/edit, see the current state of the track sheet at each section.
+* In chapter/edit, see the current state of the track sheet at each tracker update.
 * Formatting issue: lines can break BEFORE an emdash, which looks weird. Need to figure out how to avoid that, and only let lines break AFTER an emdash.
 * "new sequel" view might offer an optional full-screen view, perhaps with notes and trackers as side-bars, always open?
 * Resizable dialog boxes? Or maybe just make them generally larger?
