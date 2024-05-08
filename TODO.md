@@ -3,6 +3,7 @@ TODO:
 * delete bookmarks from the list (because a bookmark may be orphaned)
   - also, indicate somehow that a bookmark is orphaned.
   - and somehow sort bookmarks by their position in the chapter
+* automatically wrap ts-image and ts-tracker-updates in a div, unless they are already in a div. (This makes them bookmarkable.)
 * It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.
   - in general, I should rethink the "new chapter" flow
 * Need a way to get to the user profile page on mobile (currently hidden on small screens)
@@ -16,7 +17,7 @@ TODO:
   - converting a user to a creator
   - editing any field of any table
   - moderating comments
-* Pasting images into the document
+* Drag/drop images into the document.
 
 * Editor
   - support sans-serif and monotype font selection

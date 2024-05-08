@@ -159,7 +159,10 @@ export default class extends Controller {
   // <ts-image src="..." alt="..." caption="..." ack="..."></ts-image>
   imagePicked(event) {
     const file = event.target.files[0];
+    this.tryUploadFile(file);
+  }
 
+  tryUploadFile(file) {
     if (!file.type.startsWith('image/')) {
       alert("That doesn't look like an image. Please choose a different one.");
       return;
@@ -224,11 +227,13 @@ export default class extends Controller {
   }
 
   handlePaste(event) {
-    let html, rtf, plain;
+    let html, rtf, plain, image;
     Array.from(event.clipboardData.items).forEach(item => {
       if (item.type === "text/html") html = item;
       else if (item.type === "text/rtf") rtf = item;
       else if (item.type === "text/plain") plain = item;
+      else if (item.type.startsWith("image/")) image = item;
+      else console.log('clipboard data', item, 'has type', item.type);
     });
 
     if (html || rtf || plain) {
@@ -236,7 +241,11 @@ export default class extends Controller {
 
       if (html) return this.handleHtmlPaste(html);
       if (rtf) return this.handleRtfPaste(rtf);
-      if (plain) return this.handlePlainPaste(plain);
+      return this.handlePlainPaste(plain);
+
+    } else if (image) {
+      event.preventDefault();
+      return this.handleImagePaste(image);
     }
   }
 
@@ -259,6 +268,11 @@ export default class extends Controller {
       const html = string.replaceAll(/[^\n]+/g, match => `<p>${match}</p>`);
       this.insertHTMLContent(html);
     });
+  }
+
+  handleImagePaste(image) {
+    const file = image.getAsFile();
+    this.tryUploadFile(file);
   }
 
   insertHTMLContent(html) {
