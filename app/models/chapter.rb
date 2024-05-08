@@ -237,6 +237,8 @@ class Chapter < ApplicationRecord
   end
 
   def identify_bookmarkable_blocks
+    return unless content.body
+
     count = 0
     now = Time.now.to_i
 
