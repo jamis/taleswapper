@@ -90,6 +90,7 @@ export default class extends Controller {
 
     editor.on('init', this.initEditorInstance.bind(this));
     editor.on('paste', this.handlePaste.bind(this));
+    editor.on('drop', this.handleDrop.bind(this));
   }
 
   setupFeatures() {
@@ -271,6 +272,26 @@ export default class extends Controller {
   }
 
   handleImagePaste(image) {
+    const file = image.getAsFile();
+    this.tryUploadFile(file);
+  }
+
+  handleDrop(event) {
+    let image;
+
+    // we *could* allow multiple images to be dragged at once, but the upload
+    // progress dialog isn't configured for that yet. For now, just accept the
+    // first dropped image.
+    Array.from(event.dataTransfer.items).forEach(item => {
+      if (item.type.startsWith('image/')) {
+        image = item;
+        break;
+      }
+    });
+
+    if (!image) return;
+
+    event.preventDefault();
     const file = image.getAsFile();
     this.tryUploadFile(file);
   }

@@ -17,7 +17,6 @@ TODO:
   - converting a user to a creator
   - editing any field of any table
   - moderating comments
-* Drag/drop images into the document.
 
 * Editor
   - support sans-serif and monotype font selection
