@@ -56,11 +56,24 @@
             <% chapters.each do |chapter| %>
               <li class="mt-2">
                 <%= link_to chapter.title, chapter, class: 'ts-link' %>
-                <ul class="list-disc ml-8 mt-2">
-                  <% data[:bookmarks_by_chapter][chapter].each do |bookmark| %>
-                    <%= render bookmark %>
-                  <% end %>
-                </ul>
+                <% chapter_data = data[:bookmarks_by_chapter][chapter] %>
+                <% if chapter_data[:marks].any? %>
+                  <ul class="list-disc ml-8 mt-2">
+                    <% chapter_data[:marks].each do |bookmark| %>
+                      <%= render bookmark %>
+                    <% end %>
+                  </ul>
+                <% end %>
+                <% if chapter_data[:orphans].any? %>
+                  <p class="mt-2">The following bookmarks refer to text that
+                    has either been removed or edited. They are retained here
+                    for your own reference.</p>
+                  <ul class="list-disc ml-8 mt-2">
+                    <% chapter_data[:orphans].each do |bookmark| %>
+                      <%= render bookmark, link: false %>
+                    <% end %>
+                  </ul>
+                <% end %>
               </li>
             <% end %>
           </ul>

@@ -1,7 +1,8 @@
 <%= turbo_stream.append_all 'body' do %>
   <%= dialog title: 'Bookmarks', on_close: :remove do %>
     <div class="px-4 py-4">
-      <% if @bookmarks.empty? %>
+      <% data = @bookmarks[:bookmarks_by_chapter][@chapter] %>
+      <% if !data %>
         <p>You haven't set any bookmarks on this page yet. Once you do,
           they'll show up here.</p>
         <p class="mt-2">To set a bookmark, drag the bookmark you just clicked on to some
@@ -12,11 +13,27 @@
         </div>
       <% else %>
         <p>Bookmarks in this chapter:</p>
-        <ul class="list-disc ml-8 mt-2">
-          <% @bookmarks.each do |mark| %>
-            <%= render mark %>
-          <% end %>
-        </ul>
+
+        <% if data[:marks].any? %>
+          <ul class="list-disc ml-8 mt-2">
+            <% data[:marks].each do |mark| %>
+              <%= render mark %>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <% if data[:orphans].any? %>
+          <p class="mt-2">
+            The following bookmarks refer to text that has either been edited
+            or removed. They are retained here for your own reference.
+          </p>
+
+          <ul class="list-disc ml-8 mt-2">
+            <% data[:orphans].each do |mark| %>
+              <%= render mark, link: false %>
+            <% end %>
+          </ul>
+        <% end %>
       <% end %>
     </div>
   <% end %>

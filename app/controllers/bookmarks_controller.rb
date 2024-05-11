@@ -5,7 +5,7 @@ class BookmarksController < ApplicationController
   before_action :require_self
 
   def index
-    @bookmarks = @user.bookmarks.where(chapter: @chapter)
+    @bookmarks = @user.bookmarks.where(chapter: @chapter).organized
   end
 
   def create

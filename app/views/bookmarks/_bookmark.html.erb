@@ -1,6 +1,15 @@
-<li class="mt-2 max-w-prose">
-  <p><%= link_to bookmark.name, chapter_path(bookmark.chapter, anchor: 'bookmark_' + bookmark.anchor), class: 'ts-link', data: { action: 'dialog#close' } %></p>
-  <% if bookmark.description.present? %>
-    <p class="text-nowrap text-ellipsis overflow-hidden w-full text-sm italic text-gray-400"><%= bookmark.description %></p>
+<li class="mt-2 max-w-prose group" id="<%= dom_id(bookmark) %>">
+  <%= form_with model: bookmark, method: :delete do |f| %>
+    <p>
+      <% if local_assigns.key?(:link) && !local_assigns[:link] %>
+        <%= bookmark.name %>
+      <% else %>
+        <%= link_to bookmark.name, chapter_path(bookmark.chapter, anchor: 'bookmark_' + bookmark.anchor), class: 'ts-link', data: { action: 'dialog#close' } %>
+      <% end %>
+      <span class="hidden group-hover:inline">[ <%= f.submit 'delete', class: 'cursor-pointer ts-cancel' %> ]</span>
+    </p>
+    <% if bookmark.description.present? %>
+      <p class="text-nowrap text-ellipsis overflow-hidden w-full text-sm italic text-gray-400"><%= bookmark.description %></p>
+    <% end %>
   <% end %>
 </li>

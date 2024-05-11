@@ -125,6 +125,10 @@ class Chapter < ApplicationRecord
     content.to_s.scan(/\w+/).count
   end
 
+  def block_anchors
+    content.to_s.scan(/\bid="(.*?)"/).map(&:first)
+  end
+
   def time_to_read(wpm = 250)
     word_count / wpm.to_f
   end

@@ -277,16 +277,11 @@ export default class extends Controller {
   }
 
   handleDrop(event) {
-    let image;
-
     // we *could* allow multiple images to be dragged at once, but the upload
     // progress dialog isn't configured for that yet. For now, just accept the
     // first dropped image.
-    Array.from(event.dataTransfer.items).forEach(item => {
-      if (item.type.startsWith('image/')) {
-        image = item;
-        break;
-      }
+    const image = Array.from(event.dataTransfer.items).find(item => {
+      return item.type.startsWith('image/');
     });
 
     if (!image) return;
