@@ -157,7 +157,6 @@ export default class extends Controller {
     input.click();
   }
 
-  // <ts-image src="..." alt="..." caption="..." ack="..."></ts-image>
   imagePicked(event) {
     const file = event.target.files[0];
     this.tryUploadFile(file);
@@ -188,9 +187,6 @@ export default class extends Controller {
       }
 
       promise.then(data => {
-        // TODO: ensure we create a new block context here (or are
-        // already in a clean block context) before we insert this
-        // tag.
         const filename = blob.filename.replace('"', "&quot;");
         const defn = `<ts-image signed-id="${blob.signed_id}" filename="${filename}" width="${data.width}" height="${data.height}"></ts-image>`;
         this.editor.insertContent(defn);
