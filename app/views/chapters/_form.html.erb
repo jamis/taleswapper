@@ -19,7 +19,9 @@
 
   <div class="editor-container mt-4" data-controller="track-sheet-manager" data-track-sheet-manager-source-value="<%= @chapter.track_sheet.definition.to_json %>">
     <%= f.hidden_field :content, value: chapter_content(chapter), data: { chapter_editor_target: 'content' } %>
-    <div class="toolbar" data-chapter-editor-target="toolbar"></div>
+    <div class="toolbar" data-chapter-editor-target="toolbar">
+      <div data-chapter-editor-target="loadingIndicator" class="text-sm text-green-500 font-bold bg-green-50 border border-green-300 px-4 py-2">The editor is loading, please wait...</div>
+    </div>
     <div class="editor prose--traditional" data-chapter-editor-target="editor"></div>
   </div>
 

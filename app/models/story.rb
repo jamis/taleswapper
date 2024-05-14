@@ -13,6 +13,19 @@ class Story < ApplicationRecord
   scope :archived, -> { where.not(archived_at: nil) }
   scope :published, -> { joins(:chapters).where('chapters.published_at <= ?', Time.now).distinct }
 
+  class <<self
+    # Return a list of all ActiveStorage::Attachments related to the stories in
+    # the current scope.
+    def attachments
+      ActiveStorage::Attachment.where(record: all).or(ActiveStorage::Attachment.where(record: Chapter.where(story: all)))
+    end
+  end
+
+  # Return a list of all ActiveStorage::Attachments related to this story.
+  def attachments
+    ActiveStorage::Attachment.where(record: self).or(ActiveStorage::Attachment.where(record: chapters))
+  end
+
   def long_title
     if subtitle.present?
       "#{title} (#{subtitle})"

@@ -1,0 +1,5 @@
+<% if container.banner.present? %>
+  <%= render "banners/banner", container: container, editable: editable %>
+<% else %>
+  <%= render "banners/blank", url: polymorphic_banner_path(container, :new) %>
+<% end %>

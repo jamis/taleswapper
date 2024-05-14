@@ -1,0 +1,12 @@
+<%= turbo_frame_tag :banner do %>
+  <%= form_with url: polymorphic_banner_path(@container), scope: @container, method: :patch, data: { controller: 'banner-picker', action: 'change->banner-picker#submit' } do |f| %>
+    <div class="w-full border-b border-yellow-300 bg-yellow-50 pt-8 mb-4 h-[25vw] min-h-[33vh] max-h-[50vh] flex flex-row flex-wrap justify-center items-center gap-2 overflow-y-scroll">
+      <% @blobs.each do |blob| %>
+        <label class="block w-24 h-24 border border-black hover:ring-blue-400 hover:ring-2 hover:ring-offset-2 rounded cursor-pointer bg-cover bg-center opacity-50 hover:opacity-100" style="background-image: url('<%= blob.url %>');">
+          <%= f.radio_button :banner, blob.signed_id, class: 'relative opacity-0 -z-10' %>
+        </label>
+      <% end %>
+      <%= link_to "Cancel", polymorphic_banner_path(@container), class: "block text-center basis-2 w-24 h-24 pt-8 cursor-pointer ts-cancel" %>
+    </div>
+  <% end %>
+<% end %>

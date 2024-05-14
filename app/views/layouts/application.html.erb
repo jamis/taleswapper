@@ -30,14 +30,14 @@
               <span class="mx-3">|</span>
             </span>
             <%= form_with url: session_path, method: :delete do |form| %>
-              <%= form.submit "Sign out", class: "ts-link cursor-pointer" %>
+              <%= form.submit "Sign out", class: "text-nowrap ts-link cursor-pointer" %>
             <% end %>
           <% else %>
             <span>
-            <%= link_to "Sign in", new_session_path, class: "ts-link" %>
+              <%= link_to "Sign in", new_session_path, class: "text-nowrap ts-link" %>
               <span class="hidden md:inline">
                 or
-                <%= link_to "Sign up", new_user_path, class: "ts-link" %>
+                <%= link_to "Sign up", new_user_path, class: "text-nowrap ts-link" %>
               </span>
             </span>
           <% end %>
@@ -46,13 +46,15 @@
       <%= yield :subheader %>
     </header>
 
+    <%= yield :banner %>
+
     <% if flash[:notice] %>
-      <div class="mt-16 border border-yellow-400 bg-yellow-50 rounded-lg px-6 py-2 w-1/2 m-auto">
+      <div class="<%= top_padding %> border border-yellow-400 bg-yellow-50 rounded-lg px-6 py-2 w-1/2 m-auto">
         <%= flash[:notice] %>
       </div>
     <% end %>
 
-    <main class="<%= flash[:notice].present? ? 'mt-12' : 'mt-28' %> md:container px-6 md:mx-auto">
+    <main class="<%= flash[:notice].present? ? 'mt-8' : top_padding %> md:container px-6 md:mx-auto">
       <%= yield %>
     </main>
   </body>

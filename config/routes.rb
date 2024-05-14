@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     resources :comments, only: %i[ create ]
     resources :sequels, only: %i[ new create ]
     resources :bookmarks, only: %i[ index ]
+    resource :banner do
+      get :pick
+    end
 
     member do
       post :publish

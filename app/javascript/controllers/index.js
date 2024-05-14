@@ -1,5 +1,6 @@
 import "./application.js";
 
+import BannerPickerController from './banner_picker_controller.js';
 import BookmarkEditorController from './bookmark_editor_controller.js';
 import ChapterEditorController from './chapter_editor_controller.js';
 import ChapterPresenterController from './chapter_presenter_controller.js';
@@ -16,6 +17,7 @@ import TrackerPickerController from './tracker_picker_controller.js';
 import TrackerPickerServiceController from './tracker_picker_service_controller.js';
 import TriggerController from './trigger_controller.js';
 
+Stimulus.register("banner-picker", BannerPickerController);
 Stimulus.register("bookmark-editor", BookmarkEditorController);
 Stimulus.register("chapter-editor", ChapterEditorController);
 Stimulus.register("chapter-presenter", ChapterPresenterController);

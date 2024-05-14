@@ -1,4 +1,6 @@
 class ChaptersController < ApplicationController
+  include ActiveStorage::SetCurrent
+
   before_action :require_authentication, only: %i[ create edit update destroy publish revoke ]
   before_action :find_story, only: %i[ create ]
   before_action :find_chapter, only: %i[ show edit update destroy publish revoke ]

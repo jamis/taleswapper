@@ -8,7 +8,7 @@
      data-action="turbo:load@document->chapter-presenter#checkLocationHash hashchange@window->chapter-presenter#checkLocationHash">
   <% if authenticated? %>
     <%= link_to chapter_bookmarks_path(@chapter),
-          class: "fixed right-16 top-[28px] w-8 h-16 cursor-pointer z-20 touch-none select-none hover:contrast-75",
+          class: "fixed right-8 md:right-16 top-[28px] w-6 h-12 md:w-8 md:h-16 cursor-pointer z-20 touch-none select-none hover:contrast-75",
           data: {
             turbo_stream: true,
             chapter_presenter_target: "bookmark",
@@ -17,70 +17,73 @@
       <%= image_tag "bookmark.svg", class: 'w-full h-full' %>
     <% end %>
   <% end %>
-  <div class="max-w-prose mx-auto mb-4">
-    <div class="text-lg">
-      <%= link_to @story.creator.display_name, creator_path(@story.creator), class: "ts-link" %>
-      : <%= link_to @story.title, story_path(@story), class: "ts-link" %>
-    </div>
-    <div class="flex flex-row items-baseline">
-      <h1 class="text-2xl font-bold"><%= @chapter.title.presence || 'Untitled' %></h1>
-    </div>
-    <% if Current.user == @story.creator %>
-      <div class="mt-1 text-xs font-sans">
-        <% if @chapter.publishable? %>
-          <%= form_with url: publish_chapter_path(@chapter), class: "flex flex-row items-baseline gap-2" do |f| %>
-            <input type="submit" value="Publish this chapter" class="border rounded bg-blue-50 hover:bg-blue-100 border-blue-400 px-1.5 py-0.5" />
-            <% if @story.subscriber_count > 0 && !@chapter.announced? %>
-              <span>
-                <input type="checkbox" name="notify" value="notify" checked />
-                and notify <%= pluralize @story.subscriber_count, 'subscriber' %>
-              </span>
-            <% end %>
-          <% end %>
-        <% elsif !@chapter.published? %>
-          <span class="text-gray-500 italic">Chapter cannot be published until all previous chapters are published</span>
-        <% elsif @chapter.revokable? %>
-          <%= form_with url: revoke_chapter_path(@chapter) do |f| %>
-            <input type="submit" value="Unpublish this chapter" class="border rounded bg-yellow-50 border-yellow-400 px-1.5 py-0.5" />
-          <% end %>
-        <% else %>
-          <span class="text-gray-500 italic">Chapter cannot be unpublished until all subsequent chapters are unpublished</span>
-        <% end %>
-      </div>
+
+  <% if @chapter.banner.present? || Current.user == @story.creator %>
+    <% content_for :banner do %>
+      <% set_top_padding :none %>
+      <%= render 'banners/possible_banner', container: @chapter, editable: (Current.user == @story.creator) %>
     <% end %>
-    <div class="mt-4 text-sm flex flex-col gap-1">
-      <div class="flex flex-row gap-2">
-        <% if @chapter.published? %>
-          <span><%= @chapter.published_at.strftime("%A, %B %e, %Y") %></span>
-          &mdash;
-        <% else %>
-          <span class="text-red-600">[draft &mdash; not yet published]</span>
-        <% end %>
-        <% cache [ @chapter, :word_count ] do %>
-          <span>
-            <%= number_to_delimited(@chapter.word_count) %> words
-            (<%= distance_of_time_in_words(@chapter.time_to_read.minutes) %>)
-          </span>
-        <% end %>
-      </div>
-      <% if @chapter.prior_chapter.present? %>
+  <% end %>
+
+  <div class="max-w-prose mx-auto mb-4">
+    <div class="flex flex-row items-baseline">
+      <h1 class="text-3xl font-bold"><%= @chapter.title.presence || 'Untitled' %></h1>
+    </div>
+    <div class="text-sm flex flex-row gap-2">
+      <% if @chapter.published? %>
+        <span><%= @chapter.published_at.strftime("%A, %B %e, %Y") %></span>
+        &mdash;
+      <% else %>
+        <span class="text-red-600">[draft &mdash; not yet published]</span>
+      <% end %>
+      <% cache [ @chapter, :word_count ] do %>
         <span>
-          Flip back to <%= link_to(@chapter.prior_chapter.title.presence || 'the previous chapter', @chapter.prior_chapter, class: 'ts-link') %>
+          <%= number_to_delimited(@chapter.word_count) %> words
+          (<%= distance_of_time_in_words(@chapter.time_to_read.minutes) %>)
         </span>
       <% end %>
-      <% if Current.user == @story.creator %>
-        <span class="ml-auto font-sans">
+    </div>
+  </div>
+
+  <div class="max-w-prose mx-auto mb-4">
+    <%= render 'nav' %>
+
+    <% if Current.user == @story.creator %>
+      <div class="mt-1 mb-2 flex flex-row items-baseline gap-4">
+        <div class="mt-1 text-xs font-sans">
+          <% if @chapter.publishable? %>
+            <%= form_with url: publish_chapter_path(@chapter), class: "flex flex-row items-baseline gap-2" do |f| %>
+              <input type="submit" value="Publish this chapter" class="border rounded bg-blue-50 hover:bg-blue-100 border-blue-400 px-1.5 py-0.5" />
+              <% if @story.subscriber_count > 0 && !@chapter.announced? %>
+                <span>
+                  <input type="checkbox" name="notify" value="notify" checked />
+                  and notify <%= pluralize @story.subscriber_count, 'subscriber' %>
+                </span>
+              <% end %>
+            <% end %>
+          <% elsif !@chapter.published? %>
+            <button disabled class="border rounded text-gray-400 bg-gray-50 hover:bg-gray-100 border-gray-400 px-1.5 py-0.5 cursor-not-allowed" title="Chapters cannot be published until all previous chapters are published.">Publish this chapter</button>
+          <% elsif @chapter.revokable? %>
+            <%= form_with url: revoke_chapter_path(@chapter) do |f| %>
+              <input type="submit" value="Unpublish this chapter" class="border rounded bg-yellow-50 border-yellow-400 px-1.5 py-0.5" />
+            <% end %>
+          <% else %>
+            <button disabled class="border rounded text-gray-400 bg-gray-50 hover:bg-gray-100 border-gray-400 px-1.5 py-0.5 cursor-not-allowed" title="Chapters cannot be unpublished if any subsequent chapter is published.">Unpublish this chapter</button>
+          <% end %>
+        </div>
+
+        <div class="ml-auto font-sans text-sm">
           [
             <%= link_to "Edit", edit_chapter_path(@chapter), class: "ts-link" %> |
             <%= form_with url: chapter_path(@chapter), method: :delete, data: { turbo_confirm: "Really delete this chapter?" }, class: "inline" do |f| %>
               <%= f.submit "Delete", class: "ts-cancel cursor-pointer" %>
             <% end %>
           ]
-        </span>
-      <% end %>
-    </div>
+        </div>
+      </div>
 
-    <hr class="my-6" />
+      <hr class="mt-1 mb-6" />
+    <% end %>
   </div>
 
   <div data-controller="track-sheet-manager"
@@ -94,24 +97,15 @@
   <% end %>
 </div>
 
-<div class="max-w-prose mx-auto border-t border-dashed mt-4 pt-4">
+<div class="max-w-prose mx-auto mt-4">
   <% if !editable_story? && visible_sequels(@chapter).none? %>
-    <div class="italic mb-4">That's all for now, but stay tuned! <%= @story.creator.display_name %> could post more at any time.</div>
-  <% elsif visible_sequels(@chapter).any? %>
-    <% if editable_story? %>
-      <div>Your story continues with:</div>
-    <% else %>
-      <div>Don't go away! The story continues here:</div>
-    <% end %>
-    <ul class="ml-4 mt-2 mb-4">
-      <% visible_sequels(@chapter).each do |action| %>
-        <li>&rarr; <%= link_to action.prompt, chapter_path(action.target), class: "ts-link" %></li>
-      <% end %>
-    </ul>
+    <div class="italic pt-4 mb-4 border-t border-dashed">That's all for now, but stay tuned! <%= @story.creator.display_name %> could post more at any time.</div>
   <% end %>
 
+  <%= render 'nav' %>
+
   <% if editable_story? %>
-    <div class="mb-4">
+    <div class="mb-4 pt-4">
       <% if @chapter.actions.any? %>
         Or, you can branch your story from here. <%= link_to "Write an alternative chapter.", new_chapter_sequel_path(@chapter), class: "ts-link" %>
       <% else %>

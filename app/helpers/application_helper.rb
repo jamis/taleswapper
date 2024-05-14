@@ -1,4 +1,24 @@
 module ApplicationHelper
+  def set_top_padding(amount)
+    @top_padding = amount
+  end
+
+  def top_padding
+    if @top_padding == :none
+      if flash[:notice]
+        'mt-8'
+      else
+        nil
+      end
+    elsif @top_padding
+      @top_padding
+    elsif flash[:notice]
+      'mt-16'
+    else
+      'mt-28'
+    end
+  end
+
   def md(text)
     Kramdown::Document.new(text, auto_ids: false).to_html.html_safe
   end

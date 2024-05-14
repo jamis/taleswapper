@@ -25,15 +25,17 @@ export default class extends Controller {
   connect() {
     this.bookmarksValue.forEach(this.renderMark.bind(this));
 
-    interact(this.bookmarkTarget).draggable({
-      onstart: this.bookmarkDragStart.bind(this),
-      onmove: this.bookmarkDragMove.bind(this),
-      onend: this.bookmarkDragEnd.bind(this),
-    }).styleCursor(false);
+    if (this.hasBookmarkTarget) {
+      interact(this.bookmarkTarget).draggable({
+        onstart: this.bookmarkDragStart.bind(this),
+        onmove: this.bookmarkDragMove.bind(this),
+        onend: this.bookmarkDragEnd.bind(this),
+      }).styleCursor(false);
 
-    interact('.prose--traditional [id]').dropzone({
-      ondrop: this.bookmarkDrop.bind(this),
-    });
+      interact('.prose--traditional [id]').dropzone({
+        ondrop: this.bookmarkDrop.bind(this),
+      });
+    }
   }
 
   checkLocationHash(event) {

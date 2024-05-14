@@ -34,6 +34,7 @@ class Chapter < ApplicationRecord
 
   has_rich_text :content
   has_many_attached :images
+  has_one_attached :banner
 
   # a reference to the prequel chapter; used during sequel creation
   attr_accessor :prequel
@@ -56,11 +57,17 @@ class Chapter < ApplicationRecord
   accepts_nested_attributes_for :outline
   accepts_nested_attributes_for :story_notes
 
-  def self.create_sequel(params)
-    create!(prequel: params[:prequel],
-            uuid: params[:uuid],
-            outline_attributes: { contents: params[:contents] || '' },
-            story_notes_attributes: { contents: params[:story_notes] || '' })
+  class <<self
+    def create_sequel(params)
+      create!(prequel: params[:prequel],
+              uuid: params[:uuid],
+              outline_attributes: { contents: params[:contents] || '' },
+              story_notes_attributes: { contents: params[:story_notes] || '' })
+    end
+
+    def attachments
+      ActiveStorage::Attachment.where(record: all)
+    end
   end
 
   # TODO: Note that this does not fully implement "scheduled" publishing of
