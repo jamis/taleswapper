@@ -7,7 +7,7 @@ class BannersController < ApplicationController
 
   def create
     @container.update(container_params)
-    redirect_to polymorphic_banner_path(@container)
+    redirect_to polymorphic_banner_path(@container), flash: { created: true }
   end
 
   def pick
@@ -15,7 +15,14 @@ class BannersController < ApplicationController
   end
 
   def update
-    @container.update(container_params)
+    if params[:banner] # it's a metadata update
+      blob = @container.banner.blob
+      blob.metadata.update(metadata_params)
+      blob.save!
+    else # we're picking a banner from an existing image
+      @container.update(container_params)
+    end
+
     redirect_to polymorphic_banner_path(@container)
   end
 
@@ -32,6 +39,10 @@ class BannersController < ApplicationController
 
   def container_params
     params.require(container_label).permit(:banner)
+  end
+
+  def metadata_params
+    params.require(:banner).permit(:ts_alt, :ts_credits)
   end
 
   def load_container

@@ -1,6 +1,7 @@
 TODO:
 
-* Banner images should have alt text, and credits.
+* When uploading a new banner, the banner should immediately display with the edit form open.
+* When banner has credit text, we don't need as much margin between banner and chapter title.
 * Datestamp on chapters doesn't need day of the week
   - could be just a relative date, but then clicking it reveals the precise date
 * When selecting an image, allow to choose between a new file, and any of the images that already exist in any chapter of the user's stories.

@@ -1,0 +1,29 @@
+<%= turbo_frame_tag :banner_edit do %>
+  <div class="absolute top-12 left-0 w-full" data-controller="deletable" data-deletable-confirm-value="Really remove this banner?">
+    <%= form_with url: polymorphic_banner_path(container), scope: :banner, method: :patch, class: 'flex flex-row gap-2', data: { deletable_target: 'form', turbo_frame: 'banner' } do |f| %>
+      <div class="w-1/2 mx-auto bg-gray-100 p-4 rounded-lg border border-black shadow-lg shadow-gray-300">
+        <h1 class="font-bold">Describe this banner</h1>
+        <div class="text-xs mb-2">
+          The alt text and image credits will be used every where this banner is displayed.
+        </div>
+        <div class="flex flex-col">
+          <%= f.label :ts_alt, "Alt text (not shown, but used by screen readers)", class: 'text-sm text-gray-400' %>
+          <%= f.text_field :ts_alt, value: container.banner.metadata[:ts_alt], placeholder: 'Describe what this image depicts', class: "px-2 py-1" %>
+        </div>
+        <div class="mt-2 flex flex-col">
+          <%= f.label :ts_credits, "Image credits (please give credit where credit is due!)", class: 'text-sm text-gray-400' %>
+          <%= f.text_field :ts_credits, value: container.banner.metadata[:ts_credits], placeholder: 'Image painted by...', class: "px-2 py-1" %>
+          <div class="text-xs text-gray-400">You may use markdown syntax to format this field.</div>
+        </div>
+        <div class="mt-3 flex flex-row gap-2">
+          <%= f.submit "Save", class: "bg-blue-50 hover:bg-blue-100 border-blue-300 border rounded px-2 py-1 cursor-pointer" %>
+          <%= link_to "Cancel", polymorphic_banner_path(container), class: "bg-red-50 hover:bg-red-100 border-red-300 border rounded px-2 py-1" %>
+          <div class="ml-auto bg-red-50 border-red-300 border rounded px-2 py-1 cursor-pointer hover:bg-red-100" data-action="click->deletable#submitAsDelete:prevent">Remove banner</div>
+        </div>
+      </div>
+    <% end %>
+    <%= form_with url: polymorphic_banner_path(container), method: :delete, class: 'hidden', data: { turbo_frame: 'banner' } do |f| %>
+      <%= f.submit data: { deletable_target: 'deleteButton' } %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,5 @@
+<%= turbo_frame_tag :banner_edit do %>
+  <div class="absolute right-4 bottom-4 text-sm">
+    <%= link_to "edit banner", polymorphic_banner_path(container, :edit), class: "px-2 py-1 border rounded border-blue-300 bg-blue-100 opacity-30 hover:opacity-100 cursor-pointer" %>
+  </div>
+<% end %>

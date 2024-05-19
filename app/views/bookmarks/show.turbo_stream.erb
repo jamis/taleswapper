@@ -1,7 +1,7 @@
 <%= turbo_stream.append_all "body" do %>
   <%= dialog title: 'Bookmark', on_close: :remove, id: dom_id(@bookmark, :dialog) do %>
-    <div class="px-4 py-2" data-controller="bookmark-editor" data-bookmark-editor-anchor-value="<%= @bookmark.anchor %>">
-      <%= form_with model: [ Current.user, @bookmark ], data: { bookmark_editor_target: 'form' }, class: 'group' do |f| %>
+    <div class="px-4 py-2" data-controller="deletable" data-deletable-confirm-value="Really delete this bookmark?">
+      <%= form_with model: [ Current.user, @bookmark ], data: { deletable_target: 'form' }, class: 'group' do |f| %>
         <div class="text-sm text-gray-500">
           Name this bookmark:
         </div>
@@ -18,7 +18,7 @@
           <%= f.submit class: "ml-auto border border-blue-400 bg-blue-200 hover:bg-blue-300 rounded w-24 py-1", value: "Save" %>
           <button class="border border-blue-400 bg-blue-200 hover:bg-blue-300 rounded w-24 py-1" data-action="dialog#close:prevent">Cancel</button>
           <span>or</span>
-          <span><a href="#" data-action="bookmark-editor#submitAsDelete:prevent" class="ts-cancel">Delete<span class="hidden lg:inline"> this bookmark</span></a></span>
+          <span><a href="#" data-action="deletable#submitAsDelete:prevent" class="ts-cancel">Delete<span class="hidden lg:inline"> this bookmark</span></a></span>
         </div>
         <div class="hidden group-[[aria-busy]]:flex flex-row items-baseline gap-2 mt-2">
           <div class="ml-auto border border-blue-400 bg-blue-200 hover:bg-blue-300 rounded px-4 py-1">
@@ -27,7 +27,7 @@
         </div>
       <% end %>
       <%= form_with model: [ Current.user, @bookmark ], method: 'delete', class: 'hidden' do |f| %>
-        <%= f.submit data: { bookmark_editor_target: 'deleteButton' } %>
+        <%= f.submit data: { deletable_target: 'deleteButton' } %>
       <% end %>
     </div>
   <% end %>

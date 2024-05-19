@@ -1,11 +1,16 @@
 <%= turbo_frame_tag :banner do %>
-  <div class="w-full mb-8 h-[25vw] min-h-[33vh] max-h-[50vh] relative bg-center bg-cover" style="background-image: url('<%= story_asset_url(container.banner) %>');">
-    <% if editable %>
-      <div class="absolute right-4 bottom-2 text-sm">
-        <%= form_with url: polymorphic_banner_path(container), method: :delete do |f| %>
-          <%= f.submit "remove banner", class: "px-2 py-1 border rounded border-red-300 bg-red-100 opacity-30 hover:opacity-100 cursor-pointer", data: { turbo_confirm: "Remove this banner?" } %>
+  <figure class="mb-8">
+    <div role="img" alt="<%= container.banner.metadata[:ts_alt] %>" class="w-full h-[25vw] min-h-[33vh] max-h-[50vh] relative bg-center bg-cover" style="background-image: url('<%= story_asset_url(container.banner) %>');">
+      <% if editable %>
+        <% if flash[:created] %>
+          <%= render 'banners/edit_form', container: container %>
+        <% else %>
+          <%= render 'banners/edit_button', container: container %>
         <% end %>
-      </div>
+      <% end %>
+    </div>
+    <% if container.banner.metadata[:ts_credits] %>
+      <figcaption class="w-full text-xs text-gray-400 pr-4 text-right markdown"><%=md container.banner.metadata[:ts_credits] %></figcaption>
     <% end %>
-  </div>
+  </figure>
 <% end %>
