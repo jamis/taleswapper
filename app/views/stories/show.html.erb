@@ -4,6 +4,13 @@
   <%= auto_discovery_link_tag :rss, story_url(@story, format: :rss) %>
 <% end %>
 
+<% if @story.banner.present? || Current.user == @story.creator %>
+  <% content_for :banner do %>
+    <% set_top_padding :none %>
+    <%= render 'banners/possible_banner', container: @story, editable: (Current.user == @story.creator) %>
+  <% end %>
+<% end %>
+
 <div class="max-w-prose mx-auto mb-4">
   <div class="flex flex-row items-baseline gap-2">
     <h1 class="text-3xl font-bold"><%= @story.title %></h1>

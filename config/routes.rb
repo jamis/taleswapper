@@ -14,6 +14,9 @@ Rails.application.routes.draw do
     resources :chapters, only: %i[ new create ]
     resources :comments, only: %i[ create ]
     resources :sequels, only: %i[ new create ]
+    resource :banner do
+      get :pick
+    end
 
     member do
       post :announce

@@ -7,6 +7,8 @@ class Story < ApplicationRecord
   has_many :chapters, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
+  has_one_attached :banner
+
   scope :alive, -> { where(deleted_at: nil) }
   scope :deleted, -> { where.not(deleted_at: nil) }
   scope :active, -> { where(archived_at: nil) }
