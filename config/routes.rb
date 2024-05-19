@@ -53,5 +53,15 @@ Rails.application.routes.draw do
   get '/confirm/:token', to: 'users#confirm', as: :confirm_user
   get '/resend/:token', to: 'users#resend', as: :resend_user
 
+  get '/public/asset/redirect/:signed_id/:filename', to: 'public_asset#show', as: :public_asset_redirect
+
+  direct :story_asset do |blob|
+    if blob.service_name != 'local' && ENV['CDN_URL']
+      "#{ENV['CDN_URL']}/#{blob.key}"
+    else
+      route_for(:rails_blob, blob)
+    end
+  end
+
   root "creators#index"
 end

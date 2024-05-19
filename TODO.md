@@ -1,5 +1,8 @@
 TODO:
 
+* Banner images should have alt text, and credits.
+* Datestamp on chapters doesn't need day of the week
+  - could be just a relative date, but then clicking it reveals the precise date
 * When selecting an image, allow to choose between a new file, and any of the images that already exist in any chapter of the user's stories.
 * It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.
   - in general, I should rethink the "new chapter" flow
