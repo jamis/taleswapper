@@ -1,7 +1,5 @@
 TODO:
 
-* When banner has credit text, we don't need as much margin between banner and chapter title.
-* When a banner hasn't loaded yet, maybe show a background color (and possibly a loading message)?
 * Datestamp on chapters doesn't need day of the week
   - could be just a relative date, but then clicking it reveals the precise date
 * When selecting an image, allow to choose between a new file, and any of the images that already exist in any chapter of the user's stories.
