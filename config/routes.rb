@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   resources :stories do
     resources :chapters, only: %i[ new create ]
     resources :comments, only: %i[ create ]
-    resources :sequels, only: %i[ new create ]
     resource :banner do
       get :pick
     end
@@ -26,7 +25,6 @@ Rails.application.routes.draw do
   resources :chapters do
     resource :track_sheet
     resources :comments, only: %i[ create ]
-    resources :sequels, only: %i[ new create ]
     resources :bookmarks, only: %i[ index ]
     resource :banner do
       get :pick
@@ -37,8 +35,6 @@ Rails.application.routes.draw do
       post :revoke
     end
   end
-
-  resources :scratch_pads, only: %i[ show update ]
 
   resources :subscriptions
   resources :bookmarks, only: %i[ destroy ]

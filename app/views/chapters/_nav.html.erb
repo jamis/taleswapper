@@ -1,7 +1,7 @@
-<% prior = @chapter.prior_chapter %>
+<% prior = @chapter.prior_chapter || (@chapter.role == 'start' && (@story.setup_chapter&.published? || editable_story?) && @story.setup_chapter) %>
 <% sequels = visible_sequels(@chapter) %>
 
-<% if prior.present? || sequels.any? %>
+<% if prior.present? || sequels.any? || @chapter.role == 'setup' %>
   <div class="flex flex-row flex-wrap gap-2 items-baseline border-t border-b py-1">
     <% if prior.present? %>
       <div class="flex flex-row gap-2">
@@ -18,6 +18,17 @@
             <span>&rarr;</span>
           </div>
         <% end %>
+      </div>
+    <% elsif @chapter.role == 'setup' && (editable_story? || @story.start_chapter.present?) %>
+      <div class="ml-auto flex flex-col">
+        <div class="flex flex-row gap-2">
+          <% if @story.start_chapter.present? %>
+            <%= link_to @story.start_chapter.title, @story.start_chapter, class: 'text-right ts-link' %>
+          <% else %>
+            <%= link_to 'Add the first chapter', new_story_chapter_path(@story, role: 'start'), class: 'text-right ts-link' %>
+          <% end %>
+          <span>&rarr;</span>
+        </div>
       </div>
     <% end %>
   </div>

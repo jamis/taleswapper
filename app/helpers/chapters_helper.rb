@@ -1,10 +1,11 @@
 module ChaptersHelper
   include ActiveSupport::NumberHelper
 
-  def render_section(section)
-    first_primary_section = !@seen_first_primary_section && section.role == 'primary'
-    render(partial: "sections/roles/#{section.role}", locals: { section: section, first: first_primary_section }).tap do
-      @seen_first_primary_section ||= first_primary_section
+  def chapter_type(chapter)
+    case chapter.role
+    when 'setup' then 'Story Setup'
+    when 'start' then 'First Chapter'
+    else 'Chapter'
     end
   end
 

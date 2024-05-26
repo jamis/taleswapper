@@ -8,7 +8,7 @@
     </header>
 
     <main class="bg-white p-2 max-h-[75vh] overflow-y-scroll">
-      <ts-track-sheet data-renderer="track-sheet-renderer" data-definition="<%= @track_sheet.definition.to_json %>"></ts-track-sheet>
+      <ts-track-sheet data-renderer="track-sheet-renderer" data-definition="<%= @track_sheet_definition.to_json %>"></ts-track-sheet>
     </main>
   </div>
   <%= render 'chapters/display_renderer', service_name: 'track-sheet-renderer' %>

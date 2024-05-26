@@ -43,7 +43,7 @@ export default class extends TrackSheetUpdatesRendererController {
   }
 
   contextFor_add_bool(name, prop, update) {
-    return this.contextFor_add_value(name, { value: new Handlebars.SafeString(prop.value ? '❌' : '&mdash;') }, update);
+    return this.contextFor_add_value(name, { value: new Handlebars.SafeString(prop.value ? '✅' : '&mdash;') }, update);
   }
 
   contextFor_add_card(name, prop, update) {

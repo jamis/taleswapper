@@ -38,10 +38,10 @@ class NotificationsMailer < ApplicationMailer
 
   def new_story
     @story = params[:story]
-    @chapter = @story.chapters.starter.first
+    @chapter = @story.start_chapter || @story.setup_chapter
 
     if @chapter.nil? || !@chapter.published?
-      raise ArgumentError, 'cannot notify if story is no first chapter'
+      raise ArgumentError, 'cannot notify if story has no first chapter'
     end
 
     @subscriber = params[:subscriber]

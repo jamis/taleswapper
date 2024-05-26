@@ -3,7 +3,7 @@ test_story_chapter1:
   story: test_story
   title: Chapter One
   interactive: true
-  start: true
+  role: start
   published_at: <%= 4.days.ago %>
 test_story_chapter2:
   story: test_story

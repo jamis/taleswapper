@@ -26,7 +26,7 @@
     <% end %>
   </div>
 
-  <div class="flex-col max-w-screen-xl mb-12">
+  <div class="flex-col max-w-screen-xl mb-16">
     <% if @story.subtitle.present? %>
       <h2 class="text-lg italic"><%= @story.subtitle %></h2>
     <% end %>
@@ -53,34 +53,62 @@
     <% end %>
 
     <% if @story.chapters.empty? %>
-      <div class="mt-4 rounded-lg bg-blue-100 px-6 py-3">
-        <p>You haven't added any chapters to this story yet.</p>
-        <p>
-          You can
-          <%= link_to "add your first chapter now", new_story_sequel_path(@story), class: "ts-link" %>.
+      <div class="py-2 px-4 rounded-lg bg-blue-100">
+        <p><%= link_to "Set up your story", new_story_chapter_path(@story, role: 'setup'), class: "ts-link" %> <em>[optional]</em></p>
+        <p class="text-xs mt-1">
+          This will create a "session zero" chapter, where you describe the initial
+          state of your story. The most important bits to include are trackers for
+          main characters' starting stats, or metagame information like Mythic GME's
+          "chaos factor," but you can include whatever backstory you like, here.
+        </p>
+        <p class="text-xs mt-2">
+          By default, this chapter is hidden from readers, but you can
+          choose to make it visible to them if you want to share your setup
+          process.
+        </p>
+      </div>
+
+      <div class="mt-4 rounded-lg bg-blue-100 px-4 py-2">
+        <p><%= link_to "Add your first chapter", new_story_chapter_path(@story, role: 'start'), class: "ts-link" %>.</p>
+        <p class="text-xs mt-1">
+          This will be the entry point of your story, the very beginning. Make it
+          punchy and hook your readers from the start!
         </p>
       </div>
     <% else %>
-      <div class="mt-8 mb-4 flex flex-row items-baseline">
+      <div class="mt-4 mb-4 flex flex-row items-baseline">
         <h2 class="text-xl font-bold">Table of Contents</h2>
       </div>
 
-      <%= render_contents(@story) %>
+      <% if @story.setup_chapter&.published? || editable_story? %>
+        <div class="mb-4">
+          <%= open_toc %>
+            <% if @story.setup_chapter.present? %>
+              <%= render 'toc_chapter', chapter: @story.setup_chapter %>
+            <% else %>
+              <li>
+                <%= link_to "Set up your story", new_story_chapter_path(@story, role: 'setup'), class: "ts-link" %>
+              </li>
+            <% end %>
+          <%= close_toc %>
+        </div>
+      <% end %>
+
+      <% if @story.start_chapter.present? %>
+        <%= render_contents(@story) %>
+      <% else %>
+        <div class="mt-4 rounded-lg bg-blue-100 px-4 py-2">
+          <p><%= link_to "Add your first chapter", new_story_chapter_path(@story, role: 'start'), class: "ts-link" %>.</p>
+          <p class="text-xs mt-1">
+            This will be the entry point of your story, the very beginning. Make it
+            punchy and hook your readers from the start!
+          </p>
+        </div>
+      <% end %>
     <% end %>
 
-    <% if editable_story? %>
-      <div data-controller="draft-list" data-draft-list-key-value="<%= dom_id(@story) %>" class="my-4">
-        <h2 class="font-bold text-lg mt-4">Pending Drafts</h2>
-
-        <template data-draft-list-target="template">
-          <li><%= link_to "", new_story_sequel_path(@story), class: "ts-link" %></li>
-        </template>
-
-        <ul data-draft-list-target="list" class="list-disc mt-2 ml-8">
-        </ul>
-      </div>
+    <% if @story.chapters.any? %>
+      <%= render 'comments/list', commentable: @story %>
     <% end %>
-
-    <%= render 'comments/list', commentable: @story %>
   </div>
 </div>

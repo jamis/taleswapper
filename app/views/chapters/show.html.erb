@@ -33,6 +33,8 @@
       <% if @chapter.published? %>
         <span><%= @chapter.published_at.strftime("%A, %B %e, %Y") %></span>
         &mdash;
+      <% elsif @chapter.role == 'setup' %>
+        <span class="text-red-600">[private &mdash; not visible to readers]</span>
       <% else %>
         <span class="text-red-600">[draft &mdash; not yet published]</span>
       <% end %>
@@ -104,26 +106,13 @@
 
   <%= render 'nav' %>
 
-  <% if editable_story? %>
+  <% if editable_story? && @chapter.role != 'setup' %>
     <div class="mb-4 pt-4">
       <% if @chapter.actions.any? %>
-        Or, you can branch your story from here. <%= link_to "Write an alternative chapter.", new_chapter_sequel_path(@chapter), class: "ts-link" %>
+        Or, you can branch your story from here. <%= link_to "Write an alternative chapter.", new_story_chapter_path(@story, prequel_id: @chapter.id), class: "ts-link" %>
       <% else %>
-        Continue your story from here. <%= link_to "Add the next chapter.", new_chapter_sequel_path(@chapter), class: "ts-link" %>
+        Continue your story from here. <%= link_to "Add the next chapter.", new_story_chapter_path(@story, prequel_id: @chapter.id), class: "ts-link" %>
       <% end %>
-    </div>
-  <% end %>
-
-  <% if editable_story? %>
-    <div data-controller="draft-list" data-draft-list-key-value="<%= dom_id(@chapter) %>" class="my-4">
-      <h2 class="font-bold text-lg mb-4">Sequel Drafts</h2>
-
-      <template data-draft-list-target="template">
-        <li><%= link_to "", new_chapter_sequel_path(@chapter), class: "ts-link" %></li>
-      </template>
-
-      <ul data-draft-list-target="list" class="list-disc mt-2 ml-8">
-      </ul>
     </div>
   <% end %>
 

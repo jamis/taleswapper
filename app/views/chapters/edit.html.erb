@@ -1,5 +1,9 @@
-<% crumbs_for @chapter, leaf: false %>
-<% breadcrumb 'Edit' %>
+<% if @chapter.new_record? %>
+  <% crumbs_for @story, leaf: false %>
+<% else %>
+  <% crumbs_for @chapter, leaf: false %>
+<% end %>
+<% breadcrumb(@chapter.new_record? ? 'New Chapter' : 'Edit') %>
 
 <%= render 'subheader' %>
 
@@ -8,15 +12,61 @@
 <% end %>
 
 <div class="flex-col w-full">
-  <h1 class="text-2xl font-bold">Edit Chapter</h1>
+  <h1 class="text-2xl font-bold"><%= @chapter.new_record? ? 'New' : 'Edit' %> <%= chapter_type(@chapter) %></h1>
+  <% prequel = @chapter.prequel || @chapter.prior_chapter %>
+  <% if prequel.present? %>
+    <div class="text-sm italic">
+      Previous chapter: <%= link_to prequel.title, chapter_path(prequel), class: 'ts-link' %>
+    </div>
+  <% end %>
 
-  <%= render 'form', chapter: @chapter %>
+  <%= form_with model: (@chapter.new_record? ? [ @chapter.story, @chapter ] : @chapter),
+                data: {
+                  controller: 'chapter-editor',
+                  chapter_editor_header_selector_value: 'header',
+                  chapter_editor_direct_upload_url_value: rails_direct_uploads_url,
+                  action: 'chapter-editor#finalize',
+                  turbo: false # force the page to refresh to avoid using the wrong update renderer
+                } do |f| %>
+    <%= f.hidden_field :role %>
+    <%= f.hidden_field :prequel_id %>
 
-  <% if flash[:stale_uuid] %>
-    <div data-controller="draft-cleaner"
-         data-draft-cleaner-uuid-value="<%= flash[:stale_uuid] %>"
-         data-draft-cleaner-parent-value="<%= flash[:parent_key] %>"
-         class="hidden"></div>
+    <div class="flex flex-row items-baseline w-full my-4">
+      <div><label for="chapter_title" class="text-lg">Title:</label></div>
+      <div class="flex flex-col ml-3 w-1/2">
+        <%= f.text_field :title, required: true, class: 'focus:outline-none focus:ring-0 border-x-0 border-t-0 pb-0 px-1 text-lg' %>
+      </div>
+    </div>
+
+    <div class="flex flex-row items-baseline mt-4">
+      <%= f.check_box :interactive, class: "mr-2" %> <label for="chapter_iteractive" class="text-lg">Allow comments?</label>
+    </div>
+
+    <div class="editor-container mt-4" data-controller="track-sheet-manager" data-track-sheet-manager-source-value="<%= (@track_sheet_defn || {}).to_json %>">
+      <%= f.hidden_field :content, value: chapter_content(@chapter), data: { chapter_editor_target: 'content' } %>
+      <div class="toolbar" data-chapter-editor-target="toolbar">
+        <div data-chapter-editor-target="loadingIndicator" class="text-sm text-green-500 font-bold bg-green-50 border border-green-300 px-4 py-2">The editor is loading, please wait...</div>
+      </div>
+      <div class="editor prose--traditional" data-chapter-editor-target="editor"></div>
+    </div>
+
+    <div class="mt-4 mb-12">
+      <%= f.submit "Save", class: "rounded bg-blue-100 hover:bg-blue-300 px-4 py-2" %>
+      <span class="mx-1">or</span>
+      <%= link_to "Cancel", @chapter.persisted? ? chapter_path(@chapter) : story_path(@chapter.story), class: "ts-cancel" %>
+    </div>
+
+    <div class="hidden" data-chapter-editor-target="progressDialog">
+      <div class="z-40 fixed top-0 left-0 w-full h-screen bg-black opacity-20"></div>
+
+      <div class="z-50 fixed shadow-md bg-white rounded-xl border border-gray-400 w-1/3 min-w-20 mx-auto top-20 overflow-hidden px-4 py-2 flex flex-col gap-2">
+        <div class="text-center text-sm color-gray-400" data-chapter-editor-target="filename"></div>
+        <div class="border border-gray-400 relative rounded overflow-hidden">
+          <div class="absolute top-0 left-0 h-full bg-gray-200 z-10" data-chapter-editor-target="progressBar"></div>
+          <div class="text-center text-sm color-gray-400 z-20 relative" data-chapter-editor-target="progressPercent"></div>
+        </div>
+      </div>
+    </div>
   <% end %>
 </div>
 

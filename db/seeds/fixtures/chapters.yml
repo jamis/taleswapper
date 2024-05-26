@@ -2,13 +2,12 @@
 wulan_session0:
   story: wulans_blade
   title: Session Zero
-  interactive: true
-  start: true
-  published_at: <%= 4.days.ago %>
+  role: setup
 wulan_chapter1:
   story: wulans_blade
   title: Chapter One - A Decision
   interactive: true
+  role: start
   published_at: <%= 1.day.ago %>
 wulan_chapter2:
   story: wulans_blade

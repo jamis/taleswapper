@@ -19,11 +19,11 @@ module StoriesHelper
   private
 
   def open_toc
-    "<ul class=\"list-disc ml-8\">"
+    "<ul class=\"list-disc ml-8\">".html_safe
   end
 
   def close_toc
-    "</ul>"
+    "</ul>".html_safe
   end
 
   def add_toc_entry(chapter)

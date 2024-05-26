@@ -11,7 +11,8 @@ class Chapter < ApplicationRecord
 
   has_one :creator, through: :story
 
-  scope :starter, -> { where(start: true) }
+  scope :setup, -> { where(role: 'setup') }
+  scope :starter, -> { where(role: 'start') }
 
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
@@ -22,14 +23,6 @@ class Chapter < ApplicationRecord
   has_one  :prior_action, class_name: 'Action', foreign_key: :target_id, dependent: :destroy
   has_one  :prior_chapter, through: :prior_action, source: :source
 
-  # the scratch_pads list will never have more than two entries -- one for story
-  # notes, and one for outline. This list is just for convenience is updating and
-  # clearing them.
-  has_many :scratch_pads, dependent: :destroy
-
-  has_one :story_notes, class_name: 'ScratchPad::StoryNotes'
-  has_one :outline, class_name: 'ScratchPad::Outline'
-
   has_one :track_sheet, dependent: :destroy
 
   has_rich_text :content
@@ -37,14 +30,9 @@ class Chapter < ApplicationRecord
   has_one_attached :banner
 
   # a reference to the prequel chapter; used during sequel creation
-  attr_accessor :prequel
-
-  # a reference to the uuid of the draft that created this chapter; used during
-  # sequel creation
-  attr_accessor :uuid
+  attr_accessor :prequel_id
 
   before_save :set_default_title
-  before_create :possibly_set_start
   before_create :setup_records
   before_save :process_blocks
 
@@ -54,20 +42,25 @@ class Chapter < ApplicationRecord
   after_update :push_track_sheet_forward
   after_save :refresh_attachments
 
-  accepts_nested_attributes_for :outline
-  accepts_nested_attributes_for :story_notes
-
   class <<self
-    def create_sequel(params)
-      create!(prequel: params[:prequel],
-              uuid: params[:uuid],
-              outline_attributes: { contents: params[:contents] || '' },
-              story_notes_attributes: { contents: params[:story_notes] || '' })
-    end
-
     def attachments
       ActiveStorage::Attachment.where(record: all)
     end
+  end
+
+  # The chapter that this chapter should look to for it's initial track sheet
+  def track_sheet_origin
+    if role == 'start'
+      story.setup_chapter
+    else
+      pending_prior_chapter
+    end
+  end
+
+  def prequel
+    return nil unless prequel_id
+
+    @prequel ||= story.chapters.find(prequel_id)
   end
 
   # TODO: Note that this does not fully implement "scheduled" publishing of
@@ -167,15 +160,8 @@ class Chapter < ApplicationRecord
 
   private
 
-  def possibly_set_start
-    return if story.chapters.starter.any?
-    self.start = true
-  end
-
   def setup_records
     setup_prequel
-    setup_story_notes
-    setup_outline
     setup_track_sheet
   end
 
@@ -189,22 +175,10 @@ class Chapter < ApplicationRecord
     build_prior_action(source: prequel)
   end
 
-  # inherit the story notes from the prior chapter, if not already
-  # present.
-  def setup_story_notes
-    return if story_notes.present?
-    build_story_notes(contents: pending_prior_chapter&.story_notes&.contents || '')
-  end
-
-  def setup_outline
-    return if outline.present?
-    build_outline
-  end
-
   # inherit the track sheet from the prior chapter, if not already
   # present.
   def setup_track_sheet
-    build_track_sheet(definition: pending_prior_chapter&.final_track_sheet || {})
+    build_track_sheet(definition: track_sheet_origin&.final_track_sheet || {})
   end
 
   def touch_story
@@ -214,10 +188,12 @@ class Chapter < ApplicationRecord
   end
 
   def push_track_sheet_forward
-    return unless sequels.any?
+    next_chapters = (role == 'setup') ? [ *story.start_chapter ] : sequels
+    return unless next_chapters.any?
+
     final = final_track_sheet
 
-    sequels.each do |sequel|
+    next_chapters.each do |sequel|
       if sequel.track_sheet.definition != final
         sequel.track_sheet.update definition: final
         sequel.save!

@@ -4,7 +4,6 @@ pin "application", preload: true
 
 pin "services"
 pin "utilities"
-pin "drafts"
 pin "track-sheet"
 
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true

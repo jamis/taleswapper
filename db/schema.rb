@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_03_122413) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_25_005612) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,11 +79,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_122413) do
     t.bigint "story_id"
     t.string "title"
     t.boolean "interactive", default: false
-    t.boolean "start", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "published_at"
     t.datetime "announced_at"
+    t.string "role"
     t.index ["story_id"], name: "index_chapters_on_story_id"
   end
 

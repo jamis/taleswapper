@@ -2,7 +2,13 @@
   <div class="flex flex-col md:flex-row md:gap-2 mb-2 md:mb-0 items-baseline">
     <%= link_to chapter.title.presence || "Untitled", chapter_path(chapter), class: "ts-link" %>
     <% unless chapter.published? %>
-      <span class="text-sm text-red-600">[draft]</span>
+      <span class="text-sm text-red-600">
+        <% if chapter.role == 'setup' %>
+          [private]
+        <% else %>
+          [draft]
+        <% end %>
+      </span>
     <% end %>
   </div>
 </li>

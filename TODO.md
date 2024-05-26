@@ -1,19 +1,17 @@
 TODO:
 
-* Datestamp on chapters doesn't need day of the week
-  - could be just a relative date, but then clicking it reveals the precise date
-* When selecting an image, allow to choose between a new file, and any of the images that already exist in any chapter of the user's stories.
-* It would be nice to be able to set up a bunch of trackers before the story starts, and make them available for the reader to look at in a side-channel somewhere.
-  - in general, I should rethink the "new chapter" flow
-* Need a way to get to the user profile page on mobile (currently hidden on small screens)
-* Reset password feature
 * Tracker picker should allow searching for a tracker by typing its name
-* Could there be some way to "bulk publish" multiple chapters simultaneously?
-* Notifications
-    - include "unsubscribe" option in every message, too
 * I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice. (Could just use "update", and the display side of things doesn't show a prior value if prior == given)
     - would be neat to have an inline option, perhaps <ts-tracker-inline> or something? Clicking on it could bring up a track sheet dialog with that tracker highlighted.
     - for inline tag, cards might just show their title...
+* Notifications
+    - include "unsubscribe" option in every message, too
+* Datestamp on chapters doesn't need day of the week
+  - could be just a relative date, but then clicking it reveals the precise date
+* When selecting an image, allow to choose between a new file, and any of the images that already exist in any chapter of the user's stories.
+* Need a way to get to the user profile page on mobile (currently hidden on small screens)
+* Reset password feature
+* Could there be some way to "bulk publish" multiple chapters simultaneously?
 * Admin interface for manually adjusting data:
   - converting a user to a creator
   - editing any field of any table

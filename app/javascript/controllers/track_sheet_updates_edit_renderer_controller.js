@@ -125,11 +125,12 @@ export default class extends TrackSheetUpdatesRendererController {
     return this.contextFor_update_value(name, prop, update);
   }
 
-  contextFor_add_value(name, prop, template) {
+  contextFor_add_value(name, prop, update, template) {
     return {
       title: newTrackerTitle,
       partial: 'addFrame',
       action: 'add',
+      update,
       data: {
         partial: template,
         isBool: prop?._type === 'bool',
@@ -143,20 +144,20 @@ export default class extends TrackSheetUpdatesRendererController {
     };
   }
 
-  contextFor_add_int(name, prop) {
-    return this.contextFor_add_value(name, prop, 'addInt');
+  contextFor_add_int(name, prop, update) {
+    return this.contextFor_add_value(name, prop, update, 'addInt');
   }
 
-  contextFor_add_bool(name, prop) {
-    return this.contextFor_add_value(name, prop, 'addBool');
+  contextFor_add_bool(name, prop, update) {
+    return this.contextFor_add_value(name, prop, update, 'addBool');
   }
 
-  contextFor_add_card(name, prop) {
-    return this.contextFor_add_value(name, prop, 'addCard');
+  contextFor_add_card(name, prop, update) {
+    return this.contextFor_add_value(name, prop, update, 'addCard');
   }
 
-  contextFor_add_string(name, prop) {
-    return this.contextFor_add_value(name, prop, 'addString');
+  contextFor_add_string(name, prop, update) {
+    return this.contextFor_add_value(name, prop, update, 'addString');
   }
 
   contextFor_remove(name, update) {

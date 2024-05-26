@@ -13,7 +13,6 @@ export default class TSTrackSheetTag extends HTMLElement {
   }
 
   getRenderer(callback) {
-    console.log('ts-track-sheet tag will use renderer', this.rendererServiceName);
     window.TaleSwapper.Services.lookup(this.rendererServiceName).then(callback);
   }
 }

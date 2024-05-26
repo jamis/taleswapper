@@ -7,6 +7,9 @@ class Story < ApplicationRecord
   has_many :chapters, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
+  has_one :setup_chapter, -> { where(role: 'setup') }, class_name: 'Chapter'
+  has_one :start_chapter, -> { where(role: 'start') }, class_name: 'Chapter'
+
   has_one_attached :banner
 
   scope :alive, -> { where(deleted_at: nil) }
@@ -37,11 +40,11 @@ class Story < ApplicationRecord
   end
 
   def published_at
-    chapters.starter.first&.published_at
+    setup_chapter&.published_at || start_chapter&.published_at
   end
 
   def published?
-    chapters.starter.any?(&:published?)
+    setup_chapter&.published? || start_chapter&.published?
   end
 
   def archived?(now: Time.now)
@@ -84,13 +87,10 @@ class Story < ApplicationRecord
   end
 
   def walk_chapters(restricted: true, &block)
-    return unless chapters.starter.any?
+    return unless start_chapter
 
     block.call(:open) # open the current list
-    chapters.starter.each do |chapter|
-      chapter.walk(:linear, restricted: restricted, &block)
-    end
-
+    start_chapter.walk(:linear, restricted: restricted, &block)
     block.call(:close) # close the current list
   end
 end

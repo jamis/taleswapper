@@ -33,7 +33,7 @@ export default class extends Controller {
   }
 
   treeContext(label, path, node, mode) {
-    let matched = prefixEq(this.savedPath, path);
+    let matched = (path.length == 0) || prefixEq(this.savedPath, path);
 
     let context = {
       label,
@@ -45,7 +45,9 @@ export default class extends Controller {
     };
 
     if (mode == 'add' || mode == 'pick-any') {
-      context.labelClasses = 'ts-link cursor-pointer tree';
+      if (path.length > 0) {
+        context.labelClasses = 'ts-link cursor-pointer tree';
+      }
       context.labelGroup = 'group';
     }
 
