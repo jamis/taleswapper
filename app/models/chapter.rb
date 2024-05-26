@@ -39,7 +39,7 @@ class Chapter < ApplicationRecord
   after_save :touch_story
   after_touch :touch_story
 
-  after_update :push_track_sheet_forward
+  after_save :push_track_sheet_forward
   after_save :refresh_attachments
 
   class <<self

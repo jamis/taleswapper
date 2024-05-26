@@ -19,6 +19,13 @@ class ChapterTest < ActiveSupport::TestCase
     assert chapters(:test_story_chapter3).track_sheet.definition.key?('Foo')
   end
 
+  test "creating a setup chapter pushes track sheet changes forward" do
+    update = { action: 'add', parent: [ 'Tools' ], child: { 'Progress' => { '_type' => 'short', 'value' => 0 } } }.to_json
+    stories(:test_story).chapters.create(title: 'Setup', role: 'setup', content: %Q[<ts-tracker-updates data-updates="#{CGI.escapeHTML(update)}"></ts-tracker-updates>])
+
+    assert chapters(:test_story_chapter1).track_sheet.definition.key?('Tools')
+  end
+
   test "referencing an image links it to the chapter" do
     chapter = chapters(:test_story_chapter3)
 
