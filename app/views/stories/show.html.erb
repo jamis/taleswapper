@@ -86,9 +86,9 @@
             <% if @story.setup_chapter.present? %>
               <%= render 'toc_chapter', chapter: @story.setup_chapter %>
             <% else %>
-              <li>
-                <p class="text-sm"><%= link_to "Create a setup chapter", new_story_chapter_path(@story, role: 'setup'), class: "ts-link" %></p>
-                <p class="text-xs opacity-50">
+              <li class="list-none">
+                <p class="text-sm"><%= link_to "Create a setup chapter", new_story_chapter_path(@story, role: 'setup'), class: "border rounded border-blue-300 bg-blue-100 opacity-50 hover:opacity-100 px-2 py-0.5" %></p>
+                <p class="text-xs opacity-50 mt-1">
                   Optional. Can be used to set up backstory and trackers required by your
                   story. Invisible to readers by default.
                 </p>
