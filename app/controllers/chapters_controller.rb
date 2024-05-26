@@ -68,7 +68,7 @@ class ChaptersController < ApplicationController
   end
 
   def chapter_params
-    params.require(:chapter).permit(:title, :interactive, :role, :content)
+    params.require(:chapter).permit(:title, :interactive, :role, :content, :prequel_id)
   end
 
   def infer_track_sheet

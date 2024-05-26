@@ -40,4 +40,11 @@ class ChapterTest < ActiveSupport::TestCase
     chapter.update content: chapter.content.to_s.gsub(/<ts-image.*?<\/ts-image>\s*/m, '')
     assert chapter.reload.images.none?
   end
+
+  test "setting the prequel_id creates a prequel action" do
+    prequel = chapters(:test_story_chapter3)
+    sequel = prequel.story.chapters.create!(prequel_id: prequel.id, title: 'Chapter 4', content: '<p>Sequel chapter</p>')
+
+    assert_equal sequel.reload.prior_chapter, prequel
+  end
 end

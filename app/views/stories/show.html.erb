@@ -87,7 +87,11 @@
               <%= render 'toc_chapter', chapter: @story.setup_chapter %>
             <% else %>
               <li>
-                <%= link_to "Set up your story", new_story_chapter_path(@story, role: 'setup'), class: "ts-link" %>
+                <p class="text-sm"><%= link_to "Create a setup chapter", new_story_chapter_path(@story, role: 'setup'), class: "ts-link" %></p>
+                <p class="text-xs opacity-50">
+                  Optional. Can be used to set up backstory and trackers required by your
+                  story. Invisible to readers by default.
+                </p>
               </li>
             <% end %>
           <%= close_toc %>

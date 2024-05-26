@@ -142,14 +142,19 @@ class Chapter < ApplicationRecord
     block.call(:start_entry, self)
     list = restricted ? actions.published : actions
 
-    mode = :branching if list.many?
-    block.call(:open) if mode == :branching
+    if list.empty?
+      block.call(:terminal, self) unless restricted
+    else
+      mode = :branching if list.many?
+      block.call(:open) if mode == :branching
 
-    list.each do |action|
-      action.target.walk(mode, restricted: restricted, &block)
+      list.each do |action|
+        action.target.walk(mode, restricted: restricted, &block)
+      end
+
+      block.call(:close) if mode == :branching
     end
 
-    block.call(:close) if mode == :branching
     block.call(:end_entry)
   end
 

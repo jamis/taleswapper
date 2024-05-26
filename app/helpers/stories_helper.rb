@@ -9,6 +9,7 @@ module StoriesHelper
       when :close       then table_of_contents << close_toc
       when :start_entry then table_of_contents << add_toc_entry(chapter)
       when :end_entry   then table_of_contents << end_toc_entry
+      when :terminal    then table_of_contents << terminal_entry(chapter)
       else raise ArgumentError, "unknown walk action #{action.inspect}"
       end
     end
@@ -28,6 +29,10 @@ module StoriesHelper
 
   def add_toc_entry(chapter)
     render "stories/toc_chapter", chapter: chapter
+  end
+
+  def terminal_entry(chapter)
+    render "stories/toc_terminal", chapter: chapter
   end
 
   def end_toc_entry
