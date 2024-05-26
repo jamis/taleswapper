@@ -76,9 +76,12 @@
 
         <div class="ml-auto font-sans text-sm">
           [
-            <%= link_to "Edit", edit_chapter_path(@chapter), class: "ts-link" %> |
-            <%= form_with url: chapter_path(@chapter), method: :delete, data: { turbo_confirm: "Really delete this chapter?" }, class: "inline" do |f| %>
-              <%= f.submit "Delete", class: "ts-cancel cursor-pointer" %>
+            <%= link_to "Edit", edit_chapter_path(@chapter), class: "ts-link" %>
+            <% if @chapter.sequels.empty? %>
+              |
+              <%= form_with url: chapter_path(@chapter), method: :delete, data: { turbo_confirm: "Really delete this chapter?" }, class: "inline" do |f| %>
+                <%= f.submit "Delete", class: "ts-cancel cursor-pointer" %>
+              <% end %>
             <% end %>
           ]
         </div>

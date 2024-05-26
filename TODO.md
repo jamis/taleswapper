@@ -30,3 +30,7 @@ TODO:
 * Option for a story or chapter to be downloaded (as PDF?) to be read offline. (Creator-level option)
   - How would this work for non-linear stories? (choose-your-own-adventure style?)
 * Better front page. Perhaps cards for each creator? What will the page look like with hundreds of creators? Oh, we could show the top 10 (or whatever) creators with most-recently-updated stories!
+* Could use a "chapter management" view.
+  - reorder chapters
+  - insert new chapters
+  - delete chapters

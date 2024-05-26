@@ -24,7 +24,12 @@ class ChaptersController < ApplicationController
   end
 
   def destroy
-    @chapter.destroy
+    if @chapter.sequels.any?
+      flash[:notice] = "You cannot delete a chapter if it has sequels."
+    else
+      @chapter.destroy
+    end
+
     redirect_to @story
   end
 
