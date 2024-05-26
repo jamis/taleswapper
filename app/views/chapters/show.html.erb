@@ -31,7 +31,7 @@
     </div>
     <div class="text-sm flex flex-row gap-2">
       <% if @chapter.published? %>
-        <span><%= @chapter.published_at.strftime("%A, %B %e, %Y") %></span>
+        <span title="<%= @chapter.published_at.strftime("%A, %B %e, %Y") %>">Published <%= time_ago_in_words(@chapter.published_at) %> ago</span>
         &mdash;
       <% elsif @chapter.role == 'setup' %>
         <span class="text-red-600">[private &mdash; not visible to readers]</span>

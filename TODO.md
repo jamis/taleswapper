@@ -6,8 +6,6 @@ TODO:
     - for inline tag, cards might just show their title...
 * Notifications
     - include "unsubscribe" option in every message, too
-* Datestamp on chapters doesn't need day of the week
-  - could be just a relative date, but then clicking it reveals the precise date
 * When selecting an image, allow to choose between a new file, and any of the images that already exist in any chapter of the user's stories.
 * Need a way to get to the user profile page on mobile (currently hidden on small screens)
 * Reset password feature
