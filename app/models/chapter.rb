@@ -58,7 +58,7 @@ class Chapter < ApplicationRecord
   end
 
   def prequel
-    return nil unless prequel_id
+    return nil unless prequel_id.present?
 
     @prequel ||= story.chapters.find(prequel_id)
   end
