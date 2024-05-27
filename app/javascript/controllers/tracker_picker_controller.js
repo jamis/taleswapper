@@ -14,7 +14,10 @@ function prefixEq(a, b) {
 }
 
 export default class extends Controller {
-  static targets = [ 'view', 'treeTemplate', 'leafTemplate' ];
+  static targets = [
+    'view', 'treeTemplate', 'leafTemplate',
+    'searchBox', 'searchResults'
+  ];
 
   initialize() {
     this.handlebars = Handlebars.create();
@@ -26,7 +29,15 @@ export default class extends Controller {
   }
 
   prepare(source, mode, callback) {
+    // reset the search state
+    delete this.corpus;
+    this.searchBoxTarget.value = '';
+    this.searchResultsTarget.classList.add('hidden');
+    this.viewTarget.classList.remove('hidden');
+
     this.callback = callback;
+    this.source = source;
+    this.mode = mode;
 
     let context = this.treeContext('Trackers', [], source, mode)
     this.viewTarget.innerHTML = '<ul>' + this.treeTemplate(context) + '</ul>';
@@ -93,6 +104,18 @@ export default class extends Controller {
       this.addGroupClicked(event.target);
   }
 
+  searchClicked(event) {
+    if (event.target.nodeName != 'LI') return;
+
+    event.preventDefault();
+
+    if (event.target.dataset.source) {
+      this.leafClicked(event.target);
+    } else {
+      this.treeClicked(event.target);
+    }
+  }
+
   toggleClicked(reference, mode) {
     let root = reference.closest('[data-state]');
     let toggle = root.querySelector('.toggle');
@@ -113,13 +136,13 @@ export default class extends Controller {
   leafClicked(leaf) {
     this.savedPath = JSON.parse(leaf.dataset.path);
     let source = JSON.parse(leaf.dataset.source);
-    let value = leaf.innerHTML;
+    let value = leaf.dataset.name || leaf.innerHTML;
     this.callback(this.savedPath, value, source);
   }
 
-  treeClicked(labelSlot) {
-    let label = labelSlot.closest('.label');
-    this.savedPath = JSON.parse(label.dataset.path);
+  treeClicked(node) {
+    let pathNode = node.closest('[data-path]');
+    this.savedPath = JSON.parse(pathNode.dataset.path);
     this.callback(this.savedPath);
   }
 
@@ -136,5 +159,69 @@ export default class extends Controller {
     list.insertAdjacentHTML('beforeend', html);
 
     this.toggleClicked(link, 'open');
+  }
+
+  updateSearch(event) {
+    let needle = event.target.value.trim();
+
+    if (needle.length === 0) {
+      this.searchResultsTarget.classList.add('hidden');
+      this.viewTarget.classList.remove('hidden');
+      return;
+    }
+
+    this.searchResultsTarget.classList.remove('hidden');
+    this.searchResultsTarget.innerHTML = '';
+
+    this.viewTarget.classList.add('hidden');
+
+    let pattern = new RegExp(needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/, '.*'), 'i');
+
+    this.buildCorpus();
+
+    let matches = 0;
+    for (let item of this.corpus) {
+      if (pattern.test(item.key)) {
+        matches += 1;
+        let li = document.createElement('li');
+        li.innerHTML = item.key;
+        li.classList.add('cursor-pointer');
+        li.classList.add('even:bg-blue-50');
+        li.classList.add('odd:bg-blue-100');
+        li.classList.add('opacity-50');
+        li.classList.add('hover:opacity-100');
+        li.dataset.path = JSON.stringify(item.path);
+        li.dataset.name = item.prop;
+        if (item.source) li.dataset.source = JSON.stringify(item.source);
+        this.searchResultsTarget.append(li);
+      }
+    }
+
+    if (matches === 0) {
+      this.searchResultsTarget.innerHTML = '<li>No matches</li>';
+    }
+  }
+
+  buildCorpus() {
+    if (this.corpus) return;
+
+    this.corpus = [];
+    this.buildCorpusFor([], this.source);
+  }
+
+  buildCorpusFor(path, node) {
+    for (let prop in node) {
+      if (node[prop]._type) {
+        if (this.mode === 'pick' || this.mode === 'pick-any') {
+          this.corpus.push({ key: [ ...path, prop ].join('.'), path, prop, source: node[prop] });
+        }
+      } else {
+        if (this.mode === 'add' || this.mode === 'pick-any') {
+          let subpath = [ ...path, prop ];
+          this.corpus.push({ key: subpath.join('.'), path: subpath });
+        }
+        this.buildCorpusFor([ ...path, prop ], node[prop]);
+      }
+    }
   }
 }

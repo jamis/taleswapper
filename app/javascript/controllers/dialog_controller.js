@@ -42,6 +42,9 @@ export default class extends Controller {
   open() {
     this.element.classList.remove(this.hiddenClass);
     this.stateValue = "open";
+
+    let autoFocus = this.element.querySelector('[autofocus]');
+    autoFocus?.focus();
   }
 
   close() {

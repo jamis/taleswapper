@@ -1,6 +1,6 @@
 <div data-controller="tracker-picker-service" data-tracker-picker-service-dialog-outlet="#dialog_<%= id %>" data-tracker-picker-service-tracker-picker-outlet="#picker_<%= id %>">
   <%= render 'layouts/dialog', id: "dialog_#{id}", state: :closed, on_close: :hide, color: :blue, title: 'Tracker Selector' do %>
-    <div data-controller="tracker-picker" id="picker_<%= id %>" class="tracker-picker px-4 py-2">
+    <div data-controller="tracker-picker" id="picker_<%= id %>" class="tracker-picker">
       <script type="text/x-handlebars-template" data-tracker-picker-target="treeTemplate">
         <li>
           <div data-state="{{state}}" data-path="{{path}}" class="label {{labelGroup}}"><span class="toggle font-mono cursor-pointer">{{toggle}}</span> <span class="{{labelClasses}}">{{label}}</span> <span class="text-xs invisible group-hover:visible">[ <a href="#" class="ts-link add-group">new tracker group</a> ]</span></div>
@@ -16,7 +16,17 @@
           {{label}}
         </li>
       </script>
-      <div data-tracker-picker-target="view" data-action="click->tracker-picker#viewClicked">
+      <div class="bg-blue-50 w-full flex flex-row">
+        <input type="text"
+               placeholder="Search"
+               autofocus
+               data-tracker-picker-target="searchBox"
+               data-action="tracker-picker#updateSearch"
+               class="w-11/12 text-sm mx-auto mt-2 px-4 py-1 focus:ring-0 border rounded-2xl border-blue-400" />
+      </div>
+      <ul class="hidden px-4 py-2" data-tracker-picker-target="searchResults" data-action="click->tracker-picker#searchClicked">
+      </ul>
+      <div class="px-4 py-2" data-tracker-picker-target="view" data-action="click->tracker-picker#viewClicked">
       </div>
     </div>
   <% end %>
