@@ -30,6 +30,7 @@ class NotificationsMailer < ApplicationMailer
     @subscriber = params[:subscriber]
     @story = @chapter.story
     @creator = @story.creator
+    @unsub_url = prepare_unsub_link_for(@story, @subscriber)
 
     subject = "[Taleswapper] A new chapter of \"#{@story.title}\" is available to read"
 
@@ -46,9 +47,19 @@ class NotificationsMailer < ApplicationMailer
 
     @subscriber = params[:subscriber]
     @creator = @story.creator
+    @unsub_url = prepare_unsub_link_for(@creator, @subscriber)
 
     subject = "[Taleswapper] A new story from #{@creator.display_name} is available to read"
 
     mail to: @subscriber.email_address, subject: subject
+  end
+
+  private
+
+  def prepare_unsub_link_for(subscribable, subscriber)
+    subscription = subscribable.subscription_for(subscriber)
+    token = Subscription.message_verifier.generate(subscription.id)
+
+    unsubscribe_url(id: subscription.id, token: token)
   end
 end

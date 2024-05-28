@@ -1,5 +1,5 @@
 class SubscriptionsController < ApplicationController
-  before_action :require_authentication
+  before_action :require_authentication, except: %i[ unsubscribe ]
   before_action :find_subscription
   before_action :find_subscriber
 
@@ -12,6 +12,15 @@ class SubscriptionsController < ApplicationController
   def destroy
     @subscription.destroy
     redirect_back_or_to root_url, notice: "You've been unsubscribed."
+  end
+
+  def unsubscribe
+    verified_id = Subscription.message_verifier.verify(params[:token])
+    if params[:id] == verified_id.to_s
+      destroy
+    else
+      render_404
+    end
   end
 
   private

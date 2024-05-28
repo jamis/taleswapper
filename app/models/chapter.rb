@@ -13,6 +13,7 @@ class Chapter < ApplicationRecord
 
   scope :setup, -> { where(role: 'setup') }
   scope :starter, -> { where(role: 'start') }
+  scope :published, -> { where.not(published_at: nil) }
 
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :bookmarks, dependent: :destroy

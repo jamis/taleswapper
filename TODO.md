@@ -3,12 +3,14 @@ TODO:
 * I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice. (Could just use "update", and the display side of things doesn't show a prior value if prior == given)
     - would be neat to have an inline option, perhaps <ts-tracker-inline> or something? Clicking on it could bring up a track sheet dialog with that tracker highlighted.
     - for inline tag, cards might just show their title...
-* Notifications
-    - include "unsubscribe" option in every message, too
+* Footnotes? Like, as a link, which pops open a little dialog with additional
+  info. Could be a way to communicate non-tracker story info (like the thought processes behind the creation of Wulan's warband...?)
 * When selecting an image, allow to choose between a new file, and any of the images that already exist in any chapter of the user's stories.
 * Need a way to get to the user profile page on mobile (currently hidden on small screens)
 * Reset password feature
 * Could there be some way to "bulk publish" multiple chapters simultaneously?
+  - hmm. Like a "chapter management" interface? Could be a way to also reorder
+    chapters, insert a new chapter between two others, and delete chapters...
 * Admin interface for manually adjusting data:
   - converting a user to a creator
   - editing any field of any table

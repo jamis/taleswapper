@@ -13,4 +13,8 @@ module Subscribable
   def subscriber_subscribed?(user)
     subscriber_subscriptions.exists?(user: user)
   end
+
+  def subscription_for(user)
+    subscriber_subscriptions.find_by(user_id: user.id)
+  end
 end

@@ -49,6 +49,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/unsubscribe/:id/:token', to: 'subscriptions#unsubscribe', as: :unsubscribe
   get '/confirm/:token', to: 'users#confirm', as: :confirm_user
   get '/resend/:token', to: 'users#resend', as: :resend_user
 

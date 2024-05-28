@@ -11,14 +11,16 @@ class NotificationsMailerPreview < ActionMailer::Preview
   end
 
   def new_chapter
-    subscriber = User.first
-    chapter = Chapter.first
+    subscription = Subscription.where(subscribable_type: 'Story').first
+    subscriber = subscription.user
+    chapter = subscription.subscribable.chapters.published.first
     NotificationsMailer.with(subscriber: subscriber, chapter: chapter).new_chapter
   end
 
   def new_story
-    subscriber = User.first
-    story = Story.first
+    subscription = Subscription.where(subscribable_type: 'User').first
+    subscriber = subscription.user
+    story = subscription.subscribable.stories.first
     NotificationsMailer.with(subscriber: subscriber, story: story).new_story
   end
 end
