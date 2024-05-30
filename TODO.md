@@ -1,8 +1,5 @@
 TODO:
 
-* I want a way to call out a tracker -- an Ironsworn asset, for example, or my current momentum. I think we need a fourth option, besides add/update/delete. "Show" would be nice. (Could just use "update", and the display side of things doesn't show a prior value if prior == given)
-    - would be neat to have an inline option, perhaps <ts-tracker-inline> or something? Clicking on it could bring up a track sheet dialog with that tracker highlighted.
-    - for inline tag, cards might just show their title...
 * Footnotes? Like, as a link, which pops open a little dialog with additional
   info. Could be a way to communicate non-tracker story info (like the thought processes behind the creation of Wulan's warband...?)
 * When selecting an image, allow to choose between a new file, and any of the images that already exist in any chapter of the user's stories.
@@ -35,3 +32,5 @@ TODO:
   - reorder chapters
   - insert new chapters
   - delete chapters
+* Wiki-style links with independent, linkable pages. These pages might stand independent of a single story, allowing multiple stories to share these wiki pages.
+  - trackers on these wiki pages are problematic, though...unless you tie the tracker to a particular chapter of a story?

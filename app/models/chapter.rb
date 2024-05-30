@@ -2,7 +2,7 @@ class Chapter < ApplicationRecord
   BOOKMARKABLE_BLOCKS = %w[ p li h1 h2 h3 h4 h5 h6 div ]
   BOOKMARKABLE_BLOCKS_SELECTOR = BOOKMARKABLE_BLOCKS.join(',')
 
-  WRAPPABLE_BLOCKS = %w[ ts-image ts-tracker-updates ]
+  WRAPPABLE_BLOCKS = %w[ ts-image ts-tracker-updates ts-tracker ]
   WRAPPABLE_BLOCKS_SELECTOR = WRAPPABLE_BLOCKS.join(',')
 
   include Announceable

@@ -15,14 +15,16 @@ export default class extends Controller {
   }
 
   trackSheetAt(tag, include = false) {
-    let updateTags = this.element.querySelectorAll('ts-tracker-updates');
+    let updateTags = this.element.querySelectorAll(`ts-tracker-updates,${tag.tagName}`);
     let sheet = new TrackSheet(this.sourceValue);
 
     for (let candidate of updateTags) {
       if (candidate == tag && !include) break;
 
-      let updates = JSON.parse(candidate.dataset.updates);
-      sheet.applyUpdates(updates);
+      if (candidate.dataset.updates) {
+        let updates = JSON.parse(candidate.dataset.updates);
+        sheet.applyUpdates(updates);
+      }
 
       if (candidate == tag) break;
     }

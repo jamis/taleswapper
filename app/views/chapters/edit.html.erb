@@ -42,7 +42,7 @@
       <%= f.check_box :interactive, class: "mr-2" %> <label for="chapter_iteractive" class="text-lg">Allow comments?</label>
     </div>
 
-    <div class="editor-container mt-4" data-controller="track-sheet-manager" data-track-sheet-manager-source-value="<%= (@track_sheet_defn || {}).to_json %>">
+    <div class="editor-container mt-4" data-display-renderer="display-renderer" data-controller="track-sheet-manager" data-track-sheet-manager-source-value="<%= (@track_sheet_defn || {}).to_json %>">
       <%= f.hidden_field :content, value: chapter_content(@chapter), data: { chapter_editor_target: 'content' } %>
       <div class="toolbar" data-chapter-editor-target="toolbar">
         <div data-chapter-editor-target="loadingIndicator" class="text-sm text-green-500 font-bold bg-green-50 border border-green-300 px-4 py-2">The editor is loading, please wait...</div>
@@ -72,6 +72,7 @@
 
 <%= render 'track_sheet_updates/picker', id: 'trackSheetPicker' %>
 <%= render 'chapters/edit_renderer' %>
+<%= render 'chapters/display_renderer', service_name: 'display-renderer' %>
 
 <script id="tsImageTagTemplate" type="text/x-handlebars-template">
   <%= stylesheet_link_tag "tailwind", "inter-font", "application" %>

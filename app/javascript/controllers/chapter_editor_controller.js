@@ -7,9 +7,19 @@ const AsideFormatter = 'ts-aside-formatter';
 const BlockParagraphFormatter = 'ts-block-paragraph-formatter';
 
 const AsideButton = 'ts-aside-btn';
+const TrackerUpdatesButton = 'ts-tracker-updates-btn';
 const TrackerButton = 'ts-tracker-btn';
 const ImageButton = 'ts-image-btn';
 const BlockParagraphButton = 'ts-block-para-btn';
+
+function prepareSelection(path, value) {
+  if (value) {
+    return { path, target: value };
+  } else {
+    let target = path.pop();
+    return { path, target };
+  }
+}
 
 export default class extends Controller {
   static targets = [
@@ -57,13 +67,13 @@ export default class extends Controller {
       fixed_toolbar_container_target: this.toolbarTarget,
       toolbar_persist: true,
 
-      extended_valid_elements: `ts-tracker-updates[id|class|data-updates],ts-image[id|signed-id|filename|alt|caption|ack|width|height]`,
-      custom_elements: 'ts-tracker-updates,ts-image',
+      extended_valid_elements: `ts-tracker-updates[id|class|data-updates],ts-image[id|signed-id|filename|alt|caption|ack|width|height],ts-tracker[id|data-path|data-target]`,
+      custom_elements: 'ts-tracker-updates,ts-image,ts-tracker',
 
       setup: this.setupEditor.bind(this),
 
       plugins: 'link lists save',
-      toolbar: `save | styles | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | ${BlockParagraphButton} | numlist bullist | forecolor backcolor | link ${ImageButton} | ${AsideButton} ${TrackerButton}`,
+      toolbar: `save | styles | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | ${BlockParagraphButton} | numlist bullist | forecolor backcolor | link ${ImageButton} | ${AsideButton} ${TrackerUpdatesButton} ${TrackerButton}`,
       menubar: false,
 
       save_onsavecallback: () => this.element.requestSubmit(),
@@ -132,7 +142,7 @@ export default class extends Controller {
       },
     });
 
-    this.editor.ui.registry.addButton(TrackerButton, {
+    this.editor.ui.registry.addButton(TrackerUpdatesButton, {
       icon: 'user',
       tooltip: 'Insert Tracker Updates',
       onAction: () => {
@@ -143,11 +153,41 @@ export default class extends Controller {
       }
     });
 
+    this.editor.ui.registry.addButton(TrackerButton, {
+      icon: 'info',
+      tooltip: 'Show a Tracker',
+      onAction: () => {
+        this.getTrackerPicker(picker => {
+          this.getTrackSheetManager(manager => {
+            const sheet = manager.trackSheetAt(this.editor.selection.getNode());
+            picker.open(sheet.source, 'pick-any', (path, value) => {
+              picker.close();
+
+              const selection = prepareSelection(path, value);
+              let node = document.createElement('ts-tracker');
+              node.dataset.path = JSON.stringify(selection.path);
+              node.dataset.target = JSON.stringify(selection.target);
+
+              this.editor.insertContent(node.outerHTML);
+            });
+          });
+        });
+      }
+    });
+
     this.editor.ui.registry.addButton(ImageButton, {
       icon: 'image',
       tooltip: 'Insert an image',
       onAction: this.showImagePicker.bind(this)
     });
+  }
+
+  getTrackerPicker(callback) {
+    window.TaleSwapper.Services.lookup('trackerPicker').then(callback);
+  }
+
+  getTrackSheetManager(callback) {
+    window.TaleSwapper.Services.lookup('track-sheet-manager').then(callback);
   }
 
   get imagePicker() {

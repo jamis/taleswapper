@@ -35,7 +35,12 @@ export default class extends TrackSheetUpdatesRendererController {
         const context = this[method](key, value);
         elements.push(context);
       } else {
-        elements.push({ path: [ key ], elements: this.elementsForGroup(value) });
+        let nested = this.elementsForGroup(value);
+        if (nested.length === 1 && nested[0].path) {
+          elements.push({ path: [ key, ...nested[0].path ], elements: nested[0].elements });
+        } else {
+          elements.push({ path: [ key ], elements: nested });
+        }
       }
     }
 

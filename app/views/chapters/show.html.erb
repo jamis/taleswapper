@@ -92,6 +92,7 @@
   </div>
 
   <div data-controller="track-sheet-manager"
+       data-display-renderer="track-sheet-updates-renderer"
        data-track-sheet-manager-source-value="<%= @chapter.track_sheet.definition.to_json %>"
        class="prose--traditional prose--display mt-4">
     <%= @chapter.content %>

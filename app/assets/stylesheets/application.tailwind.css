@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-  ts-tracker-updates {
+  ts-tracker-updates, ts-tracker {
     @apply block my-4;
   }
 
