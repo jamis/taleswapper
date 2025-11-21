@@ -1,7 +1,5 @@
 TODO:
 
-* Footnotes? Like, as a link, which pops open a little dialog with additional
-  info. Could be a way to communicate non-tracker story info (like the thought processes behind the creation of Wulan's warband...?)
 * When selecting an image, allow to choose between a new file, and any of the images that already exist in any chapter of the user's stories.
 * Need a way to get to the user profile page on mobile (currently hidden on small screens)
 * Reset password feature
@@ -34,3 +32,9 @@ TODO:
   - delete chapters
 * Wiki-style links with independent, linkable pages. These pages might stand independent of a single story, allowing multiple stories to share these wiki pages.
   - trackers on these wiki pages are problematic, though...unless you tie the tracker to a particular chapter of a story?
+
+
+Maybe explore these later:
+
+* Footnotes? Like, as a link, which pops open a little dialog with additional
+  info. Could be a way to communicate non-tracker story info (like the thought processes behind the creation of Wulan's warband...?)

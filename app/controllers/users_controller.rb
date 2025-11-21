@@ -4,10 +4,12 @@ class UsersController < ApplicationController
   before_action :require_self_or_admin, only: %i[ show edit update destroy cancel ]
 
   def create
-    @user = User.create!(user_params)
-    UsersMailer.with(user: @user).confirmation.deliver_later
+    redirect_to root_url
 
-    redirect_to pending_user_url(@user)
+    # @user = User.create!(user_params)
+    # UsersMailer.with(user: @user).confirmation.deliver_later
+    #
+    # redirect_to pending_user_url(@user)
   rescue ActiveRecord::RecordInvalid => e
     @user = e.record
     render 'new'
